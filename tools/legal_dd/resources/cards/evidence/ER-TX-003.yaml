@@ -1,0 +1,57 @@
+id: ER-TX-003
+title: Перечень передаваемых активов
+module: transaction
+applies_when: Asset or mixed deal; also product perimeter in share deal
+requested_from: seller
+evidence_types:
+- asset_schedule
+- IP_portfolio
+- registration_list
+- domain_list
+- dossier_index
+sufficient_if:
+- all assets proposed for transfer are individually identified and can be matched to source evidence
+mapped_checks:
+- TX-005
+extractor_ids:
+- EXT-GEN-001
+- EXT-IP-050
+- EXT-REG-060
+- EXT-REG-061
+- EXT-DIG-080
+request_text: Предоставить полный перечень активов, входящих в сделку, с идентификаторами и правообладателями.
+gap_text: Периметр активов неполный или отдельные активы не индивидуализированы.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- TX-005
+request_phase: initial
+title_en: Asset inventory / seller schedule
+title_ru: Перечень передаваемых активов
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

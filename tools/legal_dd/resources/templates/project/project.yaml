@@ -1,0 +1,10 @@
+project_id: ""
+name: ""
+status: intake
+created_at: ""
+profile_overrides: {}
+intake: {}
+active_checks: []
+active_extensions: []
+dataroom:
+  mode: none

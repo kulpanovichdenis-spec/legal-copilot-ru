@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "adversarial_position.v1",
+  "title": "ADVERSARIAL_POSITION — отчёт adversarial-researcher",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "question",
+    "arguments",
+    "not_found"
+  ],
+  "properties": {
+    "schema": {
+      "const": "adversarial_position.v1"
+    },
+    "caller_skill": {
+      "enum": [
+        "legal-opinion",
+        "procedural-document-drafter",
+        "other"
+      ]
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "arguments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "argument",
+          "support",
+          "relevance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]{1,32}$"
+          },
+          "argument": {
+            "type": "string",
+            "minLength": 1
+          },
+          "support": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "citation",
+              "source_class",
+              "verification"
+            ],
+            "properties": {
+              "citation": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source_class": {
+                "enum": [
+                  "norm",
+                  "practice",
+                  "doctrine",
+                  "guidance",
+                  "web_lead",
+                  "none"
+                ]
+              },
+              "verification": {
+                "enum": [
+                  "route_verified",
+                  "opened_not_verified",
+                  "lead",
+                  "none"
+                ]
+              },
+              "marker": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^\\[.+\\]$"
+              }
+            }
+          },
+          "relevance": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "adverse_practice": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "citation",
+          "against",
+          "distinguishable"
+        ],
+        "properties": {
+          "citation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "against": {
+            "type": "string",
+            "minLength": 1
+          },
+          "distinguishable": {
+            "enum": [
+              "yes",
+              "no",
+              "unclear"
+            ]
+          },
+          "basis": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "verification": {
+            "enum": [
+              "route_verified",
+              "opened_not_verified",
+              "lead",
+              "none"
+            ]
+          }
+        }
+      }
+    },
+    "weak_assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "likely_questions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "not_found": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "tools_unavailable": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "embedded_instructions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

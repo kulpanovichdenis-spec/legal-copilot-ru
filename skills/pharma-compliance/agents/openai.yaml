@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pharma Compliance"
+  short_description: "Pharma compliance analysis and controls"
+  default_prompt: "Use $pharma-compliance to assess this pharmaceutical compliance question with separated authority types and verified sources."

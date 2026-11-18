@@ -1,0 +1,3728 @@
+version: '1.2'
+title: Legal DD Evidence Requirements Catalog
+principles:
+  source_of_truth: project state, not request list or HTML
+  base_classifier: EXT-GEN-001 runs for every document/item
+  document_requirement_is_not_check: true
+  one_requirement_can_support_multiple_checks: true
+  one_document_can_satisfy_multiple_requirements: true
+  human_confirmation_required: true
+  missing_information_is_not_clear: true
+  exact_locator_required_for_material_fact: true
+status_model:
+- not_requested
+- requested
+- received
+- partially_satisfied
+- satisfied
+- invalid
+- outdated
+- not_applicable
+- unavailable
+- external_source
+requirements:
+- id: ER-TX-001
+  title: Term sheet / согласованная структура сделки
+  module: transaction
+  applies_when: Always, if term sheet or agreed structure exists
+  requested_from: buyer_team/seller
+  evidence_types:
+  - term_sheet
+  - heads_of_terms
+  - deal_memo
+  - email_confirmation
+  sufficient_if:
+  - parties, transaction type, assets, transfer model and principal commercial structure are identifiable; unresolved points are explicitly marked
+  mapped_checks:
+  - TX-001
+  - TX-003
+  - TX-004
+  - TX-007
+  extractor_ids:
+  - EXT-GEN-001
+  - EXT-CON-010
+  request_text: Предоставить term sheet / heads of terms / согласованное описание структуры сделки и все актуальные изменения к нему.
+  gap_text: Отсутствует или не позволяет достоверно определить структуру сделки; требуется подтверждение transaction perimeter.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - TX-001
+  - TX-003
+  - TX-004
+  - TX-007
+  request_phase: initial
+  title_en: Transaction term sheet / agreed structure
+  title_ru: Term sheet / согласованная структура сделки
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-TX-002
+  title: Документы для идентификации сторон и их ролей
+  module: transaction
+  applies_when: Always
+  requested_from: seller/right_holder/manufacturer
+  evidence_types:
+  - corporate_extract
+  - registration_certificate
+  - agreement
+  - seller_statement
+  sufficient_if:
+  - 'each relevant entity is identified and mapped to role: seller, right holder, MA holder, manufacturer, supplier, buyer'
+  mapped_checks:
+  - TX-002
+  extractor_ids:
+  - EXT-GEN-001
+  - EXT-CORP-033
+  - EXT-REG-060
+  - EXT-CON-010
+  request_text: Предоставить сведения и документы, позволяющие идентифицировать всех участников сделки и их роли.
+  gap_text: Не подтверждена роль одной или нескольких сторон сделки.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - TX-002
+  request_phase: initial
+  title_en: Party and role evidence
+  title_ru: Документы для идентификации сторон и их ролей
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-TX-003
+  title: Перечень передаваемых активов
+  module: transaction
+  applies_when: Asset or mixed deal; also product perimeter in share deal
+  requested_from: seller
+  evidence_types:
+  - asset_schedule
+  - IP_portfolio
+  - registration_list
+  - domain_list
+  - dossier_index
+  sufficient_if:
+  - all assets proposed for transfer are individually identified and can be matched to source evidence
+  mapped_checks:
+  - TX-005
+  extractor_ids:
+  - EXT-GEN-001
+  - EXT-IP-050
+  - EXT-REG-060
+  - EXT-REG-061
+  - EXT-DIG-080
+  request_text: Предоставить полный перечень активов, входящих в сделку, с идентификаторами и правообладателями.
+  gap_text: Периметр активов неполный или отдельные активы не индивидуализированы.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - TX-005
+  request_phase: initial
+  title_en: Asset inventory / seller schedule
+  title_ru: Перечень передаваемых активов
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-TX-004
+  title: Юрисдикции и территория прав
+  module: transaction
+  applies_when: Always where rights or registrations are territorial
+  requested_from: seller/buyer_team
+  evidence_types:
+  - term_sheet
+  - licence
+  - registration_certificate
+  - IP_certificate
+  - business_scope_statement
+  sufficient_if:
+  - territories for each asset/right and intended commercialization territories are identifiable
+  mapped_checks:
+  - TX-004
+  - TX-006
+  extractor_ids:
+  - EXT-CON-010
+  - EXT-IP-050
+  - EXT-REG-060
+  request_text: Указать территории, входящие в сделку, и предоставить документы, подтверждающие территориальный объем прав/регистраций.
+  gap_text: Территориальный объем сделки или отдельных прав не подтвержден.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - TX-004
+  - TX-006
+  request_phase: initial
+  title_en: Jurisdiction / territory evidence
+  title_ru: Юрисдикции и территория прав
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-TX-005
+  title: Сохраняемые права и действующие лицензии
+  module: transaction
+  applies_when: Seller retains rights or licence/mixed structure
+  requested_from: seller
+  evidence_types:
+  - licence_agreement
+  - sublicence
+  - distribution_agreement
+  - seller_statement
+  sufficient_if:
+  - all retained rights and third-party rights affecting exclusivity/field/territory are disclosed and evidenced
+  mapped_checks:
+  - TX-006
+  - IP-ENC-012
+  extractor_ids:
+  - EXT-CON-010
+  - EXT-IP-051
+  request_text: Предоставить все договоры и сведения о сохраняемых продавцом и/или предоставленных третьим лицам правах.
+  gap_text: Не подтвержден объем сохраняемых или ранее предоставленных прав.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - TX-006
+  request_phase: conditional
+  title_en: Retained rights / existing licences
+  title_ru: Сохраняемые права и действующие лицензии
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-TX-006
+  title: Карта взаимосвязанных документов сделки
+  module: transaction
+  applies_when: Always when transaction uses more than one agreement
+  requested_from: seller/buyer_team
+  evidence_types:
+  - drafts
+  - term_sheet
+  - agreement_list
+  - transition_plan
+  sufficient_if:
+  - all interdependent agreements and dependencies between signing/closing/transition are mapped
+  mapped_checks:
+  - TX-007
+  - CLS-001
+  - CLS-003
+  extractor_ids:
+  - EXT-GEN-001
+  - EXT-CON-010
+  - EXT-CON-011
+  request_text: Предоставить перечень и актуальные версии всех взаимосвязанных договоров и документов сделки.
+  gap_text: Пакет взаимосвязанных договоров/зависимостей не определен полностью.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - TX-007
+  - CLS-001
+  - CLS-003
+  request_phase: initial
+  title_en: Interdependent transaction documents map
+  title_ru: Карта взаимосвязанных документов сделки
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-001
+  title: Действующее РУ / регистрация и официальный статус
+  module: regulatory
+  applies_when: Registered medicinal product / supplement / foreign registration
+  requested_from: MA_holder/seller
+  evidence_types:
+  - registration_certificate
+  - marketing_authorisation
+  - SGR
+  - official_register_extract
+  sufficient_if:
+  - registration number, product, holder, territory and current status are confirmed; official status is current where registry available
+  mapped_checks:
+  - REG-001
+  - REG-004
+  extractor_ids:
+  - EXT-REG-060
+  - EXT-GEN-001
+  request_text: Предоставить действующее регистрационное удостоверение/СГР и сведения о текущем статусе регистрации.
+  gap_text: Статус регистрации, holder или территория не подтверждены.
+  external_verification: true
+  derived_requirement: false
+  freshness: current
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-001
+  - REG-004
+  request_phase: initial
+  title_en: Current registration certificate and official status
+  title_ru: Действующее РУ / регистрация и официальный статус
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-002
+  title: Опись / оглавление регистрационного досье
+  module: regulatory
+  applies_when: Dossier is transferred or relied upon
+  requested_from: MA_holder/seller
+  evidence_types:
+  - dossier_index
+  - CTD_table_of_contents
+  sufficient_if:
+  - current dossier structure and versions can be mapped; missing sections can be identified
+  mapped_checks:
+  - REG-002
+  extractor_ids:
+  - EXT-REG-061
+  request_text: Предоставить актуальную опись/оглавление регистрационного досье с версиями документов.
+  gap_text: Невозможно оценить полноту досье без актуальной описи.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-002
+  request_phase: initial
+  title_en: Dossier index / table of contents
+  title_ru: Опись / оглавление регистрационного досье
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-003
+  title: Административная часть досье
+  module: regulatory
+  applies_when: Dossier transferred
+  requested_from: MA_holder/seller
+  evidence_types:
+  - administrative_documents
+  - IFU
+  - regulatory_forms
+  - registration_history
+  sufficient_if:
+  - applicable administrative documents are present and current
+  mapped_checks:
+  - REG-002
+  - REG-005
+  extractor_ids:
+  - EXT-REG-061
+  - EXT-REG-060
+  request_text: Предоставить административную часть регистрационного досье, включая актуальные инструкции и зарегистрированные материалы.
+  gap_text: Административная часть досье представлена не полностью.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-002
+  - REG-005
+  request_phase: initial
+  title_en: Administrative dossier section
+  title_ru: Административная часть досье
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-004
+  title: CMC / раздел качества досье
+  module: regulatory
+  applies_when: Dossier transferred
+  requested_from: MA_holder/manufacturer/seller
+  evidence_types:
+  - CMC_documents
+  - substance_master_file
+  - specifications
+  - analytical_methods
+  - stability_data
+  sufficient_if:
+  - applicable CMC sections are present, versioned and linked to current product/manufacturing configuration
+  mapped_checks:
+  - REG-002
+  - REG-009
+  - MFG-003
+  - MFG-004
+  extractor_ids:
+  - EXT-REG-061
+  - EXT-MFG-071
+  request_text: Предоставить химическую/фармацевтическую/биологическую часть досье и относящиеся к ней актуальные спецификации, методы, validation
+    и stability data.
+  gap_text: CMC evidence неполно или не сопоставляется с действующей регистрацией.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-002
+  - REG-009
+  - MFG-003
+  - MFG-004
+  request_phase: initial
+  title_en: CMC / quality dossier section
+  title_ru: CMC / раздел качества досье
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-005
+  title: Доклиническая документация
+  module: regulatory
+  applies_when: Preclinical data forms part of dossier / rights transferred
+  requested_from: MA_holder/seller
+  evidence_types:
+  - preclinical_reports
+  - study_index
+  - preclinical_agreements
+  sufficient_if:
+  - study inventory and reports relevant to dossier are identifiable; rights basis can be linked where required
+  mapped_checks:
+  - REG-007
+  - IP-DOC-001
+  extractor_ids:
+  - EXT-REG-064
+  - EXT-IP-020
+  request_text: Предоставить опись и отчеты по доклиническим исследованиям, включенные/использованные в досье, а также договоры-основания прав
+    при необходимости.
+  gap_text: Не подтверждена полнота доклинических материалов и/или права на них.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-007
+  request_phase: initial
+  title_en: Preclinical documentation
+  title_ru: Доклиническая документация
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-006
+  title: Клиническая документация
+  module: regulatory
+  applies_when: Clinical data forms part of dossier / rights transferred
+  requested_from: MA_holder/seller
+  evidence_types:
+  - clinical_protocols
+  - clinical_reports
+  - authorisations
+  - CRO_agreements
+  - study_index
+  sufficient_if:
+  - study inventory, reports, authorisations and data-rights basis are identifiable
+  mapped_checks:
+  - REG-007
+  - IP-DOC-001
+  - IP-DOC-002
+  extractor_ids:
+  - EXT-REG-064
+  - EXT-IP-020
+  request_text: Предоставить опись и документы по клиническим исследованиям, включая отчеты, разрешения и договоры, определяющие права на данные.
+  gap_text: Не подтверждена полнота клинических материалов и/или объем прав на данные.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-007
+  request_phase: initial
+  title_en: Clinical documentation
+  title_ru: Клиническая документация
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-007
+  title: История изменений, продлений и перерегистраций
+  module: regulatory
+  applies_when: Registered product
+  requested_from: MA_holder/seller
+  evidence_types:
+  - variation_applications
+  - renewal_applications
+  - authority_decisions
+  - regulatory_correspondence
+  sufficient_if:
+  - material historical and pending variations/renewals are identifiable with status and effective dates
+  mapped_checks:
+  - REG-003
+  - REG-008
+  extractor_ids:
+  - EXT-REG-062
+  request_text: Предоставить историю заявлений об изменениях/перерегистрации и решения регулятора, включая все незавершенные процедуры.
+  gap_text: Не подтверждена история жизненного цикла или остаются неизвестные pending procedures.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-003
+  - REG-008
+  request_phase: initial
+  title_en: Variations / renewals / lifecycle history
+  title_ru: История изменений, продлений и перерегистраций
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-008
+  title: Портфель зарубежных регистраций
+  module: regulatory
+  applies_when: Foreign territories or foreign registrations exist
+  requested_from: MA_holder/seller
+  evidence_types:
+  - foreign_registration_certificates
+  - country_list
+  - foreign_register_extracts
+  sufficient_if:
+  - countries, registration numbers, holders and current status are confirmed per relevant territory
+  mapped_checks:
+  - REG-004
+  extractor_ids:
+  - EXT-REG-060
+  request_text: Предоставить перечень зарубежных регистраций и подтверждающие документы по каждой юрисдикции.
+  gap_text: Зарубежный registration portfolio подтвержден не полностью.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-004
+  request_phase: initial
+  title_en: Foreign registration portfolio
+  title_ru: Портфель зарубежных регистраций
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-009
+  title: Актуальная инструкция, маркировка и макеты упаковки
+  module: regulatory
+  applies_when: Registered product
+  requested_from: MA_holder/seller
+  evidence_types:
+  - IFU
+  - approved_labeling
+  - packaging_artwork
+  - approval_letters
+  sufficient_if:
+  - current approved instruction and packaging versions are identifiable and consistent with registration
+  mapped_checks:
+  - REG-005
+  - IP-CR-008
+  extractor_ids:
+  - EXT-REG-061
+  - EXT-IP-020
+  request_text: Предоставить актуальные зарегистрированные инструкции и макеты первичной/вторичной упаковки.
+  gap_text: Не подтвержден актуальный набор утвержденных материалов.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-005
+  request_phase: initial
+  title_en: Current IFU / labeling / packaging artworks
+  title_ru: Актуальная инструкция, маркировка и макеты упаковки
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-010
+  title: Комплект документов по фармаконадзору
+  module: regulatory
+  applies_when: Medicinal product
+  requested_from: MA_holder/seller
+  evidence_types:
+  - PV_system_document
+  - PVA
+  - RMP
+  - PSUR
+  - PBRER
+  - safety_database_information
+  sufficient_if:
+  - PV responsibilities, current obligations, safety data location and transition requirements are identifiable
+  mapped_checks:
+  - REG-006
+  - REG-008
+  - CLS-003
+  extractor_ids:
+  - EXT-REG-063
+  request_text: Предоставить документы системы фармаконадзора, соглашения, RMP/PSUR/PBRER и сведения, необходимые для перехода PV-функций.
+  gap_text: PV responsibilities/obligations или transition package не подтверждены.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-006
+  request_phase: initial
+  title_en: Pharmacovigilance package
+  title_ru: Комплект документов по фармаконадзору
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-011
+  title: Регуляторные обязательства и переписка с органами
+  module: regulatory
+  applies_when: Registered product
+  requested_from: MA_holder/seller
+  evidence_types:
+  - authority_letters
+  - commitment_letters
+  - pending_requests
+  - corrective_action_correspondence
+  sufficient_if:
+  - open commitments, deadlines, restrictions and pending authority interactions are identified
+  mapped_checks:
+  - REG-008
+  - RISK-003
+  extractor_ids:
+  - EXT-REG-062
+  request_text: Предоставить существенную переписку с регуляторами, действующие commitments и незавершенные запросы/предписания.
+  gap_text: Не подтверждено отсутствие/содержание открытых regulatory obligations.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-008
+  - RISK-003
+  request_phase: initial
+  title_en: Regulatory commitments and authority correspondence
+  title_ru: Регуляторные обязательства и переписка с органами
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-REG-012
+  title: Качество серий, стабильность и выпуск
+  module: regulatory
+  applies_when: Product manufactured/supplied
+  requested_from: manufacturer/MA_holder/seller
+  evidence_types:
+  - CoA
+  - batch_release
+  - stability_data
+  - series_certificates
+  - specifications
+  sufficient_if:
+  - representative/current batch quality, release and stability evidence is available for applicable series
+  mapped_checks:
+  - REG-009
+  - MFG-007
+  - MFG-009
+  extractor_ids:
+  - EXT-MFG-071
+  - EXT-INV-100
+  request_text: Предоставить сертификаты/протоколы анализа серий, release evidence и актуальные stability data.
+  gap_text: Quality/stability evidence недостаточно для вывода о текущем состоянии продукта.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - REG-009
+  - MFG-007
+  - MFG-009
+  request_phase: initial
+  title_en: Batch quality / stability / release evidence
+  title_ru: Качество серий, стабильность и выпуск
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-001
+  title: Производственная цепочка и перечень площадок
+  module: manufacturing
+  applies_when: Physical product
+  requested_from: manufacturer/MA_holder/seller
+  evidence_types:
+  - manufacturing_chain
+  - site_list
+  - dossier_manufacturing_section
+  - agreements
+  sufficient_if:
+  - all manufacturing/packaging/testing/release participants and sites are mapped
+  mapped_checks:
+  - MFG-001
+  extractor_ids:
+  - EXT-MFG-070
+  - EXT-REG-061
+  - EXT-CON-010
+  request_text: Предоставить полный перечень участников производственной цепочки и площадок с выполняемыми операциями.
+  gap_text: Производственная цепочка или отдельные роли/sites не подтверждены.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - MFG-001
+  request_phase: initial
+  title_en: Manufacturing chain and site list
+  title_ru: Производственная цепочка и перечень площадок
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-002
+  title: GMP и производственные разрешения
+  module: manufacturing
+  applies_when: Manufacturing in scope
+  requested_from: manufacturer
+  evidence_types:
+  - GMP_certificate
+  - GMP_conclusion
+  - manufacturing_licence
+  - inspection_certificate
+  sufficient_if:
+  - required authorisations are current and cover relevant site/operations
+  mapped_checks:
+  - MFG-002
+  - CORP-002
+  extractor_ids:
+  - EXT-MFG-070
+  - EXT-LIC-120
+  request_text: Предоставить действующие GMP/лицензии/разрешения по всем релевантным площадкам и операциям.
+  gap_text: Не подтверждено действующее разрешение на все необходимые производственные операции.
+  external_verification: true
+  derived_requirement: false
+  freshness: current
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - MFG-002
+  request_phase: initial
+  title_en: GMP and manufacturing authorisations
+  title_ru: GMP и производственные разрешения
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-003
+  title: Технологический / производственный пакет
+  module: manufacturing
+  applies_when: Production continuation or transfer
+  requested_from: manufacturer/seller
+  evidence_types:
+  - process_description
+  - technology_instruction
+  - industrial_regulation
+  - packaging_instruction
+  sufficient_if:
+  - current controlled process documentation sufficient to describe production and packaging is present
+  mapped_checks:
+  - MFG-003
+  - MFG-008
+  extractor_ids:
+  - EXT-MFG-071
+  request_text: Предоставить актуальное описание технологического процесса, технологические инструкции, промышленные регламенты и инструкции по
+    упаковке.
+  gap_text: Technology package неполон или неактуален.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - MFG-003
+  - MFG-008
+  request_phase: initial
+  title_en: Technology/process package
+  title_ru: Технологический / производственный пакет
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-004
+  title: Комплект документов по валидации
+  module: manufacturing
+  applies_when: Production continuation or transfer
+  requested_from: manufacturer
+  evidence_types:
+  - validation_protocols
+  - validation_reports
+  - cleaning_validation
+  - analytical_validation
+  sufficient_if:
+  - applicable validations are identified, current and results/critical deviations are available
+  mapped_checks:
+  - MFG-004
+  - MFG-008
+  - REG-009
+  extractor_ids:
+  - EXT-MFG-071
+  request_text: Предоставить перечень и отчеты процессных, cleaning и иных применимых validation.
+  gap_text: Validation evidence отсутствует/неполно/не позволяет подтвердить статус процесса.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - MFG-004
+  - MFG-008
+  request_phase: initial
+  title_en: Validation package
+  title_ru: Комплект документов по валидации
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-005
+  title: Соглашения по качеству / technical agreements
+  module: manufacturing
+  applies_when: Third-party manufacturing/packaging/testing/supply
+  requested_from: manufacturer/MA_holder/seller
+  evidence_types:
+  - quality_agreement
+  - technical_agreement
+  sufficient_if:
+  - responsibility allocation for critical quality functions is complete and current
+  mapped_checks:
+  - MFG-005
+  - REG-006
+  - CLS-003
+  extractor_ids:
+  - EXT-MFG-072
+  request_text: Предоставить действующие соглашения по качеству/technical agreements между всеми релевантными участниками.
+  gap_text: Распределение quality responsibilities не подтверждено полностью.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - MFG-005
+  request_phase: initial
+  title_en: Quality / technical agreements
+  title_ru: Соглашения по качеству / technical agreements
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-006
+  title: Критические поставщики и материалы
+  module: manufacturing
+  applies_when: Continuity of manufacturing relevant
+  requested_from: manufacturer/seller
+  evidence_types:
+  - supplier_list
+  - supplier_qualification
+  - material_specifications
+  - supply_contracts
+  sufficient_if:
+  - critical materials, approved suppliers, qualification status and key supply dependencies are identifiable
+  mapped_checks:
+  - MFG-006
+  - MFG-009
+  extractor_ids:
+  - EXT-MFG-073
+  - EXT-CON-010
+  request_text: Предоставить перечень поставщиков сырья/упаковочных материалов, qualification status, specifications и существенные supply contracts.
+  gap_text: Не подтверждена устойчивость/доступность критических материалов.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: risk_based
+  activation_checks:
+  - MFG-006
+  request_phase: initial
+  title_en: Critical suppliers and materials
+  title_ru: Критические поставщики и материалы
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-007
+  title: Отклонения, инспекции и забракованные серии
+  module: manufacturing
+  applies_when: Ongoing production
+  requested_from: manufacturer/MA_holder
+  evidence_types:
+  - deviation_list
+  - OOS_OOT
+  - inspection_reports
+  - audit_reports
+  - rejected_batch_list
+  - CAPA
+  sufficient_if:
+  - material quality events, inspections and remediation are disclosed for relevant period
+  mapped_checks:
+  - MFG-007
+  - RISK-003
+  extractor_ids:
+  - EXT-MFG-071
+  - EXT-RISK-090
+  request_text: Предоставить сведения о критических/существенных отклонениях, OOS/OOT, инспекциях, CAPA и забракованных сериях.
+  gap_text: История существенных quality events/inspection findings не подтверждена.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: risk_based
+  activation_checks:
+  - MFG-007
+  request_phase: initial
+  title_en: Deviations / inspections / rejected batches
+  title_ru: Отклонения, инспекции и забракованные серии
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-008
+  title: План и пакет документов по трансферу производства
+  module: manufacturing
+  applies_when: Future manufacturer differs or transfer planned
+  requested_from: seller/manufacturer/buyer_team
+  evidence_types:
+  - transfer_plan
+  - transfer_protocol
+  - site_assessment
+  - technology_package
+  - milestone_plan
+  sufficient_if:
+  - scope, deliverables, responsibilities, dependencies and acceptance criteria for transfer are identifiable
+  mapped_checks:
+  - MFG-008
+  - CLS-003
+  extractor_ids:
+  - EXT-MFG-071
+  - EXT-CON-010
+  request_text: Предоставить имеющиеся документы/план по трансферу производства, включая deliverables, milestones и responsibilities.
+  gap_text: Объем и условия transfer производства не определены.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - MFG-008
+  request_phase: initial
+  title_en: Technology transfer package / plan
+  title_ru: План и пакет документов по трансферу производства
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-009
+  title: Документы по непрерывности поставок и прогнозам
+  module: manufacturing
+  applies_when: Seller/third party supplies after signing/closing
+  requested_from: seller/manufacturer
+  evidence_types:
+  - supply_agreement
+  - forecast
+  - lead_time_data
+  - minimum_order_terms
+  - transition_supply_plan
+  sufficient_if:
+  - continuity through transition period is supported by enforceable or clearly planned supply arrangements
+  mapped_checks:
+  - MFG-009
+  - TX-007
+  - CLS-003
+  extractor_ids:
+  - EXT-CON-010
+  - EXT-MFG-073
+  request_text: Предоставить действующие/планируемые supply arrangements, forecasts, lead times и transition supply plan.
+  gap_text: Continuity of supply не подтверждена.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: risk_based
+  activation_checks:
+  - MFG-005
+  - MFG-009
+  request_phase: conditional
+  title_en: Supply continuity agreements / forecasts
+  title_ru: Документы по непрерывности поставок и прогнозам
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-MFG-010
+  title: Товарные остатки / складские запасы
+  module: manufacturing
+  applies_when: Inventory is purchased or needed for continuity
+  requested_from: seller/manufacturer
+  evidence_types:
+  - inventory_report
+  - batch_list
+  - warehouse_statement
+  - batch_release
+  - book_value_report
+  sufficient_if:
+  - stock quantity, ownership, batch/expiry/release status and location are identifiable
+  mapped_checks:
+  - MFG-009
+  - TX-005
+  - REG-009
+  extractor_ids:
+  - EXT-INV-100
+  - EXT-FIN-040
+  request_text: Предоставить перечень товарных остатков с batch/quantity/location/expiry/release status и стоимостью при применимости.
+  gap_text: Не подтвержден объем/качество/статус приобретаемых или transition stocks.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - MFG-009
+  request_phase: conditional
+  title_en: Inventory / stock evidence
+  title_ru: Товарные остатки / складские запасы
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-001
+  title: Полная цепочка возникновения и перехода прав
+  module: ip
+  applies_when: Any transferred/licensed documentation or IP
+  requested_from: seller/right_holder
+  evidence_types:
+  - creation_agreements
+  - assignment_agreements
+  - licences
+  - employment_documents
+  - reorganisation_documents
+  - transfer_acts
+  sufficient_if:
+  - continuous chain from creation/original holder to current seller/right holder is evidenced for the relevant asset
+  mapped_checks:
+  - IP-DOC-001
+  - IP-TM-004
+  - IP-PAT-006
+  - IP-CR-008
+  - IP-WEB-011
+  extractor_ids:
+  - EXT-CON-010
+  - EXT-IP-020
+  - EXT-IP-021
+  - EXT-CON-012
+  - EXT-IP-050
+  - EXT-CON-011
+  request_text: Предоставить все документы, подтверждающие возникновение и непрерывную цепочку перехода прав на соответствующий объект.
+  gap_text: Непрерывная chain of title не подтверждена.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-DOC-001
+  - IP-TM-004
+  - IP-PAT-006
+  - IP-CR-008
+  - IP-WEB-011
+  request_phase: initial
+  title_en: Complete chain of title for documentation / IP
+  title_ru: Полная цепочка возникновения и перехода прав
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-002
+  title: Подтверждение исполнения, необходимого для перехода прав
+  module: ip
+  applies_when: Underlying agreement requires payment/acceptance/registration for right acquisition
+  requested_from: seller/right_holder
+  evidence_types:
+  - payment_orders
+  - acceptance_acts
+  - transfer_acts
+  - registration_confirmations
+  sufficient_if:
+  - all conditions that trigger/right acquisition under chain agreements are evidenced
+  mapped_checks:
+  - IP-DOC-001
+  - IP-TM-004
+  - IP-PAT-006
+  - IP-CR-008
+  extractor_ids:
+  - EXT-CON-012
+  - EXT-CON-013
+  - EXT-CON-010
+  request_text: Предоставить акты, подтверждение оплаты и регистрации/recordal, если они необходимы для возникновения/перехода права.
+  gap_text: Не подтверждено исполнение условий, от которых зависел переход права.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-DOC-001
+  - IP-TM-004
+  - IP-PAT-006
+  - IP-CR-008
+  request_phase: conditional
+  title_en: Performance evidence supporting IP title
+  title_ru: Подтверждение исполнения, необходимого для перехода прав
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-003
+  title: Передаваемость документации и согласия третьих лиц
+  module: ip
+  applies_when: Documentation/rights subject to contractual restrictions
+  requested_from: seller/right_holder
+  evidence_types:
+  - licences
+  - source_agreements
+  - consents
+  - waivers
+  sufficient_if:
+  - assignment/licensing restrictions and required consents are identified; required consents are available or flagged as CP
+  mapped_checks:
+  - IP-DOC-002
+  - CLS-001
+  extractor_ids:
+  - EXT-CON-010
+  - EXT-IP-051
+  - EXT-APP-091
+  request_text: Предоставить договоры/согласия, определяющие ограничения передачи документации и необходимость согласия третьих лиц.
+  gap_text: Не подтверждена transferability либо отсутствует требуемое consent.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-DOC-002
+  request_phase: conditional
+  title_en: Transferability / third-party consents for documentation
+  title_ru: Передаваемость документации и согласия третьих лиц
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-004
+  title: Ноу-хау и режим коммерческой тайны
+  module: ip
+  applies_when: Know-how or confidential technology in scope
+  requested_from: seller/right_holder
+  evidence_types:
+  - trade_secret_policy
+  - NDA
+  - employee_confidentiality
+  - know_how_inventory
+  - access_rules
+  sufficient_if:
+  - know-how is identifiable and reasonable confidentiality/protection measures are evidenced
+  mapped_checks:
+  - IP-KH-003
+  extractor_ids:
+  - EXT-IP-021
+  - EXT-IP-020
+  - EXT-CON-010
+  request_text: Предоставить перечень know-how и документы, подтверждающие режим конфиденциальности и принадлежность.
+  gap_text: Know-how не индивидуализирован или режим его охраны/принадлежность не подтверждены.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-KH-003
+  request_phase: initial
+  title_en: Know-how / trade secret protection package
+  title_ru: Ноу-хау и режим коммерческой тайны
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-005
+  title: Свидетельства / заявки на ТЗ и актуальный реестр
+  module: ip
+  applies_when: Trademark/brand relevant
+  requested_from: seller/right_holder
+  evidence_types:
+  - trademark_certificates
+  - trademark_applications
+  - official_register_extracts
+  sufficient_if:
+  - mark, number, holder, classes, territory and current status are confirmed
+  mapped_checks:
+  - IP-TM-004
+  extractor_ids:
+  - EXT-IP-050
+  request_text: Предоставить все свидетельства/заявки на товарные знаки и актуальные сведения реестров.
+  gap_text: Trademark portfolio/title/status подтверждены не полностью.
+  external_verification: true
+  derived_requirement: false
+  freshness: current
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-TM-004
+  request_phase: initial
+  title_en: Trademark certificates / applications / current register
+  title_ru: Свидетельства / заявки на ТЗ и актуальный реестр
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-006
+  title: История использования товарных знаков
+  module: ip
+  applies_when: Trademark rights material and non-use risk relevant
+  requested_from: seller/right_holder
+  evidence_types:
+  - use_evidence
+  - seller_statement
+  - marketing_materials
+  - sales_records
+  sufficient_if:
+  - start of use and material interruptions are identifiable for relevant marks/territories
+  mapped_checks:
+  - IP-TM-004
+  - RISK-002
+  extractor_ids:
+  - EXT-GEN-001
+  - EXT-DIG-080
+  request_text: Предоставить сведения о начале использования ТЗ и перерывах в использовании, а также подтверждающие материалы при наличии.
+  gap_text: Не подтверждена история использования ТЗ.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-TM-004
+  request_phase: conditional
+  title_en: Trademark use history
+  title_ru: История использования товарных знаков
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-007
+  title: Проверка конфликтующих прав третьих лиц на ТЗ
+  module: ip
+  applies_when: Continued use of brand planned
+  requested_from: external_check
+  evidence_types:
+  - official_TM_search
+  - search_report
+  - local_counsel_opinion
+  sufficient_if:
+  - relevant identical/confusingly similar earlier rights are searched by territory and material findings documented
+  mapped_checks:
+  - IP-TM-005
+  extractor_ids:
+  - EXT-IP-050
+  request_text: 'Не запрашивается у продавца как единственный источник: выполнить независимую проверку конфликтующих обозначений.'
+  gap_text: Trademark clearance не выполнен либо требует локального специалиста.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-TM-005
+  request_phase: external
+  title_en: Trademark clearance / third-party rights search
+  title_ru: Проверка конфликтующих прав третьих лиц на ТЗ
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-008
+  title: Патенты / заявки и актуальные реестры
+  module: ip
+  applies_when: Patent portfolio relevant
+  requested_from: seller/right_holder
+  evidence_types:
+  - patents
+  - patent_applications
+  - official_register_extracts
+  sufficient_if:
+  - patent/application, holder, priority, territory, status and expiry are confirmed
+  mapped_checks:
+  - IP-PAT-006
+  extractor_ids:
+  - EXT-IP-050
+  request_text: Предоставить все патенты/заявки, относящиеся к продукту, и актуальные сведения реестров.
+  gap_text: Patent portfolio/title/status подтверждены не полностью.
+  external_verification: true
+  derived_requirement: false
+  freshness: current
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-PAT-006
+  request_phase: initial
+  title_en: Patent certificates / applications / current register
+  title_ru: Патенты / заявки и актуальные реестры
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-009
+  title: Патентный FTO и анализ формулы изобретения
+  module: ip
+  applies_when: Commercialisation/manufacturing in relevant territory
+  requested_from: external_check
+  evidence_types:
+  - patent_search
+  - claim_chart
+  - patent_counsel_opinion
+  sufficient_if:
+  - relevant third-party patents are searched; material claims are assessed for affected product/territory
+  mapped_checks:
+  - IP-PAT-007
+  extractor_ids:
+  - EXT-IP-050
+  request_text: 'Не является обычным seller document request: провести FTO/claim analysis по применимым территориям.'
+  gap_text: Patent FTO не выполнен/неполон либо требуется патентный поверенный.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-PAT-007
+  request_phase: external
+  title_en: Patent FTO search and claim analysis
+  title_ru: Патентный FTO и анализ формулы изобретения
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-010
+  title: Права на авторские произведения, дизайн и упаковку
+  module: ip
+  applies_when: Packaging/design/copyright asset in scope
+  requested_from: seller/right_holder
+  evidence_types:
+  - design_agreements
+  - employment_documents
+  - assignment_agreements
+  - acceptance_acts
+  - payment_evidence
+  sufficient_if:
+  - creator, creation basis and transfer to current right holder are evidenced for each material work/design
+  mapped_checks:
+  - IP-CR-008
+  - IP-EMP-009
+  extractor_ids:
+  - EXT-IP-020
+  - EXT-IP-021
+  - EXT-CON-012
+  - EXT-CON-013
+  request_text: Предоставить договоры создания/отчуждения прав на дизайн упаковки и иные copyright/design assets, акты и оплату.
+  gap_text: Права на design/copyright asset не подтверждены.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-CR-008
+  request_phase: initial
+  title_en: Copyright / packaging / design creation and title
+  title_ru: Права на авторские произведения, дизайн и упаковку
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-011
+  title: Документы по служебным РИД
+  module: ip
+  applies_when: IP created by employees or service inventors/authors
+  requested_from: seller/right_holder
+  evidence_types:
+  - employment_agreements
+  - job_descriptions
+  - service_assignments
+  - author_notifications
+  - remuneration_evidence
+  sufficient_if:
+  - service nature, employer title steps and applicable author remuneration are evidenced
+  mapped_checks:
+  - IP-EMP-009
+  - IP-PAT-006
+  - IP-CR-008
+  - IP-DOC-001
+  extractor_ids:
+  - EXT-IP-021
+  request_text: 'Предоставить документы по служебным РИД: трудовые функции/задания, уведомления, решения работодателя и документы о вознаграждении.'
+  gap_text: Не подтверждены основания возникновения прав работодателя и/или исполнение обязательств перед автором.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-EMP-009
+  request_phase: conditional
+  title_en: Employee/service IP evidence
+  title_ru: Документы по служебным РИД
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-012
+  title: Документы регистратора и права администрирования доменов
+  module: ip
+  applies_when: Domains in scope
+  requested_from: seller/right_holder
+  evidence_types:
+  - registrar_agreement
+  - WHOIS
+  - registrar_statement
+  - admin_account_evidence
+  sufficient_if:
+  - seller/right holder controls administration and transfer mechanics/restrictions are identifiable
+  mapped_checks:
+  - IP-DOM-010
+  - CLS-002
+  extractor_ids:
+  - EXT-DIG-080
+  request_text: Предоставить документы регистратора и подтверждение права администрирования каждого домена.
+  gap_text: Контроль/принадлежность права администрирования домена не подтверждены.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-DOM-010
+  request_phase: initial
+  title_en: Domain registrar / administration evidence
+  title_ru: Документы регистратора и права администрирования доменов
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-013
+  title: Права на сайты, контент и маркетинговые материалы
+  module: ip
+  applies_when: Website/content/marketing materials in scope
+  requested_from: seller/right_holder
+  evidence_types:
+  - development_agreements
+  - content_agreements
+  - design_agreements
+  - employment_documents
+  - acceptance_acts
+  - payment_evidence
+  sufficient_if:
+  - rights to material content/components are evidenced and third-party dependencies identified
+  mapped_checks:
+  - IP-WEB-011
+  - IP-CR-008
+  extractor_ids:
+  - EXT-DIG-080
+  - EXT-IP-020
+  - EXT-IP-021
+  request_text: Предоставить документы создания/приобретения прав на сайты, контент, рекламу и marketing materials.
+  gap_text: Права на сайт/контент/marketing assets подтверждены не полностью.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-WEB-011
+  request_phase: initial
+  title_en: Website / content / marketing rights
+  title_ru: Права на сайты, контент и маркетинговые материалы
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-IP-014
+  title: Лицензии, обременения и споры по ИС
+  module: ip
+  applies_when: Any IP in scope
+  requested_from: seller/right_holder
+  evidence_types:
+  - licences
+  - sublicences
+  - pledges
+  - security_documents
+  - seller_confirmation
+  - dispute_documents
+  sufficient_if:
+  - existing third-party rights, encumbrances and disputes are disclosed and independently checked where appropriate
+  mapped_checks:
+  - IP-ENC-012
+  - RISK-002
+  - IP-DOC-002
+  extractor_ids:
+  - EXT-IP-051
+  - EXT-RISK-090
+  request_text: Предоставить сведения и документы обо всех лицензиях, обременениях, ограничениях, претензиях и спорах по объектам ИС.
+  gap_text: Не подтверждено отсутствие/содержание обременений или споров по ИС.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - IP-ENC-012
+  - RISK-002
+  request_phase: initial
+  title_en: IP licences / encumbrances / disputes confirmation
+  title_ru: Лицензии, обременения и споры по ИС
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-001
+  title: Действующий устав и внутренние положения
+  module: corporate
+  applies_when: Legal entity seller/right holder/manufacturer
+  requested_from: seller
+  evidence_types:
+  - charter
+  - bylaws
+  - governance_regulations
+  sufficient_if:
+  - current registered version is available and relevant governance/authority rules can be extracted
+  mapped_checks:
+  - CORP-001
+  - CORP-002
+  - CORP-003
+  - CORP-005
+  - CORP-006
+  - CORP-007
+  extractor_ids:
+  - EXT-CORP-030
+  request_text: Предоставить действующую редакцию устава и применимые положения об органах управления.
+  gap_text: Нет актуального корпоративного документа для проверки capacity/authority/approvals.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-001
+  - CORP-002
+  - CORP-003
+  - CORP-005
+  - CORP-006
+  - CORP-007
+  request_phase: initial
+  title_en: Current charter / bylaws
+  title_ru: Действующий устав и внутренние положения
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-002
+  title: Актуальная выписка из реестра / good standing
+  module: corporate
+  applies_when: Legal entity party
+  requested_from: seller
+  evidence_types:
+  - EGRUL_extract
+  - trade_register_extract
+  - good_standing
+  - incumbency_certificate
+  sufficient_if:
+  - legal existence/status and current officers are confirmed by sufficiently current official evidence
+  mapped_checks:
+  - CORP-001
+  - CORP-003
+  extractor_ids:
+  - EXT-CORP-033
+  request_text: Предоставить актуальную выписку из реестра / good standing / incumbency.
+  gap_text: Текущий статус юридического лица/ЕИО не подтвержден.
+  external_verification: true
+  derived_requirement: false
+  freshness: current
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-001
+  - CORP-003
+  request_phase: initial
+  title_en: Current corporate registry / good standing
+  title_ru: Актуальная выписка из реестра / good standing
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-003
+  title: Необходимые лицензии и разрешения
+  module: corporate
+  applies_when: Relevant activity requires permit/licence
+  requested_from: seller/manufacturer
+  evidence_types:
+  - licence
+  - permit
+  - certificate_of_conformity
+  sufficient_if:
+  - required permit is current and covers relevant activity/site
+  mapped_checks:
+  - CORP-002
+  - MFG-002
+  extractor_ids:
+  - EXT-LIC-120
+  request_text: Предоставить действующие лицензии и разрешения, необходимые для соответствующей деятельности.
+  gap_text: Не подтверждено наличие требуемого разрешения.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-002
+  - MFG-002
+  request_phase: conditional
+  title_en: Required licences / permits
+  title_ru: Необходимые лицензии и разрешения
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-004
+  title: Документы об избрании / полномочиях ЕИО
+  module: corporate
+  applies_when: Legal entity signs transaction
+  requested_from: seller
+  evidence_types:
+  - CEO_appointment_resolution
+  - board_minutes
+  - register_extract
+  sufficient_if:
+  - current signatory authority and term are supported by corporate decision and current registry/charter
+  mapped_checks:
+  - CORP-003
+  extractor_ids:
+  - EXT-CORP-031
+  - EXT-CORP-033
+  - EXT-CORP-030
+  request_text: Предоставить решения об избрании/назначении действующего ЕИО и подтверждающие документы.
+  gap_text: Полномочия ЕИО не подтверждены.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-003
+  request_phase: initial
+  title_en: CEO appointment / authority documents
+  title_ru: Документы об избрании / полномочиях ЕИО
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-005
+  title: Доверенность
+  module: corporate
+  applies_when: Representative other than CEO signs/acts
+  requested_from: seller
+  evidence_types:
+  - power_of_attorney
+  - notarial_power_of_attorney
+  sufficient_if:
+  - POA is effective and covers relevant agreement, material terms and required actions
+  mapped_checks:
+  - CORP-004
+  - CORP-003
+  extractor_ids:
+  - EXT-CORP-032
+  request_text: Предоставить доверенность подписанта/представителя со всеми применимыми полномочиями.
+  gap_text: Полномочия представителя не подтверждены.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-004
+  request_phase: conditional
+  title_en: Power of attorney
+  title_ru: Доверенность
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-006
+  title: Финансовая отчетность и стоимость сделки / активов
+  module: corporate
+  applies_when: Major transaction or antitrust threshold analysis relevant
+  requested_from: seller/buyer
+  evidence_types:
+  - balance_sheet
+  - financial_statements
+  - asset_value_certificate
+  - fixed_asset_register
+  sufficient_if:
+  - relevant reporting date and transaction/asset values are sufficient to calculate thresholds
+  mapped_checks:
+  - CORP-005
+  - APP-001
+  - APP-002
+  extractor_ids:
+  - EXT-FIN-040
+  request_text: Предоставить баланс на релевантную отчетную дату и сведения о стоимости отчуждаемых активов.
+  gap_text: Недостаточно финансовых данных для проверки крупности/thresholds.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-005
+  - APP-001
+  - APP-002
+  request_phase: initial
+  title_en: Financial statements / transaction value
+  title_ru: Финансовая отчетность и стоимость сделки / активов
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-007
+  title: Одобрение крупной сделки / подтверждение неприменимости
+  module: corporate
+  applies_when: Major transaction rules may apply
+  requested_from: seller/buyer
+  evidence_types:
+  - corporate_resolution
+  - certificate_of_non_major_transaction
+  - supporting_financials
+  sufficient_if:
+  - approval is issued by competent body and covers transaction; or non-applicability is evidenced
+  mapped_checks:
+  - CORP-005
+  - CLS-001
+  extractor_ids:
+  - EXT-CORP-031
+  - EXT-FIN-040
+  request_text: Предоставить corporate approval крупной сделки либо обоснование/справку о неприменимости.
+  gap_text: Не подтверждено требуемое approval или неприменимость.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-005
+  request_phase: conditional
+  title_en: Major transaction approval / non-applicability evidence
+  title_ru: Одобрение крупной сделки / подтверждение неприменимости
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-008
+  title: Одобрение заинтересованности / конфликта
+  module: corporate
+  applies_when: Potential interested-party/conflict situation
+  requested_from: seller/buyer
+  evidence_types:
+  - corporate_resolution
+  - ownership_data
+  - conflict_disclosure
+  sufficient_if:
+  - interested persons and approval/non-applicability are sufficiently evidenced
+  mapped_checks:
+  - CORP-006
+  - CLS-001
+  extractor_ids:
+  - EXT-CORP-031
+  - EXT-GRP-041
+  request_text: Предоставить сведения о заинтересованности и применимое approval/подтверждение неприменимости.
+  gap_text: Не подтверждено отсутствие/надлежащее одобрение заинтересованности.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-006
+  request_phase: conditional
+  title_en: Interested-party / conflict approval
+  title_ru: Одобрение заинтересованности / конфликта
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-009
+  title: Корпоративные соглашения и внутренние ограничения
+  module: corporate
+  applies_when: Corporate party
+  requested_from: seller
+  evidence_types:
+  - corporate_agreement
+  - shareholders_agreement
+  - internal_regulations
+  - special_consents
+  sufficient_if:
+  - material restrictions, veto/pre-emption/approval rights affecting transaction are identified
+  mapped_checks:
+  - CORP-007
+  - TX-006
+  extractor_ids:
+  - EXT-CORP-030
+  - EXT-SHARE-110
+  request_text: Предоставить корпоративные соглашения и иные документы, устанавливающие ограничения на совершение сделки/распоряжение активами.
+  gap_text: Внутрикорпоративные ограничения/consents не подтверждены.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-007
+  request_phase: initial
+  title_en: Corporate agreements / internal restrictions
+  title_ru: Корпоративные соглашения и внутренние ограничения
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CORP-010
+  title: Документы физлица / супруга / принадлежности имущества
+  module: corporate
+  applies_when: Individual seller/right holder
+  requested_from: individual_seller
+  evidence_types:
+  - identity_document
+  - marriage_certificate
+  - divorce_certificate
+  - marriage_contract
+  - property_division
+  - spousal_consent
+  sufficient_if:
+  - capacity, marital status and required spousal consent/ownership basis are evidenced
+  mapped_checks:
+  - CORP-008
+  extractor_ids:
+  - EXT-GEN-001
+  - EXT-CON-010
+  request_text: Предоставить применимые документы физлица и нотариальное согласие супруга при необходимости.
+  gap_text: Не подтверждены capacity/семейный статус/необходимое согласие супруга.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CORP-008
+  request_phase: initial
+  title_en: Natural person / spouse / ownership documents
+  title_ru: Документы физлица / супруга / принадлежности имущества
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-APP-001
+  title: Структура группы и контроль
+  module: approvals
+  applies_when: Antitrust, interested party or FDI analysis relevant
+  requested_from: seller/buyer
+  evidence_types:
+  - group_chart
+  - shareholder_register
+  - participant_list
+  - ownership_documents
+  sufficient_if:
+  - direct/indirect ownership and control links relevant to threshold/control analysis are documented
+  mapped_checks:
+  - APP-001
+  - APP-002
+  - APP-003
+  - CORP-006
+  extractor_ids:
+  - EXT-GRP-041
+  request_text: Предоставить актуальную структуру группы лиц/владения и документы по ключевым связям контроля.
+  gap_text: Группа/контроль не подтверждены полностью.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - APP-001
+  - APP-002
+  - APP-003
+  request_phase: initial
+  title_en: Group structure / control map
+  title_ru: Структура группы и контроль
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-APP-002
+  title: Финансовые данные для пороговых значений
+  module: approvals
+  applies_when: Antitrust/FDI threshold calculations relevant
+  requested_from: seller/buyer
+  evidence_types:
+  - financial_statements
+  - group_asset_certificates
+  - asset_value_certificates
+  sufficient_if:
+  - all financial values needed by applicable threshold test are available on relevant dates
+  mapped_checks:
+  - APP-001
+  - APP-002
+  - APP-003
+  extractor_ids:
+  - EXT-FIN-040
+  request_text: Предоставить финансовые показатели, необходимые для применимых antitrust/FDI thresholds.
+  gap_text: Недостаточно данных для threshold calculation.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - APP-001
+  - APP-002
+  - APP-003
+  request_phase: initial
+  title_en: Threshold financial dataset
+  title_ru: Финансовые данные для пороговых значений
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-APP-003
+  title: Документы по согласованию ФАС
+  module: approvals
+  applies_when: FAS filing/consent potentially required
+  requested_from: seller/buyer/external_counsel
+  evidence_types:
+  - FAS_application
+  - FAS_decision
+  - notification
+  - legal_memo
+  sufficient_if:
+  - filing requirement is determined; where required, decision/filing status and conditions are evidenced
+  mapped_checks:
+  - APP-001
+  - CLS-001
+  extractor_ids:
+  - EXT-APP-091
+  request_text: Предоставить документы по антимонопольному согласованию/уведомлению либо данные для его подготовки.
+  gap_text: Статус FAS approval/filing не подтвержден.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - APP-001
+  request_phase: conditional
+  title_en: FAS filing / decision / confirmation
+  title_ru: Документы по согласованию ФАС
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-APP-004
+  title: Согласование иностранных инвестиций / стратегических обществ
+  module: approvals
+  applies_when: Foreign investor + strategic applicability
+  requested_from: seller/buyer/external_counsel
+  evidence_types:
+  - FDI_application
+  - government_approval
+  - legal_memo
+  sufficient_if:
+  - applicability is assessed and required approval/conditions are evidenced
+  mapped_checks:
+  - APP-003
+  - CLS-001
+  extractor_ids:
+  - EXT-APP-091
+  - EXT-GRP-041
+  request_text: Предоставить документы/сведения по применимости контроля иностранных инвестиций и полученным approvals.
+  gap_text: Не подтверждено отсутствие/наличие required FDI approval.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - APP-003
+  request_phase: conditional
+  title_en: Foreign investment / strategic approval
+  title_ru: Согласование иностранных инвестиций / стратегических обществ
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-APP-005
+  title: Иностранные антимонопольные / регуляторные согласования
+  module: approvals
+  applies_when: Foreign territory requires local approval
+  requested_from: seller/buyer/external_counsel
+  evidence_types:
+  - foreign_authority_approval
+  - filing
+  - local_counsel_memo
+  sufficient_if:
+  - country-specific filing/approval requirement and status are documented
+  mapped_checks:
+  - APP-004
+  - CLS-001
+  - CLS-002
+  extractor_ids:
+  - EXT-APP-091
+  request_text: Предоставить документы по обязательным иностранным approvals/recordals для сделки и передачи прав.
+  gap_text: Иностранное approval/recordal не подтверждено.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - APP-004
+  request_phase: conditional
+  title_en: Foreign antitrust / health authority approvals
+  title_ru: Иностранные антимонопольные / регуляторные согласования
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-APP-006
+  title: Специальные процедуры для публичного имущества / госзакупок
+  module: approvals
+  applies_when: State/public/regulated counterparty or public property
+  requested_from: seller
+  evidence_types:
+  - procurement_documents
+  - auction_documents
+  - owner_consent
+  - government_decision
+  sufficient_if:
+  - applicable mandatory procedure/consent is identified and compliance is evidenced
+  mapped_checks:
+  - APP-005
+  - CLS-001
+  extractor_ids:
+  - EXT-APP-091
+  - EXT-GEN-001
+  request_text: Предоставить документы обязательной процедуры/торгов/согласия публичного собственника, если применимо.
+  gap_text: Соблюдение special procedure/consent не подтверждено.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - APP-005
+  request_phase: conditional
+  title_en: Public procurement / public owner special procedure
+  title_ru: Специальные процедуры для публичного имущества / госзакупок
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-RISK-001
+  title: Существенные судебные и исполнительные производства
+  module: risk
+  applies_when: Always; depth risk-based
+  requested_from: seller
+  evidence_types:
+  - litigation_list
+  - court_documents
+  - enforcement_documents
+  - seller_confirmation
+  sufficient_if:
+  - material current/recent disputes and enforcement affecting seller/assets are disclosed and independently checked where feasible
+  mapped_checks:
+  - RISK-001
+  extractor_ids:
+  - EXT-RISK-090
+  request_text: Предоставить сведения и основные документы по существенным судебным/исполнительным производствам.
+  gap_text: Не подтверждено отсутствие/содержание material disputes/enforcement.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: materiality_filtered
+  activation_checks:
+  - RISK-001
+  request_phase: initial
+  title_en: Material litigation / enforcement evidence
+  title_ru: Существенные судебные и исполнительные производства
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-RISK-002
+  title: Споры и оспаривание прав на ИС
+  module: risk
+  applies_when: IP in scope
+  requested_from: seller/right_holder
+  evidence_types:
+  - IP_dispute_list
+  - claims
+  - office_proceedings
+  - seller_confirmation
+  sufficient_if:
+  - material disputes/challenges/claims concerning in-scope IP are disclosed and checked
+  mapped_checks:
+  - RISK-002
+  - IP-ENC-012
+  extractor_ids:
+  - EXT-RISK-090
+  - EXT-IP-050
+  request_text: Предоставить сведения и документы по претензиям, спорам и административным производствам в отношении IP.
+  gap_text: IP dispute/challenge status не подтвержден.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - RISK-002
+  - IP-ENC-012
+  request_phase: initial
+  title_en: IP disputes / challenges
+  title_ru: Споры и оспаривание прав на ИС
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-RISK-003
+  title: Регуляторные / quality enforcement и отзывы продукта
+  module: risk
+  applies_when: Regulated product/manufacturing
+  requested_from: MA_holder/manufacturer/seller
+  evidence_types:
+  - authority_orders
+  - inspection_findings
+  - recall_documents
+  - CAPA
+  - warning_letters
+  sufficient_if:
+  - material enforcement, recalls, findings and remediation are disclosed for relevant period
+  mapped_checks:
+  - RISK-003
+  - MFG-007
+  - REG-008
+  extractor_ids:
+  - EXT-RISK-090
+  - EXT-REG-062
+  request_text: Предоставить документы по существенным regulatory/quality enforcement, recalls, предписаниям и CAPA.
+  gap_text: Не подтверждено отсутствие/содержание существенных regulatory/quality issues.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: risk_based
+  activation_checks:
+  - RISK-003
+  - MFG-007
+  - REG-008
+  request_phase: initial
+  title_en: Regulatory / quality enforcement / recalls
+  title_ru: Регуляторные / quality enforcement и отзывы продукта
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-RISK-004
+  title: Санкции, антикоррупционный и иной комплаенс
+  module: risk
+  applies_when: Always, depth risk-based
+  requested_from: seller
+  evidence_types:
+  - compliance_policies
+  - sanctions_confirmation
+  - investigation_reports
+  - counterparty_checks
+  sufficient_if:
+  - material compliance framework/issues are disclosed and independent sanctions checks are performed where required
+  mapped_checks:
+  - RISK-004
+  extractor_ids:
+  - EXT-COMP-092
+  request_text: Предоставить применимые compliance policies и сведения о существенных нарушениях/расследованиях; санкционная проверка выполняется
+    отдельно.
+  gap_text: Compliance/sanctions risk не проверен в требуемом объеме.
+  external_verification: true
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: risk_based
+  activation_checks:
+  - RISK-004
+  request_phase: initial
+  title_en: Sanctions / anti-corruption / compliance evidence
+  title_ru: Санкции, антикоррупционный и иной комплаенс
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CLS-001
+  title: Подтвержденные согласия, освобождения и approvals к закрытию
+  module: closing
+  applies_when: Any DD check identifies required consent/release/approval
+  requested_from: seller/buyer/third_party
+  evidence_types:
+  - consent
+  - waiver
+  - release
+  - corporate_approval
+  - government_approval
+  sufficient_if:
+  - each required pre-closing approval/release is obtained, effective and matches transaction scope
+  mapped_checks:
+  - CLS-001
+  - IP-DOC-002
+  - IP-ENC-012
+  - CORP-005
+  - CORP-006
+  - CORP-007
+  - APP-001
+  - APP-003
+  - APP-004
+  - APP-005
+  extractor_ids:
+  - EXT-APP-091
+  - EXT-CORP-031
+  - EXT-IP-051
+  request_text: Предоставить все согласия, approvals, waivers и releases, определенные как обязательные до closing.
+  gap_text: Обязательный closing consent/approval/release отсутствует.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CLS-001
+  request_phase: closing
+  title_en: Confirmed consents / releases / approvals for closing
+  title_ru: Подтвержденные согласия, освобождения и approvals к закрытию
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CLS-002
+  title: Формы и подтверждения регистрации перехода прав
+  module: closing
+  applies_when: Transferred asset/right requires formal registration/recordal
+  requested_from: seller/buyer
+  evidence_types:
+  - transfer_form
+  - recordal_application
+  - registry_confirmation
+  - registrar_instruction
+  sufficient_if:
+  - required forms are executable/filed as appropriate and completion evidence is available
+  mapped_checks:
+  - CLS-002
+  - IP-TM-004
+  - IP-PAT-006
+  - IP-DOM-010
+  - REG-001
+  extractor_ids:
+  - EXT-APP-091
+  - EXT-IP-050
+  - EXT-DIG-080
+  - EXT-CON-012
+  request_text: Подготовить/предоставить формы и подтверждения регистрации/recordal перехода прав по каждому применимому активу.
+  gap_text: Formal transfer/recordal requirement не закрыт.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CLS-002
+  request_phase: closing
+  title_en: Transfer / recordal / registration forms and confirmations
+  title_ru: Формы и подтверждения регистрации перехода прав
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CLS-003
+  title: Комплект документов по передаче и переходному периоду
+  module: closing
+  applies_when: Post-closing handover/transition obligations exist
+  requested_from: seller/manufacturer/MA_holder
+  evidence_types:
+  - handover_register
+  - data_export
+  - dossier_handover
+  - PV_transfer
+  - tech_transfer_deliverables
+  - domain_credentials_transfer
+  sufficient_if:
+  - all agreed handover/transition items are identified, delivered/accepted or tracked with dates/responsible parties
+  mapped_checks:
+  - CLS-003
+  - REG-006
+  - MFG-008
+  - MFG-009
+  - IP-DOM-010
+  extractor_ids:
+  - EXT-CON-012
+  - EXT-MFG-071
+  - EXT-REG-063
+  - EXT-DIG-080
+  request_text: Предоставить/подготовить реестр всех handover/transition deliverables и подтверждения их передачи.
+  gap_text: Post-closing/transition handover package не закрыт.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CLS-003
+  request_phase: closing
+  title_en: Handover / transition deliverables package
+  title_ru: Комплект документов по передаче и переходному периоду
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-CLS-004
+  title: Реестр CP, действий к закрытию и после закрытия
+  module: closing
+  applies_when: After material DD findings exist
+  requested_from: system_derived
+  evidence_types:
+  - confirmed_findings
+  - human_decisions
+  - approval_requirements
+  - missing_evidence
+  sufficient_if:
+  - all confirmed blockers/open obligations are transformed into structured CP/closing/post-closing actions with owner and status
+  mapped_checks:
+  - CLS-001
+  - CLS-002
+  - CLS-003
+  extractor_ids:
+  - EXT-GEN-001
+  request_text: 'Не запрашивается как отдельный seller document: формируется системой из подтвержденных DD findings и human decisions.'
+  gap_text: Не сформирован полный CP/closing/post-closing register.
+  external_verification: false
+  derived_requirement: true
+  freshness: null
+  notes: null
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks:
+  - CLS-001
+  - CLS-002
+  - CLS-003
+  request_phase: derived
+  title_en: Derived CP / closing / post-closing action register
+  title_ru: Реестр CP, действий к закрытию и после закрытия
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SHARE-001
+  title: Права на акции / доли и обременения
+  module: share_extension
+  applies_when: Share or mixed deal
+  requested_from: seller/target
+  evidence_types:
+  - share_register_extract
+  - depo_statement
+  - share_acquisition_agreements
+  - share_pledges
+  - corporate_agreements
+  sufficient_if:
+  - seller title to shares/interests, percentage, chain and material encumbrances/restrictions are evidenced
+  mapped_checks:
+  - TX-001
+  - TX-005
+  - CORP-007
+  - APP-001
+  - APP-003
+  extractor_ids:
+  - EXT-SHARE-110
+  request_text: При share/mixed deal предоставить документы, подтверждающие права на продаваемые акции/доли и все обременения/ограничения.
+  gap_text: Share title/encumbrances подтверждены не полностью.
+  external_verification: false
+  derived_requirement: false
+  freshness: null
+  notes: Superseded by share-deal extension evidence catalog when transaction_type is share/mixed.
+  human_confirmation_required: true
+  review_scope:
+    mode: exhaustive
+  activation_checks: []
+  request_phase: extension_replaced
+  title_en: Share / participation interest title and encumbrances
+  title_ru: Права на акции / доли и обременения
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+semantics: Evidence Requirements are functional sufficiency contracts, not a mandatory document checklist.

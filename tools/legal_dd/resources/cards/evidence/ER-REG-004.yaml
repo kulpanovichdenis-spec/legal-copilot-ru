@@ -1,0 +1,61 @@
+id: ER-REG-004
+title: CMC / раздел качества досье
+module: regulatory
+applies_when: Dossier transferred
+requested_from: MA_holder/manufacturer/seller
+evidence_types:
+- CMC_documents
+- substance_master_file
+- specifications
+- analytical_methods
+- stability_data
+sufficient_if:
+- applicable CMC sections are present, versioned and linked to current product/manufacturing configuration
+mapped_checks:
+- REG-002
+- REG-009
+- MFG-003
+- MFG-004
+extractor_ids:
+- EXT-REG-061
+- EXT-MFG-071
+request_text: Предоставить химическую/фармацевтическую/биологическую часть досье и относящиеся к ней актуальные спецификации, методы, validation
+  и stability data.
+gap_text: CMC evidence неполно или не сопоставляется с действующей регистрацией.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- REG-002
+- REG-009
+- MFG-003
+- MFG-004
+request_phase: initial
+title_en: CMC / quality dossier section
+title_ru: CMC / раздел качества досье
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

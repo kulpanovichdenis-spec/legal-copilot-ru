@@ -1,0 +1,61 @@
+id: ER-CLS-003
+title: Комплект документов по передаче и переходному периоду
+module: closing
+applies_when: Post-closing handover/transition obligations exist
+requested_from: seller/manufacturer/MA_holder
+evidence_types:
+- handover_register
+- data_export
+- dossier_handover
+- PV_transfer
+- tech_transfer_deliverables
+- domain_credentials_transfer
+sufficient_if:
+- all agreed handover/transition items are identified, delivered/accepted or tracked with dates/responsible parties
+mapped_checks:
+- CLS-003
+- REG-006
+- MFG-008
+- MFG-009
+- IP-DOM-010
+extractor_ids:
+- EXT-CON-012
+- EXT-MFG-071
+- EXT-REG-063
+- EXT-DIG-080
+request_text: Предоставить/подготовить реестр всех handover/transition deliverables и подтверждения их передачи.
+gap_text: Post-closing/transition handover package не закрыт.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- CLS-003
+request_phase: closing
+title_en: Handover / transition deliverables package
+title_ru: Комплект документов по передаче и переходному периоду
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

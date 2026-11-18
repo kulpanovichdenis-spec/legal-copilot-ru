@@ -1,0 +1,131 @@
+version: '1.0'
+orchestration: state_driven
+no_global_fixed_sequence: true
+principle: Execute any capability whose causal prerequisites are satisfied and whose output can reduce an unresolved material obligation. Independent
+  capabilities may run in parallel.
+capabilities:
+- id: CAP-INIT
+  name: Initialize project state
+  requires: []
+  produces:
+  - project_state
+  parallelizable: false
+- id: CAP-SCOPE
+  name: Resolve transaction scope/routing facts
+  requires:
+  - project_state
+  produces:
+  - scope_state
+  - active_coverage_obligations
+  parallelizable: true
+- id: CAP-INVENTORY
+  name: Inventory available sources
+  requires:
+  - project_state
+  - source_access
+  produces:
+  - source_inventory
+  parallelizable: true
+- id: CAP-REQUEST
+  name: Generate evidence request/gap request
+  requires:
+  - active_coverage_obligations
+  produces:
+  - request_list
+  parallelizable: true
+- id: CAP-CLASSIFY
+  name: Classify source item
+  requires:
+  - source_item
+  produces:
+  - document_classification
+  - requirement_links
+  parallelizable: true
+- id: CAP-EXTRACT
+  name: Extract purpose-driven facts
+  requires:
+  - source_item
+  - unresolved_required_facts
+  produces:
+  - typed_facts
+  parallelizable: true
+- id: CAP-FAMILY
+  name: Resolve document current state
+  requires:
+  - related_documents
+  produces:
+  - document_family_current_state
+  parallelizable: true
+- id: CAP-EXTERNAL
+  name: Perform independent external verification
+  requires:
+  - external_check_applicable
+  produces:
+  - external_evidence
+  parallelizable: true
+- id: CAP-VALIDATE
+  name: Run deterministic validators
+  requires:
+  - structured_state
+  produces:
+  - validation_results
+  parallelizable: true
+- id: CAP-CHECK
+  name: Resolve coverage obligation
+  requires:
+  - sufficient_relevant_state_or_explicit_gap
+  produces:
+  - agent_assessment
+  - finding_or_gap
+  parallelizable: true
+- id: CAP-CRITIC
+  name: Critic review
+  requires:
+  - critic_trigger
+  produces:
+  - critic_results
+  parallelizable: true
+- id: CAP-RENDER
+  name: Render review UI
+  requires:
+  - project_state
+  produces:
+  - html_or_other_view
+  parallelizable: true
+- id: CAP-HUMAN
+  name: Human confirmation
+  requires:
+  - reviewable_item
+  produces:
+  - confirmed_or_modified_state
+  parallelizable: true
+- id: CAP-DECIDE
+  name: Resolve contract decision
+  requires:
+  - confirmed_finding_requiring_decision
+  produces:
+  - human_contract_decision
+  parallelizable: true
+- id: CAP-DRAFT
+  name: Prepare transaction documents
+  requires:
+  - confirmed_structure
+  - confirmed_assets
+  - approved_decisions
+  produces:
+  - drafts
+  parallelizable: true
+- id: CAP-RECONCILE
+  name: Reconcile signed documents
+  requires:
+  - signed_documents
+  produces:
+  - signed_obligation_state
+  parallelizable: true
+- id: CAP-ROADMAP
+  name: Handoff signed obligations to roadmap
+  requires:
+  - signed_obligation_state
+  produces:
+  - roadmap_input
+  parallelizable: true

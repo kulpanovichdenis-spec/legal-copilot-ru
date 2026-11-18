@@ -1,0 +1,121 @@
+id: EXT-CORP-032
+title: Power of attorney extractor
+document_types:
+- power_of_attorney
+- notarial_power_of_attorney
+purposes:
+- confirm_representative_authority
+entities:
+- Party
+- Person
+- Agreement
+- Asset
+facts_to_extract:
+- principal
+- representative
+- issue date
+- term
+- substitution right
+- transaction types authorized
+- right to determine material terms
+- right to sign acts
+- right to receive/pay money
+- right to file recordal applications
+- asset/transaction limits
+- notarial details
+- revocation data/reference
+mapped_checks:
+- CORP-004
+- CORP-003
+- CLS-002
+critical_fields:
+- principal
+- representative
+- term
+- scope
+human_review_questions:
+- Действовала ли доверенность на дату подписания?
+- Охватывает ли она конкретную сделку и действия?
+- Нет ли ограничений/отзыва?
+fail_safe: If scope is ambiguous, authority remains unconfirmed.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: principal
+  label: principal
+  type: text
+  material: true
+- field_id: representative
+  label: representative
+  type: text
+  material: true
+- field_id: issue_date
+  label: issue date
+  type: date
+  material: false
+- field_id: term
+  label: term
+  type: text
+  material: true
+- field_id: substitution_right
+  label: substitution right
+  type: text
+  material: false
+- field_id: transaction_types_authorized
+  label: transaction types authorized
+  type: entity_ref
+  material: false
+- field_id: right_to_determine_material_terms
+  label: right to determine material terms
+  type: text
+  material: true
+- field_id: right_to_sign_acts
+  label: right to sign acts
+  type: text
+  material: false
+- field_id: right_to_receive_pay_money
+  label: right to receive/pay money
+  type: text
+  material: false
+- field_id: right_to_file_recordal_applications
+  label: right to file recordal applications
+  type: text
+  material: false
+- field_id: asset_transaction_limits
+  label: asset/transaction limits
+  type: asset_ref
+  material: false
+- field_id: notarial_details
+  label: notarial details
+  type: text
+  material: false
+- field_id: revocation_data_reference
+  label: revocation data/reference
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

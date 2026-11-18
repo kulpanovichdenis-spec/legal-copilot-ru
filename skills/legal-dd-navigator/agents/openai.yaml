@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legal DD Navigator"
+  short_description: "Навигатор due diligence фарма-сделок"
+  default_prompt: "Use $legal-dd-navigator to set up and run a reviewable due diligence workflow for this transaction."

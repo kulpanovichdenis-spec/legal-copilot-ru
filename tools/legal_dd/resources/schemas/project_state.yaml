@@ -1,0 +1,15 @@
+version: "0.2"
+required:
+  - project_id
+  - status
+  - intake
+  - active_checks
+fields:
+  project_id: string
+  name: string
+  status:
+    enum: [intake, dataroom_setup, calibration, review, human_review, drafting, signed, post_closing, archived]
+  intake: object
+  active_checks: list[string]
+  active_extensions: list[string]
+  dataroom: object

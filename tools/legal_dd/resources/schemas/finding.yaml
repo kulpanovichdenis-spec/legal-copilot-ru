@@ -1,0 +1,17 @@
+version: "0.2"
+fields:
+  id: string
+  check_id: string
+  summary: string
+  factual_basis: list[string]
+  legal_basis: list[object]
+  impact: string
+  action: string
+  severity:
+    enum: [critical, material, medium, low, info]
+  blocking:
+    signing: boolean
+    closing: boolean
+    post_closing: boolean
+  contract_effect: object
+  human_review: object

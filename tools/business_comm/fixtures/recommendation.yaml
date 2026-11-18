@@ -1,0 +1,81 @@
+project:
+  title: Как поступить с просроченной поставкой
+  mode: RECOMMENDATION
+  subtype: options_analysis
+  audience: Коммерческий директор
+  output: [docx]
+  duration_or_length: 1 страница
+  prepared_at: 2026-09-14
+objective:
+  business_question: Продолжать договор с поставщиком или отказаться от него?
+  required_decision: Выбрать вариант действий по просроченной поставке до конца недели
+minto:
+  situation: Поставщик просрочил поставку [ТЕСТОВЫЕ ДАННЫЕ]
+  complication: Ожидание срывает план производства, а отказ требует нового поставщика
+  question: Какой вариант лучше для бизнеса?
+  answer: Рекомендуем дать поставщику последний срок и параллельно запросить альтернативное предложение
+  supporting_arguments:
+    - Последний срок сохраняет договор и право на неустойку
+    - Параллельный запрос сокращает простой при срыве
+    - Немедленный отказ оставляет производство без поставщика
+content:
+  facts:
+    - id: f1
+      text: Поставка просрочена [ТЕСТОВЫЕ ДАННЫЕ]
+      status: verified
+      source_refs: [s1]
+  interpretations:
+    - id: in1
+      text: По общему правилу просрочка даёт право требовать неустойку по договору [ТЕСТОВЫЕ ДАННЫЕ]
+      source_refs: [s2]
+  options:
+    - id: o1
+      title: Последний срок и параллельный запрос альтернативы
+      pros: [Договор сохраняется, Риск простоя снижается]
+      cons: [Нужно время на второй запрос]
+      risk: Поставщик сорвёт и новый срок
+      recommended: true
+    - id: o2
+      title: Немедленный отказ от договора
+      pros: [Быстрая определённость]
+      cons: [Производство без поставщика до нового договора]
+      risk: Спор о правомерности отказа [ПРОВЕРИТЬ НОРМУ]
+      recommended: false
+      fallback: true
+  actions:
+    - id: a1
+      what: Направить поставщику уведомление о последнем сроке
+      who: Legal
+      when: В течение 2 рабочих дней
+    - id: a2
+      what: Запросить альтернативное предложение
+      who: Закупки
+      when: В течение 5 рабочих дней
+storyline:
+  - order: 1
+    message: Рекомендуем дать поставщику последний срок и параллельно искать альтернативу
+    content_block: recommendation
+    evidence_refs: [o1]
+  - order: 2
+    message: Немедленный отказ быстрее, но оставляет производство без поставщика
+    content_block: decision
+    visual_hint: comparison
+    evidence_refs: [o1, o2]
+  - order: 3
+    message: Последний срок сохраняет право требовать неустойку по договору
+    content_block: legal_rule
+    evidence_refs: [in1]
+  - order: 4
+    message: Решение нужно до конца недели, чтобы успеть направить уведомление
+    content_block: required_action
+    visual_hint: checklist
+    evidence_refs: [a1, a2]
+sources:
+  - id: s1
+    type: reported
+    title: Сообщено закупками
+    reference: письмо 2026-09-12 [ТЕСТОВЫЕ ДАННЫЕ]
+  - id: s2
+    type: internal_policy
+    title: Договор поставки, раздел об ответственности [ТЕСТОВЫЕ ДАННЫЕ]
+    reference: тестовый раздел

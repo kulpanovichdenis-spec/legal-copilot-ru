@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "checks_manifest.v1",
+  "title": "Манифест проверок документа",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "skill",
+    "document",
+    "research_depth",
+    "checks"
+  ],
+  "properties": {
+    "schema": {
+      "const": "checks_manifest.v1"
+    },
+    "skill": {
+      "enum": [
+        "legal-opinion",
+        "procedural-document-drafter"
+      ]
+    },
+    "document": {
+      "type": "string",
+      "minLength": 1
+    },
+    "research_depth": {
+      "enum": [
+        "quick",
+        "standard",
+        "deep"
+      ]
+    },
+    "position_led": {
+      "type": "boolean"
+    },
+    "issues_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "document_kind": {
+      "type": "string"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "agent",
+          "status"
+        ],
+        "properties": {
+          "agent": {
+            "enum": [
+              "source-verifier",
+              "adversarial-researcher",
+              "consistency-checker"
+            ]
+          },
+          "status": {
+            "enum": [
+              "done",
+              "in_context",
+              "not_run"
+            ]
+          },
+          "report": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "integrated": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

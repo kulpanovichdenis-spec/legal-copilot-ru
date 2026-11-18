@@ -1,0 +1,77 @@
+project:
+  title: Новый порядок согласования маркетинговых договоров
+  mode: CHANGE
+  audience: Маркетинг и закупки
+  output: [html, docx]
+  duration_or_length: самостоятельное чтение 5 минут
+  prepared_at: 2026-09-14
+objective:
+  business_question: Что теперь делать иначе при согласовании маркетинговых договоров?
+  desired_behavior: Договоры отправляются на согласование через форму заявки
+minto:
+  situation: Договоры согласуются по электронной почте
+  complication: Письма теряются, и сроки согласования растут [ТЕСТОВЫЕ ДАННЫЕ]
+  question: Как перейти на новый порядок без срыва сделок?
+  answer: С 1 ноября договоры согласуются только через форму заявки в системе [ТЕСТОВЫЕ ДАННЫЕ]
+  supporting_arguments:
+    - Форма заявки фиксирует все данные для проверки
+    - Переходный период позволяет завершить начатые согласования
+    - У процесса есть владелец и понятная эскалация
+change:
+  current: Согласование по электронной почте
+  new: Согласование через форму заявки в системе
+  effective_date: 2026-11-01
+  affected_roles: [Бренд-менеджер, Специалист по закупкам]
+  affected_processes: [Согласование договоров]
+  owner: Руководитель Legal
+  transition: Начатые до 1 ноября согласования завершаются по почте
+  enforcement: Договоры без заявки не принимаются к проверке
+  system_changes: Форма заявки в системе документооборота
+content:
+  business_context:
+    - id: bc1
+      text: Сроки согласования выросли из-за потерянных писем [ТЕСТОВЫЕ ДАННЫЕ]
+      source_refs: [s1]
+  actions:
+    - id: a1
+      what: Отправлять договор через форму заявки
+      who: Бренд-менеджер
+      when: С 2026-11-01
+  escalation_points:
+    - id: e1
+      when: Форма заявки недоступна
+      contact: Руководитель Legal
+  decision_nodes:
+    - id: d1
+      question: Договор отправлен на согласование до 1 ноября?
+      if_yes: Завершить согласование по почте
+      if_no: Отправить через форму заявки
+  faq:
+    - id: q1
+      q: Что делать с договорами, отправленными до 1 ноября?
+      a: Завершить согласование по почте
+storyline:
+  - order: 1
+    message: С 1 ноября договоры согласуются только через форму заявки
+    content_block: key_message
+    evidence_refs: [bc1]
+  - order: 2
+    message: Вместо письма юристу теперь заполняется форма заявки в системе
+    content_block: process
+    visual_hint: side_by_side
+    evidence_refs: [a1]
+  - order: 3
+    message: Начатые до 1 ноября согласования можно завершить по почте
+    content_block: decision_tree
+    visual_hint: decision_tree
+    evidence_refs: [d1]
+  - order: 4
+    message: Бренд-менеджер отправляет договор через форму, вопросы — владельцу процесса
+    content_block: required_action
+    visual_hint: checklist
+    evidence_refs: [a1, e1]
+sources:
+  - id: s1
+    type: reported
+    title: Сообщено руководителем Legal
+    reference: интервью 2026-09-14

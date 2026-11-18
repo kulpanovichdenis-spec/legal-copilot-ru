@@ -1,0 +1,54 @@
+id: ER-SH-005
+title: Корпоративное управление и менеджмент
+mapped_checks: &id001
+- SH-005
+requested_from: target/seller
+review_scope:
+  mode: exhaustive
+evidence_types:
+- governance_structure
+- shareholder_minutes
+- board_minutes
+- CEO_appointment
+- management_agreement
+- material_orders
+- management_contracts
+- audit_committee_or_revision_documents
+- auditor_information
+- management_litigation_information
+sufficient_if:
+- current governance bodies, appointments, material decisions and oversight information are available for the relevant review period
+request_text: Предоставить структуру органов управления, протоколы/решения за применимый период, документы об избрании ЕИО, существенные внутренние
+  акты и сведения об аудиторах/проверках.
+source_items:
+- 5.1–5.9
+extractor_ids:
+- EXT-CORP-030
+- EXT-CORP-031
+- EXT-RISK-090
+request_phase: initial
+activation_checks: *id001
+title_en: Corporate governance and management
+title_ru: Корпоративное управление и менеджмент
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

@@ -1,0 +1,51 @@
+id: ER-IP-007
+title: Проверка конфликтующих прав третьих лиц на ТЗ
+module: ip
+applies_when: Continued use of brand planned
+requested_from: external_check
+evidence_types:
+- official_TM_search
+- search_report
+- local_counsel_opinion
+sufficient_if:
+- relevant identical/confusingly similar earlier rights are searched by territory and material findings documented
+mapped_checks:
+- IP-TM-005
+extractor_ids:
+- EXT-IP-050
+request_text: 'Не запрашивается у продавца как единственный источник: выполнить независимую проверку конфликтующих обозначений.'
+gap_text: Trademark clearance не выполнен либо требует локального специалиста.
+external_verification: true
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- IP-TM-005
+request_phase: external
+title_en: Trademark clearance / third-party rights search
+title_ru: Проверка конфликтующих прав третьих лиц на ТЗ
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

@@ -1,0 +1,173 @@
+# Backup folders (содержат необезличенные данные)
+examples_backup_*/
+*_backup_*/
+
+# Word lock files
+~$*.docx
+~$*.doc
+*.~lock.*
+~WRL*.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+*.lnk
+
+# Temp files
+*.tmp
+*.temp
+*.bak
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# Node (для будущего Word Add-in)
+node_modules/
+dist/
+build/
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Codex repo-skill discovery link. The canonical files remain in skills/;
+# tools/setup_codex_skills.ps1 creates this local junction on Windows.
+.agents/skills/
+
+# Personal local notes
+NOTES.local.md
+TODO.local.md
+
+# Trademark search work logs (содержат рабочие обозначения и результаты по реальным кейсам)
+logs/trademark-search/
+
+# Pre-anonymize: whitelist с реквизитами своей компании
+tools/pre_anonymize/whitelist.local.txt
+
+# Workflow — все рабочие документы, генерируемые skills для юриста
+# (содержат необезличенные данные контрагентов, реквизиты, суммы, ПДн)
+workflow/**
+
+# Исключение: каркас служебных папок pre-LLM конвейера анонимизации и
+# описание структуры. Нужны, чтобы после клона репозитория было видно, куда
+# класть документы, и конвейер запускался без ручного создания папок.
+# Публикуются ТОЛЬКО пустые .gitkeep и README — содержимое папок закрыто,
+# папки конкретных дел/контрагентов не попадают в репозиторий.
+!workflow/_anonymizer/
+!workflow/_anonymizer/_inbox/
+!workflow/_anonymizer/_inbox/analytic/
+!workflow/_anonymizer/_inbox/originals/
+!workflow/_anonymizer/_inbox/failed/
+!workflow/_anonymizer/_ready/
+# Каркас единого канала приёма для авто-разбора входящих документов.
+# Это только канал приёма: папки дел живут в workflow/<дело>/, не здесь.
+!workflow/_claims/
+!workflow/_claims/queue/
+!workflow/_claims/processed/
+!workflow/_claims/failed/
+!workflow/_claims/unsorted/
+# Канал проверки контрагента: `_inbox` и досье живут в одном корне.
+!workflow/_counterparty/
+!workflow/_counterparty/_inbox/
+!workflow/_counterparty/_inbox/queue/
+!workflow/_counterparty/_inbox/processed/
+!workflow/_counterparty/_inbox/failed/
+!workflow/README.md
+!workflow/**/.gitkeep
+
+# Work learnings (содержит обозначения / реквизиты / детали реальных задач;
+# обезличенные уроки переносятся в reference / playbook)
+logs/work-learnings.md
+
+# Профиль пользователя (overlay) — личные настройки, свои skills, образцы,
+# обратная связь. Обновление из GitHub его не трогает. Публикуется только
+# скелет (README + .gitkeep), чтобы структура была на месте после клона.
+profile/**
+!profile/README.md
+!profile/skills/
+!profile/overrides/
+!profile/templates/
+!profile/settings/
+!profile/settings/local.env.example
+!profile/settings/secrets.env.example
+!profile/feedback/
+# Слой знаний профиля (см. references/profile-knowledge-layer.md). Скелет
+# доменов products/corporate/case-studies + общий knowledge-слой; контент в .gitignore.
+!profile/knowledge/
+!profile/knowledge/README.md
+!profile/knowledge/candidates/
+!profile/knowledge/verified/
+!profile/knowledge/superseded/
+!profile/knowledge/clauses/
+!profile/knowledge/clauses/_inbox/
+!profile/knowledge/clauses/cards/
+!profile/knowledge/clauses/originals/
+!profile/knowledge/document-samples/
+!profile/knowledge/document-samples/_inbox/
+!profile/knowledge/document-samples/cards/
+!profile/knowledge/document-samples/originals/
+!profile/knowledge/products/
+!profile/knowledge/products/_inbox/
+!profile/knowledge/products/cards/
+!profile/knowledge/products/originals/
+!profile/knowledge/products/README.md
+!profile/knowledge/corporate/
+!profile/knowledge/corporate/_inbox/
+!profile/knowledge/corporate/cards/
+!profile/knowledge/corporate/originals/
+!profile/knowledge/corporate/entities/
+!profile/knowledge/corporate/README.md
+!profile/knowledge/compliance/
+!profile/knowledge/compliance/_inbox/
+!profile/knowledge/compliance/originals/
+!profile/knowledge/compliance/cards/
+!profile/knowledge/compliance/cards/documents/
+!profile/knowledge/compliance/cards/rules/
+!profile/knowledge/compliance/index/
+!profile/knowledge/compliance/README.md
+!profile/knowledge/ip/
+!profile/knowledge/contract-checklist/
+!profile/knowledge/ip/_inbox/
+!profile/knowledge/ip/originals/
+!profile/knowledge/case-studies/
+!profile/knowledge/case-studies/cards/
+!profile/knowledge/case-studies/cards/claims/
+!profile/knowledge/case-studies/cards/litigation/
+!profile/knowledge/case-studies/cards/employment/
+!profile/knowledge/case-studies/employment-library/
+!profile/knowledge/case-studies/README.md
+!profile/**/.gitkeep
+!profile/**/README.md
+
+# Указатель на внешнее расположение профиля (флешка / Яндекс.Диск) — локален для машины
+.profile-path
+
+# Документные шаблоны (готовые .docx-формы) переезжают в слой legal-document-samples
+# на сервере (см. improvement-backlog.md, задание серверному агенту на ингестию).
+# Из публичного репо убраны: методика сборки — в references/docx-generation.md,
+# существо типов договоров — в references/contract-playbook.md. Файлы оставлены
+# ЛОКАЛЬНО как источник для ингестии и интерим-fallback до появления карточек на сервере.
+templates/amendment-prolongation-template.docx
+templates/amendment-prolongation-template.md
+templates/protocol-of-disagreements-template.docx
+templates/protocol-of-disagreements-template.md
+templates/license-agreement-dossier-bilingual-template.docx
+templates/license-agreement-dossier-bilingual-template.md
+templates/supply-agreement-pharma-bilingual-template.docx
+templates/supply-agreement-pharma-bilingual-template.md
+templates/technology-transfer-agreement-fdf-bilingual-template.docx
+templates/technology-transfer-agreement-fdf-bilingual-template.md
+
+# Local overlay tool-inventory cache (fast MCP discovery)
+.cache/

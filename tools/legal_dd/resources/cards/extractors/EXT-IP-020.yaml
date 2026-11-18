@@ -1,0 +1,139 @@
+id: EXT-IP-020
+title: IP creation by contractor / R&D extractor
+document_types:
+- R&D_agreement
+- design_agreement
+- development_agreement
+- CRO_agreement
+- clinical_trial_agreement
+- preclinical_agreement
+- author_agreement
+purposes:
+- confirm_creation_of_IP
+- confirm_initial_title
+- confirm_transferability
+entities:
+- Agreement
+- Party
+- Person
+- Asset
+- Right
+- Payment
+facts_to_extract:
+- customer/contractor
+- created result/deliverable
+- technical specification
+- authors/creators if named
+- ownership allocation
+- moment of creation/transfer
+- territory/term
+- right to modify/use/transfer/sublicense
+- confidentiality/know-how
+- third-party materials
+- warranties on third-party rights
+- acceptance mechanism
+- creator remuneration/contract price
+- payment evidence required
+mapped_checks:
+- IP-DOC-001
+- IP-DOC-002
+- IP-KH-003
+- IP-CR-008
+- IP-WEB-011
+critical_fields:
+- created_result
+- ownership_clause
+- transfer_moment
+- acceptance
+- third_party_materials
+human_review_questions:
+- Создан ли именно тот РИД/документация, который входит в сделку?
+- Кому принадлежит исключительное право согласно документу?
+- Есть ли условия, без выполнения которых право не перешло?
+- Нужны ли дополнительные акты/платежи/согласия?
+fail_safe: Do not infer title merely from the existence of a development agreement.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: customer_contractor
+  label: customer/contractor
+  type: text
+  material: false
+- field_id: created_result_deliverable
+  label: created result/deliverable
+  type: enum
+  material: true
+- field_id: technical_specification
+  label: technical specification
+  type: text
+  material: false
+- field_id: authors_creators_if_named
+  label: authors/creators if named
+  type: entity_ref
+  material: false
+- field_id: ownership_allocation
+  label: ownership allocation
+  type: entity_ref
+  material: false
+- field_id: moment_of_creation_transfer
+  label: moment of creation/transfer
+  type: text
+  material: false
+- field_id: territory_term
+  label: territory/term
+  type: text
+  material: false
+- field_id: right_to_modify_use_transfer_sublicense
+  label: right to modify/use/transfer/sublicense
+  type: text
+  material: false
+- field_id: confidentiality_know_how
+  label: confidentiality/know-how
+  type: text
+  material: false
+- field_id: third_party_materials
+  label: third-party materials
+  type: entity_ref
+  material: true
+- field_id: warranties_on_third_party_rights
+  label: warranties on third-party rights
+  type: entity_ref
+  material: false
+- field_id: acceptance_mechanism
+  label: acceptance mechanism
+  type: text
+  material: true
+- field_id: creator_remuneration_contract_price
+  label: creator remuneration/contract price
+  type: currency
+  material: false
+- field_id: payment_evidence_required
+  label: payment evidence required
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

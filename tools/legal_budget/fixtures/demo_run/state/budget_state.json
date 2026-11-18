@@ -1,0 +1,104 @@
+{
+  "run_id": "2026-09-24_budget_2027_001",
+  "goal": "create",
+  "lines": [
+    {
+      "id": "BL-1",
+      "category": "подписки",
+      "description": "учебная подписка",
+      "owner": "legal",
+      "monthly_amounts": {
+        "2027-01": "100.00",
+        "2027-02": "100.00",
+        "2027-03": "100.00",
+        "2027-04": "100.00",
+        "2027-05": "100.00",
+        "2027-06": "100.00",
+        "2027-07": "100.00",
+        "2027-08": "100.00",
+        "2027-09": "100.00",
+        "2027-10": "100.00",
+        "2027-11": "100.00",
+        "2027-12": "100.00"
+      },
+      "annual_amount": "1200.00",
+      "source_refs": [
+        "SRC-1"
+      ],
+      "assumption_refs": [],
+      "material": true
+    },
+    {
+      "id": "BL-2",
+      "category": "споры",
+      "description": "учебное дело",
+      "owner": "legal",
+      "monthly_amounts": {
+        "2027-01": "50.00",
+        "2027-02": "50.00",
+        "2027-03": "50.00",
+        "2027-04": "50.00",
+        "2027-05": "50.00",
+        "2027-06": "50.00",
+        "2027-07": "50.00",
+        "2027-08": "50.00",
+        "2027-09": "50.00",
+        "2027-10": "50.00",
+        "2027-11": "50.00",
+        "2027-12": "50.00"
+      },
+      "source_refs": [],
+      "assumption_refs": [
+        "A-1"
+      ],
+      "material": true
+    }
+  ],
+  "actuals": [
+    {
+      "invoice_id": "INV-1",
+      "amount": "10"
+    }
+  ],
+  "accruals": [],
+  "history": [],
+  "allocations": [],
+  "headcount_change": null,
+  "external_spend_change": null,
+  "workload_transfer": null,
+  "stages": {},
+  "quality_gate": "not_ready",
+  "bridge": {
+    "prior": "1800.00",
+    "ceased": "0",
+    "price": "0",
+    "volume": "0",
+    "new_demand": "0",
+    "headcount": "0",
+    "fx": "0"
+  },
+  "scenario_overlay": {
+    "actions": [
+      {
+        "type": "defer",
+        "classification": "deferrable",
+        "line_id": "BL-2",
+        "saving": "60.00",
+        "consequence": "часть учебного спора сдвигается на следующий период",
+        "owner": "руководитель Legal",
+        "confidence": "medium"
+      }
+    ],
+    "lines": [
+      {
+        "line_id": "BL-2",
+        "classification": "deferrable",
+        "saving": "60.00",
+        "consequence": "часть учебного спора сдвигается на следующий период",
+        "owner": "руководитель Legal",
+        "confidence": "medium"
+      }
+    ],
+    "saving_total": "60.00"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "intake_classification.v1",
+  "title": "Ответ intake-classifier (общая рамка)",
+  "type": "object",
+  "required": [
+    "task",
+    "result",
+    "confidence",
+    "escalate",
+    "source_fragments"
+  ],
+  "properties": {
+    "task": {
+      "enum": [
+        "document_intake",
+        "court_decision_meta",
+        "search_results",
+        "clause_type"
+      ]
+    },
+    "result": {
+      "type": "object"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "escalate": {
+      "enum": [
+        null,
+        "UNCERTAIN",
+        "CONFLICT",
+        "INSUFFICIENT_CONTEXT",
+        "REQUIRES_REASONING"
+      ]
+    },
+    "source_fragments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+id: ER-SH-018
+title: Трудовые отношения и персонал
+mapped_checks: &id001
+- SH-018
+requested_from: target/seller
+review_scope:
+  mode: risk_based
+evidence_types:
+- staffing_table
+- org_chart
+- management_employment
+- employment_templates
+- foreign_workers
+- bonus_policies
+- LTIP
+- pension_programs
+- employee_loans
+- wage_arrears
+- union_documents
+- collective_agreements
+- employee_insurance
+- social_benefits
+- individual_service_agreements
+- personnel_supply
+- redundancies
+- accidents
+- strikes
+- employee_disputes
+sufficient_if:
+- material workforce structure, employment terms, incentives, foreign workers, collective/union matters, social obligations and material employee
+  risks are identified
+request_text: Предоставить штатное расписание/оргструктуру, трудовые формы и договоры с ключевыми сотрудниками, bonus/LTIP, сведения об иностранных
+  работниках, профсоюзах/колдоговоре, социальных обязательствах, сокращениях, несчастных случаях, забастовках и трудовых спорах.
+source_items:
+- 18.1–18.20
+extractor_ids:
+- EXT-SH-208
+- EXT-CON-010
+request_phase: initial
+activation_checks: *id001
+title_en: Employment and workforce
+title_ru: Трудовые отношения и персонал
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

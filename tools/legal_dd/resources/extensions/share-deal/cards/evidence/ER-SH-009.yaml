@@ -1,0 +1,48 @@
+id: ER-SH-009
+title: Существенное движимое имущество и обременения
+mapped_checks: &id001
+- SH-009
+requested_from: target/seller
+review_scope:
+  mode: risk_based
+evidence_types:
+- material_asset_list
+- title_or_lease_documents
+- pledges
+- arrest_documents
+- asset_disputes
+sufficient_if:
+- material assets are identified with title/use basis, encumbrances and material threats to ownership/use
+request_text: Предоставить перечень существенного движимого имущества, документы прав/использования, обременения и сведения о спорах/риске утраты.
+source_items:
+- 9.1–9.5
+extractor_ids:
+- EXT-SH-202
+- EXT-CON-010
+- EXT-RISK-090
+request_phase: initial
+activation_checks: *id001
+title_en: Material movable assets and encumbrances
+title_ru: Существенное движимое имущество и обременения
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

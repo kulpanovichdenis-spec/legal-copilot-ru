@@ -1,0 +1,55 @@
+id: ER-REG-003
+title: Административная часть досье
+module: regulatory
+applies_when: Dossier transferred
+requested_from: MA_holder/seller
+evidence_types:
+- administrative_documents
+- IFU
+- regulatory_forms
+- registration_history
+sufficient_if:
+- applicable administrative documents are present and current
+mapped_checks:
+- REG-002
+- REG-005
+extractor_ids:
+- EXT-REG-061
+- EXT-REG-060
+request_text: Предоставить административную часть регистрационного досье, включая актуальные инструкции и зарегистрированные материалы.
+gap_text: Административная часть досье представлена не полностью.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- REG-002
+- REG-005
+request_phase: initial
+title_en: Administrative dossier section
+title_ru: Административная часть досье
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

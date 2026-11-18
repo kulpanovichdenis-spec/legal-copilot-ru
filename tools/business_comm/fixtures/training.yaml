@@ -1,0 +1,123 @@
+project:
+  title: Как инициатору договора получить именно то, о чём договорились
+  mode: TRAINING
+  secondary_mode: null
+  subtype: behavior_change
+  audience: Инициаторы договоров в бизнес-подразделениях
+  output: [pptx, docx, html]
+  duration_or_length: 20 минут
+  prepared_at: 2026-09-14
+objective:
+  business_question: Как сделать так, чтобы компания действительно получила тот товар или услугу, о которых договорился инициатор?
+  desired_outcome: Инициатор до согласования проверяет описание предмета договора
+  desired_behavior: Перед отправкой договора в Legal инициатор проверяет пять параметров предмета
+  required_decision: null
+  learning_objectives:
+    - Уметь определить, достаточно ли точно описан предмет договора
+    - Проверить пять параметров предмета перед отправкой на согласование
+    - Распознать ситуацию, когда нужно обратиться в Legal
+minto:
+  situation: Инициатор договаривается с поставщиком и передаёт договор в Legal
+  complication: Общее описание предмета не защищает компанию от неподходящего результата
+  question: Что инициатор должен проверить до согласования договора?
+  answer: До запуска договора инициатор проверяет, что предмет, результат, характеристики, сроки и коммерческие условия описаны достаточно точно
+  supporting_arguments:
+    - Инициатор отвечает за точность бизнес-описания предмета
+    - Общее название товара не защищает от неподходящих характеристик
+    - Перед согласованием достаточно проверить пять параметров
+content:
+  business_context:
+    - id: bc1
+      text: Legal проверяет юридические условия, но не знает бизнес-требований к результату
+      source_refs: [s2]
+  legal_rules:
+    - id: lr1
+      text: Норма 1 тестового акта требует согласовать предмет договора [ТЕСТОВЫЕ ДАННЫЕ]
+      detail: Полный текст нормы приводится в приложении [ТЕСТОВЫЕ ДАННЫЕ]
+      source_refs: [s1]
+  internal_examples:
+    - id: ie1
+      kind: wrong
+      text: Поставка оборудования согласно спецификации поставщика
+      confidentiality: anonymized
+    - id: ie2
+      kind: better
+      text: Поставка оборудования с характеристиками из Приложения 1 — производительность, габариты, срок гарантии
+      confidentiality: anonymized
+    - id: ie3
+      kind: case
+      text: Размытое описание предмета привело к спору о соответствии результата и задержке запуска [ТЕСТОВЫЕ ДАННЫЕ]
+      why: Без характеристик в договоре нечем доказать, что результат не тот
+      confidentiality: anonymized
+      source_refs: [s2]
+  triggers:
+    - id: tr1
+      text: Вы готовите договор на закупку товара или услуги
+  checks:
+    - {id: ch1, text: Что именно получает компания}
+    - {id: ch2, text: Какой результат считается надлежащим}
+    - {id: ch3, text: Какие характеристики обязательны}
+    - {id: ch4, text: В какие сроки исполняется договор}
+    - {id: ch5, text: Какие коммерческие условия согласованы}
+  actions:
+    - id: a1
+      what: Проверить пять параметров предмета
+      who: Инициатор договора
+      when: До отправки договора в Legal
+    - id: a2
+      what: Приложить спецификацию с характеристиками
+      who: Инициатор договора
+      when: До отправки договора в Legal
+  escalation_points:
+    - id: e1
+      when: Поставщик отказывается фиксировать характеристики в договоре
+      contact: Юрист, ведущий договор
+  faq:
+    - id: q1
+      q: Можно ли сослаться на спецификацию поставщика?
+      a: Можно, если она приложена к договору и подписана сторонами
+storyline:
+  - order: 1
+    message: До согласования инициатор проверяет, что предмет договора описан достаточно точно
+    content_block: key_message
+    evidence_refs: [bc1]
+    talk_track: Главная мысль занятия — ответственность инициатора за бизнес-содержание
+  - order: 2
+    message: Общее название товара не защищает компанию от неподходящих характеристик
+    content_block: wrong_example
+    visual_hint: side_by_side
+    evidence_refs: [ie1, ie2]
+  - order: 3
+    message: Размытое описание предмета приводит к спору и потере времени
+    content_block: internal_case
+    evidence_refs: [ie3]
+  - order: 4
+    message: Перед отправкой в Legal достаточно проверить пять параметров предмета
+    content_block: checklist
+    visual_hint: checklist
+    evidence_refs: [ch1, ch2, ch3, ch4, ch5, a1, a2]
+  - order: 5
+    message: Правовая база требования к предмету договора
+    content_block: legal_rule
+    title_kind: appendix
+    layer: appendix
+    evidence_refs: [lr1]
+sources:
+  - id: s1
+    type: primary_law
+    title: Тестовый акт [ТЕСТОВЫЕ ДАННЫЕ]
+    reference: Норма 1
+    primary: true
+    checked_at: 2026-09-01
+  - id: s2
+    type: reported
+    title: Сообщено юристом в сессии
+    reference: интервью 2026-09-14
+    primary: false
+render:
+  docx:
+    variant: one_pager
+quality:
+  assumptions: []
+  open_questions: []
+  validation_results: []

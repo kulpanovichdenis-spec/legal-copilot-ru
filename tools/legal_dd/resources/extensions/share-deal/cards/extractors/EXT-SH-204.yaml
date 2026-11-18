@@ -1,0 +1,114 @@
+id: EXT-SH-204
+title: Material commercial contract risk extractor
+document_types:
+- commercial_agreement
+- loan
+- security
+- supply
+- customer_agreement
+- JV_agreement
+mapped_checks:
+- SH-013
+fields:
+- parties
+- term
+- value_or_materiality
+- change_of_control
+- assignment
+- termination
+- cross_default
+- exclusivity
+- non_compete
+- preemption
+- penalties_or_indemnities
+- security
+- related_party
+- off_market_indicators
+human_review_required: true
+rules:
+- Extract facts with exact locator.
+- Do not make final employment/property/IT legal conclusions.
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: parties
+  label: parties
+  type: text
+  material: false
+- field_id: term
+  label: term
+  type: text
+  material: false
+- field_id: value_or_materiality
+  label: value_or_materiality
+  type: currency
+  material: false
+- field_id: change_of_control
+  label: change_of_control
+  type: text
+  material: false
+- field_id: assignment
+  label: assignment
+  type: text
+  material: false
+- field_id: termination
+  label: termination
+  type: text
+  material: false
+- field_id: cross_default
+  label: cross_default
+  type: text
+  material: false
+- field_id: exclusivity
+  label: exclusivity
+  type: text
+  material: false
+- field_id: non_compete
+  label: non_compete
+  type: text
+  material: false
+- field_id: preemption
+  label: preemption
+  type: text
+  material: false
+- field_id: penalties_or_indemnities
+  label: penalties_or_indemnities
+  type: text
+  material: false
+- field_id: security
+  label: security
+  type: text
+  material: false
+- field_id: related_party
+  label: related_party
+  type: text
+  material: false
+- field_id: off_market_indicators
+  label: off_market_indicators
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

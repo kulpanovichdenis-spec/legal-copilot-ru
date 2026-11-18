@@ -1,0 +1,402 @@
+# media-sources-legal-registry.yaml
+#
+# Навигационный реестр сервисов для skill image-video-rights-check.
+# НЕ ЯВЛЯЕТСЯ юридическим заключением. Любое поле здесь — указатель,
+# где искать и что проверить у официального источника перед выводом,
+# а не готовое правовое основание. Перед ответом юристу агент обязан
+# открыть terms_url / license_url / ai_terms_url текущей версии и
+# сверить факты заново (references/media-rights-methodology.md).
+#
+# Схема записи:
+#   provider: строка
+#   products:
+#     - product: строка (конкретный продукт/функция/модель!)
+#       official_domain: строка
+#       terms_url: строка | null
+#       license_url: строка | null
+#       ai_terms_url: строка | null       # только для AI-продуктов
+#       content_policy_url: строка | null
+#       historical_revisions_url: строка | null
+#       checks_required:
+#         attribution: required|conditional|not_required|not_identified|unclear
+#         provenance_or_ai_disclosure: required|conditional|not_required|not_applicable|not_identified
+#         tariff_dependent: true|false
+#         date_dependent: true|false
+#         model_dependent: true|false      # агрегаторы / несколько моделей на выбор
+#       notes: строка (короткая навигационная заметка, НЕ юридический вывод)
+#   last_checked: "YYYY-MM-DD"
+#
+# Историческая заметка к структуре записей ниже: «Freepik / Envato Elements»
+# и «Getty Images / iStock» — в реальности два разных сервиса каждый (разные
+# официальные домены и разные тексты лицензий; для Getty Images/iStock — у
+# одной компании Getty Images, Inc.). Чтобы не смешивать разные по доменам/
+# условиям сервисы в одну исследовательскую единицу и одновременно не плодить
+# лишние записи верхнего уровня `provider`, оба случая объединены в одну
+# запись `provider`, но с ДВУМЯ независимыми записями в `products[]` —
+# каждая со своим official_domain/terms_url/license_url, исследованная
+# отдельно, а не разделены на 4 отдельных provider. Это решение можно
+# пересмотреть — см. git-историю файла для обоснования.
+
+- provider: "Shutterstock"
+  products:
+    - product: "Standard Image/Video License"
+      official_domain: "shutterstock.com"
+      terms_url: "https://www.shutterstock.com/license"
+      license_url: "https://www.shutterstock.com/license-comparison"
+      ai_terms_url: null
+      content_policy_url: "https://submit.shutterstock.com/help/en/articles/10594649-how-can-customers-use-images-and-videos-they-download"
+      historical_revisions_url: "https://www.shutterstock.com/license-history"
+      checks_required:
+        attribution: not_identified
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "[ИНСТРУМЕНТ НЕДОСТУПЕН] shutterstock.com/license, /license-comparison и help-статьи на www.shutterstock.com вернули автоматизированному WebFetch 403 (антибот-защита); контент подтверждён через открывшуюся страницу submit.shutterstock.com того же провайдера — это вторичный по иерархии источников домен (не сама страница license/license-comparison), [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] обязательна перед использованием в ответе юристу. Standard ограничивает тираж/показы и запрещает мерч; коммерческое использование редакционного (editorial) контента запрещено; лого/товарные знаки — запрещены."
+    - product: "Enhanced Image/Video License"
+      official_domain: "shutterstock.com"
+      terms_url: "https://www.shutterstock.com/license"
+      license_url: "https://www.shutterstock.com/license-comparison"
+      ai_terms_url: null
+      content_policy_url: "https://submit.shutterstock.com/help/en/articles/10594649-how-can-customers-use-images-and-videos-they-download"
+      historical_revisions_url: "https://www.shutterstock.com/license-history"
+      checks_required:
+        attribution: not_identified
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "Снимает лимит тиража/показов/бюджета Standard-лицензии, разрешает мерч для продажи и постерное искусство; повышенная индемнификация (до $250K против $10K у Standard). Не покрывает лого/товарные знаки и sensitive-темы. Источники — см. Standard License выше (тот же документ регулирует оба уровня); [ИНСТРУМЕНТ НЕДОСТУПЕН] тот же документ получен через вторичный домен submit.shutterstock.com после 403 на основных страницах shutterstock.com — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ]."
+  last_checked: "2026-09-16"
+
+- provider: "Adobe Stock"
+  products:
+    - product: "Standard License"
+      official_domain: "stock.adobe.com"
+      terms_url: "https://stock.adobe.com/license-terms"
+      license_url: "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Stock-Additional-Terms_en_US_20240510.pdf"
+      ai_terms_url: null
+      content_policy_url: "https://helpx.adobe.com/stock/help/usage-licensing.html"
+      historical_revisions_url: null
+      checks_required:
+        attribution: conditional
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "stock.adobe.com/license-terms открыт и прочитан (страница отдала контент на немецкой локали при автозапросе — тот же официальный документ). До 500 000 копий/показов; запрет на мерч/шаблоны для перепродажи, где стоковый актив — основная ценность продукта (это разрешено только по Extended). Атрибуция обязательна для editorial-контента (IPTC-поле с источником). PDF Stock-Additional-Terms датирован 2024-05-10 — [ПРОВЕРИТЬ АКТУАЛЬНОСТЬ РЕДАКЦИИ]."
+    - product: "Extended License"
+      official_domain: "stock.adobe.com"
+      terms_url: "https://stock.adobe.com/license-terms"
+      license_url: "https://wwwimages2.adobe.com/content/dam/cc/en/legal/servicetou/Stock-Additional-Terms_en_US_20240510.pdf"
+      ai_terms_url: null
+      content_policy_url: "https://helpx.adobe.com/stock/help/usage-licensing.html"
+      historical_revisions_url: null
+      checks_required:
+        attribution: conditional
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "Снимает лимит копий/показов и разрешает мерч, где актив — основная ценность продукта (t-shirts, mugs и т.п.). Помимо Standard/Extended у Adobe Stock есть также Plus License (видео/шаблоны/3D, без лимита 500K) и Limited License (только внутри Adobe Express) — не заведены отдельными products в этой задаче, см. content_policy_url."
+  last_checked: "2026-09-16"
+
+- provider: "Getty Images / iStock"
+  products:
+    - product: "Getty Images Content License Agreement (RF / RM / Editorial)"
+      official_domain: "gettyimages.com"
+      terms_url: "https://www.gettyimages.com/eula"
+      license_url: "https://www.gettyimages.com/faq/licensing"
+      ai_terms_url: null
+      content_policy_url: "https://www.gettyimages.com/eula"
+      historical_revisions_url: null
+      checks_required:
+        attribution: conditional
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "gettyimages.com/eula автоматически 302-редиректит на gettyimages.de/eula (тот же документ, локаль по IP) — открыт и прочитан. Editorial-контент требует атрибуции у фото рядом с изображением и запрещён к коммерческому использованию без доп. лицензии (нет model/property release). RF — единая оплата, безлимитное использование по размеру файла; RM/RR — зависит от тиража/территории/срока. Прямой запрет использования контента для обучения ML/AI-моделей без отдельного письменного разрешения (искл. — ограниченная внутренняя индексация неredakционного контента). Страница истории редакций не обнаружена в ходе поиска — не значит, что её нет."
+    - product: "iStock Content License Agreement (Standard / Extended)"
+      official_domain: "istockphoto.com"
+      terms_url: "https://www.istockphoto.com/legal/license-agreement"
+      license_url: "https://www.istockphoto.com/legal/license-agreement"
+      ai_terms_url: null
+      content_policy_url: null
+      historical_revisions_url: null
+      checks_required:
+        attribution: conditional
+        provenance_or_ai_disclosure: conditional
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "istockphoto.com/legal/license-agreement открыт и прочитан. Атрибуция не нужна для коммерческого фото, но обязательна для editorial («iStock.com/[имя автора]») и для AI-генерированного контента (указывать «iStock AI Generator» как автора — это отдельная AI-подписка, не входит в этот продукт). Standard запрещает продукты, где стоимость определяется преимущественно лицензированным контентом; Extended даёт лимиты по категориям (до 100 000 открыток/наклеек, 10 000 постеров/календарей, 2 000 предметов одежды) и безлимит для digital-продуктов/шаблонов. Прямой запрет использования для машинного обучения/ИИ без отдельного разрешения."
+  last_checked: "2026-09-16"
+
+- provider: "Unsplash"
+  products:
+    - product: "Unsplash License (бесплатные изображения)"
+      official_domain: "unsplash.com"
+      terms_url: "https://unsplash.com/license"
+      license_url: "https://unsplash.com/license"
+      ai_terms_url: null
+      content_policy_url: "https://help.unsplash.com/en/collections/1463188-unsplash-license"
+      historical_revisions_url: null
+      checks_required:
+        attribution: not_required
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: false
+        date_dependent: false
+        model_dependent: false
+      notes: "unsplash.com/license открыт и прочитан. Бессрочная, безотзывная, неисключительная лицензия «worldwide copyright license»; атрибуция не требуется (но приветствуется). Запрещено: продавать без существенной переработки; собирать изображения Unsplash для создания конкурирующего сервиса. Страница истории редакций не найдена."
+    - product: "Unsplash+ License (платная подписка)"
+      official_domain: "unsplash.com"
+      terms_url: "https://unsplash.com/plus/license"
+      license_url: "https://unsplash.com/plus/license"
+      ai_terms_url: null
+      content_policy_url: "https://help.unsplash.com/en/articles/6604652-what-is-the-unsplash-license"
+      historical_revisions_url: null
+      checks_required:
+        attribution: not_required
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: false
+        model_dependent: false
+      notes: "unsplash.com/plus/license открыт и прочитан. Отдельная (не идентичная бесплатной) лицензия: гарантия/warranty до $10 000 за файл против IP-претензий, которой нет у бесплатной. Запрещено: перепродажа «as-is», использование в цифровых шаблонах, использование для машинного обучения/ИИ/биометрии, иллюстрация «sensitive»-тем без дисклеймера («posed by model»)."
+  last_checked: "2026-09-16"
+
+- provider: "Pexels"
+  products:
+    - product: "Pexels License"
+      official_domain: "pexels.com"
+      terms_url: "https://www.pexels.com/license/"
+      license_url: "https://www.pexels.com/license/"
+      ai_terms_url: null
+      content_policy_url: "https://help.pexels.com/hc/en-us/articles/360042295174-What-is-the-license-of-the-photos-and-videos-on-Pexels"
+      historical_revisions_url: null
+      checks_required:
+        attribution: unclear
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "[ИНСТРУМЕНТ НЕДОСТУПЕН] pexels.com и help.pexels.com не открылись автоматизированными инструментами в этой сессии: WebFetch дал SSL-ошибку сертификата и ECONNREFUSED на повторных попытках по обоим URL; серверный tavily_extract (legal-kb) вернул ошибку сертификата сервера. Поля здесь — из сниппетов WebSearch (сам инструмент поиска извлекает текст страницы), НЕ подтверждены прямым открытием страницы в этой сессии — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] обязательна перед использованием в ответе юристу. По сниппету: атрибуция не нужна (но приветствуется); запрещена «standalone» перепродажа контента (без существенной переработки) и использование для создания конкурирующего сервиса; платного тарифа с иной лицензией не обнаружено (весь Pexels — по одной бесплатной лицензии). tariff_dependent/date_dependent помечены true из предосторожности, а не как подтверждённая находка: источник не открыт напрямую (см. выше), поэтому наличие платных тарифов и версионности лицензии по датам не подтверждено, но и не исключено — true здесь означает «считать зависимым, пока не проверено обратное», а не «зависимость подтверждена»."
+  last_checked: "2026-09-16"
+
+- provider: "Freepik / Envato Elements"
+  products:
+    - product: "Freepik Content License (Free / Premium / Premium+ / Pro)"
+      official_domain: "freepik.com"
+      terms_url: "https://www.freepik.com/legal/terms-of-use"
+      license_url: "https://www.magnific.com/legal/terms-of-use"
+      ai_terms_url: null
+      content_policy_url: "https://support.freepik.com/s/article/Freepik-for-Enterprise-Legal-Aspects-and-Usage-Rights"
+      historical_revisions_url: null
+      checks_required:
+        attribution: unclear
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "[СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] freepik.com/legal/terms-of-use сделал 301-редирект на www.magnific.com/legal/terms-of-use (документ говорит о «Magnific Content»/«Website/Company» — судя по всему, компания Freepik консолидировала юридические документы под брендом Magnific после ребрендинга/продуктового слияния; страница открыта и прочитана, но юристу нужно перепроверить, что это актуальный документ именно для стокового контента Freepik, а не только для отдельного AI-продукта Magnific). Free-тариф требует атрибуции сайту/автору, Premium/Premium+/Pro — атрибуция не нужна. Запрещены перепродажа/сублицензирование контента как такового и включение его в конкурирующую стоковую библиотеку/базу; Pro даёт ограниченное право на физический мерч (до 100 000 единиц на актив). Использование для машинного обучения/ИИ — отдельно запрещено. Генеративный AI-функционал (Freepik AI / Pikaso и т.п.) регулируется отдельными AI Products Terms — вне охвата этой (сток) записи, см. будущие задачи по AI-сервисам."
+    - product: "Envato Elements License"
+      official_domain: "elements.envato.com"
+      terms_url: "https://help.elements.envato.com/hc/en-us/articles/360000629006-Envato-Elements-User-Terms"
+      license_url: "https://help.elements.envato.com/hc/en-us/articles/360000629206-Envato-Full-License-Wording"
+      ai_terms_url: null
+      content_policy_url: "https://help.elements.envato.com/hc/en-us/articles/360000621783-Correct-Usage-of-Items"
+      historical_revisions_url: null
+      checks_required:
+        attribution: unclear
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "[ИНСТРУМЕНТ НЕДОСТУПЕН] help.elements.envato.com не открылась автоматизированными инструментами в этой сессии: WebFetch дал SSL certificate verify failed на одном URL и ECONNREFUSED на другом (повторные попытки); серверный tavily_extract (legal-kb) вернул ошибку сертификата сервера. Поля здесь — из сниппетов WebSearch, НЕ подтверждены прямым открытием страницы — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] обязательна перед использованием в ответе юристу. По сниппету: единый набор условий лицензии на все типы контента (без деления Standard/Extended); лицензия выдаётся на один законченный проект (End Product), для нового проекта нужна новая лицензия на тот же item; становится бессрочной только после завершения End Product при действующей подписке — если подписка прекращена до завершения проекта, статус лицензии неочевиден и требует прямой проверки первоисточника. tariff_dependent помечен true из предосторожности, а не как подтверждённая находка: источник не открыт напрямую (см. выше), сниппеты не подтверждают и не исключают наличие тарифных различий — true здесь означает «считать зависимым, пока не проверено обратное»."
+  last_checked: "2026-09-16"
+
+- provider: "Adobe Firefly"
+  products:
+    - product: "Firefly Generate Image (собственная модель Adobe)"
+      official_domain: "firefly.adobe.com"
+      terms_url: "https://www.adobe.com/legal/licenses-terms/adobe-gen-ai-user-guidelines.html"
+      license_url: "https://www.adobe.com/go/adobe-gen-ai-addl-terms"
+      ai_terms_url: "https://www.adobe.com/go/adobe-gen-ai-addl-terms"
+      content_policy_url: "https://www.adobe.com/legal/licenses-terms/adobe-gen-ai-user-guidelines.html"
+      historical_revisions_url: null
+      checks_required:
+        attribution: not_identified
+        provenance_or_ai_disclosure: required
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "adobe.com/legal/licenses-terms/adobe-gen-ai-user-guidelines.html открыт и прочитан напрямую; adobe.com/go/adobe-gen-ai-addl-terms (Adobe Generative AI Product Specific Terms, PDF) тоже открыт и прочитан напрямую — упоминает Firefly по всему тексту. Content Credentials обязательны к выводу («Adobe may attach or publish Content Credentials... to let people know it was generated with or modified by AI») и пользователю прямо запрещено их удалять/отключать («You must not remove, alter, or disable any Content Credentials») — это и есть provenance-раскрытие, required. Запрещено использовать вывод (включая Firefly Outputs) для обучения сторонних ML/AI-моделей. Guidelines сами не определяют владение выводом — страница ссылается на «Section 4.2 of Adobe's General Terms of Use» (сам этот отдельный документ в этой сессии не открывался — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ]), но прямо говорит, что Adobe не претендует на права на контент пользователя. PDF Product-Specific Terms содержит пункт об ограничении совокупной ответственности Adobe по «Indemnified Firefly Outputs» суммой US$10 — этот пункт лимитирует ответственность, а не описывает объём индемнификации целиком; маркетинговые страницы Adobe (business.adobe.com, helpx — не открывались напрямую в этой сессии, помечены отдельно как navigation lead) заявляют о полноценной IP-индемнификации на платных Creative Cloud планах, но конкретные условия/суммы по PDF требуют сверки юристом — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ]. Атрибуция Adobe как источника — в открытых документах не упомянута ни как требование, ни как её отсутствие — not_identified. Тариф влияет на объём индемнификации и лимиты по кредитам — tariff_dependent true."
+    - product: "Firefly Generate Video (Adobe + сторонние partner-модели)"
+      official_domain: "firefly.adobe.com"
+      terms_url: "https://www.adobe.com/legal/licenses-terms/adobe-gen-ai-user-guidelines.html"
+      license_url: "https://www.adobe.com/go/adobe-gen-ai-addl-terms"
+      ai_terms_url: "https://www.adobe.com/go/adobe-gen-ai-addl-terms"
+      content_policy_url: "https://www.adobe.com/legal/licenses-terms/adobe-gen-ai-user-guidelines.html"
+      historical_revisions_url: null
+      checks_required:
+        attribution: not_identified
+        provenance_or_ai_disclosure: required
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: true
+      notes: "adobe.com/products/firefly/partner-models.html открыт и прочитан напрямую: подтверждает, что Generate Video работает не только на модели Adobe, а на выбираемых пользователем partner-моделях — на момент открытия страница называла Runway (Gen-4.5), Kling AI, Luma AI (3.0-ray) и Topaz Astra; Veo/Sora на этой конкретной открытой странице НЕ упомянуты. Отдельные вторичные источники (WebSearch-сниппеты по helpx.adobe.com/firefly/.../generate-videos-using-google-veo.html и .../generate-videos-using-non-adobe-models.html) утверждают, что в интерфейсе Generate Video дополнительно доступны Google Veo 2/3.1 и OpenAI Sora 2 — эти конкретные helpx-страницы вернули HTTP 403 при прямом открытии в этой сессии и НЕ подтверждены первоисточником напрямую — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] обязательна перед тем, как называть Veo/Sora юристу как факт. Независимо от состава списка, model_dependent = true подтверждён напрямую: страница прямо возлагает на пользователя ответственность решать, подходит ли конкретная partner-модель для коммерческого использования («It is the responsibility of the creator to decide whether partner models are appropriate for their projects... whether or not it is safe for commercial use») — т.е. условия коммерческого использования различаются по модели и требуют отдельной проверки на каждый конкретный кейс. Тот же документ подтверждает: «Adobe and our partners do not train on your personal or project data». Content Credentials (provenance) — общее правило Adobe Gen AI Guidelines (см. запись Generate Image) распространяется на контент, созданный или изменённый генеративными AI-функциями, formulировка не делает исключения для видео/partner-моделей, поэтому required; тем не менее фактическая реализация watermark/C2PA именно для partner-video-моделей отдельно не подтверждена и требует проверки при конкретном кейсе."
+  last_checked: "2026-09-16"
+
+- provider: "Midjourney"
+  products:
+    - product: "Midjourney (Discord/Web — генерация изображений и видео, единый Terms of Service)"
+      official_domain: "midjourney.com"
+      terms_url: "https://docs.midjourney.com/hc/en-us/articles/32083055291277-Terms-of-Service"
+      license_url: "https://docs.midjourney.com/hc/en-us/articles/27870375276557-Using-Images-Videos-Commercially"
+      ai_terms_url: null
+      content_policy_url: "https://docs.midjourney.com/hc/en-us/articles/32013696484109-Community-Guidelines"
+      historical_revisions_url: null
+      checks_required:
+        attribution: unclear
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "[ИНСТРУМЕНТ НЕДОСТУПЕН] docs.midjourney.com не открылась ни одним доступным инструментом в этой сессии при нескольких попытках и разных URL: WebFetch дал SSL certificate verify failed (Terms of Service) и connect ECONNREFUSED (Using Images & Videos Commercially); midjourney.com/legal/tos и midjourney.com/legal/tos (альтернативные пути) вернули HTTP 403; серверный mcp__legal-kb__tavily_extract вернул ошибку сертификата сервера (тот же паттерн отказа, что у legal-kb в записях Pexels/Envato из Task 1). Официальный GitHub-репозиторий midjourney/docs прямо помечен как deprecated («The Documentation has Moved» → docs.midjourney.com) — не использован как источник, чтобы не цитировать устаревшую копию. Поля ниже — из сниппетов WebSearch (вторичные юридические разборы terms.law и др., не сам первоисточник) — НЕ подтверждены прямым открытием страницы в этой сессии — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] обязательна перед использованием в ответе юристу. По сниппетам: платные подписчики (Basic/Standard/Pro/Mega) владеют созданными Assets («fullest extent possible under applicable law») и получают право коммерческого использования; пользователи бесплатного trial — по лицензии Creative Commons Noncommercial 4.0 Attribution (некоммерческая, с указанием авторства Midjourney); компании с валовой выручкой свыше $1 000 000/год обязаны иметь план Pro или Mega для коммерческого использования результатов; условия коммерческого использования видео (модель V1/Video) по сниппетам совпадают с условиями для изображений, отдельного видео-ToS не обнаружено. Отдельно (по вторичному юридическому разбору, не по первоисточнику): Community Guidelines требуют от пользователя не вводить получателей Asset в заблуждение относительно природы/происхождения контента, но сама Midjourney не добавляет к выдаче watermark или C2PA-метаданные — то есть обязанность раскрытия ложится на пользователя без технических средств для этого со стороны сервиса; отсюда provenance_or_ai_disclosure помечено not_identified, а не conditional/required — сама возможность/форма раскрытия не подтверждена первоисточником."
+  last_checked: "2026-09-16"
+
+- provider: "OpenAI"
+  products:
+    - product: "OpenAI Images (gpt-image / DALL·E)"
+      official_domain: "openai.com"
+      terms_url: "https://openai.com/policies/row-terms-of-use/"
+      license_url: "https://cdn.openai.com/osa/openai-services-agreement.pdf"
+      ai_terms_url: "https://openai.com/policies/usage-policies/"
+      content_policy_url: "https://openai.com/policies/usage-policies/"
+      historical_revisions_url: null
+      checks_required:
+        attribution: unclear
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "openai.com/policies/row-terms-of-use/ и openai.com/policies/usage-policies/ вернули HTTP 403 при WebFetch (и в неавторизованных, и в EU-варианте URL, и через help.openai.com) — сайт openai.com/help.openai.com блокирует автоматизированный доступ целиком в этой сессии, это подтверждено множественными попытками на разных путях (row-terms-of-use, service-terms, eu-terms-of-use, help-center статья про C2PA). Однако cdn.openai.com/osa/openai-services-agreement.pdf («OpenAI Services Agreement ONLINE v.010126») — ДРУГОЙ хост, успешно скачан и прочитан целиком (10 страниц) через Read. Это официальный договор для business/API-клиентов (Customer = организация с Order Form), не тождественен потребительскому ToU для ChatGPT/Sora-приложения (который остался неоткрытым — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] для потребительского слоя). Раздел 4.1 этого документа прямо читается: «Customer... owns all Output. OpenAI hereby assigns to Customer all OpenAI's right, title, and interest, if any, in and to Output» — вывод (включая изображения) принадлежит клиенту; п. 4.4 — вывод может быть неуникальным (другие пользователи могут получить похожий результат). Документ нигде не упоминает требование атрибуции OpenAI при использовании Output — на основании прямо прочитанного полного текста этот вывод (not_required) верен для business/API-слоя. [ПРАВКА ПО РЕВЬЮ] attribution понижена с not_required до unclear: вывод «not_required» опирается только на business/API Services Agreement, а не на потребительский ToU, который, вероятно, регулирует типичное (не business) использование этого продукта и остался неоткрытым (403) — распространять business-вывод на потребительский слой без проверки нельзя. Документ НЕ содержит ни слова про C2PA/watermark/раскрытие AI-происхождения — этот вопрос регулируется отдельно упомянутыми в этом же документе (но не открытыми) Usage Policies / Sharing and Publication Policy / Service-Specific Terms — provenance_or_ai_disclosure помечено not_identified, а не «not_required», именно потому что тема адресована в другом документе, а не потому что её нет. По WebSearch-сниппетам (вторичные источники, не первоисточник): OpenAI добавляет C2PA-метаданные к изображениям DALL·E/gpt-image через официальный API и веб — это навигационный лид, требует [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ]. tariff_dependent true: тот же документ (п. 4.2) — OpenAI не использует Customer Content для обучения моделей, «unless Customer explicitly agrees» (это про business/API-тир; по вторичным источникам free/Plus consumer-тир отличается использованием данных по умолчанию — не подтверждено первоисточником для consumer-слоя)."
+    - product: "OpenAI Sora (генерация видео)"
+      official_domain: "openai.com"
+      terms_url: "https://openai.com/policies/row-terms-of-use/"
+      license_url: "https://cdn.openai.com/osa/openai-services-agreement.pdf"
+      ai_terms_url: "https://openai.com/policies/usage-policies/"
+      content_policy_url: "https://openai.com/policies/usage-policies/"
+      historical_revisions_url: null
+      checks_required:
+        attribution: unclear
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "Тот же паттерн доступности, что у OpenAI Images выше: openai.com/* и help.openai.com/* вернули HTTP 403 во всех вариантах; openai.com/index/sora-2-system-card/ (System Card) тоже вернул 403. Прочитан только cdn.openai.com/osa/openai-services-agreement.pdf (business/API Services Agreement) — тот же документ, что для Images (не различает Output по типу медиа: «Output means output from the Services based on the Input», п. 4.1 распространяется на Output в целом, без выделения видео отдельно); поэтому владение выводом (Customer owns Output) и отсутствие требования атрибуции в этом документе распространены на Sora по аналогии с Images в пределах business/API-слоя. [ПРАВКА ПО РЕВЬЮ] attribution понижена с not_required до unclear: вывод построен по аналогии с Images на том же business/API-документе, а типичное (consumer, не API) использование Sora, вероятно, регулируется отдельным потребительским ToU, который не открывался в этой сессии — распространять business-вывод на неподтверждённый потребительский слой нельзя. [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] также для отдельного Sora-specific Content Policy, если он существует и отличается (не проверялся — заблокирован). Consumer-приложение Sora (не через API) может регулироваться отдельными потребительскими условиями, которые не открывались. По WebSearch-сниппетам (вторичные источники, НЕ первоисточник — навигационный лид, не факт): видимый watermark применяется к выводу Sora 2 для всех тарифов, кроме платного Pro-плана ($200/мес), где видимый watermark отсутствует; невидимые C2PA-метаданные встраиваются во все выводы независимо от тарифа; также упоминается opt-in подтверждение личности для использования похожести (likeness) реальных людей. Ничего из этого абзаца не подтверждено прямым открытием официального документа в этой сессии — provenance_or_ai_disclosure оставлено not_identified, а не conditional, несмотря на сниппеты. tariff_dependent true — вероятная зависимость watermark/лимитов от плана (Plus/Pro/Business/API), не только по цене, но и по видимости водяного знака (по сниппетам)."
+  last_checked: "2026-09-16"
+
+- provider: "Google"
+  products:
+    - product: "Google Imagen (генерация изображений, Gemini API / Vertex AI)"
+      official_domain: "ai.google.dev"
+      terms_url: "https://ai.google.dev/gemini-api/terms"
+      license_url: "https://ai.google.dev/gemini-api/terms"
+      ai_terms_url: "https://ai.google.dev/gemini-api/terms"
+      content_policy_url: "https://policies.google.com/terms/generative-ai/use-policy"
+      historical_revisions_url: "https://ai.google.dev/gemini-api/terms-archive/terms_12_20_24"
+      checks_required:
+        attribution: conditional
+        provenance_or_ai_disclosure: conditional
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "ai.google.dev/gemini-api/terms открыт и прочитан напрямую (Gemini API Additional Terms of Service, действует с 23 марта 2026 — дата подтверждена на самой странице); policies.google.com/terms/generative-ai/use-policy (Generative AI Prohibited Use Policy) тоже открыт и прочитан напрямую (Last Modified: 17 декабря 2024); историческая версия ai.google.dev/gemini-api/terms-archive/terms_12_20_24 открыта и подтверждена как архивная (от 20 декабря 2024, страница сама помечена «archived version»). Google прямо отказывается от прав на сгенерированный контент («Google won't claim ownership over that content»), но оставляет за собой право генерировать такой же/похожий контент для других пользователей. Бесплатный/unpaid доступ через Gemini API описан в документе как предназначенный для разработки и тестирования, а не production; платный доступ — «for developers building with Google AI models for professional or business purposes» — коммерческое использование разрешено на платном тарифе, отсюда tariff_dependent true. Атрибуция: сам документ прямо говорит «may require the provision of attribution» в зависимости от юрисдикции применимого права — это прямая цитата открытой страницы, отсюда attribution = conditional (не guess). Provenance/раскрытие: отдельно открытая Generative AI Prohibited Use Policy прямо запрещает «misrepresenting generated content by claiming it was created solely by a human» — то есть раскрытие AI-происхождения обязательно именно в ситуации, когда контент выдаётся за созданный человеком — это тоже прямая цитата открытого документа, отсюда provenance_or_ai_disclosure = conditional. Про водяной знак SynthID для изображений Imagen — по WebSearch-сниппетам (вторичные источники, не первоисточник) Google встраивает невидимый SynthID-watermark; это НЕ упомянуто ни в одном из двух напрямую открытых документов выше — навигационный лид, [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ]. Условия из этой записи — по слою Gemini Developer API (ai.google.dev); у корпоративного Vertex AI (cloud.google.com) есть отдельный слой terms с расширенной indemnification для перечня «indemnified services» — попытка открыть cloud.google.com/terms/generative-ai-indemnified-services в этой сессии дважды вернула усечённый/неполный ответ инструмента (не 403 и не SSL-ошибка, а обрезание по длине) — содержимое НЕ подтверждено прямым открытием, эта ссылка НЕ включена как проверенное поле схемы, только упомянута здесь для навигации — [ИНСТРУМЕНТ НЕДОСТУПЕН] для этой конкретной страницы, [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] обязательна перед тем, как опираться на неё в ответе юристу."
+    - product: "Google Veo (генерация видео, Gemini API / Vertex AI)"
+      official_domain: "ai.google.dev"
+      terms_url: "https://ai.google.dev/gemini-api/terms"
+      license_url: "https://ai.google.dev/gemini-api/terms"
+      ai_terms_url: "https://ai.google.dev/gemini-api/terms"
+      content_policy_url: "https://policies.google.com/terms/generative-ai/use-policy"
+      historical_revisions_url: "https://ai.google.dev/gemini-api/terms-archive/terms_12_20_24"
+      checks_required:
+        attribution: conditional
+        provenance_or_ai_disclosure: conditional
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "Тот же напрямую открытый документ, что и для Imagen (ai.google.dev/gemini-api/terms). [ПРАВКА ПО РЕВЬЮ] Повторный прицельный WebFetch-запрос по этой странице в этой сессии (запрос: есть ли в разделе об использовании сгенерированного контента / Outputs отдельное упоминание Imagen vs Veo с разными правилами) показал, что раздел об использовании сгенерированного контента формулирует правила универсально — «Some of our Services allow you to generate original content. Google won't claim ownership over that content» — без выделения конкретных моделей; названия «Imagen» и «Veo» на странице встречаются только в навигационном меню/списке доступных моделей, а не в тексте самих условий об Output. Раздел документа не называет Veo отдельно и не устанавливает для видео иной режим, чем для изображений — на этом основании (а не на конкретной сравнительной цитате, которую нельзя указать дословно) владение выводом, условие про атрибуцию «может требоваться по применимому праву» (conditional) и правило о запрете выдавать AI-контент за созданный человеком (Generative AI Prohibited Use Policy, тоже открыта напрямую — conditional) распространены на Veo по аналогии с Imagen, без отдельной видео-специфичной оговорки в первоисточнике. Про водяной знак SynthID для видео Veo — по WebSearch-сниппетам (вторичные источники, НЕ первоисточник) все выводы Veo содержат невидимый SynthID-watermark, детектируемый специализированными инструментами; это не подтверждено ни в одном из напрямую открытых в этой сессии документов — навигационный лид, [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ]. Как и для Imagen: отдельный корпоративный слой Vertex AI (cloud.google.com/terms/generative-ai-indemnified-services, где по вторичным источникам Veo упомянут в списке «indemnified services» с расширенной IP-индемнификацией для enterprise) не подтверждён прямым открытием в этой сессии (инструмент дважды вернул обрезанный ответ) — [ИНСТРУМЕНТ НЕДОСТУПЕН]/[СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] для этого конкретного enterprise-слоя, не для Gemini API слоя, описанного выше."
+  last_checked: "2026-09-16"
+
+- provider: "Runway"
+  products:
+    - product: "Runway (веб-платформа Gen-4/Act-Two/Frames — генерация видео и изображений, единый Terms of Use)"
+      official_domain: "runway.com"
+      terms_url: "https://runway.com/terms-of-use"
+      license_url: "https://runway.com/terms-of-use"
+      ai_terms_url: null
+      content_policy_url: "https://runway.com/safety/usage-policy"
+      historical_revisions_url: null
+      checks_required:
+        attribution: not_identified
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "runway.com/terms-of-use и runway.com/safety/usage-policy открыты и прочитаны напрямую (WebFetch). Раздел 4.4 ToU прямо читается: «The Company does not claim ownership of any of your Inputs or Outputs» и «the Company does not restrict your commercial use of your Outputs» — эти положения про ownership/commercial use, а не про атрибуцию; отдельного требования атрибуции Runway при использовании вывода, ни его прямого отсутствия, в прочитанном тексте не обнаружено (not_identified — документ молчит по этому вопросу, не догадка); отдельное исключение — если пользователь встраивает Runway API в своё СОБСТВЕННОЕ приложение для конечных пользователей, раздел 1 требует прямо разместить «Powered by Runway» со ссылкой на runway.com — это отдельный кейс (реселлинг API), не обычная генерация контента, отмечено отдельно, не смешано с основным полем. Provenance/AI-disclosure: оба напрямую открытых документа (ToU и Usage Policy) молчат о требовании маркировать вывод как AI-сгенерированный, добавлять водяной знак или C2PA-метаданные — но это именно МОЛЧАНИЕ в двух документах, а не прямое «раскрытие не требуется»; отдельная детальная страница help.runwayml.com/hc/en-us/articles/18927776141715-Usage-rights (профильная страница Help Center именно про usage rights, наиболее вероятный кандидат содержать такое требование, если оно есть) НЕ открылась в этой сессии (см. ниже) — поэтому поле оставлено not_identified, а не понижено до not_required: нельзя исключить, что неоткрытый источник адресует этот вопрос. Коммерческое использование плано-зависимо: Free — только личное некоммерческое использование; платные планы (Standard от $15/мес и выше) — коммерческое использование разрешено без ограничений (tariff_dependent true, цитата из ToU раздел 4.4). Важный смежный риск для юриста (не входит в схему checks_required, но существен): по умолчанию (Free/Standard/Pro/Unlimited) Runway использует Inputs и Outputs пользователя для обучения и улучшения своих моделей по неисключительной, безотзывной, бессрочной, мировой, безвозмездной лицензии (та же ст. 4.4); только Enterprise-тариф по вторичным источникам (WebSearch, не подтверждено первоисточником в этой сессии) исключён из обучения — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] для Enterprise-условий. help.runwayml.com/hc/en-us/articles/18927776141715-Usage-rights НЕ открылась в этой сессии: два раздельных WebFetch-запроса дали connect ECONNREFUSED — не использована как источник поля, только упомянута для навигации, [ИНСТРУМЕНТ НЕДОСТУПЕН]/[СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ]."
+  last_checked: "2026-09-16"
+
+- provider: "Recraft"
+  products:
+    - product: "Recraft (генерация изображений, единый Terms of Service)"
+      official_domain: "recraft.ai"
+      terms_url: "https://recraft.ai/terms"
+      license_url: "https://recraft.ai/terms"
+      ai_terms_url: null
+      content_policy_url: "https://recraft.ai/terms"
+      historical_revisions_url: null
+      checks_required:
+        attribution: not_identified
+        provenance_or_ai_disclosure: conditional
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "recraft.ai/terms открыт и прочитан напрямую (WebFetch); альтернативная страница www.recraft.ai/docs/trust-and-security/ownership дала SSL certificate verify failed при прямом открытии — её содержимое НЕ использовано как отдельный источник поля, только WebSearch-сниппет по ней для перекрёстной сверки направления вывода (совпадает с прочитанным terms). По прямо прочитанному Terms of Service: на Free Tier ассеты принадлежат Recraft («Free Tier Assets are owned by Recraft»), коммерческое использование запрещено, пользователю — только ограниченная личная лицензия; на платной подписке пользователь владеет создаваемыми ассетами («You own all Assets you create with the Services and Recraft hereby assigns to you all copyright»), право сохраняется и после отмены подписки. Требования атрибуции Recraft при использовании вывода в прочитанном документе не обнаружено — not_identified (текст прямо разбирает ownership/commercial use/restrictions и об атрибуции не упоминает ни как требование, ни как её отсутствие). Provenance/AI-disclosure — conditional: документ прямо говорит, что Recraft «embed[s] machine-readable metadata, watermarks, or other provenance information into Assets generated» и запрещает пользователю их удалять/менять («you will not remove, obscure, disable, or alter any machine-readable metadata, watermarks»), а также прямо возлагает на пользователя обязанность соблюдать законы о раскрытии AI-происхождения контента «в своей юрисдикции» — то есть встроенная провенанс-метка присутствует всегда, а полноценная обязанность именно РАСКРЫТИЯ пользователем зависит от применимого права (отсюда conditional, а не required/not_required). Ограничения: запрет использовать любые сгенерированные ассеты (включая Free Tier) для обучения сторонних AI-моделей/систем; запрет непристойного/NSFW и не consensual intimate imagery контента (deepfake); отдельная Take It Down Policy на recraft.ai/legal/take-it-down (упомянута в WebSearch, не открывалась напрямую в этой сессии — не включена как проверенное поле). Community/community-facing content policy отдельным документом не обнаружена — content_policy_url указывает на тот же terms, так как ограничения по контенту прописаны там же."
+  last_checked: "2026-09-16"
+
+- provider: "Kling AI"
+  products:
+    - product: "Kling AI (kling.ai — международный домен; генерация видео и изображений)"
+      official_domain: "kling.ai"
+      terms_url: "https://kling.ai/docs/user-policy"
+      license_url: "https://kling.ai/docs/payment-policy"
+      ai_terms_url: null
+      content_policy_url: "https://kling.ai/docs/community-policy"
+      historical_revisions_url: null
+      checks_required:
+        attribution: conditional
+        provenance_or_ai_disclosure: conditional
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: false
+      notes: "Все три URL открыты и прочитаны напрямую (WebFetch): kling.ai/docs/user-policy (User Policy), kling.ai/docs/payment-policy (Terms of Paid Service — редирект с klingai.com/global/docs/payment-policy на kling.ai подтверждён HTTP 301, т.е. kling.ai — актуальный канонический международный домен, klingai.com/global больше не самостоятельный), kling.ai/docs/community-policy (Community Guidelines, датированы «effective September 8, 2026» прямо на странице). Право собственности: User Policy прямо читается «You own all intellectual property rights and other proprietary interests in and to the Content under applicable law» — но одновременно Kling получает широкую неисключительную лицензию на весь контент (Input и Output) для «promotion, product/function upgrades, and to research on new products/functions» — это лицензия на использование, а не передача прав, но существенна для риска юриста. Коммерческое использование прямо plan-зависимо (tariff_dependent true): Terms of Paid Service прямо читается «KLING AI members' use of the Output for commercial purposes is not restricted... for any commercial purpose (except... competitive products or services of KLING AI)» — доступно на всех платных tier (Standard/Pro/Premier/Ultra/Team/Enterprise); для non-member (бесплатный доступ) User Policy прямо запрещает коммерческое использование вывода без письменного разрешения Kling. Атрибуция/labeling — conditional, не безусловно required: Terms of Paid Service прямо оговаривает эту обязанность именно для non-member («If you are a user who is a non-member, unless you obtain our written permission to do otherwise, you shall label all content generated on the Website/APP with the brand and logo involved»); User Policy формулирует обязанность маркировки контента брендом/логотипом Kling AI шире, без открытого явного исключения для платных участников в самом User Policy — из прямого сопоставления двух документов есть основание полагать, что для платных участников обязанность иная/снята, но однозначного освобождающего предложения в самом User Policy не найдено — поэтому conditional (зависит от статуса членства/тарифа), а не required или not_required. Та же маркировка (бренд/логотип Kling AI на выводе) функционально служит и раскрытием AI-происхождения — поэтому provenance_or_ai_disclosure тоже conditional по той же логике membership-зависимости, отдельного самостоятельного watermark/C2PA-обязательства в прочитанных документах не найдено. Community Guidelines — восемь категорий запрещённого контента (от political security до CSAM), стандартный набор ограничений, напрямую не касается схемы checks_required."
+  last_checked: "2026-09-16"
+
+- provider: "Canva"
+  products:
+    - product: "Canva Magic Media / Magic Studio (AI-генерация изображений внутри дизайна — платформа-агрегатор)"
+      official_domain: "canva.com"
+      terms_url: "https://www.canva.com/policies/content-license-agreement/"
+      license_url: "https://www.canva.com/policies/content-license-agreement/"
+      ai_terms_url: "https://www.canva.com/policies/ai-product-terms/"
+      content_policy_url: "https://www.canva.com/policies/ai-product-terms/"
+      historical_revisions_url: "https://www.canva.com/policies/content-license-agreement-2026-04-15/"
+      checks_required:
+        attribution: unclear
+        provenance_or_ai_disclosure: not_identified
+        tariff_dependent: true
+        date_dependent: true
+        model_dependent: true
+      notes: "[ИНСТРУМЕНТ НЕДОСТУПЕН] Ни одна страница на домене canva.com (Content License Agreement — актуальная и архивная версия от 2026-04-15, AI Product Terms — актуальная и архивная версия от 2025-11-28, Terms of Use, help.canva.com) не открылась ни WebFetch, ни серверным mcp__legal-kb__tavily_extract в этой сессии за 7 отдельных попыток на разных URL/хостах: устойчивый паттерн connect ECONNREFUSED / SSL CERTIFICATE_VERIFY_FAILED / ENOTFOUND — тот же класс отказа, что у canva.com для всего домена целиком, не у отдельной страницы. Все URL в этой записи взяты из результатов WebSearch (реальные ссылки, найденные поиском, НЕ придуманы), но НЕ подтверждены прямым открытием документа — [СВЕРИТЬ С ПЕРВОИСТОЧНИКОМ] обязательна перед использованием в ответе юристу, каждое поле ниже — навигационный лид, не факт. (а) Условия самой Canva (Content License Agreement), по WebSearch-сниппетам: лицензия на Content (включая AI-Generated Content) выдаётся при экспорте дизайна («Export»); AI-Generated Content помечается как Free Content либо Pro Content и используется по тем же правилам, что и обычный Free/Pro-контент; для Pro-контента при каждом новом дизайне, где переиспользуется тот же элемент, требуется новая лицензия (для подписчиков выдаётся автоматически); лицензия покрывает «business purposes», включая работу для клиентов. (б) Раскрытие сторонних моделей-агрегатора (ТЗ §10, обязательный вопрос этой задачи): по WebSearch-сниппетам AI Product Terms используют термин «Technology Partners» и прямо называют минимум одного стороннего партнёра — OpenAI, LLC («users direct and consent to personal data included in an Input being transferred to third parties, including OpenAI, LLC») — это подтверждает, что Canva публично раскрывает САМ ФАКТ использования сторонних моделей и называет минимум одно имя. Однако ни один из найденных сниппетов не содержит прямого указания, какая именно модель(и) генерирует конкретно Magic Media/Magic Studio ИЗОБРАЖЕНИЯ (в отличие от, например, текстовых AI-функций типа Magic Write, где упоминание OpenAI типично для текстовых LLM-функций) — то есть привязка «конкретная функция → конкретная модель» публично не подтверждена в доступных источниках. Это зафиксировано как факт, а не домыслено: агент, использующий этот реестр позже, НЕ может считать, что к Magic Media применяются условия конкретно OpenAI (или любой другой конкретной модели) без отдельной проверки первоисточника — отсюда model_dependent true с этим пояснением, а не предположение о конкретной модели. По тем же сниппетам: пользователей обязывают явно указывать зрителям дизайна, что контент сгенерирован AI, и запрещено удалять C2PA-провенанс-метаданные — это выглядит как provenance_or_ai_disclosure = required/conditional по содержанию, но поле намеренно оставлено not_identified (не conditional/required), потому что ни один первоисточник не открыт и WebSearch-сводка сама может смешивать формулировки разных страниц — именно тот паттерн доверия к неподтверждённому выводу, который проект требует не допускать. [ПРАВКА ПО РЕВЬЮ] attribution скорректирован на unclear (было ошибочно not_identified): источник не открыт напрямую ни разу (см. выше, только WebSearch-сниппеты) — это ровно критерий unclear («источник не открыт/не подтверждён прямым прочтением»), а не not_identified («открытый и прочитанный первоисточник молчит по вопросу»); недостаточная специфичность сигнала в сниппетах не превращает неоткрытый источник в прочитанный. tariff_dependent true (структура Free/Pro Content licensing) и date_dependent true (обнаружены версионные архивные URL с датами) — эти два поля не про содержание конкретного правового вопроса, а про наблюдаемую структуру версионирования документов, отмечены как единственные два поля этой записи, не требующие прямого прочтения текста для обоснования."
+  last_checked: "2026-09-16"

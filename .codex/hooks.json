@@ -1,0 +1,47 @@
+{
+  "description": "Сводка очереди при старте Codex, страховка проектов анонимайзера и запись usage привязанного turn в карточку задачи.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/watch/session_start.py\"",
+            "commandWindows": "python tools/watch/session_start.py",
+            "timeout": 10,
+            "statusMessage": "Проверяю очередь входящих",
+            "additionalContextLimit": 800
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/case_audit/codex_stop.py\" --session-id ${session_id} --turn-id ${turn_id}",
+            "commandWindows": "python tools/case_audit/codex_stop.py --session-id ${session_id} --turn-id ${turn_id}",
+            "timeout": 15,
+            "statusMessage": "Записываю расход по задаче"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/pre_anonymize/project_guard.py\" --runner codex",
+            "commandWindows": "python tools/pre_anonymize/project_guard.py --runner codex",
+            "timeout": 10,
+            "statusMessage": "Проверяю доступ к проекту анонимайзера"
+          }
+        ]
+      }
+    ]
+  }
+}

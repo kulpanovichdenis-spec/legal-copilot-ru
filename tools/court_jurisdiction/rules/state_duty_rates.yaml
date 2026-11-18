@@ -1,0 +1,213 @@
+# Версионированные ставки государственной пошлины.
+# Каждое versioned-правило — отдельный rule_id с effective_from/effective_to и source.
+# Изменение ставки НЕ переписывает старое правило — добавляется новая запись
+# с новым effective_from, старая получает effective_to (ТЗ §95).
+#
+# confidence:
+#   verified_fulltext — сверено дословно по официальному тексту НК РФ,
+#                        полученному с pravo.gov.ru (nd=102067058) через
+#                        протокол references/pravo-gov-ru-search-protocol.md,
+#                        2026-09-16. Можно выдавать как PAYABLE.
+#   search_synthesis   — получено через агрегированный ответ поисковика,
+#                        НЕ сверено дословно. Выдаётся как оценка с
+#                        MANUAL_REVIEW_REQUIRED, не PAYABLE.
+#
+# 2026-09-16 — правки после прямой сверки с pravo.gov.ru: часть значений,
+# ранее закодированных как search_synthesis (WebSearch по Гарант/Консультант),
+# оказалась НЕТОЧНОЙ при сверке с официальным текстом (например, оспаривание
+# ненормативного акта — было 300/2000, реально 3000/15000 руб.; "трудовая
+# льгота" в ст. 333.37 НК РФ для арбитража вообще не существует — выдумана
+# по аналогии с ГПК). Это подтверждает правило: search_synthesis никогда не
+# выдаётся как PAYABLE/EXEMPT без дословной проверки — см. [[npa-lookup-official-tools-not-web]].
+
+schema_version: 2
+
+source_doc:
+  act: "Налоговый кодекс РФ (часть вторая), гл. 25.3"
+  retrieved_from: "http://pravo.gov.ru/proxy/ips/?doc_itself=&nd=102067058&fulltext=1"
+  nd: "102067058"
+  retrieved_at: "2026-09-16"
+
+property_assessable:
+  GPK:
+    - rule_id: NK_333_19_PROPERTY_2025
+      effective_from: "2025-03-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.19 п. 1 пп. 1 (в ред. Федерального закона от 08.08.2024 № 259-ФЗ)"
+      last_verified: "2026-09-16"
+      brackets:
+        - {upper: 100000,     base: 4000,   percent: 0,    excess_over: 0}
+        - {upper: 300000,     base: 4000,   percent: 3,    excess_over: 100000}
+        - {upper: 500000,     base: 10000,  percent: 2.5,  excess_over: 300000}
+        - {upper: 1000000,    base: 15000,  percent: 2,    excess_over: 500000}
+        - {upper: 3000000,    base: 25000,  percent: 1,    excess_over: 1000000}
+        - {upper: 8000000,    base: 45000,  percent: 0.7,  excess_over: 3000000}
+        - {upper: 24000000,   base: 80000,  percent: 0.35, excess_over: 8000000}
+        - {upper: 50000000,   base: 136000, percent: 0.3,  excess_over: 24000000}
+        - {upper: 100000000,  base: 214000, percent: 0.2,  excess_over: 50000000}
+        - {upper: null,       base: 314000, percent: 0.15, excess_over: 100000000, max_total: 900000}
+  APK:
+    - rule_id: NK_333_21_PROPERTY_2024
+      effective_from: "2024-09-08"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.21 п. 1 пп. 1 (в ред. Федерального закона от 08.08.2024 № 259-ФЗ)"
+      last_verified: "2026-09-16"
+      brackets:
+        - {upper: 100000,    base: 10000,  percent: 0,   excess_over: 0}
+        - {upper: 1000000,   base: 10000,  percent: 5,   excess_over: 100000}
+        - {upper: 10000000,  base: 55000,  percent: 3,   excess_over: 1000000}
+        - {upper: 50000000,  base: 325000, percent: 1,   excess_over: 10000000}
+        - {upper: null,      base: 725000, percent: 0.5, excess_over: 50000000, max_total: 10000000}
+
+# Скидка для потребительских исков — ст. 333.19 п. 2 НК РФ: 50% ставки по п.1,
+# но не менее суммы льготы по ст. 333.36 (льгота — см. exemptions.yaml).
+consumer_discount:
+  GPK:
+    - rule_id: NK_333_19_CONSUMER_DISCOUNT_2025
+      effective_from: "2025-03-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.19 п. 2"
+      last_verified: "2026-09-16"
+      percent_of_base: 50
+
+# Фиксированные ставки по конкретным подпунктам ст. 333.19 / 333.21 НК РФ —
+# ВСЕ сверены дословно 2026-09-16 (pravo.gov.ru, nd=102067058). Каждая
+# категория указывает конкретный подпункт как basis — это не тот же смысл,
+# что claim_type="non_property" в общем виде, это отдельный подпункт статьи.
+fixed_rates:
+  GPK:
+    - rule_id: NK_333_19_FIXED_2024
+      effective_from: "2024-09-08"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.19 п. 1 (в ред. Федерального закона от 08.08.2024 № 259-ФЗ)"
+      last_verified: "2026-09-16"
+      categories:
+        non_property:
+          individual: 3000
+          organization: 20000
+          basis: "пп. 3 п. 1 ст. 333.19 — иск имущественного характера, не подлежащий оценке, либо иск неимущественного характера"
+        act_challenge_normative:
+          individual: 4000
+          organization: 20000
+          basis: "пп. 6 п. 1 ст. 333.19 — оспаривание нормативных правовых актов госорганов/ЦБ/внебюджетных фондов/ОМСУ и т. п."
+        act_challenge_nonnormative:
+          individual: 3000
+          organization: 15000
+          basis: "пп. 7 п. 1 ст. 333.19 — признание ненормативного акта недействительным / решений и действий (бездействия) органов незаконными"
+        divorce:
+          flat: 5000
+          basis: "пп. 5 п. 1 ст. 333.19 — расторжение брака"
+        special_proceedings:
+          flat: 3000
+          basis: "пп. 8 п. 1 ст. 333.19 — дела особого производства"
+        legal_succession:
+          individual: 2000
+          organization: 15000
+          basis: "пп. 9 п. 1 ст. 333.19 — правопреемство (кроме универсального)"
+        appeal:
+          individual: 3000
+          organization: 15000
+          basis: "пп. 19 п. 1 ст. 333.19 — апелляционная/частная жалоба, кассационная жалоба на судебный приказ"
+        cassation:
+          individual: 5000
+          organization: 20000
+          basis: "пп. 20 п. 1 ст. 333.19 — кассационная жалоба"
+        cassation_supreme:
+          individual: 7000
+          organization: 25000
+          basis: "пп. 21 п. 1 ст. 333.19 — кассационная/надзорная жалоба в ВС РФ"
+        reasonable_time_compensation:
+          individual: 300
+          organization: 6000
+          basis: "пп. 17 п. 1 ст. 333.19 — компенсация за нарушение права на судопроизводство/исполнение в разумный срок"
+  APK:
+    - rule_id: NK_333_21_FIXED_2024
+      effective_from: "2024-09-08"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.21 п. 1 (в ред. Федерального закона от 08.08.2024 № 259-ФЗ)"
+      last_verified: "2026-09-16"
+      categories:
+        non_property:
+          individual: 15000
+          organization: 50000
+          basis: "пп. 2/4 п. 1 ст. 333.21 — спор о заключении/изменении/расторжении договора без реституции, оспаривание сделки без применения последствий недействительности, иск неимущественного характера"
+        act_challenge_normative:
+          individual: 10000
+          organization: 60000
+          basis: "пп. 5/6 п. 1 ст. 333.21 — оспаривание НПА/актов федеральных органов в сфере патентных прав, ноу-хау, средств индивидуализации"
+        act_challenge_nonnormative:
+          individual: 10000
+          organization: 50000
+          basis: "пп. 7 п. 1 ст. 333.21 — признание ненормативного акта недействительным / решений и действий (бездействия) органов незаконными"
+        bankruptcy_petition:
+          individual: 10000
+          organization: 100000
+          debtor_self_filing: 0
+          basis: "пп. 8 п. 1 ст. 333.21 — заявление о признании должника банкротом (0 руб., если заявитель — сам должник)"
+        establish_fact:
+          flat: 30000
+          basis: "пп. 10 п. 1 ст. 333.21 — установление фактов, имеющих юридическое значение"
+        legal_succession:
+          individual: 5000
+          organization: 25000
+          basis: "пп. 12 п. 1 ст. 333.21 — правопреемство (кроме универсального)"
+        appeal:
+          individual: 10000
+          organization: 30000
+          basis: "пп. 19 п. 1 ст. 333.21 — апелляционная жалоба, кассационная жалоба на судебный приказ"
+        cassation:
+          individual: 20000
+          organization: 50000
+          basis: "пп. 20 п. 1 ст. 333.21 — кассационная жалоба"
+        cassation_supreme:
+          individual: 30000
+          organization: 80000
+          basis: "пп. 21 п. 1 ст. 333.21 — кассационная/надзорная жалоба в ВС РФ"
+        reasonable_time_compensation:
+          individual: 300
+          organization: 6000
+          basis: "пп. 18 п. 1 ст. 333.21 — компенсация за нарушение права на судопроизводство/исполнение в разумный срок"
+
+# Судебный приказ — не фиксированная сумма, а доля от пошлины по имущественному
+# иску (считается через property_assessable того же regime, затем применяется
+# процент/floor здесь).
+writ_of_payment:
+  GPK:
+    - rule_id: NK_333_19_WRIT_2024
+      effective_from: "2024-09-08"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.19 п. 1 пп. 2 — 50% пошлины по имущественному иску"
+      last_verified: "2026-09-16"
+      percent_of_property: 50
+      floor: null
+  APK:
+    - rule_id: NK_333_21_WRIT_2024
+      effective_from: "2024-09-08"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.21 п. 1 пп. 3 — 50% пошлины по имущественному иску, но не менее 8000 руб."
+      last_verified: "2026-09-16"
+      percent_of_property: 50
+      floor: 8000
+
+# Обособленные банкротные споры (АПК) — 50% суммы пп.8 п.1 ст.333.21,
+# "исходя из существа заявленных требований" (закон не даёт формулу свёртки
+# существа требования в конкретную сумму — калькулятор возвращает базу для
+# расчёта 50%, само существо требования оценивает юрист/агент).
+bankruptcy_incidental_dispute:
+  APK:
+    - rule_id: NK_333_21_BANKRUPTCY_INCIDENTAL_2024
+      effective_from: "2024-09-08"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.21 п. 1 пп. 9 — 50% пошлины по пп. 8 п. 1, исходя из существа заявленных требований"
+      last_verified: "2026-09-16"
+      percent_of: bankruptcy_petition
+      percent: 50
+      note: "'исходя из существа заявленных требований' — сумма базы (10000/100000) может отличаться от заявления о банкротстве в зависимости от квалификации обособленного спора; определяет юрист, калькулятор не домысливает."

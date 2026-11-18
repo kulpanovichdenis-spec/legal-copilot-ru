@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Каталог товарных знаков</title>
+<style>
+:root{--bg:#fafaf9;--panel:#ffffff;--text:#1c1917;--muted:#78716c;--line:#e7e5e4;--accent:#1d4ed8;--on-accent:#ffffff;--ok:#15803d;--warn:#b45309;--bad:#b91c1c;--chip:#f5f5f4}
+@media (prefers-color-scheme: dark){:root{--bg:#1c1917;--panel:#292524;--text:#f5f5f4;--muted:#a8a29e;--line:#44403c;--accent:#93c5fd;--on-accent:#1c1917;--ok:#86efac;--warn:#fcd34d;--bad:#fca5a5;--chip:#3f3a36}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:16px 20px;border-bottom:1px solid var(--line);background:var(--panel)}
+h1{font-size:20px;margin:0 0 4px}
+.meta{color:var(--muted);font-size:13px}
+.disclaimer{margin-top:6px;font-size:13px;color:var(--warn)}
+nav{display:flex;gap:4px;padding:8px 20px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+nav button,#f-reset{border:1px solid var(--line);background:var(--bg);color:var(--text);padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit}
+nav button[aria-selected=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;padding:12px 20px;align-items:flex-end}
+.filters label{display:flex;flex-direction:column;font-size:12px;color:var(--muted);gap:2px}
+input,select{font:inherit;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text)}
+select[multiple]{height:84px;min-width:180px}
+main{padding:0 20px 24px}
+.count{color:var(--muted);margin:4px 0 8px}
+.wrap{overflow:auto;max-height:75vh;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;background:var(--panel)}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:var(--panel);cursor:pointer;white-space:nowrap;font-size:12px;color:var(--muted);z-index:1}
+th[data-dir=asc]::after{content:" ▲"}
+th[data-dir=desc]::after{content:" ▼"}
+tr.mark-row{cursor:pointer}
+tr.mark-row:hover{background:var(--chip)}
+.mark img{max-width:120px;max-height:60px;display:block;background:#fff;border-radius:2px}
+.note{color:var(--muted);font-size:12px}
+.chip{display:inline-block;padding:1px 6px;margin:1px;border-radius:10px;background:var(--chip);font-size:12px}
+.st-protected,.st-active{color:var(--ok)}
+.st-pending{color:var(--warn)}
+.st-refused,.st-withdrawn,.st-lapsed,.st-inactive,.st-fee_unpaid,.st-not_registered{color:var(--bad)}
+.st-unknown,.st-other{color:var(--muted)}
+.details td{background:var(--bg);font-size:13px;white-space:pre-wrap}
+.matrix td,.matrix th{text-align:center}
+.matrix td:first-child,.matrix th:first-child{text-align:left;position:sticky;left:0;background:var(--panel);z-index:2}
+.badge{display:inline-block;padding:1px 6px;margin:2px 0;border-radius:10px;border:1px solid var(--ok);color:var(--ok);font-size:11px}
+.overdue{color:var(--bad);font-weight:600}
+.pending{margin-top:6px;font-size:13px;color:var(--warn);font-weight:600}
+.docbadge{display:block;font-size:11px;color:var(--muted)}
+.details a{color:var(--accent)}
+.hidden{display:none}
+@media (max-width:640px){header,nav,.filters,main{padding-left:12px;padding-right:12px}}
+@media print{nav,.filters{display:none}.wrap{max-height:none;overflow:visible;border:0}th{position:static}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Каталог товарных знаков</h1>
+  <div class="meta" id="meta"></div>
+  <div class="disclaimer">Данные внутреннего реестра на дату выгрузки. Статус в ФИПС и WIPO не сверялся.</div>
+  <div class="pending hidden" id="pending"></div>
+</header>
+<nav role="tablist">
+  <button type="button" role="tab" data-tab="marks" aria-selected="true">Знаки</button>
+  <button type="button" role="tab" data-tab="matrix" aria-selected="false">Препарат × страна</button>
+  <button type="button" role="tab" data-tab="renewals" aria-selected="false">Продления</button>
+</nav>
+<section class="filters">
+  <label>Номер заявки / регистрации<input id="f-number" type="search" placeholder="например, 678302"></label>
+  <label>Знак<input id="f-text" type="search" placeholder="название знака"></label>
+  <label>Препарат<select id="f-product"><option value="">все</option></select></label>
+  <label>Страна (Ctrl — несколько)<select id="f-country" multiple></select></label>
+  <label>Статус<select id="f-status"><option value="">все</option></select></label>
+  <label>Класс МКТУ<select id="f-class"><option value="">все</option></select></label>
+  <label>Вид регистрации<select id="f-type"><option value="">все</option><option value="national">национальная</option><option value="madrid">международная (Мадрид)</option></select></label>
+  <label>Строки<select id="f-view"><option value="mark">одна на знак</option><option value="territory">знак × страна</option></select></label>
+  <button id="f-reset" type="button">Сбросить</button>
+</section>
+<main>
+  <div id="tab-marks">
+    <div class="count" id="count"></div>
+    <div class="wrap"><table id="marks"><thead></thead><tbody></tbody></table></div>
+  </div>
+  <div id="tab-matrix" class="hidden">
+    <div class="count">По знакам, отобранным фильтрами. ● охраняется · ◐ в процессе · ? не ясно · ✕ отказ, отозвано, не продлено, не зарегистрирован. Наведите на ячейку — список знаков.</div>
+    <div class="wrap"><table class="matrix" id="matrix"></table></div>
+  </div>
+  <div id="tab-renewals" class="hidden">
+    <div class="filters" style="padding-left:0"><label>Горизонт<select id="r-horizon"><option value="6">6 месяцев</option><option value="12" selected>12 месяцев</option><option value="0">все даты</option></select></label></div>
+    <div class="note">Только действующие знаки с датой; знаки без срока — в index/renewals.md, раздел «Срок не указан».</div>
+    <div class="count" id="ren-count"></div>
+    <div class="wrap"><table id="renewals"></table></div>
+  </div>
+</main>
+<script>
+"use strict";
+const DATA = /*__REGISTRY_DATA__*/null;
+const ST = {active: "действует", pending: "в процессе регистрации", withdrawn: "заявка отозвана", refused: "отказ", fee_unpaid: "пошлина не оплачена", inactive: "не действует", other: "иное"};
+const TST = {protected: "охраняется", pending: "в процессе", refused: "отказ", lapsed: "не продлено", withdrawn: "отозвано", not_registered: "не зарегистрирован", unknown: "не ясно"};
+const RANK = {protected: 0, pending: 1, unknown: 2, not_registered: 3, refused: 3, withdrawn: 3, lapsed: 3};
+const SYM = {protected: "●", pending: "◐", unknown: "?"};
+const LOOK = "АВЕКМНОРСТУХ";
+const LAT = "ABEKMHOPCTYX";
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"}[c]));
+const numKey = (s) => String(s || "").toUpperCase().replace(/[АВЕКМНОРСТУХ]/g, (c) => LAT[LOOK.indexOf(c)]).replace(/[^0-9A-Z]/g, "");
+const fmt = (d) => (d ? d.split("-").reverse().join(".") : "");
+const label = (m) => m.mark_text || "[изобразительный знак]";
+const marks = DATA.marks;
+const pad2 = (n) => String(n).padStart(2, "0");
+function localIso(date) {
+  return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
+}
+function addMonths(date, months) {
+  const day = date.getDate();
+  const result = new Date(date.getFullYear(), date.getMonth() + months, 1);
+  const last = new Date(result.getFullYear(), result.getMonth() + 1, 0).getDate();
+  result.setDate(Math.min(day, last));
+  return result;
+}
+const todayIso = localIso(new Date());
+
+const countryNames = new Map();
+marks.forEach((m) => m.territories.forEach((t) => countryNames.set(t.code, t.name)));
+
+function addOptions(select, pairs) {
+  pairs.forEach(([value, text]) => select.add(new Option(text, value)));
+}
+addOptions($("f-product"), [...new Set(marks.map((m) => m.product))].sort((a, b) => a.localeCompare(b, "ru")).map((p) => [p, p]));
+addOptions($("f-country"), [...countryNames].sort((a, b) => a[1].localeCompare(b[1], "ru")).map(([c, n]) => [c, `${n} (${c})`]));
+addOptions($("f-status"), Object.entries(ST));
+addOptions($("f-class"), [...new Set(marks.flatMap((m) => m.nice_classes))].sort((a, b) => a - b).map((c) => [String(c), String(c)]));
+$("meta").textContent = `Источник: ${DATA.source.file} · выгрузка ${fmt(DATA.source.exported)} · сборка ${fmt(DATA.source.built)} · знаков: ${marks.length} · предупреждений разбора: ${DATA.stats.warnings}`;
+
+const pendingList = DATA.pending || [];
+if (pendingList.length) {
+  $("pending").classList.remove("hidden");
+  $("pending").textContent = `Ждут решения юриста: ${pendingList.length} (${pendingList.map((p) => p.document).join("; ")})`;
+}
+if (DATA.stats.no_product) {
+  $("meta").textContent += " · есть знаки с препаратом «Препарат не указан» — фильтр «Препарат»";
+}
+
+const selectedCountries = () => [...$("f-country").selectedOptions].map((o) => o.value);
+
+function filtered() {
+  const num = numKey($("f-number").value);
+  const txt = $("f-text").value.trim().toLowerCase();
+  const prod = $("f-product").value;
+  const st = $("f-status").value;
+  const cls = $("f-class").value;
+  const typ = $("f-type").value;
+  const cs = selectedCountries();
+  return marks.filter((m) =>
+    (!num || m.search_numbers.some((n) => n.includes(num))) &&
+    (!txt || (m.mark_text || "").toLowerCase().includes(txt)) &&
+    (!prod || m.product === prod) &&
+    (!st || m.status === st) &&
+    (!cls || m.nice_classes.includes(Number(cls))) &&
+    (!typ || m.reg_type === typ) &&
+    (!cs.length || m.territories.some((t) => cs.includes(t.code))));
+}
+
+function cellMark(m) {
+  const src = m.image && DATA.images[m.image];
+  const img = src ? `<img alt="${esc(label(m))}" src="${src}">` : "";
+  const text = m.mark_text ? `<div>${esc(m.mark_text)}</div>` : "";
+  const note = m.image_note ? `<div class="note">${esc(m.image_note)}</div>` : "";
+  return `<div class="mark">${img}${text}${note}</div>`;
+}
+
+function docEvents(m) {
+  const byEvent = new Map();
+  Object.entries(m.provenance || {}).forEach(([field, p]) => {
+    if (!byEvent.has(p.event_id)) byEvent.set(p.event_id, {...p, fields: []});
+    byEvent.get(p.event_id).fields.push(field);
+  });
+  return [...byEvent.values()].sort((a, b) => (a.doc_date || "").localeCompare(b.doc_date || "") || String(a.event_id).localeCompare(String(b.event_id)));
+}
+
+function docTypeLabel(type) {
+  return (DATA.doc_type_labels || {})[type] || type || "документ";
+}
+
+function docBadge(m) {
+  const docs = docEvents(m).filter((e) => e.kind === "document");
+  if (!docs.length) return "";
+  const last = docs[docs.length - 1];
+  return `<span class="docbadge">из документа: ${esc(docTypeLabel(last.doc_type))}, ${esc(fmt(last.doc_date))}</span>`;
+}
+
+function historyHtml(m) {
+  const events = docEvents(m);
+  if (!events.length) return "";
+  const items = events.map((e) => {
+    const link = e.file && /^documents\//.test(e.file) ? ` <a href="${esc(e.file)}">${esc(e.file)}</a>` : (e.file ? ` ${esc(e.file)}` : "");
+    const what = e.kind === "document" ? `документ ${esc(docTypeLabel(e.doc_type))}` : esc(e.kind);
+    return `• ${what} ${esc(fmt(e.doc_date))}${link}: ${esc(e.fields.join(", "))}`;
+  }).join("\n");
+  return `<b>История:</b>\n${items}`;
+}
+
+const badge = (m) => (m.verification ? `<div><span class="badge" title="${esc(m.verification.reference || "")}">сверено ${esc(m.verification.source.replace(/^WIPO.*$/, "WIPO"))} ${esc(fmt(m.verification.checked))}</span></div>` : "");
+
+function cellCountries(m, t) {
+  return cellCountriesBody(m, t) + badge(m);
+}
+
+function cellCountriesBody(m, t) {
+  if (t) {
+    const note = t.note ? `<div class="note">${esc(t.note)}</div>` : "";
+    return `<span class="st-${t.status}">${esc(t.name)} — ${esc(TST[t.status] || t.status)}</span>${note}`;
+  }
+  if (!m.territories.length) return '<span class="note">не указано</span>';
+  return m.territories.map((x) => `<span class="chip st-${x.status}" title="${esc(`${x.name} — ${TST[x.status] || x.status}${x.note ? " · " + x.note : ""}`)}">${esc(x.code)}</span>`).join("");
+}
+
+const COLS = [
+  {key: "mark", title: "Знак", value: (m) => label(m), html: (m) => cellMark(m)},
+  {key: "product", title: "Препарат", value: (m) => m.product, html: (m) => esc(m.product)},
+  {key: "countries", title: "Страны", value: (m, t) => (t ? t.name : m.territories.map((x) => x.name).join(", ")), html: (m, t) => cellCountries(m, t)},
+  {key: "registration_no", title: "№ регистрации", value: (m) => m.registration_no || "", html: (m) => esc(m.registration_no || "")},
+  {key: "application_no", title: "№ заявки", value: (m) => m.application_no || "", html: (m) => esc(m.application_no || "")},
+  {key: "classes", title: "Классы", value: (m) => m.nice_classes[0] || 0, html: (m) => esc(m.nice_classes.join(", "))},
+  {key: "status", title: "Статус", value: (m) => ST[m.status] || m.status, html: (m) => `<span class="st-${m.status}">${esc(ST[m.status] || m.status)}</span>${docBadge(m)}`},
+  {key: "expiry_date", title: "Срок до", value: (m) => m.expiry_date || "", html: (m) => esc(fmt(m.expiry_date))},
+  {key: "next_payment_date", title: "Оплата", value: (m) => m.next_payment_date || "", html: (m) => esc(fmt(m.next_payment_date))},
+];
+let sort = {key: "product", dir: 1};
+let current = [];
+
+function renderMarks(list) {
+  const cs = selectedCountries();
+  const view = $("f-view").value;
+  current = list.flatMap((m) => (view === "territory"
+    ? (m.territories.length
+      ? m.territories.filter((t) => !cs.length || cs.includes(t.code)).map((t) => ({m, t}))
+      : [{m, t: null}])
+    : [{m, t: null}]));
+  const col = COLS.find((c) => c.key === sort.key);
+  current.sort((a, b) => {
+    const x = col.value(a.m, a.t);
+    const y = col.value(b.m, b.t);
+    const ex = x === "";
+    const ey = y === "";
+    if (ex || ey) return ex === ey ? 0 : (ex ? 1 : -1);
+    const r = typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y), "ru", {numeric: true});
+    return r * sort.dir;
+  });
+  $("marks").tHead.innerHTML = "<tr>" + COLS.map((c) => `<th data-key="${c.key}"${c.key === sort.key ? ` data-dir="${sort.dir > 0 ? "asc" : "desc"}"` : ""}>${c.title}</th>`).join("") + "</tr>";
+  $("marks").tBodies[0].innerHTML = current.map((r, i) => `<tr class="mark-row" data-i="${i}">` + COLS.map((c) => `<td>${c.html(r.m, r.t)}</td>`).join("") + "</tr>").join("");
+  $("count").textContent = `Показано строк: ${current.length} (знаков: ${list.length})`;
+}
+
+function details(m) {
+  const rows = [
+    ["Строка реестра", m.row_no], ["Вид регистрации", m.reg_kind_raw],
+    ["Государство действия (как в реестре)", m.territory_raw], ["Классы (как в реестре)", m.nice_raw],
+    ["Назначение", m.purpose], ["Дата приоритета", fmt(m.priority_date)],
+    ["Патентный поверенный", m.attorney], ["Контакты поверенных", m.attorney_contacts],
+    ["Статус (как в реестре)", m.status_raw], ["Примечание к номеру", m.number_note],
+    ["Сверка с ведомством", m.verification ? `${m.verification.source}, ${fmt(m.verification.checked)}` : ""],
+    ["Источник сверки (описание)", m.verification ? m.verification.reference : ""],
+    ["Территории по реестру (до сверки)", m.verification ? (m.registry_territories || []).map((x) => `${x.name} — ${TST[x.status] || x.status}${x.note ? " (" + x.note + ")" : ""}`).join("; ") || "не указано" : ""],
+    ["Предупреждения разбора", (m.warnings || []).join("\n")],
+  ];
+  const text = rows.filter(([, v]) => v).map(([k, v]) => `<b>${esc(k)}:</b> ${esc(v)}`).join("\n");
+  const history = historyHtml(m);
+  return text && history ? `${text}\n${history}` : text + history;
+}
+
+$("marks").addEventListener("click", (event) => {
+  const th = event.target.closest("th");
+  if (th) {
+    const key = th.dataset.key;
+    sort = {key, dir: sort.key === key ? -sort.dir : 1};
+    render();
+    return;
+  }
+  const tr = event.target.closest("tr.mark-row");
+  if (!tr) return;
+  const next = tr.nextElementSibling;
+  if (next && next.classList.contains("details")) {
+    next.remove();
+    return;
+  }
+  const row = document.createElement("tr");
+  row.className = "details";
+  row.innerHTML = `<td colspan="${COLS.length}">${details(current[Number(tr.dataset.i)].m)}</td>`;
+  tr.after(row);
+});
+
+function renderMatrix(list) {
+  const cs = selectedCountries();
+  const counts = new Map();
+  list.forEach((m) => m.territories.forEach((t) => {
+    if (!cs.length || cs.includes(t.code)) counts.set(t.code, (counts.get(t.code) || 0) + 1);
+  }));
+  const codes = [...counts.keys()].sort((a, b) => counts.get(b) - counts.get(a) || a.localeCompare(b));
+  const products = [...new Set(list.map((m) => m.product))].sort((a, b) => a.localeCompare(b, "ru"));
+  const head = "<tr><th>Препарат</th>" + codes.map((c) => `<th title="${esc(countryNames.get(c))}">${esc(c)}</th>`).join("") + "</tr>";
+  const body = products.map((p) => {
+    const group = list.filter((m) => m.product === p);
+    const cells = codes.map((c) => {
+      const hits = group.flatMap((m) => m.territories.filter((t) => t.code === c).map((t) => ({m, t})));
+      if (!hits.length) return "<td></td>";
+      const best = hits.reduce((a, b) => ((RANK[b.t.status] ?? 9) < (RANK[a.t.status] ?? 9) ? b : a));
+      const title = hits.map((h) => `${label(h.m)} № ${h.m.registration_no || h.m.application_no || "—"}: ${TST[h.t.status] || h.t.status}`).join("\n");
+      return `<td class="st-${best.t.status}" title="${esc(title)}">${SYM[best.t.status] || "✕"}</td>`;
+    }).join("");
+    return `<tr><td>${esc(p)}</td>${cells}</tr>`;
+  }).join("");
+  $("matrix").innerHTML = `<thead>${head}</thead><tbody>${body}</tbody>`;
+}
+
+function renderRenewals(list) {
+  const months = Number($("r-horizon").value);
+  const lim = months ? localIso(addMonths(new Date(), months)) : "9999-12-31";
+  const events = [];
+  list.filter((m) => m.status === "active").forEach((m) => {
+    const dates = new Map();
+    if (m.next_payment_date) dates.set(m.next_payment_date, ["оплата"]);
+    if (m.expiry_date) {
+      if (!dates.has(m.expiry_date)) dates.set(m.expiry_date, []);
+      dates.get(m.expiry_date).push("истечение срока");
+    }
+    dates.forEach((what, date) => {
+      if (date <= lim) events.push({date, what: what.join(" / "), m});
+    });
+  });
+  events.sort((a, b) => a.date.localeCompare(b.date));
+  const head = "<thead><tr><th>Дата</th><th>Что</th><th>Знак</th><th>Препарат</th><th>№</th><th>Страны</th></tr></thead>";
+  const body = events.map((e) => `<tr><td class="${e.date < todayIso ? "overdue" : ""}">${esc(fmt(e.date))}${e.date < todayIso ? " (просрочено)" : ""}</td><td>${esc(e.what)}</td><td>${cellMark(e.m)}</td><td>${esc(e.m.product)}</td><td>${esc(e.m.registration_no || e.m.application_no || "")}</td><td>${cellCountries(e.m, null)}</td></tr>`).join("");
+  $("renewals").innerHTML = head + `<tbody>${body}</tbody>`;
+  $("ren-count").textContent = `Событий: ${events.length}, из них просрочено: ${events.filter((e) => e.date < todayIso).length}`;
+}
+
+function render() {
+  const list = filtered();
+  renderMarks(list);
+  renderMatrix(list);
+  renderRenewals(list);
+}
+
+["f-number", "f-text"].forEach((id) => $(id).addEventListener("input", render));
+["f-product", "f-country", "f-status", "f-class", "f-type", "f-view", "r-horizon"].forEach((id) => $(id).addEventListener("change", render));
+$("f-reset").addEventListener("click", () => {
+  ["f-number", "f-text", "f-product", "f-status", "f-class", "f-type"].forEach((id) => { $(id).value = ""; });
+  $("f-view").value = "mark";
+  $("r-horizon").value = "12";
+  sort = {key: "product", dir: 1};
+  [...$("f-country").options].forEach((o) => { o.selected = false; });
+  render();
+});
+document.querySelectorAll("nav button").forEach((button) => button.addEventListener("click", () => {
+  document.querySelectorAll("nav button").forEach((b) => b.setAttribute("aria-selected", String(b === button)));
+  ["marks", "matrix", "renewals"].forEach((tab) => $("tab-" + tab).classList.toggle("hidden", tab !== button.dataset.tab));
+}));
+render();
+</script>
+</body>
+</html>

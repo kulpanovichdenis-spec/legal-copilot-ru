@@ -1,0 +1,54 @@
+id: ER-REG-007
+title: История изменений, продлений и перерегистраций
+module: regulatory
+applies_when: Registered product
+requested_from: MA_holder/seller
+evidence_types:
+- variation_applications
+- renewal_applications
+- authority_decisions
+- regulatory_correspondence
+sufficient_if:
+- material historical and pending variations/renewals are identifiable with status and effective dates
+mapped_checks:
+- REG-003
+- REG-008
+extractor_ids:
+- EXT-REG-062
+request_text: Предоставить историю заявлений об изменениях/перерегистрации и решения регулятора, включая все незавершенные процедуры.
+gap_text: Не подтверждена история жизненного цикла или остаются неизвестные pending procedures.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- REG-003
+- REG-008
+request_phase: initial
+title_en: Variations / renewals / lifecycle history
+title_ru: История изменений, продлений и перерегистраций
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

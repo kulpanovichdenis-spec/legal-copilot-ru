@@ -1,0 +1,76 @@
+project:
+  title: Проверка регулятора на складе
+  mode: INCIDENT
+  audience: Генеральный директор и директор по логистике
+  output: [docx, pptx]
+  duration_or_length: 1 страница
+  prepared_at: 2026-09-14
+objective:
+  business_question: Что происходит с проверкой на складе и что нужно сделать сегодня?
+  required_decision: Назначить ответственного за взаимодействие с проверяющими
+minto:
+  situation: На склад пришли представители регулятора [ТЕСТОВЫЕ ДАННЫЕ]
+  complication: Предмет проверки и полномочия проверяющих пока не подтверждены
+  question: Что делать прямо сейчас?
+  answer: Сверить полномочия проверяющих, назначить ответственного и передавать документы только по описи
+  supporting_arguments:
+    - Подтверждено только предъявленное решение о проверке
+    - Предмет проверки пока не установлен
+    - Сегодня нужны два действия и одно решение
+incident:
+  status: Проверка идёт
+  next_update: "2026-09-14 18:00"
+  decision_makers: [Генеральный директор]
+  notification_deadlines: "[ПРОВЕРИТЬ СРОК]"
+content:
+  facts:
+    - id: f1
+      text: Проверяющие предъявили решение о проверке [ТЕСТОВЫЕ ДАННЫЕ]
+      status: verified
+      source_refs: [s1]
+    - id: f2
+      text: Проверка может касаться условий хранения
+      claim_type: assumption
+      status: unverified
+  risks:
+    - id: r1
+      text: Передача документов без описи осложнит последующее обжалование
+      level: high
+  actions:
+    - id: a1
+      what: Сверить полномочия проверяющих с решением о проверке
+      who: Юрист на объекте
+      when: Немедленно
+    - id: a2
+      what: Передавать документы только по описи
+      who: Директор склада
+      when: В течение проверки
+  escalation_points:
+    - id: e1
+      when: Проверяющие требуют доступ за пределы предмета решения
+      contact: Руководитель Legal
+storyline:
+  - order: 1
+    message: Проверка идёт, сейчас нужно сверить полномочия и назначить ответственного
+    content_block: key_message
+    evidence_refs: [f1]
+  - order: 2
+    message: Подтверждено только решение о проверке, предмет пока не установлен
+    content_block: fact
+    evidence_refs: [f1]
+  - order: 3
+    message: Предположительно проверка касается условий хранения, это не подтверждено
+    content_block: fact
+    evidence_refs: [f2]
+  - order: 4
+    message: Сегодня нужны два действия и решение о назначении ответственного
+    content_block: required_action
+    visual_hint: checklist
+    evidence_refs: [a1, a2, e1]
+sources:
+  - id: s1
+    type: reported
+    title: Сообщено юристом на объекте
+    reference: звонок 2026-09-14 [ТЕСТОВЫЕ ДАННЫЕ]
+quality:
+  assumptions: [Проверка может касаться условий хранения]

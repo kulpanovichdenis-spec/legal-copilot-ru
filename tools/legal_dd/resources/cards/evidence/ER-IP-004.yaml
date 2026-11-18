@@ -1,0 +1,55 @@
+id: ER-IP-004
+title: Ноу-хау и режим коммерческой тайны
+module: ip
+applies_when: Know-how or confidential technology in scope
+requested_from: seller/right_holder
+evidence_types:
+- trade_secret_policy
+- NDA
+- employee_confidentiality
+- know_how_inventory
+- access_rules
+sufficient_if:
+- know-how is identifiable and reasonable confidentiality/protection measures are evidenced
+mapped_checks:
+- IP-KH-003
+extractor_ids:
+- EXT-IP-021
+- EXT-IP-020
+- EXT-CON-010
+request_text: Предоставить перечень know-how и документы, подтверждающие режим конфиденциальности и принадлежность.
+gap_text: Know-how не индивидуализирован или режим его охраны/принадлежность не подтверждены.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- IP-KH-003
+request_phase: initial
+title_en: Know-how / trade secret protection package
+title_ru: Ноу-хау и режим коммерческой тайны
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

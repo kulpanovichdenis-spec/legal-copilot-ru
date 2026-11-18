@@ -1,0 +1,30 @@
+version: '1.0'
+levels:
+- minimal
+- standard
+- enhanced
+- exhaustive
+drivers:
+- materiality
+- legal_consequence
+- uncertainty
+- conflict
+- authority_complexity
+- factual_complexity
+- volume
+- irreversibility
+rules:
+- when: title_chain_or_asset_identity
+  minimum: exhaustive
+- when: mandatory_approval_or_authority
+  minimum: exhaustive
+- when: regulatory_right_or_dossier_completeness
+  minimum: enhanced
+  upgrade_to: exhaustive if transfer depends on it
+- when: material_conflict_or_external_FTO
+  minimum: enhanced
+- when: generic_contracts_outside_title_chain
+  minimum: risk_based
+- when: low_materiality_low_uncertainty_nonblocking
+  minimum: minimal
+principle: Depth is selected from risk and uncertainty; no methodology is run merely because it exists.

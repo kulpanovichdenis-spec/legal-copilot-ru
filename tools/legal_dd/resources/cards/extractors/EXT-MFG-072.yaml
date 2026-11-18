@@ -1,0 +1,118 @@
+id: EXT-MFG-072
+title: Quality agreement extractor
+document_types:
+- quality_agreement
+- technical_agreement
+purposes:
+- map_quality_responsibility
+- identify_transition_requirements
+entities:
+- Agreement
+- Party
+- Product
+- Site
+facts_to_extract:
+- parties
+- product/site scope
+- release responsibilities
+- deviation/OOS handling
+- complaints/recalls
+- change control
+- audits
+- documentation retention
+- PV interface if any
+- subcontracting
+- term/termination
+- transition obligations
+mapped_checks:
+- MFG-005
+- MFG-007
+- REG-006
+- CLS-003
+critical_fields:
+- parties
+- scope
+- responsibility_matrix
+- term
+human_review_questions:
+- Кто отвечает за каждую critical quality function?
+- Останется ли agreement после сделки?
+- Нужен ли новый/замещающий agreement?
+fail_safe: If responsibilities are split across multiple documents, build a consolidated responsibility matrix.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: parties
+  label: parties
+  type: entity_ref
+  material: true
+- field_id: product_site_scope
+  label: product/site scope
+  type: asset_ref
+  material: true
+- field_id: release_responsibilities
+  label: release responsibilities
+  type: text
+  material: false
+- field_id: deviation_oos_handling
+  label: deviation/OOS handling
+  type: text
+  material: false
+- field_id: complaints_recalls
+  label: complaints/recalls
+  type: text
+  material: false
+- field_id: change_control
+  label: change control
+  type: text
+  material: false
+- field_id: audits
+  label: audits
+  type: text
+  material: false
+- field_id: documentation_retention
+  label: documentation retention
+  type: text
+  material: false
+- field_id: pv_interface_if_any
+  label: PV interface if any
+  type: text
+  material: false
+- field_id: subcontracting
+  label: subcontracting
+  type: text
+  material: false
+- field_id: term_termination
+  label: term/termination
+  type: text
+  material: true
+- field_id: transition_obligations
+  label: transition obligations
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

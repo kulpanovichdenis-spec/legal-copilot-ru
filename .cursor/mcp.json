@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "legal-overlay": {
+      "command": "python",
+      "args": ["-m", "tools.legal_overlay"]
+    }
+  }
+}

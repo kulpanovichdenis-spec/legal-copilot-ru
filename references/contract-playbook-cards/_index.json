@@ -1,0 +1,2359 @@
+{
+ "generated": "2026-11-10",
+ "cards": [
+  {
+   "id": "RU.INTERMEDIATION.AGENTSKII_DOGOVOR",
+   "slug": "agentskii-dogovor",
+   "title": "Агентский договор",
+   "family": "intermediation",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-02",
+   "path": "intermediation/agentskii-dogovor.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международный ориентир: Принципы УНИДРУА",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 15545,
+   "markers": 1
+  },
+  {
+   "id": "RU.TEMPORARY_POSSESSION_USE.ARENDA_PREDPRIIATIIA",
+   "slug": "arenda-predpriiatiia",
+   "title": "Аренда предприятия",
+   "family": "lease",
+   "parent": "RU.LEASE.ARENDA",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "lease/arenda-predpriiatiia.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2179,
+   "markers": 1
+  },
+  {
+   "id": "RU.LEASE.ARENDA_ZDANII_POMESHCHENII",
+   "slug": "arenda-zdanii-pomeshchenii",
+   "title": "Аренда зданий, сооружений и помещений",
+   "family": "lease",
+   "parent": "RU.LEASE.ARENDA",
+   "kind": "full",
+   "checked_on": "2026-11-02",
+   "path": "lease/arenda-zdanii-pomeshchenii.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 13684,
+   "markers": 1
+  },
+  {
+   "id": "RU.TEMPORARY_POSSESSION_USE.ARENDA_ZEMEL_NOGO_UCHASTKA",
+   "slug": "arenda-zemel-nogo-uchastka",
+   "title": "Аренда земельного участка",
+   "family": "lease",
+   "parent": "RU.LEASE.ARENDA",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "lease/arenda-zemel-nogo-uchastka.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2093,
+   "markers": 1
+  },
+  {
+   "id": "RU.LEASE.ARENDA",
+   "slug": "arenda",
+   "title": "Аренда",
+   "family": "lease",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-02",
+   "path": "lease/arenda.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Аренда транспортных средств",
+    "7. Соседние карточки",
+    "8. Нормы и практика"
+   ],
+   "chars": 20436,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.BANKOVSKII_SCHET",
+   "slug": "bankovskii-schet",
+   "title": "Банковский счет",
+   "family": "finance",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/bankovskii-schet.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2150,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.BANKOVSKII_VKLAD",
+   "slug": "bankovskii-vklad",
+   "title": "Банковский вклад (депозит)",
+   "family": "finance",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/bankovskii-vklad.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2425,
+   "markers": 1
+  },
+  {
+   "id": "RU.LEASE.BEZVOZMEZDNOE_POLZOVANIE",
+   "slug": "bezvozmezdnoe-polzovanie",
+   "title": "Безвозмездное пользование (ссуда)",
+   "family": "lease",
+   "parent": "RU.LEASE.ARENDA",
+   "kind": "full",
+   "checked_on": "2026-11-02",
+   "path": "lease/bezvozmezdnoe-polzovanie.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 13541,
+   "markers": 1
+  },
+  {
+   "id": "RU.TRANSPORT_LOGISTICS.BUKSIROVKA",
+   "slug": "buksirovka",
+   "title": "Буксировка",
+   "family": "logistics",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "logistics/buksirovka.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2063,
+   "markers": 1
+  },
+  {
+   "id": "RU.WORKS_RESEARCH_SERVICES.BYTOVOI_PODRIAD",
+   "slug": "bytovoi-podriad",
+   "title": "Бытовой подряд",
+   "family": "works_services",
+   "parent": "RU.WORKS_SERVICES.PODRIAD",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "works_services/bytovoi-podriad.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2126,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.DARENIE",
+   "slug": "darenie-pozhertvovanie",
+   "title": "Дарение и пожертвование",
+   "family": "property_transfer",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-06",
+   "path": "property_transfer/darenie-pozhertvovanie.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 12418,
+   "markers": 1
+  },
+  {
+   "id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.DEISTVIIA_V_CHUZHOM_INTERESE_BEZ_PORUCHENIIA",
+   "slug": "deistviia-v-chuzhom-interese-bez-porucheniia",
+   "title": "Действия в чужом интересе без поручения",
+   "family": "intermediation",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "intermediation/deistviia-v-chuzhom-interese-bez-porucheniia.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1896,
+   "markers": 1
+  },
+  {
+   "id": "RU.INTERMEDIATION.DISTRIBUTSIIA",
+   "slug": "distributsiia",
+   "title": "Дистрибуция",
+   "family": "intermediation",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-02",
+   "path": "intermediation/distributsiia.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы"
+   ],
+   "chars": 16921,
+   "markers": 1
+  },
+  {
+   "id": "RU.CORPORATE_MIXED_UNNAMED.DOGOVOR_O_SOZDANII_AO",
+   "slug": "dogovor-o-sozdanii-ao",
+   "title": "Договор о создании АО",
+   "family": "corporate_mixed_unnamed",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "corporate_mixed_unnamed/dogovor-o-sozdanii-ao.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2627,
+   "markers": 1
+  },
+  {
+   "id": "RU.CORPORATE_MIXED_UNNAMED.DOGOVOR_OB_UCHREZHDENII_OOO",
+   "slug": "dogovor-ob-uchrezhdenii-ooo",
+   "title": "Договор об учреждении ООО",
+   "family": "corporate_mixed_unnamed",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "corporate_mixed_unnamed/dogovor-ob-uchrezhdenii-ooo.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2241,
+   "markers": 1
+  },
+  {
+   "id": "RU.STORAGE_ESCROW_INSURANCE.DOGOVOR_USLOVNOGO_DEPONIROVANIIA",
+   "slug": "dogovor-uslovnogo-deponirovaniia",
+   "title": "Договор условного депонирования (эскроу)",
+   "family": "logistics",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "logistics/dogovor-uslovnogo-deponirovaniia.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2153,
+   "markers": 1
+  },
+  {
+   "id": "RU.TRANSPORT_LOGISTICS.DOGOVORY_EKSPLUATATSII_POD_EZDNYKH_PUTEI_PODACHI_I_UBORKI_VAGONOV",
+   "slug": "dogovory-ekspluatatsii-pod-ezdnykh-putei-podachi-i-uborki-vagonov",
+   "title": "Договоры эксплуатации подъездных путей / подачи и уборки вагонов",
+   "family": "logistics",
+   "parent": "RU.LOGISTICS.PEREVOZKA_GRUZA",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "logistics/dogovory-ekspluatatsii-pod-ezdnykh-putei-podachi-i-uborki-vagonov.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2565,
+   "markers": 1
+  },
+  {
+   "id": "RU.IP.DOGOVORY_S_AVTORAMI",
+   "slug": "dogovory-s-avtorami",
+   "title": "Договоры с авторами",
+   "family": "intellectual_property",
+   "parent": "RU.IP.OTCHUZHDENIE_ISKLIUCHITELNOGO_PRAVA",
+   "kind": "full",
+   "checked_on": "2026-11-10",
+   "path": "intellectual_property/dogovory-s-avtorami.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 11931,
+   "markers": 1
+  },
+  {
+   "id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.DOVERITEL_NOE_UPRAVLENIE_IMUSHCHESTVOM",
+   "slug": "doveritel-noe-upravlenie-imushchestvom",
+   "title": "Доверительное управление имуществом",
+   "family": "intermediation",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "intermediation/doveritel-noe-upravlenie-imushchestvom.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1997,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.ENERGOSNABZHENIE",
+   "slug": "energosnabzhenie",
+   "title": "Энергоснабжение",
+   "family": "property_transfer",
+   "parent": "RU.PROPERTY_TRANSFER.KUPLIA_PRODAZHA",
+   "kind": "full",
+   "checked_on": "2026-11-06",
+   "path": "property_transfer/energosnabzhenie.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 17689,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE.FAKTORING",
+   "slug": "faktoring",
+   "title": "Финансирование под уступку денежного требования (факторинг)",
+   "family": "finance",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-06",
+   "path": "finance/faktoring.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 11852,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.GOSUDARSTVENNYI_MUNITSIPAL_NYI_ZAEM",
+   "slug": "gosudarstvennyi-munitsipal-nyi-zaem",
+   "title": "Государственный / муниципальный заем",
+   "family": "finance",
+   "parent": "RU.FINANCE.ZAEM",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/gosudarstvennyi-munitsipal-nyi-zaem.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2060,
+   "markers": 1
+  },
+  {
+   "id": "RU.LOGISTICS.KHRANENIE",
+   "slug": "hranenie",
+   "title": "Хранение",
+   "family": "logistics",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-05",
+   "path": "logistics/hranenie.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 14795,
+   "markers": 1
+  },
+  {
+   "id": "RU.ADJACENT_OBLIGATIONS.IGRY_I_PARI",
+   "slug": "igry-i-pari",
+   "title": "Игры и пари",
+   "family": "adjacent_obligations",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "adjacent_obligations/igry-i-pari.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2245,
+   "markers": 1
+  },
+  {
+   "id": "RU.INSURANCE.IMUSHCHESTVENNOE_STRAKHOVANIE",
+   "slug": "imushchestvennoe-strakhovanie",
+   "title": "Имущественное страхование и общие положения о страховании",
+   "family": "insurance",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-06",
+   "path": "insurance/imushchestvennoe-strakhovanie.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 14570,
+   "markers": 1
+  },
+  {
+   "id": "RU.CORPORATE_MIXED_UNNAMED.INVESTITSIONNOE_PARTNERSKOE_SOGLASHENIE",
+   "slug": "investitsionnoe-partnerskoe-soglashenie",
+   "title": "Инвестиционное / партнерское соглашение (общая коммерческая модель)",
+   "family": "corporate_mixed_unnamed",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "corporate_mixed_unnamed/investitsionnoe-partnerskoe-soglashenie.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2195,
+   "markers": 2
+  },
+  {
+   "id": "RU.GENERAL.ISPOLNENIE",
+   "slug": "ispolnenie",
+   "title": "Исполнение обязательств по договору",
+   "family": "general",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-10-31",
+   "path": "general/ispolnenie.md",
+   "sections": [
+    "1. Когда нужна карточка",
+    "2. Откуда берутся правила",
+    "3. Проверка договора: элементы надлежащего исполнения",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международный ориентир: Принципы УНИДРУА",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 14338,
+   "markers": 1
+  },
+  {
+   "id": "RU.GENERAL.IZMENENIE_RASTORZHENIE",
+   "slug": "izmenenie-rastorzhenie",
+   "title": "Изменение и расторжение договора; прекращение обязательств",
+   "family": "general",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-10-30",
+   "path": "general/izmenenie-rastorzhenie.md",
+   "sections": [
+    "1. Когда нужна карточка",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международный ориентир: Принципы УНИДРУА",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 13284,
+   "markers": 1
+  },
+  {
+   "id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_TSENNOSTEI_V_BANKE",
+   "slug": "khranenie-tsennostei-v-banke",
+   "title": "Хранение ценностей в банке",
+   "family": "logistics",
+   "parent": "RU.LOGISTICS.KHRANENIE",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "logistics/khranenie-tsennostei-v-banke.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2067,
+   "markers": 1
+  },
+  {
+   "id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_V_GOSTINITSE",
+   "slug": "khranenie-v-gostinitse",
+   "title": "Хранение в гостинице",
+   "family": "logistics",
+   "parent": "RU.LOGISTICS.KHRANENIE",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "logistics/khranenie-v-gostinitse.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2172,
+   "markers": 1
+  },
+  {
+   "id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_V_KAMERAKH_KHRANENIIA_TRANSPORTNYKH_ORGANIZATSII",
+   "slug": "khranenie-v-kamerakh-khraneniia-transportnykh-organizatsii",
+   "title": "Хранение в камерах хранения транспортных организаций",
+   "family": "logistics",
+   "parent": "RU.LOGISTICS.KHRANENIE",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "logistics/khranenie-v-kamerakh-khraneniia-transportnykh-organizatsii.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2133,
+   "markers": 1
+  },
+  {
+   "id": "RU.INTERMEDIATION.KOMISSIIA",
+   "slug": "komissiia",
+   "title": "Комиссия",
+   "family": "intermediation",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-02",
+   "path": "intermediation/komissiia.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы"
+   ],
+   "chars": 18694,
+   "markers": 1
+  },
+  {
+   "id": "RU.IP.KOMMERCHESKAIA_KONTSESSIIA",
+   "slug": "kommercheskaia-kontsessiia",
+   "title": "Коммерческая концессия",
+   "family": "commercial_concession",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-09",
+   "path": "commercial_concession/kommercheskaia-kontsessiia.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 12159,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.KONTRAKTATSIIA",
+   "slug": "kontraktatsiia",
+   "title": "Контрактация",
+   "family": "property_transfer",
+   "parent": "RU.PROPERTY_TRANSFER.KUPLIA_PRODAZHA",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "property_transfer/kontraktatsiia.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1965,
+   "markers": 1
+  },
+  {
+   "id": "RU.CORPORATE_MIXED_UNNAMED.KORPORATIVNYI_DOGOVOR",
+   "slug": "korporativnyi-dogovor",
+   "title": "Корпоративный договор",
+   "family": "corporate_mixed_unnamed",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "corporate_mixed_unnamed/korporativnyi-dogovor.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2584,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE.KREDITNYI_DOGOVOR",
+   "slug": "kreditnyi-dogovor",
+   "title": "Кредитный договор",
+   "family": "finance",
+   "parent": "RU.FINANCE.ZAEM",
+   "kind": "full",
+   "checked_on": "2026-11-05",
+   "path": "finance/kreditnyi-dogovor.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка и согласование",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 14175,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.KUPLIA_PRODAZHA",
+   "slug": "kuplia-prodazha",
+   "title": "Купля-продажа (общие положения)",
+   "family": "property_transfer",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-10-31",
+   "path": "property_transfer/kuplia-prodazha.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы"
+   ],
+   "chars": 14455,
+   "markers": 1
+  },
+  {
+   "id": "RU.INSURANCE.LICHNOE_STRAKHOVANIE",
+   "slug": "lichnoe-strakhovanie",
+   "title": "Личное страхование",
+   "family": "insurance",
+   "parent": "RU.INSURANCE.IMUSHCHESTVENNOE_STRAKHOVANIE",
+   "kind": "full",
+   "checked_on": "2026-11-06",
+   "path": "insurance/lichnoe-strakhovanie.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 15117,
+   "markers": 1
+  },
+  {
+   "id": "RU.IP.LITSENZIONNYI_DOGOVOR",
+   "slug": "litsenzionnyi-dogovor",
+   "title": "Лицензионный договор",
+   "family": "intellectual_property",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-10",
+   "path": "intellectual_property/litsenzionnyi-dogovor.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 14250,
+   "markers": 1
+  },
+  {
+   "id": "RU.LEASE.LIZING",
+   "slug": "lizing",
+   "title": "Лизинг",
+   "family": "lease",
+   "parent": "RU.LEASE.ARENDA",
+   "kind": "full",
+   "checked_on": "2026-11-02",
+   "path": "lease/lizing.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Оттавская конвенция (международный лизинг оборудования)",
+    "7. Соседние карточки",
+    "8. Нормы и практика"
+   ],
+   "chars": 20597,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.MENA",
+   "slug": "mena",
+   "title": "Мена",
+   "family": "property_transfer",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-06",
+   "path": "property_transfer/mena.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 10218,
+   "markers": 1
+  },
+  {
+   "id": "RU.TEMPORARY_POSSESSION_USE.NAEM_ZHILOGO_POMESHCHENIIA",
+   "slug": "naem-zhilogo-pomeshcheniia",
+   "title": "Наем жилого помещения (коммерческий наем)",
+   "family": "lease",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "lease/naem-zhilogo-pomeshcheniia.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2726,
+   "markers": 1
+  },
+  {
+   "id": "RU.UNNAMED.NDA",
+   "slug": "nda",
+   "title": "Соглашение о конфиденциальности (NDA)",
+   "family": "corporate_mixed_unnamed",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-09",
+   "path": "corporate_mixed_unnamed/nda.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 15357,
+   "markers": 1
+  },
+  {
+   "id": "RU.GENERAL.NEDEISTVITELNOST",
+   "slug": "nedeistvitelnost",
+   "title": "Недействительность договора",
+   "family": "general",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-10-30",
+   "path": "general/nedeistvitelnost.md",
+   "sections": [
+    "1. Когда нужна карточка",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международный ориентир: Принципы УНИДРУА",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 15070,
+   "markers": 1
+  },
+  {
+   "id": "RU.WORKS_SERVICES.NIOKR",
+   "slug": "niokr",
+   "title": "НИР и ОКР",
+   "family": "works_services",
+   "parent": "RU.WORKS_SERVICES.PODRIAD",
+   "kind": "full",
+   "checked_on": "2026-11-01",
+   "path": "works_services/niokr.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 13443,
+   "markers": 1
+  },
+  {
+   "id": "RU.GENERAL.OBESPECHENIE",
+   "slug": "obespechenie",
+   "title": "Обеспечение исполнения договора",
+   "family": "general",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-10-31",
+   "path": "general/obespechenie.md",
+   "sections": [
+    "1. Когда нужна карточка",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы"
+   ],
+   "chars": 14643,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.OBLIGATSIONNYI_ZAEM",
+   "slug": "obligatsionnyi-zaem",
+   "title": "Облигационный заем",
+   "family": "finance",
+   "parent": "RU.FINANCE.ZAEM",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/obligatsionnyi-zaem.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2097,
+   "markers": 1
+  },
+  {
+   "id": "RU.GENERAL_CONSTRUCTIONS.OPTSIONNYI_DOGOVOR",
+   "slug": "optsionnyi-dogovor",
+   "title": "Опционный договор",
+   "family": "general",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "general/optsionnyi-dogovor.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1867,
+   "markers": 1
+  },
+  {
+   "id": "RU.IP.OTCHUZHDENIE_ISKLIUCHITELNOGO_PRAVA",
+   "slug": "otchuzhdenie-iskliuchitelnogo-prava",
+   "title": "Договор об отчуждении исключительного права",
+   "family": "intellectual_property",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-10",
+   "path": "intellectual_property/otchuzhdenie-iskliuchitelnogo-prava.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 9555,
+   "markers": 1
+  },
+  {
+   "id": "RU.GENERAL.OTVETSTVENNOST",
+   "slug": "otvetstvennost",
+   "title": "Ответственность за нарушение договора",
+   "family": "general",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-10-31",
+   "path": "general/otvetstvennost.md",
+   "sections": [
+    "1. Когда нужна карточка",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международный ориентир: Принципы УНИДРУА",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 20005,
+   "markers": 1
+  },
+  {
+   "id": "RU.LOGISTICS.PEREVOZKA_GRUZA",
+   "slug": "perevozka-gruza",
+   "title": "Перевозка груза",
+   "family": "logistics",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-05",
+   "path": "logistics/perevozka-gruza.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 20917,
+   "markers": 1
+  },
+  {
+   "id": "RU.LOGISTICS.PEREVOZKA_PASSAZHIRA",
+   "slug": "perevozka-passazhira",
+   "title": "Перевозка пассажиров и фрахтование для перевозки работников",
+   "family": "logistics",
+   "parent": "RU.LOGISTICS.PEREVOZKA_GRUZA",
+   "kind": "full",
+   "checked_on": "2026-11-09",
+   "path": "logistics/perevozka-passazhira.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 11050,
+   "markers": 1
+  },
+  {
+   "id": "RU.WORKS_SERVICES.PODRIAD",
+   "slug": "podriad",
+   "title": "Подряд (общие положения)",
+   "family": "works_services",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-01",
+   "path": "works_services/podriad.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 16868,
+   "markers": 1
+  },
+  {
+   "id": "RU.INTERMEDIATION.PORUCHENIE",
+   "slug": "poruchenie",
+   "title": "Поручение",
+   "family": "intermediation",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-01",
+   "path": "intermediation/poruchenie.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международный ориентир: Принципы УНИДРУА",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 15579,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.POSTAVKA",
+   "slug": "postavka",
+   "title": "Поставка",
+   "family": "property_transfer",
+   "parent": "RU.PROPERTY_TRANSFER.KUPLIA_PRODAZHA",
+   "kind": "full",
+   "checked_on": "2026-10-31",
+   "path": "property_transfer/postavka.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международная поставка",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 25582,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.POSTOIANNAIA_RENTA",
+   "slug": "postoiannaia-renta",
+   "title": "Постоянная рента",
+   "family": "property_transfer",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "property_transfer/postoiannaia-renta.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2153,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.POTREBITEL_SKII_KREDIT",
+   "slug": "potrebitel-skii-kredit",
+   "title": "Потребительский кредит (заем)",
+   "family": "finance",
+   "parent": "RU.FINANCE.KREDITNYI_DOGOVOR",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/potrebitel-skii-kredit.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2783,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.POZHIZNENNAIA_RENTA",
+   "slug": "pozhiznennaia-renta",
+   "title": "Пожизненная рента",
+   "family": "property_transfer",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "property_transfer/pozhiznennaia-renta.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2035,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.POZHIZNENNOE_SODERZHANIE_S_IZHDIVENIEM",
+   "slug": "pozhiznennoe-soderzhanie-s-izhdiveniem",
+   "title": "Пожизненное содержание с иждивением",
+   "family": "property_transfer",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "property_transfer/pozhiznennoe-soderzhanie-s-izhdiveniem.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2051,
+   "markers": 1
+  },
+  {
+   "id": "RU.TRANSPORT_LOGISTICS.PRIAMOE_SMESHANNOE_SOOBSHCHENIE",
+   "slug": "priamoe-smeshannoe-soobshchenie",
+   "title": "Прямое смешанное сообщение",
+   "family": "logistics",
+   "parent": "RU.LOGISTICS.PEREVOZKA_GRUZA",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "logistics/priamoe-smeshannoe-soobshchenie.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2267,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.PRODAZHA_NEDVIZHIMOSTI",
+   "slug": "prodazha-nedvizhimosti",
+   "title": "Продажа недвижимости и предприятия",
+   "family": "property_transfer",
+   "parent": "RU.PROPERTY_TRANSFER.KUPLIA_PRODAZHA",
+   "kind": "full",
+   "checked_on": "2026-11-09",
+   "path": "property_transfer/prodazha-nedvizhimosti.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 15211,
+   "markers": 1
+  },
+  {
+   "id": "RU.TEMPORARY_POSSESSION_USE.PROKAT",
+   "slug": "prokat",
+   "title": "Прокат",
+   "family": "lease",
+   "parent": "RU.LEASE.ARENDA",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "lease/prokat.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1920,
+   "markers": 1
+  },
+  {
+   "id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.PROSTOE_TOVARISHCHESTVO_SOVMESTNAIA_DEIATEL_NOST",
+   "slug": "prostoe-tovarishchestvo-sovmestnaia-deiatel-nost",
+   "title": "Простое товарищество / совместная деятельность",
+   "family": "intermediation",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "intermediation/prostoe-tovarishchestvo-sovmestnaia-deiatel-nost.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1882,
+   "markers": 1
+  },
+  {
+   "id": "RU.ADJACENT_OBLIGATIONS.PUBLICHNOE_OBESHCHANIE_NAGRADY",
+   "slug": "publichnoe-obeshchanie-nagrady",
+   "title": "Публичное обещание награды",
+   "family": "adjacent_obligations",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "adjacent_obligations/publichnoe-obeshchanie-nagrady.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1912,
+   "markers": 1
+  },
+  {
+   "id": "RU.ADJACENT_OBLIGATIONS.PUBLICHNYI_KONKURS",
+   "slug": "publichnyi-konkurs",
+   "title": "Публичный конкурс",
+   "family": "adjacent_obligations",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "adjacent_obligations/publichnyi-konkurs.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1900,
+   "markers": 1
+  },
+  {
+   "id": "RU.GENERAL.RAMOCHNYI_DOGOVOR",
+   "slug": "ramochnyi-dogovor",
+   "title": "Рамочный договор",
+   "family": "general",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-01",
+   "path": "general/ramochnyi-dogovor.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 10679,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.RASCHETY_CHEKAMI",
+   "slug": "raschety-chekami",
+   "title": "Расчеты чеками",
+   "family": "finance",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/raschety-chekami.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1852,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.RASCHETY_PLATEZHNYMI_PORUCHENIIAMI",
+   "slug": "raschety-platezhnymi-porucheniiami",
+   "title": "Расчеты платежными поручениями",
+   "family": "finance",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/raschety-platezhnymi-porucheniiami.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1946,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.RASCHETY_PO_AKKREDITIVU",
+   "slug": "raschety-po-akkreditivu",
+   "title": "Расчеты по аккредитиву",
+   "family": "finance",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/raschety-po-akkreditivu.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1878,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.RASCHETY_PO_INKASSO",
+   "slug": "raschety-po-inkasso",
+   "title": "Расчеты по инкассо",
+   "family": "finance",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/raschety-po-inkasso.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1869,
+   "markers": 1
+  },
+  {
+   "id": "RU.PROPERTY_TRANSFER.ROZNICHNAIA_KUPLIA_PRODAZHA",
+   "slug": "roznichnaia-kuplia-prodazha",
+   "title": "Розничная купля-продажа",
+   "family": "property_transfer",
+   "parent": "RU.PROPERTY_TRANSFER.KUPLIA_PRODAZHA",
+   "kind": "full",
+   "checked_on": "2026-10-31",
+   "path": "property_transfer/roznichnaia-kuplia-prodazha.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы"
+   ],
+   "chars": 16080,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE_BANKING.SCHET_ESKROU",
+   "slug": "schet-eskrou",
+   "title": "Счет эскроу",
+   "family": "finance",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "finance/schet-eskrou.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 1765,
+   "markers": 1
+  },
+  {
+   "id": "RU.TRANSPORT_LOGISTICS.SOGLASHENIIA_MEZHDU_TRANSPORTNYMI_ORGANIZATSIIAMI_OB_ORGANIZATSII_PEREVOZOK",
+   "slug": "soglasheniia-mezhdu-transportnymi-organizatsiiami-ob-organizatsii-perevozok",
+   "title": "Соглашения между транспортными организациями об организации перевозок",
+   "family": "logistics",
+   "parent": "RU.LOGISTICS.PEREVOZKA_GRUZA",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "logistics/soglasheniia-mezhdu-transportnymi-organizatsiiami-ob-organizatsii-perevozok.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2287,
+   "markers": 1
+  },
+  {
+   "id": "RU.TEMPORARY_POSSESSION_USE.SOTSIAL_NYI_NAEM_NAEM_ZHILISHCHNOGO_FONDA_SOTSIAL_NOGO_ISPOL_ZOVANIIA",
+   "slug": "sotsial-nyi-naem-naem-zhilishchnogo-fonda-sotsial-nogo-ispol-zovaniia",
+   "title": "Социальный наем / наем жилищного фонда социального использования",
+   "family": "lease",
+   "parent": null,
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "lease/sotsial-nyi-naem-naem-zhilishchnogo-fonda-sotsial-nogo-ispol-zovaniia.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2108,
+   "markers": 1
+  },
+  {
+   "id": "RU.WORKS_SERVICES.STROITELNYI_PODRIAD",
+   "slug": "stroitelnyi-podriad",
+   "title": "Строительный подряд (с проектными и изыскательскими работами)",
+   "family": "works_services",
+   "parent": "RU.WORKS_SERVICES.PODRIAD",
+   "kind": "full",
+   "checked_on": "2026-11-10",
+   "path": "works_services/stroitelnyi-podriad.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Права на объект",
+    "7. Соседние карточки",
+    "8. Проектные и изыскательские работы",
+    "9. Нормы и практика"
+   ],
+   "chars": 25456,
+   "markers": 1
+  },
+  {
+   "id": "RU.GENERAL.TOLKOVANIE_DOGOVORA",
+   "slug": "tolkovanie-dogovora",
+   "title": "Толкование договора",
+   "family": "general",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-10-30",
+   "path": "general/tolkovanie-dogovora.md",
+   "sections": [
+    "1. Когда нужна карточка",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международный ориентир: Принципы УНИДРУА",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 10572,
+   "markers": 1
+  },
+  {
+   "id": "RU.LOGISTICS.TRANSPORTNAIA_EKSPEDITSIIA",
+   "slug": "transportnaia-ekspeditsiia",
+   "title": "Транспортная экспедиция",
+   "family": "logistics",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-05",
+   "path": "logistics/transportnaia-ekspeditsiia.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 17424,
+   "markers": 1
+  },
+  {
+   "id": "RU.TRANSPORT_LOGISTICS.TSENTRALIZOVANNYI_ZAVOZ_VYVOZ_GRUZOV",
+   "slug": "tsentralizovannyi-zavoz-vyvoz-gruzov",
+   "title": "Централизованный завоз/вывоз грузов",
+   "family": "logistics",
+   "parent": "RU.LOGISTICS.PEREVOZKA_GRUZA",
+   "kind": "short",
+   "checked_on": "2026-11-10",
+   "path": "logistics/tsentralizovannyi-zavoz-vyvoz-gruzov.md",
+   "sections": [
+    "1. Откуда берутся правила",
+    "2. Проверка договора",
+    "3. Соседние карточки",
+    "4. Нормы"
+   ],
+   "chars": 2420,
+   "markers": 1
+  },
+  {
+   "id": "RU.WORKS_SERVICES.USLUGI",
+   "slug": "uslugi",
+   "title": "Возмездное оказание услуг",
+   "family": "works_services",
+   "parent": "RU.WORKS_SERVICES.PODRIAD",
+   "kind": "full",
+   "checked_on": "2026-11-01",
+   "path": "works_services/uslugi.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Соседние карточки",
+    "7. Нормы и практика"
+   ],
+   "chars": 14144,
+   "markers": 1
+  },
+  {
+   "id": "RU.GENERAL.USTUPKA_PEREVOD_DOLGA",
+   "slug": "ustupka-perevod-dolga",
+   "title": "Уступка требования, перевод долга, передача договора",
+   "family": "general",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-10-30",
+   "path": "general/ustupka-perevod-dolga.md",
+   "sections": [
+    "1. Когда нужна карточка",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международный ориентир: Принципы УНИДРУА",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 12634,
+   "markers": 1
+  },
+  {
+   "id": "RU.FINANCE.ZAEM",
+   "slug": "zaem",
+   "title": "Заём (с товарным и коммерческим кредитом)",
+   "family": "finance",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-11-05",
+   "path": "finance/zaem.md",
+   "sections": [
+    "1. Квалификация",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Товарный кредит",
+    "7. Коммерческий кредит",
+    "8. Соседние карточки и нормы"
+   ],
+   "chars": 16680,
+   "markers": 1
+  },
+  {
+   "id": "RU.GENERAL.ZAKLIUCHENIE_DOGOVORA",
+   "slug": "zakliuchenie-dogovora",
+   "title": "Заключение договора и существенные условия",
+   "family": "general",
+   "parent": null,
+   "kind": "full",
+   "checked_on": "2026-10-30",
+   "path": "general/zakliuchenie-dogovora.md",
+   "sections": [
+    "1. Когда нужна карточка",
+    "2. Откуда берутся правила",
+    "3. Проверка договора",
+    "4. Подготовка договора",
+    "5. Споры",
+    "6. Международный ориентир: Принципы УНИДРУА",
+    "7. Соседние карточки",
+    "8. Нормы"
+   ],
+   "chars": 16017,
+   "markers": 1
+  }
+ ],
+ "aliases": [
+  {
+   "old_id": "RU.ADJACENT_OBLIGATIONS.IGRY_I_PARI",
+   "old_title": "Игры и пари",
+   "old_path": "adjacent_obligations/igry-i-pari.md",
+   "slug": "igry-i-pari",
+   "id": "RU.ADJACENT_OBLIGATIONS.IGRY_I_PARI"
+  },
+  {
+   "old_id": "RU.ADJACENT_OBLIGATIONS.PUBLICHNOE_OBESHCHANIE_NAGRADY",
+   "old_title": "Публичное обещание награды",
+   "old_path": "adjacent_obligations/publichnoe-obeshchanie-nagrady.md",
+   "slug": "publichnoe-obeshchanie-nagrady",
+   "id": "RU.ADJACENT_OBLIGATIONS.PUBLICHNOE_OBESHCHANIE_NAGRADY"
+  },
+  {
+   "old_id": "RU.ADJACENT_OBLIGATIONS.PUBLICHNYI_KONKURS",
+   "old_title": "Публичный конкурс",
+   "old_path": "adjacent_obligations/publichnyi-konkurs.md",
+   "slug": "publichnyi-konkurs",
+   "id": "RU.ADJACENT_OBLIGATIONS.PUBLICHNYI_KONKURS"
+  },
+  {
+   "old_id": "RU.CORPORATE_MIXED_UNNAMED.DISTRIBUTSIIA_DILERSKII_DOGOVOR",
+   "old_title": "Дистрибуция / дилерский договор",
+   "old_path": "corporate_mixed_unnamed/distributsiia-dilerskii-dogovor.md",
+   "slug": "distributsiia",
+   "id": "RU.INTERMEDIATION.DISTRIBUTSIIA"
+  },
+  {
+   "old_id": "RU.CORPORATE_MIXED_UNNAMED.DOGOVOR_O_SOZDANII_AO",
+   "old_title": "Договор о создании АО",
+   "old_path": "corporate_mixed_unnamed/dogovor-o-sozdanii-ao.md",
+   "slug": "dogovor-o-sozdanii-ao",
+   "id": "RU.CORPORATE_MIXED_UNNAMED.DOGOVOR_O_SOZDANII_AO"
+  },
+  {
+   "old_id": "RU.CORPORATE_MIXED_UNNAMED.DOGOVOR_OB_UCHREZHDENII_OOO",
+   "old_title": "Договор об учреждении ООО",
+   "old_path": "corporate_mixed_unnamed/dogovor-ob-uchrezhdenii-ooo.md",
+   "slug": "dogovor-ob-uchrezhdenii-ooo",
+   "id": "RU.CORPORATE_MIXED_UNNAMED.DOGOVOR_OB_UCHREZHDENII_OOO"
+  },
+  {
+   "old_id": "RU.CORPORATE_MIXED_UNNAMED.INVESTITSIONNOE_PARTNERSKOE_SOGLASHENIE",
+   "old_title": "Инвестиционное / партнерское соглашение (общая коммерческая модель)",
+   "old_path": "corporate_mixed_unnamed/investitsionnoe-partnerskoe-soglashenie.md",
+   "slug": "investitsionnoe-partnerskoe-soglashenie",
+   "id": "RU.CORPORATE_MIXED_UNNAMED.INVESTITSIONNOE_PARTNERSKOE_SOGLASHENIE"
+  },
+  {
+   "old_id": "RU.CORPORATE_MIXED_UNNAMED.KORPORATIVNYI_DOGOVOR",
+   "old_title": "Корпоративный договор",
+   "old_path": "corporate_mixed_unnamed/korporativnyi-dogovor.md",
+   "slug": "korporativnyi-dogovor",
+   "id": "RU.CORPORATE_MIXED_UNNAMED.KORPORATIVNYI_DOGOVOR"
+  },
+  {
+   "old_id": "RU.CORPORATE_MIXED_UNNAMED.MSA_SOW_ZAKAZNAIA_MODEL",
+   "old_title": "MSA + SOW / заказная модель",
+   "old_path": "corporate_mixed_unnamed/msa-sow-zakaznaia-model.md",
+   "slug": "ramochnyi-dogovor",
+   "id": "RU.GENERAL.RAMOCHNYI_DOGOVOR"
+  },
+  {
+   "old_id": "RU.CORPORATE_MIXED_UNNAMED.NDA_SOGLASHENIE_O_KONFIDENTSIAL_NOSTI",
+   "old_title": "NDA / соглашение о конфиденциальности",
+   "old_path": "corporate_mixed_unnamed/nda-soglashenie-o-konfidentsial-nosti.md",
+   "slug": "nda",
+   "id": "RU.UNNAMED.NDA"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.BANKOVSKII_SCHET",
+   "old_title": "Банковский счет",
+   "old_path": "finance_banking/bankovskii-schet.md",
+   "slug": "bankovskii-schet",
+   "id": "RU.FINANCE_BANKING.BANKOVSKII_SCHET"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.BANKOVSKII_VKLAD",
+   "old_title": "Банковский вклад (депозит)",
+   "old_path": "finance_banking/bankovskii-vklad.md",
+   "slug": "bankovskii-vklad",
+   "id": "RU.FINANCE_BANKING.BANKOVSKII_VKLAD"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.FAKTORING",
+   "old_title": "Факторинг",
+   "old_path": "finance_banking/faktoring.md",
+   "slug": "faktoring",
+   "id": "RU.FINANCE.FAKTORING"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.GOSUDARSTVENNYI_MUNITSIPAL_NYI_ZAEM",
+   "old_title": "Государственный / муниципальный заем",
+   "old_path": "finance_banking/gosudarstvennyi-munitsipal-nyi-zaem.md",
+   "slug": "gosudarstvennyi-munitsipal-nyi-zaem",
+   "id": "RU.FINANCE_BANKING.GOSUDARSTVENNYI_MUNITSIPAL_NYI_ZAEM"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.KOMMERCHESKII_KREDIT",
+   "old_title": "Коммерческий кредит",
+   "old_path": "finance_banking/kommercheskii-kredit.md",
+   "slug": "zaem",
+   "id": "RU.FINANCE.ZAEM"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.KREDIT",
+   "old_title": "Кредит",
+   "old_path": "finance_banking/kredit.md",
+   "slug": "kreditnyi-dogovor",
+   "id": "RU.FINANCE.KREDITNYI_DOGOVOR"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.OBLIGATSIONNYI_ZAEM",
+   "old_title": "Облигационный заем",
+   "old_path": "finance_banking/obligatsionnyi-zaem.md",
+   "slug": "obligatsionnyi-zaem",
+   "id": "RU.FINANCE_BANKING.OBLIGATSIONNYI_ZAEM"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.POTREBITEL_SKII_KREDIT",
+   "old_title": "Потребительский кредит (заем)",
+   "old_path": "finance_banking/potrebitel-skii-kredit.md",
+   "slug": "potrebitel-skii-kredit",
+   "id": "RU.FINANCE_BANKING.POTREBITEL_SKII_KREDIT"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.RASCHETY_CHEKAMI",
+   "old_title": "Расчеты чеками",
+   "old_path": "finance_banking/raschety-chekami.md",
+   "slug": "raschety-chekami",
+   "id": "RU.FINANCE_BANKING.RASCHETY_CHEKAMI"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.RASCHETY_PLATEZHNYMI_PORUCHENIIAMI",
+   "old_title": "Расчеты платежными поручениями",
+   "old_path": "finance_banking/raschety-platezhnymi-porucheniiami.md",
+   "slug": "raschety-platezhnymi-porucheniiami",
+   "id": "RU.FINANCE_BANKING.RASCHETY_PLATEZHNYMI_PORUCHENIIAMI"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.RASCHETY_PO_AKKREDITIVU",
+   "old_title": "Расчеты по аккредитиву",
+   "old_path": "finance_banking/raschety-po-akkreditivu.md",
+   "slug": "raschety-po-akkreditivu",
+   "id": "RU.FINANCE_BANKING.RASCHETY_PO_AKKREDITIVU"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.RASCHETY_PO_INKASSO",
+   "old_title": "Расчеты по инкассо",
+   "old_path": "finance_banking/raschety-po-inkasso.md",
+   "slug": "raschety-po-inkasso",
+   "id": "RU.FINANCE_BANKING.RASCHETY_PO_INKASSO"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.SCHET_ESKROU",
+   "old_title": "Счет эскроу",
+   "old_path": "finance_banking/schet-eskrou.md",
+   "slug": "schet-eskrou",
+   "id": "RU.FINANCE_BANKING.SCHET_ESKROU"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.TOVARNYI_KREDIT",
+   "old_title": "Товарный кредит",
+   "old_path": "finance_banking/tovarnyi-kredit.md",
+   "slug": "zaem",
+   "id": "RU.FINANCE.ZAEM"
+  },
+  {
+   "old_id": "RU.FINANCE_BANKING.ZAEM",
+   "old_title": "Заем",
+   "old_path": "finance_banking/zaem.md",
+   "slug": "zaem",
+   "id": "RU.FINANCE.ZAEM"
+  },
+  {
+   "old_id": "RU.GENERAL_CONSTRUCTIONS.ABONENTSKII_DOGOVOR",
+   "old_title": "Абонентский договор",
+   "old_path": "general_constructions/abonentskii-dogovor.md",
+   "slug": "zakliuchenie-dogovora",
+   "id": "RU.GENERAL.ZAKLIUCHENIE_DOGOVORA"
+  },
+  {
+   "old_id": "RU.GENERAL_CONSTRUCTIONS.OPTSION_NA_ZAKLIUCHENIE_DOGOVORA",
+   "old_title": "Опцион на заключение договора",
+   "old_path": "general_constructions/optsion-na-zakliuchenie-dogovora.md",
+   "slug": "zakliuchenie-dogovora",
+   "id": "RU.GENERAL.ZAKLIUCHENIE_DOGOVORA"
+  },
+  {
+   "old_id": "RU.GENERAL_CONSTRUCTIONS.OPTSIONNYI_DOGOVOR",
+   "old_title": "Опционный договор",
+   "old_path": "general_constructions/optsionnyi-dogovor.md",
+   "slug": "optsionnyi-dogovor",
+   "id": "RU.GENERAL_CONSTRUCTIONS.OPTSIONNYI_DOGOVOR"
+  },
+  {
+   "old_id": "RU.GENERAL_CONSTRUCTIONS.PREDVARITEL_NYI_DOGOVOR",
+   "old_title": "Предварительный договор",
+   "old_path": "general_constructions/predvaritel-nyi-dogovor.md",
+   "slug": "zakliuchenie-dogovora",
+   "id": "RU.GENERAL.ZAKLIUCHENIE_DOGOVORA"
+  },
+  {
+   "old_id": "RU.GENERAL_CONSTRUCTIONS.RAMOCHNYI_DOGOVOR",
+   "old_title": "Рамочный договор (framework / MSA)",
+   "old_path": "general_constructions/ramochnyi-dogovor.md",
+   "slug": "ramochnyi-dogovor",
+   "id": "RU.GENERAL.RAMOCHNYI_DOGOVOR"
+  },
+  {
+   "old_id": "RU.INTELLECTUAL_PROPERTY.AVTORSKII_ZAKAZ",
+   "old_title": "Авторский заказ",
+   "old_path": "intellectual_property/avtorskii-zakaz.md",
+   "slug": "dogovory-s-avtorami",
+   "id": "RU.IP.DOGOVORY_S_AVTORAMI"
+  },
+  {
+   "old_id": "RU.INTELLECTUAL_PROPERTY.LITSENZIIA_NA_NOU_KHAU",
+   "old_title": "Лицензия на ноу-хау (секрет производства)",
+   "old_path": "intellectual_property/litsenziia-na-nou-khau.md",
+   "slug": "litsenzionnyi-dogovor",
+   "id": "RU.IP.LITSENZIONNYI_DOGOVOR"
+  },
+  {
+   "old_id": "RU.INTELLECTUAL_PROPERTY.LITSENZIIA_NA_TOVARNYI_ZNAK",
+   "old_title": "Лицензия на товарный знак",
+   "old_path": "intellectual_property/litsenziia-na-tovarnyi-znak.md",
+   "slug": "litsenzionnyi-dogovor",
+   "id": "RU.IP.LITSENZIONNYI_DOGOVOR"
+  },
+  {
+   "old_id": "RU.INTELLECTUAL_PROPERTY.LITSENZIONNYI_DOGOVOR",
+   "old_title": "Лицензионный договор (общая модель)",
+   "old_path": "intellectual_property/litsenzionnyi-dogovor.md",
+   "slug": "litsenzionnyi-dogovor",
+   "id": "RU.IP.LITSENZIONNYI_DOGOVOR"
+  },
+  {
+   "old_id": "RU.INTELLECTUAL_PROPERTY.OTCHUZHDENIE_ISKLIUCHITEL_NOGO_PRAVA",
+   "old_title": "Отчуждение исключительного права",
+   "old_path": "intellectual_property/otchuzhdenie-iskliuchitel-nogo-prava.md",
+   "slug": "otchuzhdenie-iskliuchitelnogo-prava",
+   "id": "RU.IP.OTCHUZHDENIE_ISKLIUCHITELNOGO_PRAVA"
+  },
+  {
+   "old_id": "RU.INTELLECTUAL_PROPERTY.SUBLITSENZIIA",
+   "old_title": "Сублицензия",
+   "old_path": "intellectual_property/sublitsenziia.md",
+   "slug": "litsenzionnyi-dogovor",
+   "id": "RU.IP.LITSENZIONNYI_DOGOVOR"
+  },
+  {
+   "old_id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.AGENTIROVANIE",
+   "old_title": "Агентирование",
+   "old_path": "intermediation_management_joint_activity/agentirovanie.md",
+   "slug": "agentskii-dogovor",
+   "id": "RU.INTERMEDIATION.AGENTSKII_DOGOVOR"
+  },
+  {
+   "old_id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.DEISTVIIA_V_CHUZHOM_INTERESE_BEZ_PORUCHENIIA",
+   "old_title": "Действия в чужом интересе без поручения",
+   "old_path": "intermediation_management_joint_activity/deistviia-v-chuzhom-interese-bez-porucheniia.md",
+   "slug": "deistviia-v-chuzhom-interese-bez-porucheniia",
+   "id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.DEISTVIIA_V_CHUZHOM_INTERESE_BEZ_PORUCHENIIA"
+  },
+  {
+   "old_id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.DOVERITEL_NOE_UPRAVLENIE_IMUSHCHESTVOM",
+   "old_title": "Доверительное управление имуществом",
+   "old_path": "intermediation_management_joint_activity/doveritel-noe-upravlenie-imushchestvom.md",
+   "slug": "doveritel-noe-upravlenie-imushchestvom",
+   "id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.DOVERITEL_NOE_UPRAVLENIE_IMUSHCHESTVOM"
+  },
+  {
+   "old_id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.KOMISSIIA",
+   "old_title": "Комиссия",
+   "old_path": "intermediation_management_joint_activity/komissiia.md",
+   "slug": "komissiia",
+   "id": "RU.INTERMEDIATION.KOMISSIIA"
+  },
+  {
+   "old_id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.KOMMERCHESKAIA_KONTSESSIIA",
+   "old_title": "Коммерческая концессия (франчайзинг по ГК)",
+   "old_path": "intermediation_management_joint_activity/kommercheskaia-kontsessiia.md",
+   "slug": "kommercheskaia-kontsessiia",
+   "id": "RU.IP.KOMMERCHESKAIA_KONTSESSIIA"
+  },
+  {
+   "old_id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.PORUCHENIE",
+   "old_title": "Поручение",
+   "old_path": "intermediation_management_joint_activity/poruchenie.md",
+   "slug": "poruchenie",
+   "id": "RU.INTERMEDIATION.PORUCHENIE"
+  },
+  {
+   "old_id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.PROSTOE_TOVARISHCHESTVO_SOVMESTNAIA_DEIATEL_NOST",
+   "old_title": "Простое товарищество / совместная деятельность",
+   "old_path": "intermediation_management_joint_activity/prostoe-tovarishchestvo-sovmestnaia-deiatel-nost.md",
+   "slug": "prostoe-tovarishchestvo-sovmestnaia-deiatel-nost",
+   "id": "RU.INTERMEDIATION_MANAGEMENT_JOINT_ACTIVITY.PROSTOE_TOVARISHCHESTVO_SOVMESTNAIA_DEIATEL_NOST"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.DARENIE",
+   "old_title": "Дарение",
+   "old_path": "property_transfer/darenie.md",
+   "slug": "darenie-pozhertvovanie",
+   "id": "RU.PROPERTY_TRANSFER.DARENIE"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.ENERGOSNABZHENIE_ROZNICHNYI_RYNOK_ELEKTROENERGII",
+   "old_title": "Энергоснабжение / розничный рынок электроэнергии",
+   "old_path": "property_transfer/energosnabzhenie-roznichnyi-rynok-elektroenergii.md",
+   "slug": "energosnabzhenie",
+   "id": "RU.PROPERTY_TRANSFER.ENERGOSNABZHENIE"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.KONTRAKTATSIIA",
+   "old_title": "Контрактация",
+   "old_path": "property_transfer/kontraktatsiia.md",
+   "slug": "kontraktatsiia",
+   "id": "RU.PROPERTY_TRANSFER.KONTRAKTATSIIA"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.KUPLIA_PRODAZHA",
+   "old_title": "Купля-продажа (общая)",
+   "old_path": "property_transfer/kuplia-prodazha.md",
+   "slug": "kuplia-prodazha",
+   "id": "RU.PROPERTY_TRANSFER.KUPLIA_PRODAZHA"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.MENA",
+   "old_title": "Мена",
+   "old_path": "property_transfer/mena.md",
+   "slug": "mena",
+   "id": "RU.PROPERTY_TRANSFER.MENA"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.POSTAVKA",
+   "old_title": "Поставка",
+   "old_path": "property_transfer/postavka.md",
+   "slug": "postavka",
+   "id": "RU.PROPERTY_TRANSFER.POSTAVKA"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.POSTOIANNAIA_RENTA",
+   "old_title": "Постоянная рента",
+   "old_path": "property_transfer/postoiannaia-renta.md",
+   "slug": "postoiannaia-renta",
+   "id": "RU.PROPERTY_TRANSFER.POSTOIANNAIA_RENTA"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.POZHIZNENNAIA_RENTA",
+   "old_title": "Пожизненная рента",
+   "old_path": "property_transfer/pozhiznennaia-renta.md",
+   "slug": "pozhiznennaia-renta",
+   "id": "RU.PROPERTY_TRANSFER.POZHIZNENNAIA_RENTA"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.POZHIZNENNOE_SODERZHANIE_S_IZHDIVENIEM",
+   "old_title": "Пожизненное содержание с иждивением",
+   "old_path": "property_transfer/pozhiznennoe-soderzhanie-s-izhdiveniem.md",
+   "slug": "pozhiznennoe-soderzhanie-s-izhdiveniem",
+   "id": "RU.PROPERTY_TRANSFER.POZHIZNENNOE_SODERZHANIE_S_IZHDIVENIEM"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.PRODAZHA_NEDVIZHIMOSTI",
+   "old_title": "Продажа недвижимости",
+   "old_path": "property_transfer/prodazha-nedvizhimosti.md",
+   "slug": "prodazha-nedvizhimosti",
+   "id": "RU.PROPERTY_TRANSFER.PRODAZHA_NEDVIZHIMOSTI"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.PRODAZHA_PREDPRIIATIIA",
+   "old_title": "Продажа предприятия",
+   "old_path": "property_transfer/prodazha-predpriiatiia.md",
+   "slug": "prodazha-nedvizhimosti",
+   "id": "RU.PROPERTY_TRANSFER.PRODAZHA_NEDVIZHIMOSTI"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.PRODAZHA_ZHILOGO_POMESHCHENIIA_S_SOKHRANIAIUSHCHIMI_PRAVO_POL_ZOVANIIA_LITSAMI",
+   "old_title": "Продажа жилого помещения с сохраняющими право пользования лицами",
+   "old_path": "property_transfer/prodazha-zhilogo-pomeshcheniia-s-sokhraniaiushchimi-pravo-pol-zovaniia-litsami.md",
+   "slug": "prodazha-nedvizhimosti",
+   "id": "RU.PROPERTY_TRANSFER.PRODAZHA_NEDVIZHIMOSTI"
+  },
+  {
+   "old_id": "RU.PROPERTY_TRANSFER.ROZNICHNAIA_KUPLIA_PRODAZHA",
+   "old_title": "Розничная купля-продажа",
+   "old_path": "property_transfer/roznichnaia-kuplia-prodazha.md",
+   "slug": "roznichnaia-kuplia-prodazha",
+   "id": "RU.PROPERTY_TRANSFER.ROZNICHNAIA_KUPLIA_PRODAZHA"
+  },
+  {
+   "old_id": "RU.SECURITY_CHANGE_OF_PARTIES.NEUSTOIKA",
+   "old_title": "Неустойка (соглашение о неустойке)",
+   "old_path": "security_change_of_parties/neustoika.md",
+   "slug": "otvetstvennost",
+   "id": "RU.GENERAL.OTVETSTVENNOST"
+  },
+  {
+   "old_id": "RU.SECURITY_CHANGE_OF_PARTIES.NEZAVISIMAIA_GARANTIIA",
+   "old_title": "Независимая гарантия",
+   "old_path": "security_change_of_parties/nezavisimaia-garantiia.md",
+   "slug": "obespechenie",
+   "id": "RU.GENERAL.OBESPECHENIE"
+  },
+  {
+   "old_id": "RU.SECURITY_CHANGE_OF_PARTIES.OBESPECHITEL_NYI_PLATEZH",
+   "old_title": "Обеспечительный платеж",
+   "old_path": "security_change_of_parties/obespechitel-nyi-platezh.md",
+   "slug": "obespechenie",
+   "id": "RU.GENERAL.OBESPECHENIE"
+  },
+  {
+   "old_id": "RU.SECURITY_CHANGE_OF_PARTIES.PEREDACHA_DOGOVORA",
+   "old_title": "Передача договора",
+   "old_path": "security_change_of_parties/peredacha-dogovora.md",
+   "slug": "ustupka-perevod-dolga",
+   "id": "RU.GENERAL.USTUPKA_PEREVOD_DOLGA"
+  },
+  {
+   "old_id": "RU.SECURITY_CHANGE_OF_PARTIES.PEREVOD_DOLGA",
+   "old_title": "Перевод долга",
+   "old_path": "security_change_of_parties/perevod-dolga.md",
+   "slug": "ustupka-perevod-dolga",
+   "id": "RU.GENERAL.USTUPKA_PEREVOD_DOLGA"
+  },
+  {
+   "old_id": "RU.SECURITY_CHANGE_OF_PARTIES.PORUCHITEL_STVO",
+   "old_title": "Поручительство",
+   "old_path": "security_change_of_parties/poruchitel-stvo.md",
+   "slug": "obespechenie",
+   "id": "RU.GENERAL.OBESPECHENIE"
+  },
+  {
+   "old_id": "RU.SECURITY_CHANGE_OF_PARTIES.USTUPKA_TREBOVANIIA",
+   "old_title": "Уступка требования (цессия)",
+   "old_path": "security_change_of_parties/ustupka-trebovaniia.md",
+   "slug": "ustupka-perevod-dolga",
+   "id": "RU.GENERAL.USTUPKA_PEREVOD_DOLGA"
+  },
+  {
+   "old_id": "RU.SECURITY_CHANGE_OF_PARTIES.ZADATOK",
+   "old_title": "Задаток",
+   "old_path": "security_change_of_parties/zadatok.md",
+   "slug": "obespechenie",
+   "id": "RU.GENERAL.OBESPECHENIE"
+  },
+  {
+   "old_id": "RU.SECURITY_CHANGE_OF_PARTIES.ZALOG",
+   "old_title": "Залог",
+   "old_path": "security_change_of_parties/zalog.md",
+   "slug": "obespechenie",
+   "id": "RU.GENERAL.OBESPECHENIE"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.DOGOVOR_USLOVNOGO_DEPONIROVANIIA",
+   "old_title": "Договор условного депонирования (эскроу)",
+   "old_path": "storage_escrow_insurance/dogovor-uslovnogo-deponirovaniia.md",
+   "slug": "dogovor-uslovnogo-deponirovaniia",
+   "id": "RU.STORAGE_ESCROW_INSURANCE.DOGOVOR_USLOVNOGO_DEPONIROVANIIA"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.IMUSHCHESTVENNOE_STRAKHOVANIE",
+   "old_title": "Имущественное страхование",
+   "old_path": "storage_escrow_insurance/imushchestvennoe-strakhovanie.md",
+   "slug": "imushchestvennoe-strakhovanie",
+   "id": "RU.INSURANCE.IMUSHCHESTVENNOE_STRAKHOVANIE"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.INDIVIDUAL_NYI_BANKOVSKII_SEIF",
+   "old_title": "Индивидуальный банковский сейф",
+   "old_path": "storage_escrow_insurance/individual-nyi-bankovskii-seif.md",
+   "slug": "hranenie",
+   "id": "RU.LOGISTICS.KHRANENIE"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_TSENNOSTEI_V_BANKE",
+   "old_title": "Хранение ценностей в банке",
+   "old_path": "storage_escrow_insurance/khranenie-tsennostei-v-banke.md",
+   "slug": "khranenie-tsennostei-v-banke",
+   "id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_TSENNOSTEI_V_BANKE"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_V_GOSTINITSE",
+   "old_title": "Хранение в гостинице",
+   "old_path": "storage_escrow_insurance/khranenie-v-gostinitse.md",
+   "slug": "khranenie-v-gostinitse",
+   "id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_V_GOSTINITSE"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_V_KAMERAKH_KHRANENIIA_TRANSPORTNYKH_ORGANIZATSII",
+   "old_title": "Хранение в камерах хранения транспортных организаций",
+   "old_path": "storage_escrow_insurance/khranenie-v-kamerakh-khraneniia-transportnykh-organizatsii.md",
+   "slug": "khranenie-v-kamerakh-khraneniia-transportnykh-organizatsii",
+   "id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_V_KAMERAKH_KHRANENIIA_TRANSPORTNYKH_ORGANIZATSII"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE_V_LOMBARDE",
+   "old_title": "Хранение в ломбарде",
+   "old_path": "storage_escrow_insurance/khranenie-v-lombarde.md",
+   "slug": "hranenie",
+   "id": "RU.LOGISTICS.KHRANENIE"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.KHRANENIE",
+   "old_title": "Хранение (общая модель)",
+   "old_path": "storage_escrow_insurance/khranenie.md",
+   "slug": "hranenie",
+   "id": "RU.LOGISTICS.KHRANENIE"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.LICHNOE_STRAKHOVANIE",
+   "old_title": "Личное страхование",
+   "old_path": "storage_escrow_insurance/lichnoe-strakhovanie.md",
+   "slug": "lichnoe-strakhovanie",
+   "id": "RU.INSURANCE.LICHNOE_STRAKHOVANIE"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.SEKVESTR",
+   "old_title": "Секвестр",
+   "old_path": "storage_escrow_insurance/sekvestr.md",
+   "slug": "hranenie",
+   "id": "RU.LOGISTICS.KHRANENIE"
+  },
+  {
+   "old_id": "RU.STORAGE_ESCROW_INSURANCE.SKLADSKOE_KHRANENIE",
+   "old_title": "Складское хранение",
+   "old_path": "storage_escrow_insurance/skladskoe-khranenie.md",
+   "slug": "hranenie",
+   "id": "RU.LOGISTICS.KHRANENIE"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.ARENDA_PREDPRIIATIIA",
+   "old_title": "Аренда предприятия",
+   "old_path": "temporary_possession_use/arenda-predpriiatiia.md",
+   "slug": "arenda-predpriiatiia",
+   "id": "RU.TEMPORARY_POSSESSION_USE.ARENDA_PREDPRIIATIIA"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.ARENDA_TRANSPORTNOGO_SREDSTVA_BEZ_EKIPAZHA",
+   "old_title": "Аренда транспортного средства без экипажа",
+   "old_path": "temporary_possession_use/arenda-transportnogo-sredstva-bez-ekipazha.md",
+   "slug": "arenda",
+   "id": "RU.LEASE.ARENDA"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.ARENDA_TRANSPORTNOGO_SREDSTVA_S_EKIPAZHEM",
+   "old_title": "Аренда транспортного средства с экипажем",
+   "old_path": "temporary_possession_use/arenda-transportnogo-sredstva-s-ekipazhem.md",
+   "slug": "arenda",
+   "id": "RU.LEASE.ARENDA"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.ARENDA_ZDANIIA_SOORUZHENIIA_NEZHILOGO_POMESHCHENIIA",
+   "old_title": "Аренда здания/сооружения/нежилого помещения",
+   "old_path": "temporary_possession_use/arenda-zdaniia-sooruzheniia-nezhilogo-pomeshcheniia.md",
+   "slug": "arenda-zdanii-pomeshchenii",
+   "id": "RU.LEASE.ARENDA_ZDANII_POMESHCHENII"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.ARENDA_ZEMEL_NOGO_UCHASTKA",
+   "old_title": "Аренда земельного участка",
+   "old_path": "temporary_possession_use/arenda-zemel-nogo-uchastka.md",
+   "slug": "arenda-zemel-nogo-uchastka",
+   "id": "RU.TEMPORARY_POSSESSION_USE.ARENDA_ZEMEL_NOGO_UCHASTKA"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.ARENDA",
+   "old_title": "Аренда (общая)",
+   "old_path": "temporary_possession_use/arenda.md",
+   "slug": "arenda",
+   "id": "RU.LEASE.ARENDA"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.BEZVOZMEZDNOE_POL_ZOVANIE",
+   "old_title": "Безвозмездное пользование (ссуда)",
+   "old_path": "temporary_possession_use/bezvozmezdnoe-pol-zovanie.md",
+   "slug": "bezvozmezdnoe-polzovanie",
+   "id": "RU.LEASE.BEZVOZMEZDNOE_POLZOVANIE"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.FINANSOVAIA_ARENDA",
+   "old_title": "Финансовая аренда (лизинг)",
+   "old_path": "temporary_possession_use/finansovaia-arenda.md",
+   "slug": "lizing",
+   "id": "RU.LEASE.LIZING"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.NAEM_ZHILOGO_POMESHCHENIIA",
+   "old_title": "Наем жилого помещения (коммерческий наем)",
+   "old_path": "temporary_possession_use/naem-zhilogo-pomeshcheniia.md",
+   "slug": "naem-zhilogo-pomeshcheniia",
+   "id": "RU.TEMPORARY_POSSESSION_USE.NAEM_ZHILOGO_POMESHCHENIIA"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.PROKAT",
+   "old_title": "Прокат",
+   "old_path": "temporary_possession_use/prokat.md",
+   "slug": "prokat",
+   "id": "RU.TEMPORARY_POSSESSION_USE.PROKAT"
+  },
+  {
+   "old_id": "RU.TEMPORARY_POSSESSION_USE.SOTSIAL_NYI_NAEM_NAEM_ZHILISHCHNOGO_FONDA_SOTSIAL_NOGO_ISPOL_ZOVANIIA",
+   "old_title": "Социальный наем / наем жилищного фонда социального использования",
+   "old_path": "temporary_possession_use/sotsial-nyi-naem-naem-zhilishchnogo-fonda-sotsial-nogo-ispol-zovaniia.md",
+   "slug": "sotsial-nyi-naem-naem-zhilishchnogo-fonda-sotsial-nogo-ispol-zovaniia",
+   "id": "RU.TEMPORARY_POSSESSION_USE.SOTSIAL_NYI_NAEM_NAEM_ZHILISHCHNOGO_FONDA_SOTSIAL_NOGO_ISPOL_ZOVANIIA"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.BUKSIROVKA",
+   "old_title": "Буксировка",
+   "old_path": "transport_logistics/buksirovka.md",
+   "slug": "buksirovka",
+   "id": "RU.TRANSPORT_LOGISTICS.BUKSIROVKA"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.DOGOVORY_EKSPLUATATSII_POD_EZDNYKH_PUTEI_PODACHI_I_UBORKI_VAGONOV",
+   "old_title": "Договоры эксплуатации подъездных путей / подачи и уборки вагонов",
+   "old_path": "transport_logistics/dogovory-ekspluatatsii-pod-ezdnykh-putei-podachi-i-uborki-vagonov.md",
+   "slug": "dogovory-ekspluatatsii-pod-ezdnykh-putei-podachi-i-uborki-vagonov",
+   "id": "RU.TRANSPORT_LOGISTICS.DOGOVORY_EKSPLUATATSII_POD_EZDNYKH_PUTEI_PODACHI_I_UBORKI_VAGONOV"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.FRAKHTOVANIE",
+   "old_title": "Фрахтование (чартер)",
+   "old_path": "transport_logistics/frakhtovanie.md",
+   "slug": "perevozka-passazhira",
+   "id": "RU.LOGISTICS.PEREVOZKA_PASSAZHIRA"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.ORGANIZATSIIA_PEREVOZOK",
+   "old_title": "Организация перевозок",
+   "old_path": "transport_logistics/organizatsiia-perevozok.md",
+   "slug": "perevozka-gruza",
+   "id": "RU.LOGISTICS.PEREVOZKA_GRUZA"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.PEREVOZKA_GRUZA",
+   "old_title": "Перевозка груза",
+   "old_path": "transport_logistics/perevozka-gruza.md",
+   "slug": "perevozka-gruza",
+   "id": "RU.LOGISTICS.PEREVOZKA_GRUZA"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.PEREVOZKA_PASSAZHIRA_I_BAGAZHA",
+   "old_title": "Перевозка пассажира и багажа",
+   "old_path": "transport_logistics/perevozka-passazhira-i-bagazha.md",
+   "slug": "perevozka-passazhira",
+   "id": "RU.LOGISTICS.PEREVOZKA_PASSAZHIRA"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.PRIAMOE_SMESHANNOE_SOOBSHCHENIE",
+   "old_title": "Прямое смешанное сообщение",
+   "old_path": "transport_logistics/priamoe-smeshannoe-soobshchenie.md",
+   "slug": "priamoe-smeshannoe-soobshchenie",
+   "id": "RU.TRANSPORT_LOGISTICS.PRIAMOE_SMESHANNOE_SOOBSHCHENIE"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.SOGLASHENIIA_MEZHDU_TRANSPORTNYMI_ORGANIZATSIIAMI_OB_ORGANIZATSII_PEREVOZOK",
+   "old_title": "Соглашения между транспортными организациями об организации перевозок",
+   "old_path": "transport_logistics/soglasheniia-mezhdu-transportnymi-organizatsiiami-ob-organizatsii-perevozok.md",
+   "slug": "soglasheniia-mezhdu-transportnymi-organizatsiiami-ob-organizatsii-perevozok",
+   "id": "RU.TRANSPORT_LOGISTICS.SOGLASHENIIA_MEZHDU_TRANSPORTNYMI_ORGANIZATSIIAMI_OB_ORGANIZATSII_PEREVOZOK"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.TRANSPORTNAIA_EKSPEDITSIIA",
+   "old_title": "Транспортная экспедиция",
+   "old_path": "transport_logistics/transportnaia-ekspeditsiia.md",
+   "slug": "transportnaia-ekspeditsiia",
+   "id": "RU.LOGISTICS.TRANSPORTNAIA_EKSPEDITSIIA"
+  },
+  {
+   "old_id": "RU.TRANSPORT_LOGISTICS.TSENTRALIZOVANNYI_ZAVOZ_VYVOZ_GRUZOV",
+   "old_title": "Централизованный завоз/вывоз грузов",
+   "old_path": "transport_logistics/tsentralizovannyi-zavoz-vyvoz-gruzov.md",
+   "slug": "tsentralizovannyi-zavoz-vyvoz-gruzov",
+   "id": "RU.TRANSPORT_LOGISTICS.TSENTRALIZOVANNYI_ZAVOZ_VYVOZ_GRUZOV"
+  },
+  {
+   "old_id": "RU.WORKS_RESEARCH_SERVICES.BYTOVOI_PODRIAD",
+   "old_title": "Бытовой подряд",
+   "old_path": "works_research_services/bytovoi-podriad.md",
+   "slug": "bytovoi-podriad",
+   "id": "RU.WORKS_RESEARCH_SERVICES.BYTOVOI_PODRIAD"
+  },
+  {
+   "old_id": "RU.WORKS_RESEARCH_SERVICES.INFORMATSIONNYE_USLUGI",
+   "old_title": "Информационные услуги",
+   "old_path": "works_research_services/informatsionnye-uslugi.md",
+   "slug": "uslugi",
+   "id": "RU.WORKS_SERVICES.USLUGI"
+  },
+  {
+   "old_id": "RU.WORKS_RESEARCH_SERVICES.NIR",
+   "old_title": "НИР",
+   "old_path": "works_research_services/nir.md",
+   "slug": "niokr",
+   "id": "RU.WORKS_SERVICES.NIOKR"
+  },
+  {
+   "old_id": "RU.WORKS_RESEARCH_SERVICES.OKR_TEKHNOLOGICHESKIE_RABOTY",
+   "old_title": "ОКР / технологические работы",
+   "old_path": "works_research_services/okr-tekhnologicheskie-raboty.md",
+   "slug": "niokr",
+   "id": "RU.WORKS_SERVICES.NIOKR"
+  },
+  {
+   "old_id": "RU.WORKS_RESEARCH_SERVICES.PODRIAD",
+   "old_title": "Подряд (общий)",
+   "old_path": "works_research_services/podriad.md",
+   "slug": "podriad",
+   "id": "RU.WORKS_SERVICES.PODRIAD"
+  },
+  {
+   "old_id": "RU.WORKS_RESEARCH_SERVICES.PROEKTNYE_I_IZYSKATEL_SKIE_RABOTY",
+   "old_title": "Проектные и изыскательские работы",
+   "old_path": "works_research_services/proektnye-i-izyskatel-skie-raboty.md",
+   "slug": "stroitelnyi-podriad",
+   "id": "RU.WORKS_SERVICES.STROITELNYI_PODRIAD"
+  },
+  {
+   "old_id": "RU.WORKS_RESEARCH_SERVICES.STROITEL_NYI_PODRIAD",
+   "old_title": "Строительный подряд",
+   "old_path": "works_research_services/stroitel-nyi-podriad.md",
+   "slug": "stroitelnyi-podriad",
+   "id": "RU.WORKS_SERVICES.STROITELNYI_PODRIAD"
+  },
+  {
+   "old_id": "RU.WORKS_RESEARCH_SERVICES.VOZMEZDNOE_OKAZANIE_USLUG",
+   "old_title": "Возмездное оказание услуг (общая модель)",
+   "old_path": "works_research_services/vozmezdnoe-okazanie-uslug.md",
+   "slug": "uslugi",
+   "id": "RU.WORKS_SERVICES.USLUGI"
+  }
+ ]
+}

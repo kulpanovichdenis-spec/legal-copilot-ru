@@ -1,0 +1,10 @@
+version: '0.2'
+core:
+  checks: 57
+  evidence: 67
+  extractors: 31
+extensions:
+  share-deal:
+    checks: 18
+    evidence: 18
+    extractors: 8

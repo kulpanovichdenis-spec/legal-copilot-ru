@@ -1,0 +1,15 @@
+version: "0.2"
+fields:
+  input_id: string
+  target_document: string
+  mechanism: string
+  subject: string
+  proposed_text_or_instruction: string
+  source_decision_id: string
+  source_findings: list[string]
+  source_checks: list[string]
+  source_facts: list[string]
+  human_approved: boolean
+rules:
+  - established factual assertions require human-confirmed source facts/findings
+  - unconfirmed issues may be passed only as placeholders or open issues

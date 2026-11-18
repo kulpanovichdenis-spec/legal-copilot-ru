@@ -1,0 +1,55 @@
+id: ER-RISK-002
+title: Споры и оспаривание прав на ИС
+module: risk
+applies_when: IP in scope
+requested_from: seller/right_holder
+evidence_types:
+- IP_dispute_list
+- claims
+- office_proceedings
+- seller_confirmation
+sufficient_if:
+- material disputes/challenges/claims concerning in-scope IP are disclosed and checked
+mapped_checks:
+- RISK-002
+- IP-ENC-012
+extractor_ids:
+- EXT-RISK-090
+- EXT-IP-050
+request_text: Предоставить сведения и документы по претензиям, спорам и административным производствам в отношении IP.
+gap_text: IP dispute/challenge status не подтвержден.
+external_verification: true
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- RISK-002
+- IP-ENC-012
+request_phase: initial
+title_en: IP disputes / challenges
+title_ru: Споры и оспаривание прав на ИС
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

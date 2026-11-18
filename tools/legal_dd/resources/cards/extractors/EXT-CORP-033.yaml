@@ -1,0 +1,104 @@
+id: EXT-CORP-033
+title: Corporate registry / good standing / incumbency extractor
+document_types:
+- trade_register_extract
+- EGRUL_extract
+- good_standing
+- incumbency_certificate
+purposes:
+- confirm_legal_existence
+- confirm_current_officers
+- confirm_ownership_data
+entities:
+- Party
+- Person
+facts_to_extract:
+- legal name
+- registration number
+- status
+- registered address
+- directors/officers
+- participants/shareholders if available
+- liquidation/bankruptcy markers
+- date of extract
+- issuing authority
+mapped_checks:
+- CORP-001
+- CORP-003
+- APP-002
+critical_fields:
+- legal_name
+- registration_number
+- status
+- officers
+- extract_date
+human_review_questions:
+- Достаточно ли свежая выписка?
+- Совпадает ли ЕИО с иными документами?
+- Есть ли adverse status markers?
+fail_safe: Stale registry evidence must be marked outdated.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: legal_name
+  label: legal name
+  type: text
+  material: true
+- field_id: registration_number
+  label: registration number
+  type: asset_ref
+  material: true
+- field_id: status
+  label: status
+  type: enum
+  material: true
+- field_id: registered_address
+  label: registered address
+  type: text
+  material: false
+- field_id: directors_officers
+  label: directors/officers
+  type: text
+  material: true
+- field_id: participants_shareholders_if_available
+  label: participants/shareholders if available
+  type: entity_ref
+  material: false
+- field_id: liquidation_bankruptcy_markers
+  label: liquidation/bankruptcy markers
+  type: text
+  material: false
+- field_id: date_of_extract
+  label: date of extract
+  type: date
+  material: false
+- field_id: issuing_authority
+  label: issuing authority
+  type: entity_ref
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

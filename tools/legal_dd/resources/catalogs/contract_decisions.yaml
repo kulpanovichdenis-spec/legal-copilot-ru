@@ -1,0 +1,45 @@
+version: "0.1"
+mechanisms:
+  - representation
+  - warranty
+  - condition_precedent
+  - covenant
+  - specific_indemnity
+  - general_indemnity
+  - holdback
+  - escrow
+  - price_adjustment
+  - exclusion_from_perimeter
+  - consent_or_waiver
+  - disclosure
+  - closing_deliverable
+  - post_closing_action
+  - long_stop
+  - termination_right
+  - transition_service
+  - schedule_item
+issue_types:
+  title_gap:
+    options: [cure_before_closing, specific_indemnity, holdback, exclude_asset, disclosure]
+  missing_consent:
+    options: [condition_precedent, consent_or_waiver, carve_out, termination_right]
+  registration_or_recordal_gap:
+    options: [condition_precedent, closing_deliverable, post_closing_action, covenant]
+  patent_or_trademark_clearance_issue:
+    options: [exclude_territory, exclude_asset, specific_indemnity, covenant, rebrand_or_redesign]
+  regulatory_pending_matter:
+    options: [condition_precedent, covenant, long_stop, termination_right, specific_indemnity]
+  manufacturing_or_GMP_issue:
+    options: [condition_precedent, covenant, specific_indemnity, alternative_manufacturer, price_adjustment]
+  supply_continuity_issue:
+    options: [supply_agreement, safety_stock, transition_service, covenant, termination_right]
+  corporate_approval_gap:
+    options: [condition_precedent, closing_deliverable, representation]
+  dispute_or_enforcement:
+    options: [disclosure, specific_indemnity, holdback, condition_precedent, exclusion_from_perimeter]
+  missing_information:
+    options: [information_covenant, condition_precedent, disclosure, defer_decision]
+rules:
+  - agent may propose options but may not select the final mechanism
+  - human decision is required before a mechanism becomes a drafting instruction
+  - every decision must reference one or more confirmed findings

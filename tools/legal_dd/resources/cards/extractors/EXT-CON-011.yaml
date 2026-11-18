@@ -1,0 +1,117 @@
+id: EXT-CON-011
+title: Amendment / addendum / restatement extractor
+document_types:
+- amendment
+- addendum
+- supplemental_agreement
+- restatement
+purposes:
+- build_consolidated_contract_state
+- detect_changed_asset_or_right_scope
+entities:
+- Document
+- Agreement
+- Party
+- Asset
+- Right
+facts_to_extract:
+- base agreement identity
+- amended clauses
+- new wording
+- effective date
+- term extension
+- changes to subject/assets
+- changes to territory/right scope/exclusivity
+- changes to price/payment
+- new/replaced annexes
+- deleted provisions
+- signatures/authority
+mapped_checks:
+- TX-003
+- TX-006
+- TX-007
+- IP-DOC-001
+- IP-DOC-002
+- IP-ENC-012
+critical_fields:
+- base_agreement
+- changed_clauses
+- effective_date
+human_review_questions:
+- Верно ли определен базовый договор?
+- Собрана ли консолидированная редакция?
+- Не изменен ли объект/объем права?
+fail_safe: Do not analyze amendment in isolation when the base agreement is missing; mark consolidated_state=unavailable.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: base_agreement_identity
+  label: base agreement identity
+  type: text
+  material: true
+- field_id: amended_clauses
+  label: amended clauses
+  type: text
+  material: false
+- field_id: new_wording
+  label: new wording
+  type: text
+  material: false
+- field_id: effective_date
+  label: effective date
+  type: date
+  material: true
+- field_id: term_extension
+  label: term extension
+  type: text
+  material: false
+- field_id: changes_to_subject_assets
+  label: changes to subject/assets
+  type: asset_ref
+  material: false
+- field_id: changes_to_territory_right_scope_exclusivity
+  label: changes to territory/right scope/exclusivity
+  type: jurisdiction
+  material: false
+- field_id: changes_to_price_payment
+  label: changes to price/payment
+  type: currency
+  material: false
+- field_id: new_replaced_annexes
+  label: new/replaced annexes
+  type: text
+  material: false
+- field_id: deleted_provisions
+  label: deleted provisions
+  type: text
+  material: false
+- field_id: signatures_authority
+  label: signatures/authority
+  type: entity_ref
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

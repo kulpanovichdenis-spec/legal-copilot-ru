@@ -1,0 +1,60 @@
+id: ER-IP-002
+title: Подтверждение исполнения, необходимого для перехода прав
+module: ip
+applies_when: Underlying agreement requires payment/acceptance/registration for right acquisition
+requested_from: seller/right_holder
+evidence_types:
+- payment_orders
+- acceptance_acts
+- transfer_acts
+- registration_confirmations
+sufficient_if:
+- all conditions that trigger/right acquisition under chain agreements are evidenced
+mapped_checks:
+- IP-DOC-001
+- IP-TM-004
+- IP-PAT-006
+- IP-CR-008
+extractor_ids:
+- EXT-CON-012
+- EXT-CON-013
+- EXT-CON-010
+request_text: Предоставить акты, подтверждение оплаты и регистрации/recordal, если они необходимы для возникновения/перехода права.
+gap_text: Не подтверждено исполнение условий, от которых зависел переход права.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- IP-DOC-001
+- IP-TM-004
+- IP-PAT-006
+- IP-CR-008
+request_phase: conditional
+title_en: Performance evidence supporting IP title
+title_ru: Подтверждение исполнения, необходимого для перехода прав
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

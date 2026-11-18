@@ -1,0 +1,11 @@
+version: "0.2"
+fields:
+  requirement_id: string
+  status:
+    enum: [not_requested, requested, received, partially_satisfied, satisfied, invalid, outdated, not_applicable, unavailable, external_source]
+  documents: list[string]
+  facts: list[string]
+  missing: string
+  human_review:
+    status:
+      enum: [pending, confirmed, modified, rejected, reconfirmation_required]

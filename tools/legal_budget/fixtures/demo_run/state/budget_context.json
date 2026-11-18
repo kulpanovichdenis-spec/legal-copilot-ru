@@ -1,0 +1,12 @@
+{
+  "run_id": "2026-09-24_budget_2027_001",
+  "budget_period": {
+    "start": "2027-01-01",
+    "end": "2027-12-31"
+  },
+  "reporting_currency": "RUB",
+  "goal": "create",
+  "materiality_threshold": "1000.00",
+  "industry": "synthetic",
+  "related_ops_project": ""
+}

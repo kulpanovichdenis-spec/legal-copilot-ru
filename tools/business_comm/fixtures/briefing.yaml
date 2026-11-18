@@ -1,0 +1,98 @@
+project:
+  title: Изменение требований к рекламным материалам X
+  mode: BRIEFING
+  subtype: regulatory
+  audience: Директор по маркетингу и бренд-менеджеры
+  output: [pptx, docx, html]
+  duration_or_length: 10 минут
+  prepared_at: 2026-09-14
+objective:
+  business_question: Что меняется для запуска материалов X и что нужно сделать до даты вступления?
+  desired_outcome: Маркетинг закладывает предварительную проверку в план запусков
+  desired_behavior: Материалы X не запускаются без проверки Y
+minto:
+  situation: Маркетинг запускает материалы X по согласованному графику
+  complication: С даты вступления изменений материалы X требуют предварительной проверки Y [ТЕСТОВЫЕ ДАННЫЕ]
+  question: Что сделать, чтобы запуски не сорвались?
+  answer: С даты вступления материалы X нельзя запускать без предварительной проверки Y [ТЕСТОВЫЕ ДАННЫЕ]
+  supporting_arguments:
+    - Требование распространяется на все материалы X
+    - Нарушение грозит штрафом и снятием материала
+    - Проверку нужно заложить в график запусков заранее
+content:
+  legal_rules:
+    - id: lr1
+      text: Норма 2 тестового акта вводит предварительную проверку Y для материалов X [ТЕСТОВЫЕ ДАННЫЕ]
+      detail: Норма 3 тестового акта устанавливает санкцию [ТЕСТОВЫЕ ДАННЫЕ]
+      source_refs: [s1]
+  cases:
+    - id: c1
+      text: Регулятор выдал предписание о снятии материала X без проверки Y [ТЕСТОВЫЕ ДАННЫЕ]
+      source_refs: [s2]
+  impacts:
+    - id: i1
+      type: exposure_reduced
+      label: Штраф за материал без проверки
+      value: 100000
+      unit: RUB
+      value_class: exposure
+      method: верхний предел санкции нормы 3 тестового акта [ТЕСТОВЫЕ ДАННЫЕ]
+      source_refs: [s1]
+      confidence: medium
+  timeline:
+    - id: t1
+      date: 2026-10-01
+      text: Изменения вступают в силу [ТЕСТОВЫЕ ДАННЫЕ]
+      status: verified
+      source_refs: [s1]
+  actions:
+    - id: a1
+      what: Добавить проверку Y в график запусков
+      who: Бренд-менеджер
+      when: До 2026-10-01 [ТЕСТОВЫЕ ДАННЫЕ]
+  escalation_points:
+    - id: e1
+      when: Материал не проходит проверку Y
+      contact: Юрист по рекламе
+storyline:
+  - order: 1
+    message: С даты вступления материалы X нельзя запускать без проверки Y
+    content_block: key_message
+    evidence_refs: [lr1]
+  - order: 2
+    message: Изменения вступают в силу с 1 октября [ТЕСТОВЫЕ ДАННЫЕ]
+    content_block: timeline
+    visual_hint: timeline
+    evidence_refs: [t1]
+  - order: 3
+    message: Регулятор уже требует снимать материалы без проверки
+    content_block: enforcement_case
+    evidence_refs: [c1]
+  - order: 4
+    message: Материал без проверки грозит штрафом и снятием с размещения
+    content_block: business_consequence
+    visual_hint: metric
+    evidence_refs: [i1]
+  - order: 5
+    message: До даты вступления проверку нужно заложить в график запусков
+    content_block: required_action
+    visual_hint: checklist
+    evidence_refs: [a1, e1]
+  - order: 6
+    message: Правовая база изменения
+    content_block: legal_rule
+    title_kind: appendix
+    layer: appendix
+    evidence_refs: [lr1]
+sources:
+  - id: s1
+    type: primary_law
+    title: Тестовый акт [ТЕСТОВЫЕ ДАННЫЕ]
+    reference: Нормы 2 и 3
+    primary: true
+    checked_at: 2026-09-10
+  - id: s2
+    type: court_or_regulator
+    title: Предписание регулятора [ТЕСТОВЫЕ ДАННЫЕ]
+    reference: тестовый номер
+    primary: true

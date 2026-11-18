@@ -1,0 +1,127 @@
+[
+  {
+    "case_id": "CASE-RU-YANTAR-2026",
+    "title": "ООО «Янтарь»: посредник и содействие в победе в аукционах на медизделия",
+    "jurisdiction": "RU",
+    "case_type": "official_enforcement_notice",
+    "authority_body": "Прокуратура Республики Марий Эл",
+    "decision_date": "2026-03-19",
+    "outcome": "Штраф 10 млн руб. по ч. 2 ст. 19.28 КоАП РФ; официально сообщено о downstream procurement consequences.",
+    "summary": "По сообщению прокуратуры директор коммерческой организации через посредника передал более 3,4 млн руб. бывшему председателю регионального комитета по закупкам за содействие в выигрыше аукционов на поставку медицинских изделий.",
+    "primary_source_id": "SRC-RU-PROC-YANTAR",
+    "foreign_pattern_only": 0,
+    "patterns": [
+      "PAT-PROC-BRIBE-WIN"
+    ]
+  },
+  {
+    "case_id": "CASE-RU-MEDTECH",
+    "title": "ООО «МедТех»: участие в формировании аукционной документации и ограничивающие параметры",
+    "jurisdiction": "RU",
+    "case_type": "official_enforcement_notice",
+    "authority_body": "Прокуратура Владимирской области",
+    "outcome": "По официальному сообщению компания оштрафована по ч. 1 ст. 19.28 КоАП РФ; взяткополучатели ранее привлечены к уголовной ответственности.",
+    "summary": "Должностные лица больницы предоставили руководителю поставщика возможность участвовать в формировании аукционной документации и вносить в ТЗ параметры, ограничивающие конкуренцию; затем были переданы денежные средства главному врачу и заместителю.",
+    "primary_source_id": "SRC-RU-PROC-MEDTECH",
+    "foreign_pattern_only": 0,
+    "patterns": [
+      "PAT-PROC-RESTRICTIVE-TZ",
+      "PAT-PROC-BRIBE-WIN"
+    ]
+  },
+  {
+    "case_id": "CASE-RU-MEDSTYLE",
+    "title": "ООО «Медстайл»: взятка за взаимовыгодные условия в электронных аукционах",
+    "jurisdiction": "RU",
+    "case_type": "official_enforcement_notice",
+    "authority_body": "Генеральная прокуратура РФ",
+    "outcome": "Компания оштрафована на 1 млн руб. по ч. 1 ст. 19.28 КоАП РФ; представитель ранее осужден за дачу взятки.",
+    "summary": "По сообщению прокуратуры менеджер отдела продаж передал взятку сотруднику медицинского центра за создание взаимовыгодных условий при электронных аукционах на поставку лекарственных препаратов.",
+    "primary_source_id": "SRC-RU-PROC-MEDSTYLE",
+    "foreign_pattern_only": 0,
+    "patterns": [
+      "PAT-PROC-BRIBE-WIN"
+    ]
+  },
+  {
+    "case_id": "CASE-RU-EUROSERVICE",
+    "title": "ЗАО «Фирма ЕВРОСЕРВИС»: вознаграждение за лоббирование при выборе поставщика лекарств",
+    "jurisdiction": "RU",
+    "case_type": "official_enforcement_notice",
+    "authority_body": "Прокуратура / суд",
+    "outcome": "Юридическое лицо привлечено к административной ответственности по ч. 1 ст. 19.28 КоАП РФ; решение оставлено без изменения в апелляции.",
+    "summary": "По официальному сообщению заместитель главврача по лекарственному обеспечению получала от представителя поставщика взятки, а взамен лоббировала интересы компании при выборе контрагента по поставке лекарственных препаратов.",
+    "primary_source_id": "SRC-RU-PROC-EUROSERVICE",
+    "foreign_pattern_only": 0,
+    "patterns": [
+      "PAT-PROC-BRIBE-WIN"
+    ]
+  },
+  {
+    "case_id": "CASE-RU-4C",
+    "title": "ООО «4С-Сервис»: взятка за победу на торгах и лояльную приемку",
+    "jurisdiction": "RU",
+    "case_type": "official_enforcement_notice",
+    "authority_body": "Прокуратура Ленинградской области / суд",
+    "decision_date": "2023-11-15",
+    "outcome": "Штраф 1 млн руб. по ч. 1 ст. 19.28 КоАП РФ; постановление оставлено в силе.",
+    "summary": "По официальному сообщению генеральный директор передал сотруднику больницы 350 тыс. руб. в интересах победы на торгах и лояльного отношения при приемке работ по обслуживанию медицинского газоснабжения.",
+    "primary_source_id": "SRC-RU-PROC-4C",
+    "foreign_pattern_only": 0,
+    "patterns": [
+      "PAT-PROC-BRIBE-WIN",
+      "PAT-PROC-BRIBE-ACCEPTANCE"
+    ]
+  },
+  {
+    "case_id": "CASE-US-NOVARTIS-2020",
+    "title": "Novartis speaker programs",
+    "jurisdiction": "US",
+    "case_type": "official_enforcement_settlement",
+    "authority_body": "U.S. Department of Justice",
+    "decision_date": "2020-07-01",
+    "outcome": "Civil settlement; company made factual admissions and agreed to restrictions on future speaker programs.",
+    "summary": "DOJ described sham or low-substance speaker programs, high-prescriber selection, repeated dinners and honoraria intended by some sales representatives to induce prescribing.",
+    "primary_source_id": "SRC-US-DOJ-NOVARTIS",
+    "foreign_pattern_only": 1,
+    "patterns": [
+      "PAT-HCP-SPEAKER-PRESCRIBING",
+      "PAT-HCP-SHAM-SERVICE",
+      "PAT-HCP-LAVISH-HOSPITALITY"
+    ]
+  },
+  {
+    "case_id": "CASE-US-OLYMPUS-2016",
+    "title": "Olympus payments, grants, travel and free equipment",
+    "jurisdiction": "US",
+    "case_type": "official_enforcement_resolution",
+    "authority_body": "U.S. Department of Justice",
+    "decision_date": "2016-03-01",
+    "outcome": "Criminal/civil resolutions and compliance reforms/CIA.",
+    "summary": "DOJ described consulting payments, foreign travel, lavish meals, grants and free equipment used to win or reward business; examples included grant timing, travel tied to product switch and free equipment for a decision-maker.",
+    "primary_source_id": "SRC-US-DOJ-OLYMPUS",
+    "foreign_pattern_only": 1,
+    "patterns": [
+      "PAT-HCP-TRAVEL-QUID",
+      "PAT-HCO-GRANT-TIED-SALE",
+      "PAT-HCO-FREE-EQUIPMENT-DECISIONMAKER"
+    ]
+  },
+  {
+    "case_id": "CASE-US-PFIZER-2012",
+    "title": "Pfizer FCPA healthcare professional payments",
+    "jurisdiction": "US",
+    "case_type": "official_enforcement_settlement",
+    "authority_body": "U.S. Securities and Exchange Commission",
+    "decision_date": "2012-08-07",
+    "outcome": "Settled SEC FCPA enforcement action.",
+    "summary": "SEC alleged improper payments and benefits to doctors/government HCPs for regulatory/formulary approvals, sales and increased prescriptions, with transactions recorded as ordinary categories such as marketing, training, travel, clinical trials, conferences and advertising.",
+    "primary_source_id": "SRC-US-SEC-PFIZER",
+    "foreign_pattern_only": 1,
+    "patterns": [
+      "PAT-CONCEAL-EXPENSE-MISCLASS",
+      "PAT-HCP-TRAVEL-QUID",
+      "PAT-DISTR-CASH-HOSPITAL"
+    ]
+  }
+]

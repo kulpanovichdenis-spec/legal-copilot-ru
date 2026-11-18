@@ -1,0 +1,105 @@
+id: EXT-GRP-041
+title: Group / ownership structure extractor
+document_types:
+- group_chart
+- shareholder_register
+- participant_list
+- ownership_certificate
+purposes:
+- identify_group
+- support_control_analysis
+- support_antitrust_and_FDI
+entities:
+- Party
+- Person
+facts_to_extract:
+- direct owners
+- indirect owners
+- ownership percentages
+- control rights
+- group relationships
+- foreign investors
+- ultimate owners if documented
+- dates/effective periods
+- encumbrances on shares if stated
+mapped_checks:
+- TX-002
+- APP-001
+- APP-002
+- APP-003
+- CORP-006
+critical_fields:
+- owners
+- percentages
+- control_links
+- effective_date
+human_review_questions:
+- Актуальна ли структура?
+- Есть ли gaps между прямым и конечным контролем?
+- Какие связи влияют на approvals/заинтересованность?
+fail_safe: Do not infer ultimate ownership beyond provided evidence; mark missing links.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: direct_owners
+  label: direct owners
+  type: entity_ref
+  material: true
+- field_id: indirect_owners
+  label: indirect owners
+  type: entity_ref
+  material: true
+- field_id: ownership_percentages
+  label: ownership percentages
+  type: entity_ref
+  material: true
+- field_id: control_rights
+  label: control rights
+  type: text
+  material: false
+- field_id: group_relationships
+  label: group relationships
+  type: text
+  material: false
+- field_id: foreign_investors
+  label: foreign investors
+  type: text
+  material: false
+- field_id: ultimate_owners_if_documented
+  label: ultimate owners if documented
+  type: entity_ref
+  material: true
+- field_id: dates_effective_periods
+  label: dates/effective periods
+  type: text
+  material: false
+- field_id: encumbrances_on_shares_if_stated
+  label: encumbrances on shares if stated
+  type: enum
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

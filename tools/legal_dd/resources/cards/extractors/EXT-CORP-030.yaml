@@ -1,0 +1,128 @@
+id: EXT-CORP-030
+title: Charter / bylaws / governance rules extractor
+document_types:
+- charter
+- articles_of_association
+- bylaws
+- board_regulation
+- shareholder_meeting_regulation
+purposes:
+- confirm_capacity
+- extract_internal_approval_rules
+- confirm_signatory_limits
+entities:
+- Party
+- Person
+- Approval
+facts_to_extract:
+- legal name/form/address
+- capital
+- governance bodies
+- CEO powers and term
+- board/shareholder competencies
+- major transaction thresholds
+- interested-party rules
+- internal approval thresholds
+- asset disposal restrictions
+- share disposal restrictions
+- quorum/voting thresholds
+- special veto/consent rights
+- branch/representative authority
+mapped_checks:
+- CORP-001
+- CORP-002
+- CORP-003
+- CORP-005
+- CORP-006
+- CORP-007
+critical_fields:
+- entity_identity
+- CEO_powers
+- approval_rules
+- internal_restrictions
+human_review_questions:
+- Актуальна ли редакция устава?
+- Какие положения непосредственно влияют на нашу сделку?
+- Какие approvals/ограничения должны быть проверены отдельно?
+fail_safe: Do not treat an outdated charter as current; preserve version/date and request current version.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: legal_name_form_address
+  label: legal name/form/address
+  type: text
+  material: false
+- field_id: capital
+  label: capital
+  type: text
+  material: false
+- field_id: governance_bodies
+  label: governance bodies
+  type: text
+  material: false
+- field_id: ceo_powers_and_term
+  label: CEO powers and term
+  type: text
+  material: true
+- field_id: board_shareholder_competencies
+  label: board/shareholder competencies
+  type: entity_ref
+  material: false
+- field_id: major_transaction_thresholds
+  label: major transaction thresholds
+  type: text
+  material: false
+- field_id: interested_party_rules
+  label: interested-party rules
+  type: entity_ref
+  material: false
+- field_id: internal_approval_thresholds
+  label: internal approval thresholds
+  type: text
+  material: false
+- field_id: asset_disposal_restrictions
+  label: asset disposal restrictions
+  type: asset_ref
+  material: false
+- field_id: share_disposal_restrictions
+  label: share disposal restrictions
+  type: text
+  material: false
+- field_id: quorum_voting_thresholds
+  label: quorum/voting thresholds
+  type: text
+  material: false
+- field_id: special_veto_consent_rights
+  label: special veto/consent rights
+  type: text
+  material: false
+- field_id: branch_representative_authority
+  label: branch/representative authority
+  type: entity_ref
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

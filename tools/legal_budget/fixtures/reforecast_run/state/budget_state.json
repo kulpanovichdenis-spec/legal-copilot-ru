@@ -1,0 +1,49 @@
+{
+  "run_id": "2026-09-24_reforecast_001",
+  "goal": "reforecast",
+  "lines": [
+    {
+      "id": "BL-APP",
+      "category": "утверждённый бюджет",
+      "owner": "legal",
+      "monthly_amounts": {
+        "2027-01": "100.00",
+        "2027-02": "100.00",
+        "2027-03": "100.00",
+        "2027-04": "100.00",
+        "2027-05": "100.00",
+        "2027-06": "100.00",
+        "2027-07": "100.00",
+        "2027-08": "100.00",
+        "2027-09": "100.00",
+        "2027-10": "100.00",
+        "2027-11": "100.00",
+        "2027-12": "100.00"
+      },
+      "source_refs": [
+        "SRC-APPROVED"
+      ],
+      "assumption_refs": [],
+      "material": true
+    }
+  ],
+  "actuals": [
+    {
+      "invoice_id": "INV-PAID",
+      "amount": "500.00"
+    }
+  ],
+  "accruals": [
+    {
+      "invoice_id": "INV-OPEN",
+      "amount": "50.00"
+    }
+  ],
+  "history": [],
+  "allocations": [],
+  "headcount_change": null,
+  "external_spend_change": null,
+  "workload_transfer": null,
+  "stages": {},
+  "quality_gate": "not_ready"
+}

@@ -1,0 +1,95 @@
+id: EXT-COMP-092
+title: Compliance / sanctions / anti-corruption extractor
+document_types:
+- compliance_policy
+- anti_corruption_policy
+- sanctions_confirmation
+- internal_investigation_report
+- counterparty_due_diligence
+purposes:
+- identify_compliance_framework
+- identify_disclosed_compliance_issues
+entities:
+- Party
+- Person
+facts_to_extract:
+- policy type/version
+- responsible function
+- sanctions representations
+- identified sanctioned counterparties if disclosed
+- reported incidents
+- investigation status/outcome
+- remediation/CAPA
+- approval/monitoring procedures
+mapped_checks:
+- RISK-004
+critical_fields:
+- policy_version
+- issues_disclosed
+- remediation
+human_review_questions:
+- Актуальны ли политики?
+- Есть ли disclosed incidents?
+- Нужна ли внешняя проверка данных?
+fail_safe: Seller confirmation is not equivalent to an independent sanctions check.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: policy_type_version
+  label: policy type/version
+  type: text
+  material: false
+- field_id: responsible_function
+  label: responsible function
+  type: text
+  material: false
+- field_id: sanctions_representations
+  label: sanctions representations
+  type: text
+  material: false
+- field_id: identified_sanctioned_counterparties_if_disclosed
+  label: identified sanctioned counterparties if disclosed
+  type: entity_ref
+  material: false
+- field_id: reported_incidents
+  label: reported incidents
+  type: text
+  material: false
+- field_id: investigation_status_outcome
+  label: investigation status/outcome
+  type: enum
+  material: false
+- field_id: remediation_capa
+  label: remediation/CAPA
+  type: text
+  material: true
+- field_id: approval_monitoring_procedures
+  label: approval/monitoring procedures
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

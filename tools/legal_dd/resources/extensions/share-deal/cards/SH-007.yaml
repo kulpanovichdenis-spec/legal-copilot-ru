@@ -1,0 +1,37 @@
+id: SH-007
+title: Доверенности
+module: share-deal
+review_scope:
+  mode: exhaustive
+objective: If material/applicable, 'Доверенности' must end as supported proposed/final conclusion, explicit issue/gap, external_review_required,
+  or reasoned not_applicable; it may not silently disappear from scope.
+human_confirmation_required: true
+evidence_requirements:
+- ER-SH-007
+title_en: Powers of Attorney
+title_ru: Доверенности
+version: '0.3'
+role: coverage_obligation
+fnm:
+  purpose: Resolve whether 'Доверенности' is satisfactorily established for the applicable deal perimeter; establish the transaction perimeter,
+    roles, transfer structure and dependencies needed by all downstream analysis.
+  failure_modes:
+  - material perimeter omission
+  - wrong party/role/asset linkage
+  - downstream analysis built on unresolved transaction structure
+  - silent omission because human checklist order was not followed
+  - false clear despite unresolved material evidence
+  required_invariant: If material/applicable, 'Доверенности' must end as supported proposed/final conclusion, explicit issue/gap, external_review_required,
+    or reasoned not_applicable; it may not silently disappear from scope.
+  constraint_type: INVARIANT
+  hard_if_applicable: false
+  ai_native_implementation:
+  - entity/asset graph
+  - applicability routing
+  - consistency validation
+  validators:
+  - VAL-SCOPE-COVERAGE
+  - VAL-ROUTING-INPUTS
+  - VAL-CONFLICTS
+  sequence_required: false
+  depth: adaptive per runtime/depth_policy.yaml

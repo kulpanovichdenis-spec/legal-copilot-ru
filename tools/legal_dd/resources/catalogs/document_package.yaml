@@ -1,0 +1,32 @@
+version: "0.1"
+documents:
+  asset_purchase_or_master_transfer_agreement:
+    applies_when: asset_or_mixed
+  share_purchase_agreement:
+    applies_when: share_or_mixed
+  licence_agreement:
+    applies_when: licence_transfer_model
+  IP_assignment_or_licence:
+    applies_when: IP_assets_in_scope
+  regulatory_asset_schedule:
+    applies_when: registration_or_dossier_in_scope
+  dossier_handover_schedule:
+    applies_when: dossier_in_scope
+  inventory_purchase_schedule:
+    applies_when: inventory_in_scope
+  supply_or_manufacturing_agreement:
+    applies_when: postdeal_supply_or_third_party_manufacturing
+  quality_agreement:
+    applies_when: postdeal_supply_or_third_party_manufacturing
+  technology_transfer_agreement_or_schedule:
+    applies_when: tech_transfer
+  PV_transition_agreement_or_annex:
+    applies_when: medicinal_product
+  domain_transfer_instructions:
+    applies_when: domains_in_scope
+  transition_services_agreement:
+    applies_when: transition_services_needed
+rules:
+  - package is proposed from confirmed transaction structure
+  - final package requires human confirmation
+  - deal-specific ancillary documents may be added after DD findings

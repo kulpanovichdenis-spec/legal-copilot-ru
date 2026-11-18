@@ -1,0 +1,48 @@
+id: ER-SH-003
+title: Уставный капитал и ценные бумаги
+mapped_checks: &id001
+- SH-003
+requested_from: target/seller
+review_scope:
+  mode: exhaustive
+evidence_types:
+- capital_payment_evidence
+- capital_change_resolutions
+- securities_issue_documents
+- central_bank_permission
+- registrar_information
+sufficient_if:
+- formation and changes of capital plus securities issues/registrar are evidenced where applicable
+request_text: Предоставить документы о формировании/изменении уставного капитала, выпусках ценных бумаг и держателе реестра.
+source_items:
+- 3.1–3.6
+extractor_ids:
+- EXT-CORP-031
+- EXT-SHARE-110
+- EXT-FIN-040
+request_phase: initial
+activation_checks: *id001
+title_en: Share capital and securities
+title_ru: Уставный капитал и ценные бумаги
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

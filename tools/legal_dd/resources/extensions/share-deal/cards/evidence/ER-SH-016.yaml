@@ -1,0 +1,44 @@
+id: ER-SH-016
+title: Банковские счета и ограничения
+mapped_checks: &id001
+- SH-016
+requested_from: target/seller
+review_scope:
+  mode: exhaustive
+evidence_types:
+- bank_account_list
+- authorized_signatories
+- account_restrictions
+sufficient_if:
+- all material bank accounts, authorized persons and material restrictions/arrests/pledges are identified
+request_text: Предоставить сведения обо всех банковских счетах, уполномоченных лицах и ограничениях распоряжения средствами.
+source_items:
+- '16.1'
+extractor_ids:
+- EXT-SH-207
+request_phase: initial
+activation_checks: *id001
+title_en: Bank accounts and restrictions
+title_ru: Банковские счета и ограничения
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

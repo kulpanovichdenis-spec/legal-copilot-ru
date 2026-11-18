@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "evidence-bundle.schema.json",
+  "title": "Normalized legal evidence bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id", "evidence", "sources_attempted", "sources_succeeded", "fallbacks_used", "coverage_gaps", "warnings"],
+  "properties": {
+    "request_id": {"type": "string", "minLength": 1},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_id", "type", "title", "date", "jurisdiction", "source_provider", "source_external_id", "source_url", "source_fragment", "content_hash", "retrieved_at", "authority_level", "supports_issue", "contradicts_issue", "verification_status", "warnings"],
+        "properties": {
+          "evidence_id": {"type": "string", "minLength": 1},
+          "type": {"enum": ["norm", "case", "authority", "doctrine", "internal"]},
+          "title": {"type": "string", "minLength": 1},
+          "date": {"type": ["string", "null"]},
+          "jurisdiction": {"type": ["string", "null"]},
+          "source_provider": {"type": "string", "minLength": 1},
+          "source_external_id": {"type": ["string", "null"]},
+          "source_url": {"type": ["string", "null"]},
+          "source_fragment": {"type": ["string", "null"], "maxLength": 8000},
+          "content_hash": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+          "retrieved_at": {"type": "string", "format": "date-time"},
+          "authority_level": {"type": ["string", "null"]},
+          "supports_issue": {"type": ["boolean", "null"]},
+          "contradicts_issue": {"type": ["boolean", "null"]},
+          "verification_status": {"enum": ["provider_result", "machine_reviewed", "human_verified"]},
+          "warnings": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+        }
+      }
+    },
+    "sources_attempted": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "sources_succeeded": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "fallbacks_used": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "coverage_gaps": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "warnings": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  }
+}

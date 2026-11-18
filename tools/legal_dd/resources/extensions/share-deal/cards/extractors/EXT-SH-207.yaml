@@ -1,0 +1,71 @@
+id: EXT-SH-207
+title: Bank account extractor
+document_types:
+- bank_account_list
+- bank_letter
+- account_restriction_notice
+mapped_checks:
+- SH-016
+fields:
+- bank
+- account_identifier
+- jurisdiction
+- authorized_persons
+- arrest_or_pledge
+- other_restrictions
+human_review_required: true
+rules:
+- Extract facts with exact locator.
+- Do not make final employment/property/IT legal conclusions.
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: bank
+  label: bank
+  type: entity_ref
+  material: false
+- field_id: account_identifier
+  label: account_identifier
+  type: text
+  material: false
+- field_id: jurisdiction
+  label: jurisdiction
+  type: text
+  material: false
+- field_id: authorized_persons
+  label: authorized_persons
+  type: text
+  material: false
+- field_id: arrest_or_pledge
+  label: arrest_or_pledge
+  type: text
+  material: false
+- field_id: other_restrictions
+  label: other_restrictions
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

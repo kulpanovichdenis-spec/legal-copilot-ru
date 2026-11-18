@@ -1,0 +1,51 @@
+version: '1.0'
+title: Legal DD Typed Fact Schema
+field_types:
+- verbatim
+- text
+- enum
+- boolean
+- date
+- duration
+- currency
+- number
+- entity_ref
+- asset_ref
+- document_ref
+- jurisdiction
+- legal_effect
+states:
+- answered
+- not_present
+- unclear
+- needs_review
+- conflict_detected
+rules:
+  answered_requires_quote: true
+  answered_requires_location: true
+  numeric_confidence_in_legal_state: false
+  human_review_required_for_material_fact: true
+  raw_value_preserved: true
+  normalized_value_separate_from_raw: true
+fact_template:
+  fact_id: ''
+  field_id: ''
+  field_type: ''
+  state: needs_review
+  raw_value: null
+  normalized_value: null
+  quote: null
+  location:
+    document_id: ''
+    page: null
+    section: null
+    paragraph: null
+    sheet: null
+    cell: null
+    api_field: null
+  relations: []
+  human_review:
+    status: pending
+    reviewed_by: null
+    reviewed_at: null
+    comment: null

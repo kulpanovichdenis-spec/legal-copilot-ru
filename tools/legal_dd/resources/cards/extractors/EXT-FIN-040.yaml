@@ -1,0 +1,103 @@
+id: EXT-FIN-040
+title: Financial statements / asset value extractor
+document_types:
+- balance_sheet
+- financial_statements
+- asset_value_certificate
+- OSV
+- fixed_asset_register
+purposes:
+- support_major_transaction_test
+- support_antitrust_threshold_test
+- confirm_asset_value
+entities:
+- Party
+- Asset
+facts_to_extract:
+- reporting date
+- total assets
+- relevant asset value
+- fixed assets
+- intangible assets
+- transferred assets book value
+- group assets if provided
+- currency/unit
+- auditor/source
+mapped_checks:
+- CORP-005
+- APP-001
+- APP-002
+critical_fields:
+- reporting_date
+- total_assets
+- transferred_asset_value
+human_review_questions:
+- Подходит ли отчетная дата?
+- Можно ли идентифицировать передаваемые активы?
+- Достаточны ли данные для threshold analysis?
+fail_safe: If asset values cannot be tied to transferred assets, threshold checks remain open.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: reporting_date
+  label: reporting date
+  type: date
+  material: true
+- field_id: total_assets
+  label: total assets
+  type: asset_ref
+  material: true
+- field_id: relevant_asset_value
+  label: relevant asset value
+  type: currency
+  material: false
+- field_id: fixed_assets
+  label: fixed assets
+  type: asset_ref
+  material: false
+- field_id: intangible_assets
+  label: intangible assets
+  type: asset_ref
+  material: false
+- field_id: transferred_assets_book_value
+  label: transferred assets book value
+  type: currency
+  material: false
+- field_id: group_assets_if_provided
+  label: group assets if provided
+  type: asset_ref
+  material: false
+- field_id: currency_unit
+  label: currency/unit
+  type: currency
+  material: false
+- field_id: auditor_source
+  label: auditor/source
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

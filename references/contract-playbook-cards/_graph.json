@@ -1,0 +1,2411 @@
+{
+ "relations": {
+  "specializes": "вид → родовой договор",
+  "distinguishes_from": "с чем путают; scope — критерий",
+  "uses_institute": "карточка общей части",
+  "neighbor": "названа среди соседних, тип связи не определён"
+ },
+ "edges": [
+  {
+   "rel": "distinguishes_from",
+   "from": "agentskii-dogovor",
+   "to": "distributsiia",
+   "scope": "Дистрибуция: дистрибьютор покупает товар за свой счёт и перепродаёт; агент продаёт за счёт принципала. Если часть продаж дистрибьютор ведёт за счёт поставщика, в этой части возникает агентирование (карточка «Дистрибуция»"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "agentskii-dogovor",
+   "to": "komissiia",
+   "scope": "Комиссия: только сделки от своего имени (карточка «Комиссия»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "agentskii-dogovor",
+   "to": "poruchenie",
+   "scope": "Поручение: только юридические действия от имени доверителя, обычно определённые; агентирование шире по предмету и длящееся (карточка «Поручение»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "agentskii-dogovor",
+   "to": "uslugi",
+   "scope": "Возмездное оказание услуг: фактические действия без юридических (маркетинг, поиск клиентов без права заключать сделки). При агентской модели вознаграждение обычно зависит от совершённых сделок, у исполнителя услуг — от с"
+  },
+  {
+   "rel": "neighbor",
+   "from": "agentskii-dogovor",
+   "to": "distributsiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "agentskii-dogovor",
+   "to": "komissiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "agentskii-dogovor",
+   "to": "kommercheskaia-kontsessiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "agentskii-dogovor",
+   "to": "poruchenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "agentskii-dogovor",
+   "to": "uslugi"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "agentskii-dogovor",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "agentskii-dogovor",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "agentskii-dogovor",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "agentskii-dogovor",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "arenda",
+   "to": "bezvozmezdnoe-polzovanie",
+   "scope": "Безвозмездное пользование: то же владение и пользование, но без платы (карточка «Безвозмездное пользование»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "arenda",
+   "to": "lizing",
+   "scope": "Аренда с выкупом и лизинг: при выкупе это аренда с элементом купли-продажи (ст. 624); при участии продавца, выбранного арендатором, это финансовая аренда (карточка «Лизинг»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "arenda",
+   "to": "perevozka-gruza",
+   "scope": "Фрахтование: вид перевозки, предоставляется вместимость транспортного средства, а не само средство (ст. 787; раздел 6)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "arenda",
+   "to": "uslugi",
+   "scope": "Услуги: при услугах заказчик получает результат деятельности исполнителя, но не владеет имуществом и не присваивает плоды его использования (карточка «Услуги»)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda",
+   "to": "arenda-zdanii-pomeshchenii"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda",
+   "to": "bezvozmezdnoe-polzovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda",
+   "to": "lizing"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda",
+   "to": "transportnaia-ekspeditsiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda",
+   "to": "uslugi"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "arenda",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "arenda",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "arenda",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "arenda",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "arenda",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda-predpriiatiia",
+   "to": "arenda"
+  },
+  {
+   "rel": "specializes",
+   "from": "arenda-predpriiatiia",
+   "to": "arenda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda-zdanii-pomeshchenii",
+   "to": "arenda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda-zdanii-pomeshchenii",
+   "to": "bezvozmezdnoe-polzovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda-zdanii-pomeshchenii",
+   "to": "lizing"
+  },
+  {
+   "rel": "specializes",
+   "from": "arenda-zdanii-pomeshchenii",
+   "to": "arenda"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "arenda-zdanii-pomeshchenii",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "arenda-zdanii-pomeshchenii",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "arenda-zdanii-pomeshchenii",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "arenda-zdanii-pomeshchenii",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "neighbor",
+   "from": "arenda-zemel-nogo-uchastka",
+   "to": "arenda"
+  },
+  {
+   "rel": "specializes",
+   "from": "arenda-zemel-nogo-uchastka",
+   "to": "arenda"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "arenda",
+   "scope": "Аренда: та же передача вещи, но за плату; к ссуде применяются только перечисленные в п. 2 ст. 689 нормы об аренде (раздел 2). По доктрине ссудополучатель получает вещь только в пользование и не имеет полной владельческой"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "darenie-pozhertvovanie",
+   "scope": "Дарение: вещь переходит в собственность, договор разовый; запрет дарения между коммерческими организациями (ст. 575) на ссуду не распространяется, но есть свой запрет (п. 2 ст. 690)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "hranenie",
+   "scope": "Хранение: цель — сбережение вещи в интересе поклажедателя, пользоваться вещью хранитель не вправе."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "zaem",
+   "scope": "Заём: передаются родовые вещи (деньги) в собственность."
+  },
+  {
+   "rel": "neighbor",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "arenda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "arenda-zdanii-pomeshchenii"
+  },
+  {
+   "rel": "neighbor",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "darenie-pozhertvovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "hranenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "lizing"
+  },
+  {
+   "rel": "neighbor",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "zaem"
+  },
+  {
+   "rel": "specializes",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "arenda"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "bezvozmezdnoe-polzovanie",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "neighbor",
+   "from": "bytovoi-podriad",
+   "to": "podriad"
+  },
+  {
+   "rel": "specializes",
+   "from": "bytovoi-podriad",
+   "to": "podriad"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "darenie-pozhertvovanie",
+   "to": "bezvozmezdnoe-polzovanie",
+   "scope": "Ссуда. Вещь передаётся в пользование и возвращается (карточка «Безвозмездное пользование»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "darenie-pozhertvovanie",
+   "to": "uslugi",
+   "scope": "Спонсорство, гранты, договоры об оказании услуг с медицинскими организациями. Если от получателя ожидается встречное предоставление (реклама, исследования, услуги), это возмездный договор, а не дарение."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "darenie-pozhertvovanie",
+   "to": "ustupka-perevod-dolga",
+   "scope": "Безвозмездная уступка и прощение долга между компаниями. В отношениях коммерческих организаций передача без встречного предоставления предполагается возмездной, пока не доказано иное; дарением её признают только при дока"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "darenie-pozhertvovanie",
+   "to": "zaem",
+   "scope": "«Заём» с освобождением от возврата при целевом использовании. Если фонду передают деньги под условием, что возвращать их не нужно при использовании на уставные социальные цели, это пожертвование, даже если документы назв"
+  },
+  {
+   "rel": "neighbor",
+   "from": "darenie-pozhertvovanie",
+   "to": "bezvozmezdnoe-polzovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "darenie-pozhertvovanie",
+   "to": "mena"
+  },
+  {
+   "rel": "neighbor",
+   "from": "darenie-pozhertvovanie",
+   "to": "zaem"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "darenie-pozhertvovanie",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "darenie-pozhertvovanie",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "darenie-pozhertvovanie",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "distributsiia",
+   "to": "agentskii-dogovor",
+   "scope": "Комиссия и агентирование: посредник действует за счёт другой стороны и получает вознаграждение, товар до продажи принадлежит комитенту или принципалу. Дистрибьютор покупает товар, несёт риск непродажи и зарабатывает на н"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "distributsiia",
+   "to": "komissiia",
+   "scope": "Комиссия и агентирование: посредник действует за счёт другой стороны и получает вознаграждение, товар до продажи принадлежит комитенту или принципалу. Дистрибьютор покупает товар, несёт риск непродажи и зарабатывает на н"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "distributsiia",
+   "to": "kommercheskaia-kontsessiia",
+   "scope": "Коммерческая концессия: передаётся комплекс исключительных прав, включая товарный знак, с использованием деловой репутации и опыта правообладателя (ст. 1027). Дистрибуция с правом использовать обозначения поставщика для "
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "distributsiia",
+   "to": "postavka",
+   "scope": "Обычная поставка или рамочный договор поставки: оптовый покупатель только покупает; у дистрибьютора, помимо этого, есть обязанности по продвижению, объёму и лояльности, а у поставщика — по исключительности, информации и "
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "distributsiia",
+   "to": "ramochnyi-dogovor",
+   "scope": "Обычная поставка или рамочный договор поставки: оптовый покупатель только покупает; у дистрибьютора, помимо этого, есть обязанности по продвижению, объёму и лояльности, а у поставщика — по исключительности, информации и "
+  },
+  {
+   "rel": "neighbor",
+   "from": "distributsiia",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "distributsiia",
+   "to": "komissiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "distributsiia",
+   "to": "kommercheskaia-kontsessiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "distributsiia",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "distributsiia",
+   "to": "litsenzionnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "distributsiia",
+   "to": "poruchenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "distributsiia",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "distributsiia",
+   "to": "uslugi"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "distributsiia",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "distributsiia",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "distributsiia",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "distributsiia",
+   "to": "ramochnyi-dogovor"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "distributsiia",
+   "to": "tolkovanie-dogovora"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "distributsiia",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "neighbor",
+   "from": "dogovory-ekspluatatsii-pod-ezdnykh-putei-podachi-i-uborki-vagonov",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "specializes",
+   "from": "dogovory-ekspluatatsii-pod-ezdnykh-putei-podachi-i-uborki-vagonov",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "dogovory-s-avtorami",
+   "to": "podriad",
+   "scope": "Подряд и услуги с организацией. Права на результат определяются ст. 1296, 1297 ГК (см. блок в разделе 3)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "dogovory-s-avtorami",
+   "to": "uslugi",
+   "scope": "Подряд и услуги с организацией. Права на результат определяются ст. 1296, 1297 ГК (см. блок в разделе 3)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "dogovory-s-avtorami",
+   "to": "litsenzionnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "dogovory-s-avtorami",
+   "to": "nda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "dogovory-s-avtorami",
+   "to": "niokr"
+  },
+  {
+   "rel": "neighbor",
+   "from": "dogovory-s-avtorami",
+   "to": "otchuzhdenie-iskliuchitelnogo-prava"
+  },
+  {
+   "rel": "neighbor",
+   "from": "dogovory-s-avtorami",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "dogovory-s-avtorami",
+   "to": "uslugi"
+  },
+  {
+   "rel": "specializes",
+   "from": "dogovory-s-avtorami",
+   "to": "otchuzhdenie-iskliuchitelnogo-prava"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "dogovory-s-avtorami",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "dogovory-s-avtorami",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "energosnabzhenie",
+   "to": "arenda",
+   "scope": "Электроснабжение арендатора через сети арендодателя. Арендатор, получающий энергию через сети арендодателя, может оказаться субабонентом; передача энергии субабоненту допускается только с согласия энергоснабжающей органи"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "energosnabzhenie",
+   "to": "postavka",
+   "scope": "Поставка энергоносителей не по сети (баллоны с газом, топливо, вода в таре) — обычная поставка или купля-продажа, без правил об энергоснабжении."
+  },
+  {
+   "rel": "neighbor",
+   "from": "energosnabzhenie",
+   "to": "arenda-zdanii-pomeshchenii"
+  },
+  {
+   "rel": "neighbor",
+   "from": "energosnabzhenie",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "energosnabzhenie",
+   "to": "postavka"
+  },
+  {
+   "rel": "specializes",
+   "from": "energosnabzhenie",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "energosnabzhenie",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "energosnabzhenie",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "energosnabzhenie",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "faktoring",
+   "to": "kreditnyi-dogovor",
+   "scope": "Заём и кредит с залогом требования. Здесь требование остаётся у заемщика и переходит к кредитору только при обращении взыскания; при обеспечительном факторинге требование переходит сразу."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "faktoring",
+   "to": "obespechenie",
+   "scope": "Заём и кредит с залогом требования. Здесь требование остаётся у заемщика и переходит к кредитору только при обращении взыскания; при обеспечительном факторинге требование переходит сразу."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "faktoring",
+   "to": "ustupka-perevod-dolga",
+   "scope": "Цессия (гл. 24 ГК). Факторинг использует уступку, но это самостоятельный договор; в неурегулированной части к уступке применяется гл. 24 ГК (п. 3 ст. 824 ГК; карточка «Уступка и перевод долга»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "faktoring",
+   "to": "zaem",
+   "scope": "Заём и кредит с залогом требования. Здесь требование остаётся у заемщика и переходит к кредитору только при обращении взыскания; при обеспечительном факторинге требование переходит сразу."
+  },
+  {
+   "rel": "neighbor",
+   "from": "faktoring",
+   "to": "kreditnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "faktoring",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "faktoring",
+   "to": "zaem"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "faktoring",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "faktoring",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "faktoring",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "neighbor",
+   "from": "gosudarstvennyi-munitsipal-nyi-zaem",
+   "to": "zaem"
+  },
+  {
+   "rel": "specializes",
+   "from": "gosudarstvennyi-munitsipal-nyi-zaem",
+   "to": "zaem"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "hranenie",
+   "to": "arenda",
+   "scope": "Аренда и ссуда. Цель — пользование вещью; при хранении пользование запрещено."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "hranenie",
+   "to": "bezvozmezdnoe-polzovanie",
+   "scope": "Аренда и ссуда. Цель — пользование вещью; при хранении пользование запрещено."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "hranenie",
+   "to": "zaem",
+   "scope": "Заём. Вещи переходят в собственность. Если товарный склад вправе распоряжаться товарами, к отношениям применяются правила о займе, а время и место возврата определяются по гл. 47 (ст. 918)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "hranenie",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "hranenie",
+   "to": "bezvozmezdnoe-polzovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "hranenie",
+   "to": "komissiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "hranenie",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "neighbor",
+   "from": "hranenie",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "hranenie",
+   "to": "transportnaia-ekspeditsiia"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "hranenie",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "hranenie",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "hranenie",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "obespechenie",
+   "scope": "Гарантия, поручительство, независимая гарантия. Обеспечивают исполнение чужого обязательства; страховщик возмещает убытки от страхового случая и сам не является должником по основному обязательству."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "otvetstvennost",
+   "scope": "«Страхование» договорной ответственности без закона. Допускается только в случаях, предусмотренных законом (п. 1 ст. 932 ГК); иначе это ничтожный договор либо, по сути, иной договор. Риск ответственности по договору не п"
+  },
+  {
+   "rel": "neighbor",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "arenda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "hranenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "kreditnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "lichnoe-strakhovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "neighbor",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "transportnaia-ekspeditsiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "zaem"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "imushchestvennoe-strakhovanie",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ispolnenie",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ispolnenie",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ispolnenie",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ispolnenie",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "izmenenie-rastorzhenie",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "izmenenie-rastorzhenie",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "izmenenie-rastorzhenie",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "izmenenie-rastorzhenie",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "neighbor",
+   "from": "khranenie-tsennostei-v-banke",
+   "to": "hranenie"
+  },
+  {
+   "rel": "specializes",
+   "from": "khranenie-tsennostei-v-banke",
+   "to": "hranenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "khranenie-v-gostinitse",
+   "to": "hranenie"
+  },
+  {
+   "rel": "specializes",
+   "from": "khranenie-v-gostinitse",
+   "to": "hranenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "khranenie-v-kamerakh-khraneniia-transportnykh-organizatsii",
+   "to": "hranenie"
+  },
+  {
+   "rel": "specializes",
+   "from": "khranenie-v-kamerakh-khraneniia-transportnykh-organizatsii",
+   "to": "hranenie"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "komissiia",
+   "to": "agentskii-dogovor",
+   "scope": "Агентский договор: агент совершает юридические и иные действия, от своего имени или от имени принципала; к нему применяются правила о комиссии или поручении в зависимости от того, от чьего имени он действует (карточка «А"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "komissiia",
+   "to": "distributsiia",
+   "scope": "Дистрибуция и купля-продажа: дистрибьютор и покупатель-перепродавец покупают товар за свой счёт и несут риск непродажи; комиссионер продаёт чужой товар и собственником не становится (ст. 996; карточка «Дистрибуция»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "komissiia",
+   "to": "kuplia-prodazha",
+   "scope": "Дистрибуция и купля-продажа: дистрибьютор и покупатель-перепродавец покупают товар за свой счёт и несут риск непродажи; комиссионер продаёт чужой товар и собственником не становится (ст. 996; карточка «Дистрибуция»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "komissiia",
+   "to": "poruchenie",
+   "scope": "Поручение: поверенный действует от имени доверителя, права возникают сразу у доверителя (карточка «Поручение»)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "komissiia",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "komissiia",
+   "to": "distributsiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "komissiia",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "komissiia",
+   "to": "poruchenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "komissiia",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "komissiia",
+   "to": "roznichnaia-kuplia-prodazha"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "komissiia",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "komissiia",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "komissiia",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "komissiia",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "komissiia",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "agentskii-dogovor",
+   "scope": "Агентирование и комиссия — посредник действует в интересах принципала; пользователь по концессии действует в своих интересах."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "distributsiia",
+   "scope": "Дистрибуция — перепродажа товаров поставщика; использование товарного знака при перепродаже оригинальных товаров не требует концессии. Если дистрибьютору дают право работать под брендом поставщика по его стандартам, возн"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "komissiia",
+   "scope": "Агентирование и комиссия — посредник действует в интересах принципала; пользователь по концессии действует в своих интересах."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "litsenzionnyi-dogovor",
+   "scope": "Лицензия на товарный знак. Лицензия даёт право на отдельный объект, а концессия даёт комплекс прав вместе с опытом и стандартами правообладателя. Если стороны назвали договор лицензией, но передаются знак, ноу-хау, станд"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "distributsiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "litsenzionnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "nda"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kommercheskaia-kontsessiia",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kontraktatsiia",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "specializes",
+   "from": "kontraktatsiia",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kreditnyi-dogovor",
+   "to": "obespechenie",
+   "scope": "Банковская гарантия, аккредитив, вексельное «кредитование»: не кредитный договор."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kreditnyi-dogovor",
+   "to": "zaem",
+   "scope": "Заём у организации, не являющейся кредитной: другие правила о процентах, форме, досрочном возврате (карточка «Заём»)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "kreditnyi-dogovor",
+   "to": "faktoring"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kreditnyi-dogovor",
+   "to": "zaem"
+  },
+  {
+   "rel": "specializes",
+   "from": "kreditnyi-dogovor",
+   "to": "zaem"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kreditnyi-dogovor",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kreditnyi-dogovor",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kreditnyi-dogovor",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kuplia-prodazha",
+   "to": "agentskii-dogovor",
+   "scope": "Комиссия и агентирование: комиссионер или агент от своего имени продаёт чужое имущество; покупатель имеет дело с ним как с продавцом, отношения с собственником строятся по отдельному договору."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kuplia-prodazha",
+   "to": "komissiia",
+   "scope": "Комиссия и агентирование: комиссионер или агент от своего имени продаёт чужое имущество; покупатель имеет дело с ним как с продавцом, отношения с собственником строятся по отдельному договору."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kuplia-prodazha",
+   "to": "mena",
+   "scope": "Мена: встречное предоставление товаром, а не деньгами."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "kuplia-prodazha",
+   "to": "podriad",
+   "scope": "Подряд на изготовление: в центре договора работа по заданию заказчика и её результат."
+  },
+  {
+   "rel": "neighbor",
+   "from": "kuplia-prodazha",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kuplia-prodazha",
+   "to": "komissiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kuplia-prodazha",
+   "to": "mena"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kuplia-prodazha",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kuplia-prodazha",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "kuplia-prodazha",
+   "to": "roznichnaia-kuplia-prodazha"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kuplia-prodazha",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kuplia-prodazha",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kuplia-prodazha",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kuplia-prodazha",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kuplia-prodazha",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "kuplia-prodazha",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "lichnoe-strakhovanie",
+   "to": "imushchestvennoe-strakhovanie",
+   "scope": "ОМС и обязательное социальное страхование регулируются специальными законами, не гл. 48 ГК, и в этой карточке не рассматриваются."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "lichnoe-strakhovanie",
+   "to": "otvetstvennost",
+   "scope": "Страхование ответственности за вред жизни и здоровью (ст. 931 ГК) — имущественное страхование ответственности причинителя; личное страхование защищает интерес самого застрахованного. Обязательное страхование пациентов в "
+  },
+  {
+   "rel": "neighbor",
+   "from": "lichnoe-strakhovanie",
+   "to": "imushchestvennoe-strakhovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "lichnoe-strakhovanie",
+   "to": "uslugi"
+  },
+  {
+   "rel": "specializes",
+   "from": "lichnoe-strakhovanie",
+   "to": "imushchestvennoe-strakhovanie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "lichnoe-strakhovanie",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "litsenzionnyi-dogovor",
+   "to": "distributsiia",
+   "scope": "Дистрибуция — перепродажа оригинальных товаров с товарным знаком не требует лицензии: использование знака на товарах, введённых в оборот в России правообладателем или с его согласия, не является нарушением (ст. 1487 ГК);"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "litsenzionnyi-dogovor",
+   "to": "kommercheskaia-kontsessiia",
+   "scope": "Коммерческая концессия — комплекс прав вместе с опытом и стандартами (карточка «Коммерческая концессия»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "litsenzionnyi-dogovor",
+   "to": "otchuzhdenie-iskliuchitelnogo-prava",
+   "scope": "Отчуждение исключительного права — передача права в полном объёме; без прямого указания на это договор считается лицензионным (п. 3 ст. 1233 ГК). Договор, названный отчуждением, но с ограничениями по способам, сроку или "
+  },
+  {
+   "rel": "neighbor",
+   "from": "litsenzionnyi-dogovor",
+   "to": "distributsiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "litsenzionnyi-dogovor",
+   "to": "dogovory-s-avtorami"
+  },
+  {
+   "rel": "neighbor",
+   "from": "litsenzionnyi-dogovor",
+   "to": "kommercheskaia-kontsessiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "litsenzionnyi-dogovor",
+   "to": "nda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "litsenzionnyi-dogovor",
+   "to": "niokr"
+  },
+  {
+   "rel": "neighbor",
+   "from": "litsenzionnyi-dogovor",
+   "to": "otchuzhdenie-iskliuchitelnogo-prava"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "litsenzionnyi-dogovor",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "litsenzionnyi-dogovor",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "litsenzionnyi-dogovor",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "lizing",
+   "to": "arenda",
+   "scope": "Аренда с правом выкупа (ст. 624): арендодатель сдаёт своё имущество; в лизинге имущество приобретается под конкретного лизингополучателя у выбранного им продавца (карточка «Аренда»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "lizing",
+   "to": "kreditnyi-dogovor",
+   "scope": "Кредит и залог, купля-продажа в рассрочку: экономически выкупной лизинг близок к финансированию, но юридически собственником до выкупа остаётся лизингодатель; суд при расторжении считает сальдо как по финансированию (раз"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "lizing",
+   "to": "kuplia-prodazha",
+   "scope": "Кредит и залог, купля-продажа в рассрочку: экономически выкупной лизинг близок к финансированию, но юридически собственником до выкупа остаётся лизингодатель; суд при расторжении считает сальдо как по финансированию (раз"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "lizing",
+   "to": "obespechenie",
+   "scope": "Кредит и залог, купля-продажа в рассрочку: экономически выкупной лизинг близок к финансированию, но юридически собственником до выкупа остаётся лизингодатель; суд при расторжении считает сальдо как по финансированию (раз"
+  },
+  {
+   "rel": "neighbor",
+   "from": "lizing",
+   "to": "arenda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "lizing",
+   "to": "arenda-zdanii-pomeshchenii"
+  },
+  {
+   "rel": "neighbor",
+   "from": "lizing",
+   "to": "bezvozmezdnoe-polzovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "lizing",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "lizing",
+   "to": "postavka"
+  },
+  {
+   "rel": "specializes",
+   "from": "lizing",
+   "to": "arenda"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "lizing",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "lizing",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "lizing",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "lizing",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "mena",
+   "to": "izmenenie-rastorzhenie",
+   "scope": "Две встречные поставки с зачётом. Если стороны заключили два договора купли-продажи (поставки) и погашают долги зачётом (ст. 410 ГК), это не мена: право собственности переходит по каждому договору отдельно, к каждой пост"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "mena",
+   "to": "postavka",
+   "scope": "Две встречные поставки с зачётом. Если стороны заключили два договора купли-продажи (поставки) и погашают долги зачётом (ст. 410 ГК), это не мена: право собственности переходит по каждому договору отдельно, к каждой пост"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "mena",
+   "to": "uslugi",
+   "scope": "«Бартер» на работы или услуги. Обмен товара на работы, услуги или исключительные права, по доктрине, не мена, а смешанный договор (п. 3 ст. 421 ГК). Указ Президента РФ от 18.08.1996 № 1209 о внешнеторговых бартерных сдел"
+  },
+  {
+   "rel": "neighbor",
+   "from": "mena",
+   "to": "darenie-pozhertvovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "mena",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "mena",
+   "to": "postavka"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "mena",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "mena",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "nda",
+   "to": "litsenzionnyi-dogovor",
+   "scope": "Лицензия на ноу-хау или отчуждение ноу-хау. Это распоряжение исключительным правом (ст. 1468, 1469 ГК), а не NDA. Исключительное право на секрет производства существует, пока сохраняется конфиденциальность (ст. 1467 ГК),"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "nda",
+   "to": "otchuzhdenie-iskliuchitelnogo-prava",
+   "scope": "Лицензия на ноу-хау или отчуждение ноу-хау. Это распоряжение исключительным правом (ст. 1468, 1469 ГК), а не NDA. Исключительное право на секрет производства существует, пока сохраняется конфиденциальность (ст. 1467 ГК),"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "nda",
+   "to": "zakliuchenie-dogovora",
+   "scope": "Соглашение о порядке ведения переговоров (п. 5 ст. 434.1 ГК) шире NDA: распределение расходов, добросовестность, неустойка; условия, ограничивающие ответственность за недобросовестные действия, ничтожны (абз. 2 п. 5 ст. "
+  },
+  {
+   "rel": "neighbor",
+   "from": "nda",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "nda",
+   "to": "distributsiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "nda",
+   "to": "litsenzionnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "nda",
+   "to": "niokr"
+  },
+  {
+   "rel": "neighbor",
+   "from": "nda",
+   "to": "uslugi"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "nda",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "nda",
+   "to": "tolkovanie-dogovora"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "nda",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "nedeistvitelnost",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "nedeistvitelnost",
+   "to": "tolkovanie-dogovora"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "nedeistvitelnost",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "niokr",
+   "to": "podriad",
+   "scope": "Подряд: если задача решается известными методами и нужен заранее определённый результат (изготовление оснастки по готовой документации, серийная партия), это подряд, а не ОКР. Квалификацию лучше обеспечить текстом: назва"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "niokr",
+   "to": "postavka",
+   "scope": "Поставка с ОКР: разработка и последующая поставка серийной продукции — смешанный договор или два договора. Риск заказчика по п. 3 ст. 769 сам по себе не исключает иска о поставке товара в натуре по поставочной части (Опр"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "niokr",
+   "to": "stroitelnyi-podriad",
+   "scope": "Проектные и изыскательские работы: тоже творческие, но связаны со строительством и регулируются как вид подряда (§ 4 гл. 37; карточка «Строительный подряд»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "niokr",
+   "to": "uslugi",
+   "scope": "Услуги: исследование, проводимое как процесс без собственного результата (консультирование, экспертная поддержка, мониторинг), ближе к услугам (карточка «Услуги»)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "niokr",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "niokr",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "niokr",
+   "to": "stroitelnyi-podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "niokr",
+   "to": "uslugi"
+  },
+  {
+   "rel": "specializes",
+   "from": "niokr",
+   "to": "podriad"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "niokr",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "niokr",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "niokr",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "obespechenie",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "obespechenie",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "obespechenie",
+   "to": "ustupka-perevod-dolga"
+  },
+  {
+   "rel": "neighbor",
+   "from": "obligatsionnyi-zaem",
+   "to": "zaem"
+  },
+  {
+   "rel": "specializes",
+   "from": "obligatsionnyi-zaem",
+   "to": "zaem"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "kuplia-prodazha",
+   "scope": "Купля-продажа носителя: переход права собственности на вещь не влечёт переход или предоставление интеллектуальных прав на выраженный в ней результат (п. 2 ст. 1227 ГК; исключение — абз. 2 п. 1 ст. 1291 ГК)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "litsenzionnyi-dogovor",
+   "scope": "Лицензия — право использования без перехода права (карточка «Лицензионный договор»). Договор об отчуждении, который вводит ограничения по срокам, территории, способам использования или устанавливает срок действия, суд мо"
+  },
+  {
+   "rel": "neighbor",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "dogovory-s-avtorami"
+  },
+  {
+   "rel": "neighbor",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "litsenzionnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "niokr"
+  },
+  {
+   "rel": "neighbor",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "prodazha-nedvizhimosti"
+  },
+  {
+   "rel": "neighbor",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "uslugi"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "otchuzhdenie-iskliuchitelnogo-prava",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "otvetstvennost",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "otvetstvennost",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "otvetstvennost",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "perevozka-gruza",
+   "to": "arenda",
+   "scope": "Аренда транспортного средства с экипажем. Арендатор получает транспорт в пользование и сам решает, что и куда везти; перевозчиком перед грузовладельцем выступает арендатор."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "perevozka-gruza",
+   "to": "postavka",
+   "scope": "Доставка в договоре поставки. Если доставку организует поставщик, перевозка — отдельный договор поставщика с перевозчиком; отношения покупателя и поставщика регулируются поставкой (ст. 510 ГК)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "perevozka-gruza",
+   "to": "transportnaia-ekspeditsiia",
+   "scope": "Транспортная экспедиция. Экспедитор организует перевозку и оказывает связанные услуги (гл. 41 ГК). Если исполнитель сам перевёз груз, выдал свой транспортный документ или иначе принял на себя ответственность перевозчика,"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-gruza",
+   "to": "arenda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-gruza",
+   "to": "hranenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-gruza",
+   "to": "perevozka-passazhira"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-gruza",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-gruza",
+   "to": "transportnaia-ekspeditsiia"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "perevozka-gruza",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "perevozka-gruza",
+   "to": "ramochnyi-dogovor"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "perevozka-gruza",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "perevozka-passazhira",
+   "to": "arenda",
+   "scope": "Аренда транспортного средства с экипажем — арендатор получает транспорт во владение и пользование и сам определяет его использование (карточка «Аренда»); при фрахтовании транспорт предоставляется для перевозки по маршрут"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "perevozka-passazhira",
+   "to": "perevozka-gruza",
+   "scope": "Перевозка груза: см. карточку «Перевозка груза»."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "perevozka-passazhira",
+   "to": "uslugi",
+   "scope": "Услуги по организации поездок (агент, туроператор) — посредник не перевозит сам; ответственность перевозчика остаётся за перевозчиком (карточка «Агентский договор»)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-passazhira",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-passazhira",
+   "to": "arenda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-passazhira",
+   "to": "hranenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-passazhira",
+   "to": "lichnoe-strakhovanie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-passazhira",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "neighbor",
+   "from": "perevozka-passazhira",
+   "to": "transportnaia-ekspeditsiia"
+  },
+  {
+   "rel": "specializes",
+   "from": "perevozka-passazhira",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "perevozka-passazhira",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "podriad",
+   "to": "kuplia-prodazha",
+   "scope": "Поставка и купля-продажа. Родовые вещи и имущественные права бывают только предметом купли-продажи. Если договор не регулирует ведение работ по созданию результата (задание, контроль хода работ, приёмка результата), а ли"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "podriad",
+   "to": "niokr",
+   "scope": "НИР и ОКР: риск невозможности результата и права на результаты регулируются особо (гл. 38; карточка «НИР и ОКР»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "podriad",
+   "to": "postavka",
+   "scope": "Поставка и купля-продажа. Родовые вещи и имущественные права бывают только предметом купли-продажи. Если договор не регулирует ведение работ по созданию результата (задание, контроль хода работ, приёмка результата), а ли"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "podriad",
+   "to": "uslugi",
+   "scope": "Возмездное оказание услуг: в услугах нет отделимого результата, оплачивается деятельность («делать», а не «сделать»); к услугам правила о подряде применяются субсидиарно (ст. 783; карточка «Услуги»)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "podriad",
+   "to": "niokr"
+  },
+  {
+   "rel": "neighbor",
+   "from": "podriad",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "podriad",
+   "to": "stroitelnyi-podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "podriad",
+   "to": "uslugi"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "podriad",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "podriad",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "podriad",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "podriad",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "podriad",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "poruchenie",
+   "to": "agentskii-dogovor",
+   "scope": "Агентирование: агент совершает юридические и иные действия от своего имени или от имени принципала; к нему применяются правила о поручении или комиссии в зависимости от того, чьим именем он действует (карточка «Агентский"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "poruchenie",
+   "to": "komissiia",
+   "scope": "Комиссия: комиссионер действует от своего имени и сам становится стороной сделки (карточка «Комиссия»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "poruchenie",
+   "to": "uslugi",
+   "scope": "Услуги: исполнитель совершает фактические действия (консультирование, подготовка документов) без полномочия создавать права и обязанности для заказчика. Если поверенный и готовит документы, и подаёт их от имени доверител"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "poruchenie",
+   "to": "zakliuchenie-dogovora",
+   "scope": "Посланец и переговорщик: лица, лишь передающие чужую волю или уполномоченные только на переговоры о будущих сделках, представителями не являются (п. 2 ст. 182)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "poruchenie",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "poruchenie",
+   "to": "komissiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "poruchenie",
+   "to": "uslugi"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "poruchenie",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "poruchenie",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "poruchenie",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "postavka",
+   "to": "agentskii-dogovor",
+   "scope": "Дистрибуция, комиссия, агентирование: дистрибутор покупает от своего имени и за свой счёт, поэтому поставочная часть обычно квалифицируется как поставка. Если посредник действует за счёт другой стороны — это комиссия или"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "postavka",
+   "to": "distributsiia",
+   "scope": "Дистрибуция, комиссия, агентирование: дистрибутор покупает от своего имени и за свой счёт, поэтому поставочная часть обычно квалифицируется как поставка. Если посредник действует за счёт другой стороны — это комиссия или"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "postavka",
+   "to": "komissiia",
+   "scope": "Дистрибуция, комиссия, агентирование: дистрибутор покупает от своего имени и за свой счёт, поэтому поставочная часть обычно квалифицируется как поставка. Если посредник действует за счёт другой стороны — это комиссия или"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "postavka",
+   "to": "kuplia-prodazha",
+   "scope": "Купля-продажа (общая): продавец не предприниматель, не занимается производством или закупкой таких товаров (например, продаёт своё бывшее оборудование) или цель покупателя потребительская. Тогда не применяются специальны"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "postavka",
+   "to": "podriad",
+   "scope": "Подряд на изготовление: в центре договора работа по заданию заказчика и её результат, а не передача товара, который поставщик производит для оборота. Критерий практикой не проверялся."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "postavka",
+   "to": "roznichnaia-kuplia-prodazha",
+   "scope": "Розничная купля-продажа: цель покупателя личная, семейная, домашняя. Покупка организацией для обеспечения своей деятельности по цели к рознице не относится (абз. 2 п. 5 Постановления Пленума ВАС № 18). Но если те же това"
+  },
+  {
+   "rel": "neighbor",
+   "from": "postavka",
+   "to": "distributsiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "postavka",
+   "to": "komissiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "postavka",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "postavka",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "postavka",
+   "to": "roznichnaia-kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "postavka",
+   "to": "zaem"
+  },
+  {
+   "rel": "specializes",
+   "from": "postavka",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "postavka",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "postavka",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "postavka",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "neighbor",
+   "from": "potrebitel-skii-kredit",
+   "to": "kreditnyi-dogovor"
+  },
+  {
+   "rel": "specializes",
+   "from": "potrebitel-skii-kredit",
+   "to": "kreditnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "priamoe-smeshannoe-soobshchenie",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "specializes",
+   "from": "priamoe-smeshannoe-soobshchenie",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "prodazha-nedvizhimosti",
+   "to": "zakliuchenie-dogovora",
+   "scope": "«Предварительный» договор с оплатой цены или её существенной части до основного — договор купли-продажи будущей вещи с условием о предварительной оплате (п. 8 ПП ВАС № 54)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "prodazha-nedvizhimosti",
+   "to": "arenda-zdanii-pomeshchenii"
+  },
+  {
+   "rel": "neighbor",
+   "from": "prodazha-nedvizhimosti",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "prodazha-nedvizhimosti",
+   "to": "mena"
+  },
+  {
+   "rel": "neighbor",
+   "from": "prodazha-nedvizhimosti",
+   "to": "stroitelnyi-podriad"
+  },
+  {
+   "rel": "specializes",
+   "from": "prodazha-nedvizhimosti",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "prodazha-nedvizhimosti",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "prodazha-nedvizhimosti",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "prodazha-nedvizhimosti",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "prodazha-nedvizhimosti",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "neighbor",
+   "from": "prokat",
+   "to": "arenda"
+  },
+  {
+   "rel": "specializes",
+   "from": "prokat",
+   "to": "arenda"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "ramochnyi-dogovor",
+   "to": "postavka",
+   "scope": "Длящийся договор поставки с партиями: если договор сразу определяет количество и периоды, это обычная поставка с графиком, а не рамка (карточка «Поставка»). Граница практическая: в рамке объём и сроки определяются заявка"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "ramochnyi-dogovor",
+   "to": "zakliuchenie-dogovora",
+   "scope": "Предварительный договор: обязывает заключить основной договор в будущем на определённых условиях, требует условий о предмете и сроке, нарушение даёт иск о понуждении к заключению (ст. 429). Рамочный договор сам по себе н"
+  },
+  {
+   "rel": "neighbor",
+   "from": "ramochnyi-dogovor",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "ramochnyi-dogovor",
+   "to": "distributsiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "ramochnyi-dogovor",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "ramochnyi-dogovor",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "ramochnyi-dogovor",
+   "to": "uslugi"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ramochnyi-dogovor",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ramochnyi-dogovor",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ramochnyi-dogovor",
+   "to": "tolkovanie-dogovora"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ramochnyi-dogovor",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "kuplia-prodazha",
+   "scope": "Купля-продажа (общая): продавец не торгует в розницу профессионально (гражданин продаёт гражданину, компания продаёт своё имущество работнику)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "podriad",
+   "scope": "Бытовой подряд и услуги: если основное — работа или услуга (сборка, ремонт, изготовление по заказу), а не передача готового товара."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "postavka",
+   "scope": "Поставка: поставщик производит или закупает товар, покупатель берёт его для предпринимательских целей у не розничного продавца (карточка «Поставка»)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "uslugi",
+   "scope": "Бытовой подряд и услуги: если основное — работа или услуга (сборка, ремонт, изготовление по заказу), а не передача готового товара."
+  },
+  {
+   "rel": "neighbor",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "arenda"
+  },
+  {
+   "rel": "neighbor",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "uslugi"
+  },
+  {
+   "rel": "specializes",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "roznichnaia-kuplia-prodazha",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "neighbor",
+   "from": "soglasheniia-mezhdu-transportnymi-organizatsiiami-ob-organizatsii-perevozok",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "specializes",
+   "from": "soglasheniia-mezhdu-transportnymi-organizatsiiami-ob-organizatsii-perevozok",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "stroitelnyi-podriad",
+   "to": "podriad",
+   "scope": "Общий подряд: монтаж оборудования, не связанный со строящимся объектом (например, установка купленной линии в действующем цехе без реконструкции), текущий ремонт регулируются общими положениями о подряде. Признак строите"
+  },
+  {
+   "rel": "neighbor",
+   "from": "stroitelnyi-podriad",
+   "to": "niokr"
+  },
+  {
+   "rel": "neighbor",
+   "from": "stroitelnyi-podriad",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "stroitelnyi-podriad",
+   "to": "uslugi"
+  },
+  {
+   "rel": "specializes",
+   "from": "stroitelnyi-podriad",
+   "to": "podriad"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "stroitelnyi-podriad",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "stroitelnyi-podriad",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "stroitelnyi-podriad",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "stroitelnyi-podriad",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "tolkovanie-dogovora",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "tolkovanie-dogovora",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "agentskii-dogovor",
+   "scope": "Поручение, комиссия, агентский договор. Экспедиция — самостоятельный договор об услугах: цель не в совершении сделок для клиента, а в обеспечении перевозки груза; нормы о посредничестве к ней по доктрине не применяются. "
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "hranenie",
+   "scope": "Хранение. Хранение груза входит в экспедицию как дополнительная услуга; если хранение — основная обязанность, а экспедиция дополняет его, это смешанный договор."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "komissiia",
+   "scope": "Поручение, комиссия, агентский договор. Экспедиция — самостоятельный договор об услугах: цель не в совершении сделок для клиента, а в обеспечении перевозки груза; нормы о посредничестве к ней по доктрине не применяются. "
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "perevozka-gruza",
+   "scope": "Перевозка. Перевозчик обязуется доставить груз; экспедитор — организовать доставку. Ответственность различается: у перевозчика ограниченная по уставу, у экспедитора по Закону о ТЭД (раздел 3)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "poruchenie",
+   "scope": "Поручение, комиссия, агентский договор. Экспедиция — самостоятельный договор об услугах: цель не в совершении сделок для клиента, а в обеспечении перевозки груза; нормы о посредничестве к ней по доктрине не применяются. "
+  },
+  {
+   "rel": "neighbor",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "hranenie"
+  },
+  {
+   "rel": "neighbor",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "komissiia"
+  },
+  {
+   "rel": "neighbor",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "neighbor",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "poruchenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "transportnaia-ekspeditsiia",
+   "to": "ramochnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "tsentralizovannyi-zavoz-vyvoz-gruzov",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "specializes",
+   "from": "tsentralizovannyi-zavoz-vyvoz-gruzov",
+   "to": "perevozka-gruza"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "uslugi",
+   "to": "agentskii-dogovor",
+   "scope": "Поручение, комиссия, агентирование: исполнитель совершает юридические действия от имени или за счёт заказчика; это гл. 49, 51, 52."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "uslugi",
+   "to": "komissiia",
+   "scope": "Поручение, комиссия, агентирование: исполнитель совершает юридические действия от имени или за счёт заказчика; это гл. 49, 51, 52."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "uslugi",
+   "to": "podriad",
+   "scope": "Подряд. Решает характер интереса заказчика: если он заинтересован в самой деятельности, это услуги; если в результате, который передаётся, это подряд. Результат разграничивает договоры, только если он материальный или ма"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "uslugi",
+   "to": "poruchenie",
+   "scope": "Поручение, комиссия, агентирование: исполнитель совершает юридические действия от имени или за счёт заказчика; это гл. 49, 51, 52."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "uslugi",
+   "to": "zakliuchenie-dogovora",
+   "scope": "Абонентский договор: плата вносится за право требовать исполнения в нужном объёме, независимо от того, было ли оно затребовано (ст. 429.4). Абонентская модель часто сочетается с услугами (сопровождение, обслуживание)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "uslugi",
+   "to": "agentskii-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "uslugi",
+   "to": "niokr"
+  },
+  {
+   "rel": "neighbor",
+   "from": "uslugi",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "uslugi",
+   "to": "poruchenie"
+  },
+  {
+   "rel": "specializes",
+   "from": "uslugi",
+   "to": "podriad"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "uslugi",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "uslugi",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "uslugi",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "uslugi",
+   "to": "zakliuchenie-dogovora"
+  },
+  {
+   "rel": "neighbor",
+   "from": "ustupka-perevod-dolga",
+   "to": "faktoring"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ustupka-perevod-dolga",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ustupka-perevod-dolga",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "ustupka-perevod-dolga",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "zaem",
+   "to": "arenda",
+   "scope": "Аренда и ссуда. Возвращается та же вещь, собственность не переходит."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "zaem",
+   "to": "bezvozmezdnoe-polzovanie",
+   "scope": "Аренда и ссуда. Возвращается та же вещь, собственность не переходит."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "zaem",
+   "to": "izmenenie-rastorzhenie",
+   "scope": "Новация. Долг из купли-продажи, аренды или другого основания можно заменить заемным обязательством с соблюдением правил о новации и формы займа (ст. 818 ГК)."
+  },
+  {
+   "rel": "distinguishes_from",
+   "from": "zaem",
+   "to": "kreditnyi-dogovor",
+   "scope": "Кредитный договор. Кредитором выступает банк или иная кредитная организация, договор консенсуальный, предметом бывают только деньги (отдельная карточка)."
+  },
+  {
+   "rel": "neighbor",
+   "from": "zaem",
+   "to": "faktoring"
+  },
+  {
+   "rel": "neighbor",
+   "from": "zaem",
+   "to": "kreditnyi-dogovor"
+  },
+  {
+   "rel": "neighbor",
+   "from": "zaem",
+   "to": "kuplia-prodazha"
+  },
+  {
+   "rel": "neighbor",
+   "from": "zaem",
+   "to": "podriad"
+  },
+  {
+   "rel": "neighbor",
+   "from": "zaem",
+   "to": "postavka"
+  },
+  {
+   "rel": "neighbor",
+   "from": "zaem",
+   "to": "uslugi"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "zaem",
+   "to": "ispolnenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "zaem",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "zaem",
+   "to": "obespechenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "zaem",
+   "to": "otvetstvennost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "zakliuchenie-dogovora",
+   "to": "izmenenie-rastorzhenie"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "zakliuchenie-dogovora",
+   "to": "nedeistvitelnost"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "zakliuchenie-dogovora",
+   "to": "ramochnyi-dogovor"
+  },
+  {
+   "rel": "uses_institute",
+   "from": "zakliuchenie-dogovora",
+   "to": "tolkovanie-dogovora"
+  }
+ ]
+}

@@ -1,0 +1,113 @@
+id: EXT-REG-063
+title: Pharmacovigilance extractor
+document_types:
+- PVA
+- PV_agreement
+- PSUR
+- PBRER
+- RMP
+- safety_report
+- PV_system_document
+purposes:
+- identify_PV_responsibilities
+- identify_safety_obligations
+- plan_PV_transition
+entities:
+- Product
+- Party
+- Person
+- Authority
+facts_to_extract:
+- product
+- PV responsible party/person
+- territory
+- reporting responsibilities
+- safety database ownership/location
+- case transfer rules
+- RMP/PSUR obligations
+- reporting timelines
+- transition/termination provisions
+- open safety commitments
+mapped_checks:
+- REG-006
+- REG-008
+- CLS-003
+critical_fields:
+- responsible_party
+- territory
+- reporting_obligations
+- transition_rules
+human_review_questions:
+- Кто отвечает за PV сейчас и после сделки?
+- Какие данные/обязанности должны перейти?
+- Есть ли open commitments?
+fail_safe: If responsibility allocation is unclear, PV transition remains open.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: product
+  label: product
+  type: asset_ref
+  material: false
+- field_id: pv_responsible_party_person
+  label: PV responsible party/person
+  type: entity_ref
+  material: true
+- field_id: territory
+  label: territory
+  type: jurisdiction
+  material: true
+- field_id: reporting_responsibilities
+  label: reporting responsibilities
+  type: text
+  material: false
+- field_id: safety_database_ownership_location
+  label: safety database ownership/location
+  type: entity_ref
+  material: false
+- field_id: case_transfer_rules
+  label: case transfer rules
+  type: text
+  material: false
+- field_id: rmp_psur_obligations
+  label: RMP/PSUR obligations
+  type: text
+  material: false
+- field_id: reporting_timelines
+  label: reporting timelines
+  type: text
+  material: false
+- field_id: transition_termination_provisions
+  label: transition/termination provisions
+  type: text
+  material: false
+- field_id: open_safety_commitments
+  label: open safety commitments
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

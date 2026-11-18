@@ -1,0 +1,25 @@
+version: '1.0'
+role: verification_capability
+not_a_fixed_stage: true
+triggers:
+- material_adverse_finding
+- cannot_conclude_with_material_consequence
+- conflict_detected
+- legal_authority_conflict
+- external_review_required
+- human_modified_material_fact
+- drafting_input_from_issue
+- scope_coverage_uncertainty
+checks:
+- look for omitted applicable area
+- challenge unsupported clear
+- challenge causal link fact→criterion→conclusion
+- seek contrary evidence already in project
+- check alternative transaction consequence
+- check whether missing evidence can materially change result
+outputs:
+- critic_findings
+- reconfirmation_tasks
+- additional_evidence_requirements
+- no_issue
+second_model: optional_not_required

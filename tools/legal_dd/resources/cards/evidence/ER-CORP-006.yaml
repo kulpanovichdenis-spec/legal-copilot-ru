@@ -1,0 +1,56 @@
+id: ER-CORP-006
+title: Финансовая отчетность и стоимость сделки / активов
+module: corporate
+applies_when: Major transaction or antitrust threshold analysis relevant
+requested_from: seller/buyer
+evidence_types:
+- balance_sheet
+- financial_statements
+- asset_value_certificate
+- fixed_asset_register
+sufficient_if:
+- relevant reporting date and transaction/asset values are sufficient to calculate thresholds
+mapped_checks:
+- CORP-005
+- APP-001
+- APP-002
+extractor_ids:
+- EXT-FIN-040
+request_text: Предоставить баланс на релевантную отчетную дату и сведения о стоимости отчуждаемых активов.
+gap_text: Недостаточно финансовых данных для проверки крупности/thresholds.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- CORP-005
+- APP-001
+- APP-002
+request_phase: initial
+title_en: Financial statements / transaction value
+title_ru: Финансовая отчетность и стоимость сделки / активов
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

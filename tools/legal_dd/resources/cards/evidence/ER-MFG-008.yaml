@@ -1,0 +1,55 @@
+id: ER-MFG-008
+title: План и пакет документов по трансферу производства
+module: manufacturing
+applies_when: Future manufacturer differs or transfer planned
+requested_from: seller/manufacturer/buyer_team
+evidence_types:
+- transfer_plan
+- transfer_protocol
+- site_assessment
+- technology_package
+- milestone_plan
+sufficient_if:
+- scope, deliverables, responsibilities, dependencies and acceptance criteria for transfer are identifiable
+mapped_checks:
+- MFG-008
+- CLS-003
+extractor_ids:
+- EXT-MFG-071
+- EXT-CON-010
+request_text: Предоставить имеющиеся документы/план по трансферу производства, включая deliverables, milestones и responsibilities.
+gap_text: Объем и условия transfer производства не определены.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- MFG-008
+request_phase: initial
+title_en: Technology transfer package / plan
+title_ru: План и пакет документов по трансферу производства
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

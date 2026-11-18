@@ -1,0 +1,38 @@
+version: '0.2'
+policy:
+  enabled: true
+  mode: adaptive
+  not_required_for_every_class: true
+  typical_sample_size: 3-5
+  trigger_conditions:
+  - unseen material document class
+  - parser/schema/model change
+  - repeated locator failure
+  - recurring classification ambiguity
+  - systematic missing critical field
+  - high materiality class without validated profile
+  reuse_prior_validated_profile: true
+  human_approval_required_when_triggered: true
+steps:
+- select representative documents for each major document class
+- run intended extractor profiles
+- review field coverage, states, quotes and locators
+- adjust mapping/schema only if necessary
+- record human approval
+- allow bulk processing for that class
+stop_conditions:
+- repeated locator failure
+- recurring classification ambiguity
+- systematic missing critical field
+- document parser loses material text or tables
+steps_if_triggered:
+- select representative documents based on expected failure modes
+- run only intended extractor fields/capabilities
+- review field coverage/states/quotes/locators
+- adjust mapping/schema only if needed
+- record human approval
+- allow bulk use for that class/profile
+skip_allowed_when:
+- same validated document class and parser/schema profile
+- no material behavior change
+- validator history shows stable performance

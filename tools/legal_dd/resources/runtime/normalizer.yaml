@@ -1,0 +1,52 @@
+version: '1.1'
+title: Legal DD Cross-Document Normalizer
+purpose: Detect inconsistencies and normalize structured output without silently changing legal facts.
+rules:
+- id: NORM-001
+  name: enum_validation
+  action: flag
+  condition: value outside allowed enum
+- id: NORM-002
+  name: quote_locator_presence
+  action: downgrade_to_needs_review
+  condition: answered without quote or exact locator
+- id: NORM-003
+  name: entity_alias_resolution
+  action: propose_mapping
+  condition: likely same party/asset under different spelling
+- id: NORM-004
+  name: date_normalization
+  action: normalize_with_raw_preserved
+  condition: parseable date formats differ
+- id: NORM-005
+  name: currency_normalization
+  action: normalize_with_raw_preserved
+  condition: currency/number formats differ
+- id: NORM-006
+  name: intra_document_conflict
+  action: flag_conflict_detected
+  condition: same field has inconsistent provisions
+- id: NORM-007
+  name: cross_document_conflict
+  action: flag_conflict_detected
+  condition: documents assert inconsistent material facts
+- id: NORM-008
+  name: minority_outlier
+  action: create_review_cluster
+  condition: small cluster materially differs from dominant pattern
+- id: NORM-009
+  name: document_family_current_state
+  action: recompute
+  condition: new amendment/addendum changes effective provision
+- id: NORM-010
+  name: stale_evidence
+  action: mark_outdated
+  condition: freshness rule violated
+prohibitions:
+- never replace outlier with majority value automatically
+- never resolve legal conflict by statistical majority
+- never convert unclear to answered without source evidence
+- never overwrite human-confirmed fact; create a new version and reconfirmation task
+role: continuous_consistency_validator
+not_a_fixed_post_extraction_stage: true
+trigger: any structured state change that may create normalization need, alias, conflict, outlier, stale evidence or document-family update

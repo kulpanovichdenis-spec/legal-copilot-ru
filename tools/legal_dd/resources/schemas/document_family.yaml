@@ -1,0 +1,29 @@
+version: '1.0'
+title: Legal DD Document Family Schema
+relations:
+- amendment
+- addendum
+- side_letter
+- restatement
+- replacement_schedule
+- termination
+- waiver
+- consent
+rules:
+  analyze_current_state_when_available: true
+  missing_base_document_blocks_current_state: true
+  material_amendment_triggers_reconfirmation: true
+family_template:
+  document_family_id: ''
+  family_type: agreement
+  base_document:
+    document_id: ''
+  members: []
+  current_state:
+    generated: false
+    effective_date: null
+    unresolved_conflicts: []
+    missing_dependencies: []
+  human_review:
+    status: pending
+    comment: null

@@ -1,0 +1,205 @@
+[
+  {
+    "source_id": "SRC-RU-323-74",
+    "title": "Федеральный закон № 323-ФЗ, ст. 74 — ограничения для медицинских и фармацевтических работников",
+    "jurisdiction": "RU",
+    "source_type": "legislation",
+    "authority_level": "authoritative_legal_text",
+    "publisher": "КонсультантПлюс",
+    "url": "https://www.consultant.ru/document/cons_doc_LAW_121895/8eee23730b6e2d771575ba85beed80646a00ede9/",
+    "source_date": "2026-08-04",
+    "status": "active",
+    "notes": "Current text used as legal text reference; production deployment should validate date-sensitive questions against official publication/current legal database."
+  },
+  {
+    "source_id": "SRC-RU-323-75",
+    "title": "Федеральный закон № 323-ФЗ, ст. 75 — конфликт интересов",
+    "jurisdiction": "RU",
+    "source_type": "legislation",
+    "authority_level": "authoritative_legal_text",
+    "publisher": "КонсультантПлюс",
+    "url": "https://www.consultant.ru/document/cons_doc_LAW_121895/f7a9b8344908837aa02eafed5007ce0b1952c9da/",
+    "source_date": "2026-08-04",
+    "status": "active"
+  },
+  {
+    "source_id": "SRC-RU-273-13.3",
+    "title": "Федеральный закон № 273-ФЗ, ст. 13.3 — меры по предупреждению коррупции",
+    "jurisdiction": "RU",
+    "source_type": "legislation",
+    "authority_level": "authoritative_legal_text",
+    "publisher": "КонсультантПлюс",
+    "url": "https://www.consultant.ru/document/cons_doc_LAW_82959/8d84ba0cd0bfdc5f27fe88bbbd379be910a28b17/",
+    "source_date": "2026-04-25",
+    "status": "active"
+  },
+  {
+    "source_id": "SRC-RU-KOAP-19.28",
+    "title": "КоАП РФ, ст. 19.28 — незаконное вознаграждение от имени юридического лица",
+    "jurisdiction": "RU",
+    "source_type": "legislation",
+    "authority_level": "authoritative_legal_text",
+    "publisher": "КонсультантПлюс",
+    "url": "https://www.consultant.ru/document/cons_doc_LAW_34661/f61ff313afecf81a91a43d729c2df55c1d6a1533/",
+    "source_date": "2026-08-04",
+    "status": "active"
+  },
+  {
+    "source_id": "SRC-RU-VS-19.28-2020",
+    "title": "Обзор судебной практики по ст. 19.28 КоАП РФ, утв. Президиумом Верховного Суда РФ 08.07.2020",
+    "jurisdiction": "RU",
+    "source_type": "supreme_court_review",
+    "authority_level": "high",
+    "publisher": "Верховный Суд РФ / КонсультантПлюс",
+    "url": "https://www.consultant.ru/document/cons_doc_LAW_356810/",
+    "source_date": "2020-07-08",
+    "status": "active"
+  },
+  {
+    "source_id": "SRC-RU-135-11",
+    "title": "Федеральный закон № 135-ФЗ, ст. 11 — запрет ограничивающих конкуренцию соглашений",
+    "jurisdiction": "RU",
+    "source_type": "legislation",
+    "authority_level": "authoritative_legal_text",
+    "publisher": "КонсультантПлюс",
+    "url": "https://www.consultant.ru/document/cons_doc_LAW_61763/75fad2ba0bd186dad16ff04a2efe55ae3f9ff7e6/",
+    "source_date": "2026-07-01",
+    "status": "active"
+  },
+  {
+    "source_id": "SRC-RU-44-33",
+    "title": "Федеральный закон № 44-ФЗ, ст. 33 — правила описания объекта закупки",
+    "jurisdiction": "RU",
+    "source_type": "legislation",
+    "authority_level": "authoritative_legal_text",
+    "publisher": "КонсультантПлюс",
+    "url": "https://www.consultant.ru/document/cons_doc_LAW_144624/d6aec91603ff628ea274b8552ce2849e06e0aa4c/",
+    "source_date": "2026-10-01",
+    "status": "active"
+  },
+  {
+    "source_id": "SRC-AIPM-SERVICES",
+    "title": "AIPM Code — HCP services, FMV, need, selection and no prescribing obligation",
+    "jurisdiction": "RU-industry",
+    "source_type": "industry_standard",
+    "authority_level": "authoritative_industry_standard",
+    "publisher": "AIPM",
+    "url": "https://www.code.aipm.org/codex/4",
+    "status": "active"
+  },
+  {
+    "source_id": "SRC-AIPM-TOV",
+    "title": "AIPM Code — transfers of value to HCP/HCO",
+    "jurisdiction": "RU-industry",
+    "source_type": "industry_standard",
+    "authority_level": "authoritative_industry_standard",
+    "publisher": "AIPM",
+    "url": "https://code.aipm.org/en/codex/8",
+    "status": "active"
+  },
+  {
+    "source_id": "SRC-AIPM-INDIRECT-HCO",
+    "title": "AIPM Q&A — indirect transfer of value through technical organizer to HCO",
+    "jurisdiction": "RU-industry",
+    "source_type": "industry_standard",
+    "authority_level": "authoritative_industry_standard",
+    "publisher": "AIPM",
+    "url": "https://www.code.aipm.org/codex/12",
+    "status": "active"
+  },
+  {
+    "source_id": "SRC-US-DOJ-NOVARTIS",
+    "title": "DOJ — Novartis sham speaker programs settlement",
+    "jurisdiction": "US",
+    "source_type": "official_enforcement",
+    "authority_level": "official_foreign_enforcement",
+    "publisher": "U.S. Department of Justice",
+    "url": "https://www.justice.gov/usao-sdny/pr/acting-manhattan-us-attorney-announces-678-million-settlement-fraud-lawsuit-against",
+    "source_date": "2020-07-01",
+    "status": "historical"
+  },
+  {
+    "source_id": "SRC-US-DOJ-OLYMPUS",
+    "title": "DOJ — Olympus payments to doctors and hospitals",
+    "jurisdiction": "US",
+    "source_type": "official_enforcement",
+    "authority_level": "official_foreign_enforcement",
+    "publisher": "U.S. Department of Justice",
+    "url": "https://www.justice.gov/usao-nj/pr/medical-device-company-will-pay-646-million-making-illegal-payments-doctors-and-hospitals",
+    "source_date": "2016-03-01",
+    "status": "historical"
+  },
+  {
+    "source_id": "SRC-US-SEC-PFIZER",
+    "title": "SEC — Pfizer FCPA violations involving doctors and government healthcare institutions",
+    "jurisdiction": "US",
+    "source_type": "official_enforcement",
+    "authority_level": "official_foreign_enforcement",
+    "publisher": "U.S. Securities and Exchange Commission",
+    "url": "https://www.sec.gov/newsroom/press-releases/2012-2012-152htm",
+    "source_date": "2012-08-07",
+    "status": "historical"
+  },
+  {
+    "source_id": "SRC-RU-PROC-YANTAR",
+    "title": "Прокуратура: ООО «Янтарь» оштрафовано за незаконное вознаграждение для содействия в победе в аукционах на медизделия",
+    "jurisdiction": "RU",
+    "source_type": "official_enforcement_notice",
+    "authority_level": "official_enforcement",
+    "publisher": "Генеральная прокуратура РФ / Прокуратура Республики Марий Эл",
+    "url": "https://epp.genproc.gov.ru/ru/gprf/mass-media/news/regional/e8427828/",
+    "source_date": "2026-03-19",
+    "status": "historical"
+  },
+  {
+    "source_id": "SRC-RU-PROC-MEDTECH",
+    "title": "Прокуратура: ООО «МедТех» — участие в формировании аукционной документации и параметры, ограничивающие конкуренцию",
+    "jurisdiction": "RU",
+    "source_type": "official_enforcement_notice",
+    "authority_level": "official_enforcement",
+    "publisher": "Прокуратура Владимирской области",
+    "url": "https://epp.genproc.gov.ru/ru/proc_33/mass-media/news/main/e5748702/",
+    "status": "historical"
+  },
+  {
+    "source_id": "SRC-RU-PROC-MEDSTYLE",
+    "title": "Прокуратура: ООО «Медстайл» — взятка за взаимовыгодные условия при электронных аукционах на поставку лекарственных препаратов",
+    "jurisdiction": "RU",
+    "source_type": "official_enforcement_notice",
+    "authority_level": "official_enforcement",
+    "publisher": "Генеральная прокуратура РФ",
+    "url": "https://epp.genproc.gov.ru/ru/gprf/mass-media/news/archive/e5608086/",
+    "status": "historical"
+  },
+  {
+    "source_id": "SRC-RU-PROC-EUROSERVICE",
+    "title": "Прокуратура: ЗАО «Фирма ЕВРОСЕРВИС» — незаконное вознаграждение и лоббирование при выборе поставщика лекарственных препаратов",
+    "jurisdiction": "RU",
+    "source_type": "official_enforcement_notice",
+    "authority_level": "official_enforcement",
+    "publisher": "Генеральная прокуратура РФ / СЗФО",
+    "url": "https://epp.genproc.gov.ru/ru/proc_szfo/mass-media/news/archive/e1159884/",
+    "status": "historical"
+  },
+  {
+    "source_id": "SRC-RU-PROC-4C",
+    "title": "Прокуратура: ООО «4С-Сервис» — взятка за победу на торгах и лояльность при приемке работ в больнице",
+    "jurisdiction": "RU",
+    "source_type": "official_enforcement_notice",
+    "authority_level": "official_enforcement",
+    "publisher": "Прокуратура Ленинградской области",
+    "url": "https://epp.genproc.gov.ru/ru/proc_47/mass-media/news/regional/e7352949/",
+    "source_date": "2023-11-15",
+    "status": "historical"
+  },
+  {
+    "source_id": "SRC-RU-PROC-EXCLUSION",
+    "title": "Прокуратура: последствия привлечения по ст. 19.28 КоАП для участия в закупках и недействительность контрактов",
+    "jurisdiction": "RU",
+    "source_type": "official_enforcement_notice",
+    "authority_level": "official_enforcement",
+    "publisher": "Генеральная прокуратура РФ / СФО",
+    "url": "https://epp.genproc.gov.ru/ru/proc_sibfo/mass-media/news/archive/e3108597/",
+    "status": "historical"
+  }
+]

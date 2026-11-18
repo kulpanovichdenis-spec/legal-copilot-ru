@@ -1,0 +1,13 @@
+version: "0.2"
+fields:
+  proposition: string
+  jurisdiction: string
+  source_type:
+    enum: [official, legal_database, court, web_verify, model_unverified]
+  source: string
+  locator: string|null
+  effective_date: date|null
+  verified: boolean
+rules:
+  - model_unverified cannot be the only basis of a final legal conclusion
+  - historical law must be tied to the legally relevant date

@@ -1,0 +1,14 @@
+{
+  "visual_qa_performed": true,
+  "reason": "страница проверена в браузере 2026-09-24; этот флаг не ставит новый запуск скрипта",
+  "reconcile_errors": [],
+  "capabilities": {
+    "can_write_files": true,
+    "can_run_python": true,
+    "can_parse_xlsx": true,
+    "can_open_local_html": true,
+    "can_render_browser": false,
+    "can_export_pdf": false
+  },
+  "ready_for_submission": false
+}

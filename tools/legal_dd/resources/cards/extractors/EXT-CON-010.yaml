@@ -1,0 +1,214 @@
+id: EXT-CON-010
+title: Agreement core legal-effect extractor
+document_types:
+- agreement
+- assignment_agreement
+- licence_agreement
+- services_agreement
+- R&D_agreement
+- clinical_trial_agreement
+- supply_agreement
+- manufacturing_agreement
+- quality_agreement
+- domain_transfer_agreement
+purposes:
+- support_conclusion_check
+- support_validity_check
+- support_voidability_check
+- support_authority_and_approval_check
+- identify_transaction_asset
+- support_chain_of_title
+- support_performance_check
+entities:
+- Agreement
+- Party
+- Person
+- Asset
+- Right
+- Approval
+- Payment
+facts_to_extract:
+- agreement type/title/number/date/place
+- parties and roles
+- signatories and authority basis
+- governing law
+- subject matter
+- essential terms stated in the document
+- asset/product identifiers and schedules where listed
+- scope/type of right
+- territory
+- term
+- exclusivity
+- restrictions
+- retained rights
+- conditions precedent/effective date
+- consideration and payment mechanics
+- moment/mechanism of transfer of right
+- acceptance/transfer act requirement
+- registration/recordal requirement
+- third-party consent requirement
+- corporate approval references
+- representations/warranties on title and authority
+- termination rights
+- annexes/addenda referenced
+- performance documents referenced
+mapped_checks:
+- TX-003
+- TX-006
+- TX-007
+- IP-DOC-001
+- IP-DOC-002
+- IP-KH-003
+- IP-TM-004
+- IP-PAT-006
+- IP-CR-008
+- IP-DOM-010
+- IP-WEB-011
+- IP-ENC-012
+- CORP-003
+- CORP-005
+- CORP-006
+- CORP-007
+- CLS-002
+critical_fields:
+- parties
+- signatories
+- subject_matter
+- asset_identifiers
+- right_scope
+- transfer_moment
+- payment_condition
+- registration_requirement
+human_review_questions:
+- Идентифицирован ли наш объект сделки прямо или через приложение?
+- Какие факты подтверждают заключенность; каких фактов не хватает?
+- Какие факты релевантны действительности/оспоримости, но требуют отдельного legal check?
+- Возникло/перешло ли право к нашему контрагенту согласно тексту и при каких условиях?
+- Какие approvals/consents прямо требуются или упомянуты?
+- Что еще требуется для подтверждения надлежащего исполнения?
+fail_safe: Never state 'contract is valid/concluded/performed'. Extract facts only; missing annex/payment/act/registration must create a gap.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: agreement_type_title_number_date_place
+  label: agreement type/title/number/date/place
+  type: date
+  material: false
+- field_id: parties_and_roles
+  label: parties and roles
+  type: entity_ref
+  material: true
+- field_id: signatories_and_authority_basis
+  label: signatories and authority basis
+  type: entity_ref
+  material: true
+- field_id: governing_law
+  label: governing law
+  type: text
+  material: false
+- field_id: subject_matter
+  label: subject matter
+  type: text
+  material: true
+- field_id: essential_terms_stated_in_the_document
+  label: essential terms stated in the document
+  type: text
+  material: false
+- field_id: asset_product_identifiers_and_schedules_where_listed
+  label: asset/product identifiers and schedules where listed
+  type: asset_ref
+  material: false
+- field_id: scope_type_of_right
+  label: scope/type of right
+  type: text
+  material: false
+- field_id: territory
+  label: territory
+  type: jurisdiction
+  material: false
+- field_id: term
+  label: term
+  type: text
+  material: false
+- field_id: exclusivity
+  label: exclusivity
+  type: text
+  material: false
+- field_id: restrictions
+  label: restrictions
+  type: text
+  material: false
+- field_id: retained_rights
+  label: retained rights
+  type: text
+  material: false
+- field_id: conditions_precedent_effective_date
+  label: conditions precedent/effective date
+  type: date
+  material: false
+- field_id: consideration_and_payment_mechanics
+  label: consideration and payment mechanics
+  type: text
+  material: false
+- field_id: moment_mechanism_of_transfer_of_right
+  label: moment/mechanism of transfer of right
+  type: text
+  material: false
+- field_id: acceptance_transfer_act_requirement
+  label: acceptance/transfer act requirement
+  type: text
+  material: false
+- field_id: registration_recordal_requirement
+  label: registration/recordal requirement
+  type: text
+  material: false
+- field_id: third_party_consent_requirement
+  label: third-party consent requirement
+  type: entity_ref
+  material: false
+- field_id: corporate_approval_references
+  label: corporate approval references
+  type: text
+  material: false
+- field_id: representations_warranties_on_title_and_authority
+  label: representations/warranties on title and authority
+  type: entity_ref
+  material: false
+- field_id: termination_rights
+  label: termination rights
+  type: text
+  material: false
+- field_id: annexes_addenda_referenced
+  label: annexes/addenda referenced
+  type: text
+  material: false
+- field_id: performance_documents_referenced
+  label: performance documents referenced
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

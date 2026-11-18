@@ -1,0 +1,123 @@
+id: EXT-REG-064
+title: Clinical / preclinical study extractor
+document_types:
+- clinical_protocol
+- clinical_report
+- preclinical_report
+- study_synopsis
+- trial_authorisation
+- CRO_agreement
+purposes:
+- inventory_studies
+- confirm_study_identity
+- support_rights_and_regulatory_use
+entities:
+- Product
+- Agreement
+- Party
+- Authority
+- Document
+facts_to_extract:
+- study ID/title
+- product
+- sponsor
+- CRO/site
+- protocol version/date
+- authorisation/ethics approval
+- study status
+- report date
+- rights/use provisions if contractual
+- data ownership
+- publication restrictions
+- referenced submissions
+mapped_checks:
+- REG-007
+- IP-DOC-001
+- IP-DOC-002
+critical_fields:
+- study_id
+- sponsor
+- status
+- data_rights
+human_review_questions:
+- Есть ли полный комплект по исследованию?
+- Кто владеет/может использовать данные?
+- Подано ли исследование в dossier?
+fail_safe: Study report does not by itself prove ownership of rights to the data.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: study_id_title
+  label: study ID/title
+  type: asset_ref
+  material: true
+- field_id: product
+  label: product
+  type: asset_ref
+  material: false
+- field_id: sponsor
+  label: sponsor
+  type: text
+  material: true
+- field_id: cro_site
+  label: CRO/site
+  type: text
+  material: false
+- field_id: protocol_version_date
+  label: protocol version/date
+  type: date
+  material: false
+- field_id: authorisation_ethics_approval
+  label: authorisation/ethics approval
+  type: entity_ref
+  material: false
+- field_id: study_status
+  label: study status
+  type: enum
+  material: true
+- field_id: report_date
+  label: report date
+  type: date
+  material: false
+- field_id: rights_use_provisions_if_contractual
+  label: rights/use provisions if contractual
+  type: text
+  material: false
+- field_id: data_ownership
+  label: data ownership
+  type: entity_ref
+  material: false
+- field_id: publication_restrictions
+  label: publication restrictions
+  type: text
+  material: false
+- field_id: referenced_submissions
+  label: referenced submissions
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

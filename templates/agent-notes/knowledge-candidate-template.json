@@ -1,0 +1,20 @@
+[
+  {
+    "knowledge_id": "ko_<pattern_kind>_<slug>",
+    "type": "practice_pattern",
+    "pattern_kind": "evidence | drafting | procedure | settlement | enforcement | risk_antipattern",
+    "support_level": "single_case | multi_case | court_confirmed",
+    "topic": "<тема одним словосочетанием>",
+    "issue": "<какой вопрос/ситуация>",
+    "position": "<операционный приём или риск, 1–3 предложения, НЕ правовое правило>",
+    "applies_when": ["<условие>"],
+    "does_not_apply_when": ["<исключение>"],
+    "source_case_ids": ["cs_..."],
+    "reuse_target": ["procedural-document-drafter"],
+    "legal_dependencies": [{"norm": "ст. 410 ГК РФ", "status": "requires_current_law_check"}],
+    "requires_current_law_check": true,
+    "review_questions": ["<что юристу проверить перед promotion>"],
+    "provenance": [{"kind": "case_study", "ref": "cs_...", "locator": "раздел 6"}],
+    "valid_as_of": "<YYYY-MM-DD — дата последнего документа дела>"
+  }
+]

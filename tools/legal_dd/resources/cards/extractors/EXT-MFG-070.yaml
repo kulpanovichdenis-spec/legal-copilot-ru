@@ -1,0 +1,111 @@
+id: EXT-MFG-070
+title: Manufacturing site / GMP / authorisation extractor
+document_types:
+- GMP_certificate
+- GMP_conclusion
+- manufacturing_licence
+- site_master_file
+- inspection_certificate
+purposes:
+- confirm_site_authorisation
+- map_manufacturing_chain
+entities:
+- Site
+- Party
+- Product
+- Authority
+facts_to_extract:
+- site name/address
+- manufacturer
+- authorisation/GMP number
+- issuing authority
+- scope/operations
+- products if listed
+- issue/expiry dates
+- inspection dates
+- limitations/suspensions
+- contract manufacturer role
+mapped_checks:
+- MFG-001
+- MFG-002
+- REG-001
+- APP-004
+critical_fields:
+- site
+- scope
+- status
+- expiry
+human_review_questions:
+- Охватывает ли authorisation нужные операции и продукт?
+- Действует ли документ?
+- Есть ли ограничения?
+fail_safe: Do not treat generic site authorisation as product-specific coverage unless supported.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: site_name_address
+  label: site name/address
+  type: text
+  material: true
+- field_id: manufacturer
+  label: manufacturer
+  type: entity_ref
+  material: false
+- field_id: authorisation_gmp_number
+  label: authorisation/GMP number
+  type: entity_ref
+  material: false
+- field_id: issuing_authority
+  label: issuing authority
+  type: entity_ref
+  material: false
+- field_id: scope_operations
+  label: scope/operations
+  type: text
+  material: true
+- field_id: products_if_listed
+  label: products if listed
+  type: asset_ref
+  material: false
+- field_id: issue_expiry_dates
+  label: issue/expiry dates
+  type: date
+  material: true
+- field_id: inspection_dates
+  label: inspection dates
+  type: date
+  material: false
+- field_id: limitations_suspensions
+  label: limitations/suspensions
+  type: text
+  material: false
+- field_id: contract_manufacturer_role
+  label: contract manufacturer role
+  type: entity_ref
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

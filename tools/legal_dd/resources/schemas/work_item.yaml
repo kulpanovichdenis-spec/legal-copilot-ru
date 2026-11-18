@@ -1,0 +1,24 @@
+version: "0.2"
+work_item_types:
+  - classify_document
+  - resolve_document_family
+  - select_extractors
+  - extract_facts
+  - normalize
+  - evaluate_check
+  - rebuild_html
+  - human_review
+fields:
+  work_id: string
+  type: string
+  project_id: string
+  source_item_id: string|null
+  document_id: string|null
+  affected_checks: list[string]
+  affected_evidence_requirements: list[string]
+  extractor_ids: list[string]
+  status:
+    enum: [queued, in_progress, completed, blocked, failed]
+  created_at: string
+  updated_at: string
+  reason: string

@@ -1,0 +1,105 @@
+id: EXT-CON-013
+title: Payment / settlement evidence extractor
+document_types:
+- payment_order
+- bank_confirmation
+- invoice
+- receipt
+- settlement_statement
+purposes:
+- confirm_payment_condition
+- confirm_consideration_paid
+- support_title_chain
+entities:
+- Payment
+- Party
+- Agreement
+- Asset
+facts_to_extract:
+- payer/payee
+- date
+- amount/currency
+- payment purpose
+- agreement reference
+- invoice reference
+- asset/reference text
+- payment status if available
+mapped_checks:
+- IP-DOC-001
+- IP-TM-004
+- IP-PAT-006
+- IP-CR-008
+- IP-EMP-009
+- CORP-008
+critical_fields:
+- payer
+- payee
+- amount
+- date
+- agreement_reference
+human_review_questions:
+- Связан ли платеж с нужным договором?
+- Оплачена ли полная сумма/требуемая часть?
+- Является ли оплата условием перехода права?
+fail_safe: Payment evidence without a reliable agreement link is supportive only, not sufficient.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: payer_payee
+  label: payer/payee
+  type: text
+  material: true
+- field_id: date
+  label: date
+  type: date
+  material: true
+- field_id: amount_currency
+  label: amount/currency
+  type: currency
+  material: true
+- field_id: payment_purpose
+  label: payment purpose
+  type: text
+  material: false
+- field_id: agreement_reference
+  label: agreement reference
+  type: text
+  material: true
+- field_id: invoice_reference
+  label: invoice reference
+  type: text
+  material: false
+- field_id: asset_reference_text
+  label: asset/reference text
+  type: asset_ref
+  material: false
+- field_id: payment_status_if_available
+  label: payment status if available
+  type: enum
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

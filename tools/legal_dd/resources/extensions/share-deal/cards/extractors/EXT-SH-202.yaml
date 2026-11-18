@@ -1,0 +1,74 @@
+id: EXT-SH-202
+title: Material movable asset extractor
+document_types:
+- asset_register
+- purchase_agreement
+- lease
+- finance_lease
+- pledge
+- arrest_document
+mapped_checks:
+- SH-009
+fields:
+- asset_identifier
+- owner_or_user
+- right_basis
+- value_if_available
+- encumbrances
+- dispute_or_loss_risk
+human_review_required: true
+rules:
+- Extract facts with exact locator.
+- Do not make final employment/property/IT legal conclusions.
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: asset_identifier
+  label: asset_identifier
+  type: asset_ref
+  material: false
+- field_id: owner_or_user
+  label: owner_or_user
+  type: entity_ref
+  material: false
+- field_id: right_basis
+  label: right_basis
+  type: text
+  material: false
+- field_id: value_if_available
+  label: value_if_available
+  type: currency
+  material: false
+- field_id: encumbrances
+  label: encumbrances
+  type: text
+  material: false
+- field_id: dispute_or_loss_risk
+  label: dispute_or_loss_risk
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

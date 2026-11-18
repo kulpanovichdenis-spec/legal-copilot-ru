@@ -1,0 +1,145 @@
+id: EXT-IP-021
+title: Employee-created IP / service work / service invention extractor
+document_types:
+- employment_agreement
+- job_description
+- service_assignment
+- employee_IP_policy
+- author_notification
+- remuneration_agreement
+- remuneration_payment
+- inventor_statement
+purposes:
+- confirm_service_IP_status
+- confirm_employer_title
+- confirm_author_remuneration
+entities:
+- Party
+- Person
+- Asset
+- Right
+- Payment
+- Document
+facts_to_extract:
+- employer/employee
+- employment dates
+- position
+- job duties
+- service assignment/task
+- connection between duties and created result
+- creation date
+- employee notification
+- employer decision/use/patent filing
+- inventors/authors/coauthors
+- IP ownership provisions
+- remuneration basis/amount/date
+- proof of remuneration payment
+- confidentiality obligations
+- handover of materials
+mapped_checks:
+- IP-DOC-001
+- IP-KH-003
+- IP-EMP-009
+- IP-PAT-006
+- IP-CR-008
+critical_fields:
+- employment_relation
+- job_duties
+- creation_fact
+- service_assignment
+- remuneration
+human_review_questions:
+- Есть ли достаточная связь создания РИД с трудовой функцией/заданием?
+- Какие документы подтверждают возникновение права у работодателя?
+- Выполнены ли обязанности перед автором?
+- Нет ли неустраненных прав автора/соавторов?
+fail_safe: If employment duties, creation facts or remuneration evidence are missing, do not confirm employer title.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: employer_employee
+  label: employer/employee
+  type: entity_ref
+  material: false
+- field_id: employment_dates
+  label: employment dates
+  type: date
+  material: false
+- field_id: position
+  label: position
+  type: text
+  material: false
+- field_id: job_duties
+  label: job duties
+  type: text
+  material: true
+- field_id: service_assignment_task
+  label: service assignment/task
+  type: text
+  material: true
+- field_id: connection_between_duties_and_created_result
+  label: connection between duties and created result
+  type: enum
+  material: false
+- field_id: creation_date
+  label: creation date
+  type: date
+  material: false
+- field_id: employee_notification
+  label: employee notification
+  type: entity_ref
+  material: false
+- field_id: employer_decision_use_patent_filing
+  label: employer decision/use/patent filing
+  type: entity_ref
+  material: false
+- field_id: inventors_authors_coauthors
+  label: inventors/authors/coauthors
+  type: entity_ref
+  material: false
+- field_id: ip_ownership_provisions
+  label: IP ownership provisions
+  type: entity_ref
+  material: false
+- field_id: remuneration_basis_amount_date
+  label: remuneration basis/amount/date
+  type: date
+  material: true
+- field_id: proof_of_remuneration_payment
+  label: proof of remuneration payment
+  type: text
+  material: true
+- field_id: confidentiality_obligations
+  label: confidentiality obligations
+  type: text
+  material: false
+- field_id: handover_of_materials
+  label: handover of materials
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

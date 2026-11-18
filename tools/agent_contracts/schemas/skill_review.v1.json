@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "skill_review.v1",
+  "title": "Отчёт skill-reviewer — смысловая проверка скилла",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "skill",
+    "skill_path",
+    "origin",
+    "parameters",
+    "legal_failure_modes",
+    "risk_surface",
+    "verdict",
+    "fixes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "skill_review.v1"
+    },
+    "skill": {
+      "type": "string",
+      "minLength": 1
+    },
+    "skill_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "origin": {
+      "enum": [
+        "internal",
+        "external"
+      ]
+    },
+    "parameters": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "finding"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "outcome_trigger",
+              "delegation_threshold",
+              "insufficient_input",
+              "failure_modes_invariants",
+              "legal_failure_modes",
+              "sources_verification",
+              "escalation_markers",
+              "scope_jurisdiction",
+              "risk_surface",
+              "freshness",
+              "conflicts"
+            ]
+          },
+          "status": {
+            "enum": [
+              "addressed",
+              "partial",
+              "missing",
+              "n_a"
+            ]
+          },
+          "finding": {
+            "type": "string",
+            "minLength": 1
+          },
+          "anchor": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "quote",
+                  "location"
+                ],
+                "properties": {
+                  "quote": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
+                  },
+                  "location": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 300
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "legal_failure_modes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_vs_support",
+        "confidentiality",
+        "accountability_gap"
+      ],
+      "properties": {
+        "decision_vs_support": {
+          "enum": [
+            "addressed",
+            "partial",
+            "missing"
+          ]
+        },
+        "confidentiality": {
+          "enum": [
+            "addressed",
+            "partial",
+            "missing"
+          ]
+        },
+        "accountability_gap": {
+          "enum": [
+            "addressed",
+            "partial",
+            "missing"
+          ]
+        }
+      }
+    },
+    "risk_surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tools",
+        "writes_outside_workflow",
+        "external_calls",
+        "paid_calls",
+        "embedded_instructions"
+      ],
+      "properties": {
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "writes_outside_workflow": {
+          "type": "boolean"
+        },
+        "external_calls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "paid_calls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "embedded_instructions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "skill",
+          "overlap"
+        ],
+        "properties": {
+          "skill": {
+            "type": "string"
+          },
+          "overlap": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verdict": {
+      "enum": [
+        "READY",
+        "SOME_CONCERNS",
+        "MATERIAL_CONCERNS",
+        "REFUSE"
+      ]
+    },
+    "verdict_reason": {
+      "type": "string"
+    },
+    "fixes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "priority",
+          "change"
+        ],
+        "properties": {
+          "priority": {
+            "enum": [
+              "blocking",
+              "high",
+              "medium"
+            ]
+          },
+          "change": {
+            "type": "string",
+            "minLength": 1
+          },
+          "anchor": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "quote",
+                  "location"
+                ],
+                "properties": {
+                  "quote": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 2000
+                  },
+                  "location": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 300
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

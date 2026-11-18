@@ -1,0 +1,12 @@
+version: "0.2"
+fields:
+  decision_id: string
+  topic: string
+  source_findings: list[string]
+  options: list[string]
+  agent_proposal: string|null
+  human_decision:
+    status:
+      enum: [pending, confirmed, modified, rejected]
+    selected_option: string|null
+    comment: string|null

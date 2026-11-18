@@ -1,0 +1,59 @@
+id: ER-CLS-002
+title: Формы и подтверждения регистрации перехода прав
+module: closing
+applies_when: Transferred asset/right requires formal registration/recordal
+requested_from: seller/buyer
+evidence_types:
+- transfer_form
+- recordal_application
+- registry_confirmation
+- registrar_instruction
+sufficient_if:
+- required forms are executable/filed as appropriate and completion evidence is available
+mapped_checks:
+- CLS-002
+- IP-TM-004
+- IP-PAT-006
+- IP-DOM-010
+- REG-001
+extractor_ids:
+- EXT-APP-091
+- EXT-IP-050
+- EXT-DIG-080
+- EXT-CON-012
+request_text: Подготовить/предоставить формы и подтверждения регистрации/recordal перехода прав по каждому применимому активу.
+gap_text: Formal transfer/recordal requirement не закрыт.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- CLS-002
+request_phase: closing
+title_en: Transfer / recordal / registration forms and confirmations
+title_ru: Формы и подтверждения регистрации перехода прав
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

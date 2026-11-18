@@ -1,0 +1,15 @@
+version: "0.2"
+fields:
+  id: string
+  agent_assessment:
+    status:
+      enum: [not_started, in_progress, clear, issue, cannot_conclude, external_review_required, not_applicable]
+    conclusion: string
+  human_review:
+    status:
+      enum: [pending, confirmed, modified, rejected, reconfirmation_required]
+    comment: string|null
+  final_status:
+    rule: may_exist_only_after_human_confirmation
+  evidence_requirements: list[string]
+  finding_ids: list[string]

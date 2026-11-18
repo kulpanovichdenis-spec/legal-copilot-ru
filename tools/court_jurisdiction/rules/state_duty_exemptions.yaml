@@ -1,0 +1,188 @@
+# Версионированные льготы/освобождения от госпошлины — ст. 333.36 НК РФ (СОЮ/
+# мировые) и ст. 333.37 НК РФ (арбитраж). Все записи ниже сверены дословно
+# 2026-09-16 по официальному тексту с pravo.gov.ru (nd=102067058) — см.
+# tools/court_jurisdiction/rules/state_duty_rates.yaml, source_doc.
+#
+# Это НЕ исчерпывающий список — ст. 333.36 п.1 содержит ~26 подпунктов (и
+# продолжает дополняться, последнее на дату сверки — пп.26 от 20.02.2026
+# № 40-ФЗ), закодированы наиболее частые в практике in-house категории.
+# Незакодированный код -> UNKNOWN_CODE, не считается отсутствием льготы
+# (ТЗ §68: льготы — не статический список).
+#
+# 2026-09-16 — исправление после сверки: ранее "consumer_claims" был указан
+# как п.1 пп.4 ст.333.36 (полная льгота) — ОШИБКА. Реальная структура: полная
+# льгота по потребительским искам в п.1 нет вообще; льгота по потребительским
+# искам — п.2 пп.4, и она НЕ полная, а с порогом по цене иска 1 000 000 руб.
+# (правило порога — общее п.3 для ВСЕХ категорий п.2, не только потребителей).
+# Ранее закодированная АПК "labor_claims" — ПОЛНОСТЬЮ ВЫДУМАНА (в ст.333.37
+# такой льготы нет вообще) — удалена, заменена реальными категориями.
+
+schema_version: 2
+
+exemptions:
+  GPK:
+    - code: labor_claims
+      rule_id: NK_333_36_LABOR_2025
+      effective_from: "2005-01-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 1 пп. 1 — истцы по искам о взыскании заработной платы (денежного содержания) и иным требованиям, вытекающим из трудовых правоотношений, а также по искам о взыскании пособий"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant
+    - code: alimony_claims
+      rule_id: NK_333_36_ALIMONY_2025
+      effective_from: "2005-01-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 1 пп. 2 — истцы по искам о взыскании алиментов"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant
+    - code: personal_injury_claims
+      rule_id: NK_333_36_INJURY_2025
+      effective_from: "2005-01-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 1 пп. 3 — иски о возмещении вреда, причинённого увечьем/повреждением здоровья, а также смертью кормильца"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant
+    - code: crime_harm_claims
+      rule_id: NK_333_36_CRIME_HARM_2025
+      effective_from: "2005-01-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 1 пп. 4 — иски о возмещении имущественного и (или) морального вреда, причинённого преступлением"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant
+    - code: consumer_claims
+      rule_id: NK_333_36_CONSUMER_2025
+      effective_from: "2015-03-08"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 2 пп. 4 + п. 3 — истцы по искам, связанным с нарушением прав потребителей; освобождение действует при цене иска ≤ 1 000 000 руб., свыше — пошлина с суммы, исчисленной по пп.1 п.1 ст.333.19, уменьшенной на пошлину при цене иска 1 000 000 руб."
+      last_verified: "2026-09-16"
+      type: threshold
+      threshold_amount: 1000000
+      applies_to: claimant
+    - code: disabled_claimant
+      rule_id: NK_333_36_DISABLED_2025
+      effective_from: "2021-07-02"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 2 пп. 2 + п. 3 — истцы (административные истцы): инвалиды I или II группы, дети-инвалиды, инвалиды с детства; порог 1 000 000 руб. как у consumer_claims"
+      last_verified: "2026-09-16"
+      type: threshold
+      threshold_amount: 1000000
+      applies_to: claimant
+    - code: combat_veterans
+      rule_id: NK_333_36_VETERANS_2025
+      effective_from: "2016-11-30"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 2 пп. 3 + п. 3 — ветераны боевых действий, ветераны военной службы, обращающиеся за защитой прав, установленных законодательством о ветеранах; порог 1 000 000 руб."
+      last_verified: "2026-09-16"
+      type: threshold
+      threshold_amount: 1000000
+      applies_to: claimant
+    - code: pensioners_pension_claims
+      rule_id: NK_333_36_PENSIONERS_2025
+      effective_from: "2022-07-14"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 2 пп. 5 + п. 3 — пенсионеры по искам имущественного характера к СФР/негосударственным пенсионным фондам/органам, осуществляющим пенсионное обеспечение военнослужащих; порог 1 000 000 руб."
+      last_verified: "2026-09-16"
+      type: threshold
+      threshold_amount: 1000000
+      applies_to: claimant
+    - code: disabled_organizations
+      rule_id: NK_333_36_DISABLED_ORG_2025
+      effective_from: "2005-01-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 2 пп. 1 + п. 3 — общественные организации инвалидов как истец/ответчик; порог 1 000 000 руб."
+      last_verified: "2026-09-16"
+      type: threshold
+      threshold_amount: 1000000
+      applies_to: claimant
+    - code: state_municipal_body
+      rule_id: NK_333_36_STATE_BODY_2025
+      effective_from: "2021-06-11"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.36 п. 1 пп. 19 — госорганы, органы местного самоуправления, органы публичной власти федеральной территории «Сириус», выступающие истцом/ответчиком (административным истцом/ответчиком) по делам СОЮ/мировых судей"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant_or_defendant
+  APK:
+    - code: state_municipal_body
+      rule_id: NK_333_37_STATE_BODY_2025
+      effective_from: "2021-06-11"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.37 п. 1 пп. 1.1 — госорганы, органы местного самоуправления, органы публичной власти федеральной территории «Сириус», выступающие истцом/ответчиком в арбитражном суде"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant_or_defendant
+    - code: child_rights_claims
+      rule_id: NK_333_37_CHILD_2025
+      effective_from: "2005-01-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.37 п. 1 пп. 2 — истцы по искам, связанным с нарушением прав и законных интересов ребёнка"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant
+    - code: compulsory_license_authors
+      rule_id: NK_333_37_LICENSE_2025
+      effective_from: "2012-07-10"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.37 п. 1 пп. 3 — авторы результата интеллектуальной деятельности по искам о предоставлении принудительной лицензии"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant
+    - code: bankrupt_debtor_incidental
+      rule_id: NK_333_37_DEBTOR_2025
+      effective_from: "2024-09-08"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.37 п. 1 пп. 4 — граждане, в отношении которых введена процедура банкротства, по обособленным спорам об освобождении от обязательств, формировании конкурсной массы и реестра требований кредиторов"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant
+    - code: bankruptcy_creditors_confirmed
+      rule_id: NK_333_37_CREDITORS_2025
+      effective_from: "2024-09-08"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.37 п. 1 пп. 5 — кредиторы по требованиям о включении в реестр требований кредиторов, подтверждённым вступившими в силу судебными актами"
+      last_verified: "2026-09-16"
+      type: full
+      applies_to: claimant
+    - code: disabled_organizations
+      rule_id: NK_333_37_DISABLED_ORG_2025
+      effective_from: "2005-01-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.37 п. 2 пп. 1 + п. 3 — общественные организации инвалидов как истец/ответчик; порог 1 000 000 руб."
+      last_verified: "2026-09-16"
+      type: threshold
+      threshold_amount: 1000000
+      applies_to: claimant
+    - code: disabled_claimant
+      rule_id: NK_333_37_DISABLED_2025
+      effective_from: "2005-01-01"
+      effective_to: null
+      confidence: verified_fulltext
+      source: "НК РФ ст. 333.37 п. 2 пп. 2 + п. 3 — истцы, инвалиды I и II группы; порог 1 000 000 руб."
+      last_verified: "2026-09-16"
+      type: threshold
+      threshold_amount: 1000000
+      applies_to: claimant
+
+# EXEMPTION CHECK (ТЗ §67-70) всегда выполняется, даже с пустым списком кодов
+# — см. state_duty.py check_exemptions(). "Не сработала" — задокументированный
+# результат, не молчаливый пропуск.

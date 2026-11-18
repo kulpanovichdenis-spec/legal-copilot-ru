@@ -1,0 +1,93 @@
+id: EXT-SH-201
+title: Real estate title / land / permit extractor
+document_types:
+- EGRN_extract
+- real_estate_title
+- lease
+- mortgage
+- servitude
+- land_document
+- construction_permit
+- commissioning_document
+- technical_passport
+- utility_agreement
+mapped_checks:
+- SH-008
+fields:
+- object_identifier
+- cadastral_number
+- owner_or_user
+- right_basis
+- encumbrances
+- land_category_and_permitted_use
+- construction_and_commissioning_status
+- material_third_party_rights
+- disputes_or_loss_risks
+human_review_required: true
+rules:
+- Extract facts with exact locator.
+- Do not make final employment/property/IT legal conclusions.
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: object_identifier
+  label: object_identifier
+  type: asset_ref
+  material: false
+- field_id: cadastral_number
+  label: cadastral_number
+  type: text
+  material: false
+- field_id: owner_or_user
+  label: owner_or_user
+  type: entity_ref
+  material: false
+- field_id: right_basis
+  label: right_basis
+  type: text
+  material: false
+- field_id: encumbrances
+  label: encumbrances
+  type: text
+  material: false
+- field_id: land_category_and_permitted_use
+  label: land_category_and_permitted_use
+  type: text
+  material: false
+- field_id: construction_and_commissioning_status
+  label: construction_and_commissioning_status
+  type: enum
+  material: false
+- field_id: material_third_party_rights
+  label: material_third_party_rights
+  type: text
+  material: false
+- field_id: disputes_or_loss_risks
+  label: disputes_or_loss_risks
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

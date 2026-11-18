@@ -1,0 +1,48 @@
+# Python-зависимости проекта legal-copilot
+# Устанавливать: pip install -r requirements.txt
+# Документация по среде — SETUP.md.
+
+# === Слой подготовки документов (Направление 9.1) ===
+# Лёгкий backend ингестии: .docx/.xlsx/.pptx/.html/.csv/.pdf-с-текстом → Markdown.
+# Все форматы — расширение [all] (Office, PDF, изображения, аудио, YouTube).
+markitdown[all]>=0.0.2
+# RTF → текст (markitdown отдаёт сырую разметку) и Word 97–2003 .doc → текст
+# по piece table (markitdown не читает): tools/doc_ingest/rtf_runner.py, doc_runner.py.
+striprtf>=0.0.30
+olefile>=0.47
+
+# === Трекер сроков (skills/deadline-tracker) ===
+# Хранение workflow/<дело>/deadlines.yaml в tools/deadline_tracker/tracker.py.
+PyYAML>=6.0
+
+# === HTTP-клиент Legal Overlay (удалённые MCP-коннекторы, pravo.gov.ru) ===
+httpx>=0.28
+
+# === Генерация и проверка офисных документов ===
+python-docx>=1.1
+openpyxl>=3.1
+
+# === Локальный OCR для pre-LLM обезличивания (tools/pre_anonymize/ocr.py) ===
+# Сканы PDF и изображения → текст, полностью офлайн.
+# ТРЕБУЕТ нативный движок Tesseract (НЕ ставится через pip):
+#   winget install UB-Mannheim.TesseractOCR --source winget
+#   (языки rus+eng идут в комплекте; путь — PRE_ANON_TESSERACT_CMD при нестандартном)
+pytesseract>=0.3.10
+pypdfium2>=4.0
+Pillow>=10.0
+
+# === Генерация документов (references/docx-generation.md, skills/business-communication) ===
+python-docx>=1.1
+python-pptx>=1.0.2
+
+# === Локальный Legal Knowledge Overlay ===
+jsonschema>=4.0
+# Системное хранилище CA (Windows CryptoAPI) для внешних HTTPS/MCP providers.
+truststore>=0.10.4
+
+# === Проверки проекта ===
+pytest>=8.0
+
+# === Будет добавлено в следующих этапах ===
+# - chromadb + sentence-transformers (Направление 10 — внутренний корпус)
+# - voyageai (Направление 10 — cloud embeddings, опционально)

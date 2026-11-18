@@ -1,0 +1,119 @@
+id: EXT-DIG-080
+title: Domain / website / digital rights extractor
+document_types:
+- domain_registrar_agreement
+- WHOIS
+- domain_statement
+- website_development_agreement
+- content_agreement
+- hosting_agreement
+purposes:
+- confirm_domain_control
+- confirm_web_content_rights
+- identify_transfer_mechanics
+entities:
+- Asset
+- Party
+- Agreement
+- Right
+facts_to_extract:
+- domain
+- registrar
+- registrant/admin/account holder
+- creation/expiry
+- transfer lock/restrictions
+- auth/admin control evidence
+- website owner
+- developer/content creator
+- IP ownership clauses
+- hosting/provider dependencies
+- third-party components
+mapped_checks:
+- IP-DOM-010
+- IP-WEB-011
+- IP-ENC-012
+- CLS-002
+- CLS-003
+critical_fields:
+- domain
+- registrant
+- expiry
+- transfer_restrictions
+human_review_questions:
+- Кто реально контролирует домен/account?
+- Можно ли передать домен?
+- Кому принадлежат сайт/контент?
+fail_safe: WHOIS alone may be insufficient where privacy/proxy services obscure control.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: domain
+  label: domain
+  type: asset_ref
+  material: true
+- field_id: registrar
+  label: registrar
+  type: entity_ref
+  material: false
+- field_id: registrant_admin_account_holder
+  label: registrant/admin/account holder
+  type: entity_ref
+  material: true
+- field_id: creation_expiry
+  label: creation/expiry
+  type: date
+  material: true
+- field_id: transfer_lock_restrictions
+  label: transfer lock/restrictions
+  type: text
+  material: false
+- field_id: auth_admin_control_evidence
+  label: auth/admin control evidence
+  type: text
+  material: false
+- field_id: website_owner
+  label: website owner
+  type: entity_ref
+  material: false
+- field_id: developer_content_creator
+  label: developer/content creator
+  type: text
+  material: false
+- field_id: ip_ownership_clauses
+  label: IP ownership clauses
+  type: entity_ref
+  material: false
+- field_id: hosting_provider_dependencies
+  label: hosting/provider dependencies
+  type: entity_ref
+  material: false
+- field_id: third_party_components
+  label: third-party components
+  type: entity_ref
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

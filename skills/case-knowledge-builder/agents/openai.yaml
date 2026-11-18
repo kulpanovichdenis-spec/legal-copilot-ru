@@ -1,0 +1,4 @@
+interface:
+  display_name: "Case Knowledge Builder"
+  short_description: "Знания из прошлых претензий и судебных дел"
+  default_prompt: "Use $case-knowledge-builder to build anonymized case studies and knowledge candidates from prior case analyses."

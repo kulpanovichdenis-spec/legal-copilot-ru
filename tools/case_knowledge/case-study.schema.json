@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "case-study.schema.json",
+  "title": "Anonymized case study",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_study_id",
+    "matter_kind",
+    "jurisdiction",
+    "source_case_ids",
+    "dispute_type",
+    "stages",
+    "our_role",
+    "matter_stage",
+    "outcome",
+    "evidence_chain_completeness",
+    "law_as_of",
+    "requires_current_law_check",
+    "topics",
+    "anonymization",
+    "review_status",
+    "source_refs",
+    "knowledge_candidate_ids",
+    "updated"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "case_study_id": {"type": "string", "pattern": "^cs_[a-z0-9][a-z0-9_]{2,95}$"},
+    "matter_kind": {"type": "string", "$comment": "enum from vocab/matter_kind.json"},
+    "jurisdiction": {"const": "RU"},
+    "source_case_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "dispute_type": {"type": "string", "$comment": "enum from vocab/dispute_type.json"},
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["pretrial", "first_instance", "appeal", "cassation", "enforcement", "settlement"]}
+    },
+    "our_role": {"type": "string", "$comment": "enum from vocab/our_role.json"},
+    "matter_stage": {"type": "string", "$comment": "enum from vocab/matter_stage.json"},
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["merits_result", "appeal_status", "settlement_status", "enforcement_status", "recovery_status", "outcome_evidence"],
+      "properties": {
+        "merits_result": {"enum": ["won", "lost", "partial", "settled", "discontinued", "not_decided", "not_applicable", "unknown"]},
+        "appeal_status": {"enum": ["none", "upheld", "reversed", "pending", "not_applicable", "unknown"]},
+        "settlement_status": {"enum": ["none", "draft", "signed", "performed", "unknown"]},
+        "enforcement_status": {"enum": ["not_started", "in_progress", "completed", "terminated_no_assets", "not_applicable", "unknown"]},
+        "recovery_status": {"enum": ["full", "partial", "none", "not_applicable", "unknown"]},
+        "outcome_evidence": {"type": "array", "items": {"enum": ["court_act", "signed_agreement", "payment", "setoff_entry", "repair_act", "written_waiver", "none"]}}
+      }
+    },
+    "evidence_chain_completeness": {"enum": ["complete", "partial", "broken", "unknown"]},
+    "law_as_of": {"type": "string", "pattern": "^(unknown|[0-9]{4}(-[0-9]{2})?)$"},
+    "requires_current_law_check": {"const": true},
+    "topics": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "court_case_numbers": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "related_workflow": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^workflow/"}
+    },
+    "anonymization": {"const": "verified"},
+    "review_status": {"enum": ["candidate", "verified", "superseded"]},
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "source_type", "source_path"],
+        "properties": {
+          "source_id": {"type": "string", "minLength": 1},
+          "source_type": {
+            "enum": [
+              "analytical_case_card",
+              "cross_case_review",
+              "qa_report",
+              "matter_analysis",
+              "discovery_report",
+              "candidate_list",
+              "cases_index"
+            ]
+          },
+          "source_path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "knowledge_candidate_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^ko_[a-z0-9][a-z0-9._-]{2,127}$"}
+    },
+    "updated": {"type": "string", "format": "date"}
+  }
+}

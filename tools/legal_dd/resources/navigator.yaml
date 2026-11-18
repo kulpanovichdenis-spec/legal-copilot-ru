@@ -1,0 +1,581 @@
+version: '0.3'
+skill_id: legal-dd-navigator
+project_root: workflow/YYYY.MM.DD <short-name>/dd-state
+start_intents:
+- создаем проект DD
+- новый DD
+- запусти due diligence
+- создай проверку сделки
+- начинаем DD
+intake:
+- id: TX-I-01
+  field: transaction_type
+  question: 'Тип сделки: asset / share / mixed?'
+  type: single_select
+  options:
+  - asset
+  - share
+  - mixed
+  - unknown
+  required: true
+- id: TX-I-02
+  field: assets_in_scope
+  question: Что приобретается?
+  type: multi_select
+  options:
+  - registration_rights
+  - regulatory_dossier
+  - trademarks
+  - patents
+  - know_how
+  - copyright_design
+  - domains
+  - web_content
+  - inventory
+  - shares_interests
+  - other
+  required: true
+- id: TX-I-03
+  field: transfer_model
+  question: Модель передачи прав?
+  type: single_select
+  options:
+  - assignment
+  - exclusive_licence
+  - nonexclusive_licence
+  - mixed
+  - unknown
+  required: true
+- id: TX-I-04
+  field: product_types
+  question: 'Тип продукта: ЛП / БАД / медизделие / иной?'
+  type: multi_select
+  options:
+  - medicinal_product
+  - supplement
+  - medical_device
+  - other
+  - unknown
+  required: true
+- id: TX-I-05
+  field: jurisdictions
+  question: Юрисдикции сделки и планируемой коммерциализации?
+  type: multi_text
+  required: true
+- id: TX-I-06
+  field: parties_roles
+  question: Кто продавец, правообладатель, держатель РУ, производитель и покупатель?
+  type: entity_roles
+  required: true
+- id: TX-I-07
+  field: seller_retained_rights
+  question: Остаются ли у продавца права после сделки?
+  type: boolean_details
+  required: true
+- id: TX-I-08
+  field: ip_scope
+  question: Какие IP/digital assets передаются или продолжают использоваться?
+  type: multi_select
+  options:
+  - trademarks
+  - patents
+  - know_how
+  - copyright_design
+  - domains
+  - web_content
+  - none
+  - unknown
+  required: true
+- id: TX-I-09
+  field: current_manufacturer
+  question: Кто производит продукт сейчас?
+  type: entity
+  required: false
+- id: TX-I-10
+  field: future_manufacturer
+  question: Кто будет производить продукт после сделки?
+  type: entity
+  required: false
+- id: TX-I-11
+  field: tech_transfer
+  question: Нужен ли трансфер производства?
+  type: single_select
+  options:
+  - 'yes'
+  - 'no'
+  - unknown
+  required: false
+- id: TX-I-12
+  field: postdeal_supply
+  question: Будет ли продавец/affiliate поставлять продукт после сделки?
+  type: single_select
+  options:
+  - 'yes'
+  - 'no'
+  - unknown
+  required: false
+- id: TX-I-13
+  field: inventory_acquisition
+  question: Приобретаются ли товарные остатки?
+  type: single_select
+  options:
+  - 'yes'
+  - 'no'
+  - unknown
+  required: false
+- id: TX-I-14
+  field: foreign_elements
+  question: Есть ли иностранные продавцы/правообладатели/регистрации?
+  type: single_select
+  options:
+  - 'yes'
+  - 'no'
+  - unknown
+  required: true
+- id: TX-I-15
+  field: individual_right_holders
+  question: Есть ли физлица среди продавцов/правообладателей?
+  type: single_select
+  options:
+  - 'yes'
+  - 'no'
+  - unknown
+  required: true
+- id: TX-I-16
+  field: dataroom_mode
+  question: 'Data room: local / API / MCP / пока нет?'
+  type: single_select
+  options:
+  - local
+  - api
+  - mcp
+  - none
+  required: true
+- id: TX-I-17
+  field: target_dates
+  question: Планируемые signing / closing?
+  type: dates
+  required: false
+- id: TX-I-18
+  field: term_sheet
+  question: Есть ли term sheet / согласованная структура?
+  type: file_or_boolean
+  required: false
+routing_rules:
+- id: R-001
+  when:
+    always: true
+  activate_checks:
+  - TX-001
+  - TX-002
+  - TX-003
+  - TX-004
+  - TX-007
+  - RISK-001
+  - RISK-004
+- id: R-002
+  when:
+    all:
+    - field: transaction_type
+      op: in
+      value:
+      - asset
+      - share
+      - mixed
+  activate_checks:
+  - TX-005
+- id: R-003
+  when:
+    any:
+    - field: transfer_model
+      op: in
+      value:
+      - exclusive_licence
+      - nonexclusive_licence
+      - mixed
+    - field: seller_retained_rights.value
+      op: eq
+      value: true
+  activate_checks:
+  - TX-006
+- id: R-010
+  when:
+    any:
+    - field: assets_in_scope
+      op: contains
+      value: registration_rights
+    - field: product_types
+      op: intersects
+      value:
+      - medicinal_product
+      - supplement
+      - medical_device
+  activate_checks:
+  - REG-001
+  - REG-003
+  - REG-005
+  - REG-008
+- id: R-011
+  when:
+    all:
+    - field: assets_in_scope
+      op: contains
+      value: regulatory_dossier
+  activate_checks:
+  - REG-002
+  - REG-007
+- id: R-012
+  when:
+    all:
+    - field: product_types
+      op: contains
+      value: medicinal_product
+  activate_checks:
+  - REG-006
+- id: R-013
+  when:
+    all:
+    - field: product_types
+      op: not_empty
+  activate_checks:
+  - REG-009
+  - MFG-001
+  - MFG-009
+- id: R-014
+  when:
+    all:
+    - field: foreign_elements
+      op: eq
+      value: 'yes'
+    - any:
+      - field: assets_in_scope
+        op: contains
+        value: registration_rights
+      - field: product_types
+        op: intersects
+        value:
+        - medicinal_product
+        - supplement
+        - medical_device
+  activate_checks:
+  - REG-004
+- id: R-020
+  when:
+    all:
+    - field: product_types
+      op: not_empty
+  activate_checks:
+  - MFG-002
+  - MFG-007
+- id: R-021
+  when:
+    any:
+    - field: tech_transfer
+      op: eq
+      value: 'yes'
+    - field: current_manufacturer.id
+      op: neq_field
+      value: future_manufacturer.id
+  activate_checks:
+  - MFG-003
+  - MFG-004
+  - MFG-008
+- id: R-022
+  when:
+    any:
+    - field: postdeal_supply
+      op: eq
+      value: 'yes'
+    - field: current_manufacturer.role
+      op: eq
+      value: third_party
+  activate_checks:
+  - MFG-005
+  - MFG-006
+- id: R-030
+  when:
+    any:
+    - field: assets_in_scope
+      op: contains
+      value: regulatory_dossier
+    - field: assets_in_scope
+      op: contains
+      value: know_how
+  activate_checks:
+  - IP-DOC-001
+  - IP-DOC-002
+- id: R-031
+  when:
+    any:
+    - field: ip_scope
+      op: contains
+      value: know_how
+    - field: assets_in_scope
+      op: contains
+      value: know_how
+  activate_checks:
+  - IP-KH-003
+- id: R-032
+  when:
+    any:
+    - field: ip_scope
+      op: contains
+      value: trademarks
+    - field: assets_in_scope
+      op: contains
+      value: trademarks
+  activate_checks:
+  - IP-TM-004
+  - IP-TM-005
+- id: R-033
+  when:
+    any:
+    - field: ip_scope
+      op: contains
+      value: patents
+    - field: assets_in_scope
+      op: contains
+      value: patents
+  activate_checks:
+  - IP-PAT-006
+  - IP-PAT-007
+- id: R-034
+  when:
+    any:
+    - field: ip_scope
+      op: contains
+      value: copyright_design
+    - field: assets_in_scope
+      op: contains
+      value: copyright_design
+  activate_checks:
+  - IP-CR-008
+- id: R-035
+  when:
+    any:
+    - field: ip_scope
+      op: intersects
+      value:
+      - trademarks
+      - patents
+      - know_how
+      - copyright_design
+      - domains
+      - web_content
+    - field: assets_in_scope
+      op: intersects
+      value:
+      - trademarks
+      - patents
+      - know_how
+      - copyright_design
+      - domains
+      - web_content
+  activate_checks:
+  - IP-EMP-009
+  - IP-ENC-012
+  - RISK-002
+- id: R-036
+  when:
+    any:
+    - field: ip_scope
+      op: contains
+      value: domains
+    - field: assets_in_scope
+      op: contains
+      value: domains
+  activate_checks:
+  - IP-DOM-010
+- id: R-037
+  when:
+    any:
+    - field: ip_scope
+      op: contains
+      value: web_content
+    - field: assets_in_scope
+      op: contains
+      value: web_content
+  activate_checks:
+  - IP-WEB-011
+- id: R-040
+  when:
+    all:
+    - field: parties_roles
+      op: has_legal_entity
+      value: true
+  activate_checks:
+  - CORP-001
+  - CORP-002
+  - CORP-003
+  - CORP-005
+  - CORP-006
+  - CORP-007
+- id: R-041
+  when:
+    all:
+    - field: parties_roles
+      op: has_representative_signer
+      value: true
+  activate_checks:
+  - CORP-004
+- id: R-042
+  when:
+    all:
+    - field: individual_right_holders
+      op: eq
+      value: 'yes'
+  activate_checks:
+  - CORP-008
+- id: R-050
+  when:
+    any:
+    - field: jurisdictions
+      op: contains
+      value: RU
+    - field: jurisdictions
+      op: contains
+      value: Russia
+  activate_checks:
+  - APP-001
+  - APP-002
+- id: R-051
+  when:
+    all:
+    - field: foreign_elements
+      op: eq
+      value: 'yes'
+  activate_checks:
+  - APP-004
+# BL-046: неизвестная юрисдикция или иностранный элемент не выключают проверки молча —
+# зависящие проверки включаются с запасом, юристу задаётся целевой вопрос (VAL-ROUTING-INPUTS).
+- id: R-050U
+  when:
+    all:
+    - field: _derived.jurisdictions_unknown
+      op: eq
+      value: true
+  activate_checks:
+  - APP-001
+  - APP-002
+- id: R-051U
+  when:
+    all:
+    - field: _derived.foreign_elements_unknown
+      op: eq
+      value: true
+  activate_checks:
+  - APP-004
+- id: R-014U
+  when:
+    all:
+    - field: _derived.foreign_elements_unknown
+      op: eq
+      value: true
+    - any:
+      - field: assets_in_scope
+        op: contains
+        value: registration_rights
+      - field: product_types
+        op: intersects
+        value:
+        - medicinal_product
+        - supplement
+        - medical_device
+  activate_checks:
+  - REG-004
+- id: R-052
+  when:
+    all:
+    - field: parties_roles
+      op: has_foreign_investor_or_control
+      value: true
+  activate_checks:
+  - APP-003
+- id: R-053
+  when:
+    all:
+    - field: parties_roles
+      op: has_state_or_public_element
+      value: true
+  activate_checks:
+  - APP-005
+- id: R-060
+  when:
+    all:
+    - field: product_types
+      op: not_empty
+  activate_checks:
+  - RISK-003
+- id: R-070
+  when:
+    all:
+    - field: _derived.structure_defined
+      op: eq
+      value: true
+  activate_checks:
+  - CLS-001
+  - CLS-003
+- id: R-071
+  when:
+    all:
+    - field: _derived.registrable_assets
+      op: eq
+      value: true
+  activate_checks:
+  - CLS-002
+- id: R-100
+  when:
+    all:
+    - field: transaction_type
+      op: in
+      value:
+      - share
+      - mixed
+  activate_checks: []
+  activate_extension: share-deal
+catalogs:
+  checks: cards/checks
+  evidence_requirements: catalogs/evidence_requirements.yaml
+  extractors: catalogs/extractors.yaml
+runtime:
+  typed_fact_schema: schemas/typed_fact.yaml
+  document_family_schema: schemas/document_family.yaml
+  normalizer: runtime/normalizer.yaml
+  dataroom_watcher: runtime/dataroom_watcher.yaml
+review:
+  human_confirmation_required: true
+  material_fact_requires_quote: true
+  material_fact_requires_exact_locator: true
+  numeric_confidence_for_legal_state: false
+extensions:
+  share-deal: extensions/share-deal/extension.yaml
+design_rule: SKILL-DESIGN-FNM-01
+orchestration:
+  mode: state_driven
+  capability_graph: runtime/capability_graph.yaml
+  no_global_fixed_sequence: true
+  parallelize_independent_work: true
+  incremental_recompute: true
+  principle: Only factual/causal dependencies constrain order.
+initialization_capabilities:
+- create_project_workspace
+- load_profile
+- resolve_known_routing_inputs
+- configure_available_sources
+- route_current_coverage_obligations
+- render_review_surface_if_useful
+intake_policy:
+  semantics: fallback_questions_not_fixed_sequence
+  ask_only_if: field is unresolved and materially affects routing/coverage or downstream transaction structure
+  reuse_confirmed_state: true
+  infer_from_documents_as_proposed: true
+  bundle_questions_when_convenient: true
+  do_not_block_unrelated_work_on_unknown_field: true
+coverage_semantics:
+  checks_are: coverage_obligations_not_steps
+  evidence_requirements_are: sufficiency_contracts_not_document_checklist
+  extractors_are: capabilities_not_pipeline_stages
+adaptive_depth: runtime/depth_policy.yaml
+validators: runtime/validators.yaml
+critic: runtime/critic.yaml
+outcome_contract: design/outcome-contract.yaml

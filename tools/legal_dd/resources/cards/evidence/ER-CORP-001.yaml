@@ -1,0 +1,61 @@
+id: ER-CORP-001
+title: Действующий устав и внутренние положения
+module: corporate
+applies_when: Legal entity seller/right holder/manufacturer
+requested_from: seller
+evidence_types:
+- charter
+- bylaws
+- governance_regulations
+sufficient_if:
+- current registered version is available and relevant governance/authority rules can be extracted
+mapped_checks:
+- CORP-001
+- CORP-002
+- CORP-003
+- CORP-005
+- CORP-006
+- CORP-007
+extractor_ids:
+- EXT-CORP-030
+request_text: Предоставить действующую редакцию устава и применимые положения об органах управления.
+gap_text: Нет актуального корпоративного документа для проверки capacity/authority/approvals.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- CORP-001
+- CORP-002
+- CORP-003
+- CORP-005
+- CORP-006
+- CORP-007
+request_phase: initial
+title_en: Current charter / bylaws
+title_ru: Действующий устав и внутренние положения
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

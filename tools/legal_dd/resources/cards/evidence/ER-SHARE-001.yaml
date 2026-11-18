@@ -1,0 +1,56 @@
+id: ER-SHARE-001
+title: Права на акции / доли и обременения
+module: share_extension
+applies_when: Share or mixed deal
+requested_from: seller/target
+evidence_types:
+- share_register_extract
+- depo_statement
+- share_acquisition_agreements
+- share_pledges
+- corporate_agreements
+sufficient_if:
+- seller title to shares/interests, percentage, chain and material encumbrances/restrictions are evidenced
+mapped_checks:
+- TX-001
+- TX-005
+- CORP-007
+- APP-001
+- APP-003
+extractor_ids:
+- EXT-SHARE-110
+request_text: При share/mixed deal предоставить документы, подтверждающие права на продаваемые акции/доли и все обременения/ограничения.
+gap_text: Share title/encumbrances подтверждены не полностью.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: Superseded by share-deal extension evidence catalog when transaction_type is share/mixed.
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks: []
+request_phase: extension_replaced
+title_en: Share / participation interest title and encumbrances
+title_ru: Права на акции / доли и обременения
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

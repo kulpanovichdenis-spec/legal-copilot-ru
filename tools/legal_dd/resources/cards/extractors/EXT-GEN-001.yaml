@@ -1,0 +1,108 @@
+id: EXT-GEN-001
+title: Document identity and linkage
+document_types:
+- all
+purposes:
+- classify_document
+- link_document_to_project
+- identify_related_assets_and_parties
+entities:
+- Document
+- Party
+- Person
+- Asset
+- Product
+- Agreement
+facts_to_extract:
+- document title/type
+- date/version
+- document number
+- parties/persons named
+- product/asset identifiers
+- referenced agreements
+- referenced annexes
+- jurisdiction/language
+- signatures/stamps if visible
+- document hierarchy
+mapped_checks:
+- TX-002
+- TX-005
+critical_fields:
+- document_type
+- document_date
+- asset_identifiers
+- party_identifiers
+human_review_questions:
+- Верно ли определен тип документа?
+- Верно ли документ привязан к проекту, активу и стороне?
+- Нет ли ссылки на отсутствующий базовый документ/приложение?
+fail_safe: If identity or linkage is uncertain, set classification=needs_review and do not use the document as sufficient evidence.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: document_title_type
+  label: document title/type
+  type: text
+  material: false
+- field_id: date_version
+  label: date/version
+  type: date
+  material: false
+- field_id: document_number
+  label: document number
+  type: number
+  material: false
+- field_id: parties_persons_named
+  label: parties/persons named
+  type: entity_ref
+  material: false
+- field_id: product_asset_identifiers
+  label: product/asset identifiers
+  type: asset_ref
+  material: true
+- field_id: referenced_agreements
+  label: referenced agreements
+  type: text
+  material: false
+- field_id: referenced_annexes
+  label: referenced annexes
+  type: text
+  material: false
+- field_id: jurisdiction_language
+  label: jurisdiction/language
+  type: jurisdiction
+  material: false
+- field_id: signatures_stamps_if_visible
+  label: signatures/stamps if visible
+  type: text
+  material: false
+- field_id: document_hierarchy
+  label: document hierarchy
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeReadFile": [
+      {
+        "command": "python tools/pre_anonymize/project_guard.py --runner cursor-read"
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": "python tools/pre_anonymize/project_guard.py --runner cursor-shell"
+      }
+    ]
+  }
+}

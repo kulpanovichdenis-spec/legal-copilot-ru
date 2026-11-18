@@ -1,0 +1,66 @@
+id: APP-005
+title: Госзакупки / публичное имущество / специальные процедуры
+module: approvals
+version: '0.3'
+objective: If material/applicable, 'Госзакупки / публичное имущество / специальные процедуры' must end as supported proposed/final conclusion,
+  explicit issue/gap, external_review_required, or reasoned not_applicable; it may not silently disappear from scope.
+applicability_key: state_or_public_element
+evidence_requirements:
+- ER-APP-006
+- ER-CLS-001
+rules:
+- Do not set clear while any mandatory evidence requirement is missing, partial, invalid, outdated or conflicting.
+- Every material factual proposition must resolve to one or more facts with exact source locators.
+- Legal conclusions must cite verified legal authority separately from factual evidence.
+outputs:
+- finding
+- evidence_gaps
+- actions
+- contract_effect
+contract_effect_candidates:
+- conditions_precedent
+- long_stop
+- closing_deliverables
+human_confirmation_required: true
+title_en: Public Procurement / Public Property / Special Procedures
+title_ru: Госзакупки / публичное имущество / специальные процедуры
+role: coverage_obligation
+fnm:
+  purpose: Resolve whether 'Госзакупки / публичное имущество / специальные процедуры' is satisfactorily established for the applicable deal perimeter;
+    establish whether mandatory governmental/competition/special approvals apply and whether they are satisfied.
+  failure_modes:
+  - mandatory approval omitted
+  - wrong threshold/jurisdiction/date
+  - approval scope does not cover transaction
+  - silent omission because human checklist order was not followed
+  - false clear despite unresolved material evidence
+  required_invariant: If material/applicable, 'Госзакупки / публичное имущество / специальные процедуры' must end as supported proposed/final
+    conclusion, explicit issue/gap, external_review_required, or reasoned not_applicable; it may not silently disappear from scope.
+  constraint_type: INVARIANT
+  hard_if_applicable: true
+  ai_native_implementation:
+  - applicability engine
+  - verified current legal rules
+  - external authority evidence
+  validators:
+  - VAL-LEGAL-AUTHORITY
+  - VAL-LEGAL-APPLICATION
+  - VAL-HUMAN-GATE
+  sequence_required: false
+  depth: adaptive per runtime/depth_policy.yaml
+state_contract:
+  agent_status:
+  - not_started
+  - in_progress
+  - clear
+  - issue
+  - cannot_conclude
+  - external_review_required
+  - not_applicable
+  human_review:
+  - pending
+  - confirmed
+  - modified
+  - rejected
+  - reconfirmation_required
+  final_status_requires_human_confirmation: true

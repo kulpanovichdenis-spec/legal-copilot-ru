@@ -1,0 +1,97 @@
+id: EXT-SH-208
+title: Employment / workforce extractor
+document_types:
+- staffing_table
+- employment_agreement
+- employment_template
+- bonus_policy
+- LTIP
+- collective_agreement
+- union_document
+- employee_dispute
+- accident_document
+mapped_checks:
+- SH-018
+fields:
+- employee_or_population
+- role
+- term
+- compensation
+- bonus_or_LTIP
+- termination
+- foreign_worker_status
+- collective_or_union_terms
+- social_benefits
+- material_claim_or_liability
+human_review_required: true
+rules:
+- Extract facts with exact locator.
+- Do not make final employment/property/IT legal conclusions.
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: employee_or_population
+  label: employee_or_population
+  type: entity_ref
+  material: false
+- field_id: role
+  label: role
+  type: text
+  material: false
+- field_id: term
+  label: term
+  type: text
+  material: false
+- field_id: compensation
+  label: compensation
+  type: text
+  material: false
+- field_id: bonus_or_ltip
+  label: bonus_or_LTIP
+  type: text
+  material: false
+- field_id: termination
+  label: termination
+  type: text
+  material: false
+- field_id: foreign_worker_status
+  label: foreign_worker_status
+  type: enum
+  material: false
+- field_id: collective_or_union_terms
+  label: collective_or_union_terms
+  type: text
+  material: false
+- field_id: social_benefits
+  label: social_benefits
+  type: text
+  material: false
+- field_id: material_claim_or_liability
+  label: material_claim_or_liability
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

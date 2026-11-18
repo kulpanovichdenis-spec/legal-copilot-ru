@@ -1,0 +1,55 @@
+id: ER-MFG-004
+title: Комплект документов по валидации
+module: manufacturing
+applies_when: Production continuation or transfer
+requested_from: manufacturer
+evidence_types:
+- validation_protocols
+- validation_reports
+- cleaning_validation
+- analytical_validation
+sufficient_if:
+- applicable validations are identified, current and results/critical deviations are available
+mapped_checks:
+- MFG-004
+- MFG-008
+- REG-009
+extractor_ids:
+- EXT-MFG-071
+request_text: Предоставить перечень и отчеты процессных, cleaning и иных применимых validation.
+gap_text: Validation evidence отсутствует/неполно/не позволяет подтвердить статус процесса.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- MFG-004
+- MFG-008
+request_phase: initial
+title_en: Validation package
+title_ru: Комплект документов по валидации
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

@@ -1,0 +1,55 @@
+id: ER-CORP-010
+title: Документы физлица / супруга / принадлежности имущества
+module: corporate
+applies_when: Individual seller/right holder
+requested_from: individual_seller
+evidence_types:
+- identity_document
+- marriage_certificate
+- divorce_certificate
+- marriage_contract
+- property_division
+- spousal_consent
+sufficient_if:
+- capacity, marital status and required spousal consent/ownership basis are evidenced
+mapped_checks:
+- CORP-008
+extractor_ids:
+- EXT-GEN-001
+- EXT-CON-010
+request_text: Предоставить применимые документы физлица и нотариальное согласие супруга при необходимости.
+gap_text: Не подтверждены capacity/семейный статус/необходимое согласие супруга.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- CORP-008
+request_phase: initial
+title_en: Natural person / spouse / ownership documents
+title_ru: Документы физлица / супруга / принадлежности имущества
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

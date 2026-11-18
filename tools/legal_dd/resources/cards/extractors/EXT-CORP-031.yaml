@@ -1,0 +1,129 @@
+id: EXT-CORP-031
+title: Corporate resolution / minutes extractor
+document_types:
+- shareholder_resolution
+- board_minutes
+- participant_resolution
+- CEO_appointment_resolution
+purposes:
+- confirm_appointment
+- confirm_transaction_approval
+- confirm_authority
+entities:
+- Party
+- Person
+- Approval
+- Asset
+- Agreement
+facts_to_extract:
+- governing body
+- meeting/date
+- participants
+- quorum
+- agenda
+- resolution text
+- voting result
+- approved transaction/asset
+- approved parties
+- price/value/limits
+- material terms
+- authority delegated
+- validity period if stated
+mapped_checks:
+- CORP-003
+- CORP-005
+- CORP-006
+- CORP-007
+- APP-001
+- CLS-001
+critical_fields:
+- body
+- quorum
+- resolution
+- transaction_scope
+human_review_questions:
+- Компетентен ли орган по данным проекта?
+- Охватывает ли approval именно нашу сделку/активы/условия?
+- Достаточны ли quorum и формулировка решения?
+fail_safe: Extractor does not decide corporate validity; inconsistencies with charter or transaction parameters must be flagged.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: governing_body
+  label: governing body
+  type: text
+  material: true
+- field_id: meeting_date
+  label: meeting/date
+  type: date
+  material: false
+- field_id: participants
+  label: participants
+  type: text
+  material: false
+- field_id: quorum
+  label: quorum
+  type: text
+  material: true
+- field_id: agenda
+  label: agenda
+  type: text
+  material: false
+- field_id: resolution_text
+  label: resolution text
+  type: text
+  material: true
+- field_id: voting_result
+  label: voting result
+  type: enum
+  material: false
+- field_id: approved_transaction_asset
+  label: approved transaction/asset
+  type: asset_ref
+  material: false
+- field_id: approved_parties
+  label: approved parties
+  type: entity_ref
+  material: false
+- field_id: price_value_limits
+  label: price/value/limits
+  type: currency
+  material: false
+- field_id: material_terms
+  label: material terms
+  type: text
+  material: false
+- field_id: authority_delegated
+  label: authority delegated
+  type: entity_ref
+  material: false
+- field_id: validity_period_if_stated
+  label: validity period if stated
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

@@ -1,0 +1,131 @@
+id: EXT-IP-050
+title: Registered IP certificate / register extractor
+document_types:
+- patent
+- patent_application
+- trademark_certificate
+- trademark_application
+- industrial_design
+- IP_register_extract
+purposes:
+- confirm_IP_identity
+- confirm_holder
+- confirm_status
+- support_portfolio_and_title
+entities:
+- Asset
+- Right
+- Party
+- Person
+- Registration
+facts_to_extract:
+- IP type
+- number
+- application number
+- priority date
+- filing date
+- registration/grant date
+- holder/applicant
+- inventors/authors if shown
+- territory
+- classes/claims/coverage
+- expiry/renewal
+- current status
+- recorded assignments/licences/encumbrances if available
+mapped_checks:
+- IP-TM-004
+- IP-PAT-006
+- IP-ENC-012
+- TX-005
+critical_fields:
+- identifier
+- holder
+- status
+- territory
+human_review_questions:
+- Совпадает ли объект с Asset Register?
+- Кто текущий holder?
+- Есть ли recorded restrictions/transfers?
+- Не истекает ли охрана?
+fail_safe: Certificate alone may not prove an unrecorded chain; combine with agreements/official register where relevant.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: ip_type
+  label: IP type
+  type: text
+  material: false
+- field_id: number
+  label: number
+  type: number
+  material: false
+- field_id: application_number
+  label: application number
+  type: asset_ref
+  material: false
+- field_id: priority_date
+  label: priority date
+  type: date
+  material: false
+- field_id: filing_date
+  label: filing date
+  type: date
+  material: false
+- field_id: registration_grant_date
+  label: registration/grant date
+  type: date
+  material: false
+- field_id: holder_applicant
+  label: holder/applicant
+  type: entity_ref
+  material: true
+- field_id: inventors_authors_if_shown
+  label: inventors/authors if shown
+  type: entity_ref
+  material: false
+- field_id: territory
+  label: territory
+  type: jurisdiction
+  material: true
+- field_id: classes_claims_coverage
+  label: classes/claims/coverage
+  type: text
+  material: false
+- field_id: expiry_renewal
+  label: expiry/renewal
+  type: date
+  material: false
+- field_id: current_status
+  label: current status
+  type: enum
+  material: true
+- field_id: recorded_assignments_licences_encumbrances_if_available
+  label: recorded assignments/licences/encumbrances if available
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

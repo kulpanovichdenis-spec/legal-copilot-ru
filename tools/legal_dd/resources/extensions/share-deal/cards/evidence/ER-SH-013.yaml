@@ -1,0 +1,63 @@
+id: ER-SH-013
+title: Финансовые и коммерческие договоры
+mapped_checks: &id001
+- SH-013
+requested_from: target/seller
+review_scope:
+  mode: materiality_filtered
+evidence_types:
+- loan_agreements
+- security_agreements
+- affiliate_agreements
+- material_contracts
+- top_suppliers
+- top_customers
+- change_of_control_contracts
+- material_liability_contracts
+- cross_default_contracts
+- preemption_contracts
+- JV_agreements
+- direct_debit_agreements
+- non_compete_contracts
+- off_market_contracts
+- notes
+- derivatives
+- defaulted_contracts
+- public_projects
+sufficient_if:
+- material agreement universe is complete for agreed thresholds and key risk clauses/relationships can be reviewed
+request_text: Предоставить существенные финансовые и коммерческие договоры по согласованным thresholds, включая кредиты/займы/обеспечения, крупнейших
+  поставщиков/клиентов, change-of-control, cross-default, JV, non-compete и иные специальные условия.
+source_items:
+- 13.1–13.24
+extractor_ids:
+- EXT-SH-204
+- EXT-CON-010
+- EXT-CON-011
+- EXT-FIN-040
+request_phase: initial
+activation_checks: *id001
+title_en: Financial and commercial agreements
+title_ru: Финансовые и коммерческие договоры
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

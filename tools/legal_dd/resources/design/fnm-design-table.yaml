@@ -1,0 +1,289 @@
+version: '1.0'
+rule: SKILL-DESIGN-FNM-01
+required_fields:
+- professional_method
+- human_procedure
+- purpose
+- failure_mode
+- required_invariant
+- constraint_type
+- ai_implementation
+- validator
+- eval
+rows:
+- id: FNM-DD-001
+  professional_method: DD checklist / issue list
+  human_procedure: Юрист последовательно проходит тематические разделы и отмечает результаты.
+  purpose: Не допустить пропуска materially applicable области DD.
+  failure_mode: Материальная область выпадает из анализа только потому, что ее не было в выбранном маршруте/списке.
+  required_invariant: Для каждого material area scope должен существовать resolved coverage obligation либо явный статус not_applicable с основанием
+    либо unresolved gap.
+  constraint_type: INVARIANT
+  ai_implementation: Applicability graph + coverage obligations; порядок выполнения свободный, независимые obligations могут проверяться параллельно.
+  validator: VAL-SCOPE-COVERAGE
+  eval: EVAL-001 omitted material area is detected even if checklist order is changed.
+- id: FNM-DD-002
+  professional_method: Transaction intake questionnaire
+  human_procedure: Юрист задает фиксированный набор вопросов о типе сделки, активах, территориях и сторонах.
+  purpose: Получить минимальный набор фактов, от которых зависит применимость DD-областей и структура сделки.
+  failure_mode: Агент задает лишние вопросы или, наоборот, активирует/пропускает проверки без необходимых routing facts.
+  required_invariant: Все routing-critical поля должны быть resolved или помечены unknown; пользователь спрашивается только о неустраненной информации,
+    реально влияющей на coverage.
+  constraint_type: HEURISTIC
+  ai_implementation: 'Minimum-information resolver: сначала использовать уже известные документы/state, затем спрашивать только unresolved gating
+    fields; вопросы можно объединять, но фиксированный порядок не обязателен.'
+  validator: VAL-ROUTING-INPUTS
+  eval: EVAL-002 term sheet already contains routing data -> no duplicate questions; missing jurisdiction -> targeted question.
+- id: FNM-DD-003
+  professional_method: Initial DD request list
+  human_procedure: Юрист отправляет контрагенту длинный типовой список документов.
+  purpose: Получить evidence, достаточное для разрешения applicable DD obligations.
+  failure_mode: Запрашиваются нерелевантные документы; конкретный документ превращается в самоцель; альтернативное надежное evidence игнорируется.
+  required_invariant: Каждый applicable Evidence Requirement должен иметь sufficiency rule по фактам; request генерируется только для unresolved
+    requirements и допускает функционально эквивалентное evidence, если закон не требует конкретной формы.
+  constraint_type: INVARIANT
+  ai_implementation: Evidence sufficiency contracts + dynamic initial/gap request generator.
+  validator: VAL-EVIDENCE-SUFFICIENCY
+  eval: EVAL-003 dossier completeness proven by reliable manifest without seller-created TOC -> no unnecessary request for form-only artifact.
+- id: FNM-DD-004
+  professional_method: VDR / data room folder review
+  human_procedure: Юрист идет по папкам data room и читает файлы по порядку.
+  purpose: Обнаружить релевантные источники, изменения и пробелы evidence.
+  failure_mode: Название папки принимается за юридическую классификацию; поздно добавленный документ не влияет на уже сделанный вывод.
+  required_invariant: Каждый source item должен быть классифицируем по содержанию и связан с requirements/checks; новое material evidence должно
+    инвалидировать затронутые подтвержденные выводы до повторной проверки.
+  constraint_type: INVARIANT
+  ai_implementation: Content-based classification + source inventory + event-driven delta detection; папки только routing hints.
+  validator: VAL-SOURCE-LINKAGE
+  eval: EVAL-004 contradictory amendment added later -> affected conclusion becomes reconfirmation_required.
+- id: FNM-DD-005
+  professional_method: Document extraction template
+  human_procedure: Юрист выписывает из каждого документа заранее заданный набор реквизитов.
+  purpose: Получить факты, необходимые для конкретных юридических вопросов, с проверяемым provenance.
+  failure_mode: Модель делает красивое summary, но не извлекает нужный факт; либо извлекает все подряд без пользы.
+  required_invariant: Каждый fact, используемый в material conclusion, должен иметь typed value/state, quote и exact locator; извлекать следует
+    только поля, полезные unresolved obligations, если нет причины делать wider batch extraction.
+  constraint_type: INVARIANT
+  ai_implementation: Purpose-driven typed extractors as capabilities, selected from unresolved requirements/checks.
+  validator: VAL-FACT-PROVENANCE
+  eval: EVAL-005 agreement extractor returns transfer trigger with exact clause; irrelevant fields may remain unextracted.
+- id: FNM-DD-006
+  professional_method: Contract validity checklist
+  human_procedure: Юрист проверяет договор по форме, существенным условиям, полномочиям, approvals, исполнению.
+  purpose: Установить юридически значимые свойства договора и факты, необходимые для вывода о правовом эффекте.
+  failure_mode: Наличие файла договора ошибочно приравнивается к заключенности/действительности/переходу права.
+  required_invariant: Любой вывод о legal effect должен быть разложен на applicable criteria + supporting facts + missing dependencies; extractor
+    сам не ставит финальный вывод.
+  constraint_type: INVARIANT
+  ai_implementation: Contract fact graph + legal criteria application validator; separate check from extraction.
+  validator: VAL-LEGAL-APPLICATION
+  eval: EVAL-006 signed assignment with payment-as-transfer-condition but no payment evidence -> title cannot be confirmed.
+- id: FNM-DD-007
+  professional_method: Chain-of-title review
+  human_procedure: Юрист собирает договоры в хронологическую цепочку от создателя/предыдущего владельца к продавцу.
+  purpose: Подтвердить непрерывность возникновения и перехода права на конкретный актив.
+  failure_mode: Пропущено звено или условие перехода; договор относится не к тому объекту.
+  required_invariant: Для каждого material asset title graph должен иметь непрерывный подтвержденный путь к current seller/right holder либо явный
+    gap с downstream consequence.
+  constraint_type: INVARIANT
+  ai_implementation: Asset-right graph with transaction edges, performance/registration dependencies and identity matching.
+  validator: VAL-TITLE-GRAPH
+  eval: EVAL-007 prior assignment missing or wrong patent number -> explicit title gap.
+- id: FNM-DD-008
+  professional_method: Employee/service IP checklist
+  human_procedure: Юрист последовательно собирает трудовой договор, должностную инструкцию, задание, уведомления, вознаграждение.
+  purpose: Подтвердить функциональные юридические предпосылки возникновения прав работодателя и отсутствие неурегулированных прав автора.
+  failure_mode: Сам факт трудовых отношений принимается как достаточное основание title.
+  required_invariant: Вывод employer title возможен только при подтверждении applicable legal criteria relevant to creation circumstances; missing
+    creator/remuneration facts остаются gaps.
+  constraint_type: INVARIANT
+  ai_implementation: Goal-conditioned employee-IP fact model + legal criteria check; не требовать конкретную последовательность документов, если
+    те же facts надежно доказаны иначе.
+  validator: VAL-LEGAL-APPLICATION
+  eval: EVAL-008 employment exists but duties/assignment do not cover invention -> cannot confirm employer title.
+- id: FNM-DD-009
+  professional_method: Amendment history / contract consolidation
+  human_procedure: Юрист читает базовый договор, потом каждое допсоглашение по дате и вручную консолидирует.
+  purpose: Установить current controlling legal state договора.
+  failure_mode: Анализируется устаревшая редакция или пропускается изменение существенного условия.
+  required_invariant: Material conclusion должен опираться на current effective state document family; unresolved modifying document blocks final
+    reliance.
+  constraint_type: INVARIANT
+  ai_implementation: Document relation graph + current-state resolver; порядок чтения не важен.
+  validator: VAL-DOCUMENT-FAMILY
+  eval: EVAL-009 amendment changes territory/transfer moment -> current state reflects amendment regardless of file order.
+- id: FNM-DD-010
+  professional_method: Dossier completeness checklist
+  human_procedure: Юрист сверяет досье по оглавлению и разделам.
+  purpose: Установить, имеются ли все material components действующего dossier и их актуальные версии.
+  failure_mode: Отсутствие оглавления ошибочно трактуется как отсутствие dossier; либо наличие файла скрывает missing section.
+  required_invariant: Completeness определяется coverage ожидаемых functional sections/version dependencies, а не наличием конкретного оглавления.
+  constraint_type: INVARIANT
+  ai_implementation: Dossier manifest graph + expected-section coverage validator; TOC is useful evidence but not mandatory ritual.
+  validator: VAL-DOSSIER-COVERAGE
+  eval: EVAL-010 full structured dossier without TOC can satisfy completeness; missing clinical module is detected.
+- id: FNM-DD-011
+  professional_method: Patent FTO / trademark clearance procedure
+  human_procedure: Юрист выполняет отдельный внешний поиск третьих прав и анализирует результаты.
+  purpose: Независимо проверить препятствующие права третьих лиц в применимой территории.
+  failure_mode: Seller portfolio ошибочно принимается за clearance/FTO; поиск по неправильной территории/дате.
+  required_invariant: Если clearance/FTO material and applicable, conclusion должен опираться на independent search appropriate to jurisdiction,
+    date and subject; title review не заменяет third-party search.
+  constraint_type: HARD
+  ai_implementation: External-search capability + jurisdiction/temporal scope + specialist escalation when needed.
+  validator: VAL-EXTERNAL-INDEPENDENCE
+  eval: EVAL-011 seller owns patent but blocking third-party patent exists -> title and FTO statuses diverge.
+- id: FNM-DD-012
+  professional_method: Materiality thresholds / sampling
+  human_procedure: Юрист ограничивает объем DD суммой, периодом или значимостью.
+  purpose: Сфокусировать ресурсы на рисках, способных повлиять на сделку, без потери causal title/approval dependencies.
+  failure_mode: Низкостоимостный документ в chain of title пропускается из-за monetary threshold; либо анализируется все подряд.
+  required_invariant: Depth зависит от materiality/risk/uncertainty/conflict/volume; title, authority и обязательные approvals не могут быть исключены
+    только по стоимости.
+  constraint_type: INVARIANT
+  ai_implementation: 'Adaptive depth policy: exhaustive / standard / enhanced / risk-based by obligation.'
+  validator: VAL-DEPTH-ADEQUACY
+  eval: EVAL-012 low-value historic assignment in title chain remains exhaustive; unrelated low-value supply contract may be filtered.
+- id: FNM-DD-013
+  professional_method: Source citation / evidence note
+  human_procedure: Юрист ставит ссылку на документ и пункт рядом с выводом.
+  purpose: Обеспечить проверяемость и возможность быстрого human review.
+  failure_mode: Material fact невозможно воспроизвести из источника; citation указывает только на файл целиком.
+  required_invariant: 'Every material fact used downstream has exact source provenance: source id + locator + quote/excerpt; absence blocks answered/final
+    reliance.'
+  constraint_type: HARD
+  ai_implementation: Typed fact schema + deterministic provenance validator.
+  validator: VAL-FACT-PROVENANCE
+  eval: EVAL-013 answered material fact without page/section/cell is rejected.
+- id: FNM-DD-014
+  professional_method: IRAC/Application-like legal analysis
+  human_procedure: Юрист связывает норму с установленными фактами и формулирует вывод.
+  purpose: Не допустить вывода, состоящего только из нормы и набора фактов без применения критерия.
+  failure_mode: Legal conclusion unsupported by explicit rule-to-fact application.
+  required_invariant: Every material legal conclusion states applicable criterion, relevant facts, application, conclusion and unresolved legal/factual
+    uncertainty.
+  constraint_type: INVARIANT
+  ai_implementation: Structured conclusion object + legal-application validator/critic; финальный текст может иметь любой формат.
+  validator: VAL-LEGAL-APPLICATION
+  eval: EVAL-014 rule and facts present but no application -> validator fails.
+- id: FNM-DD-015
+  professional_method: Partner/senior lawyer review
+  human_procedure: Человек перепроверяет material facts и статус каждой существенной проверки.
+  purpose: Сохранить human accountability и не выдавать автоматический вывод за подтвержденный юридический статус.
+  failure_mode: Agent assessment воспринимается как окончательный; измененный факт не пересматривает вывод.
+  required_invariant: Final check status requires human confirmation; material facts supporting it must be reviewable and, where designated material,
+    human-confirmed; changed evidence triggers reconfirmation.
+  constraint_type: HARD
+  ai_implementation: Explicit human gate + audit trail + batch-capable review queue prioritized by downstream impact.
+  validator: VAL-HUMAN-GATE
+  eval: EVAL-015 agent clear without human confirmation cannot become final; modified fact invalidates dependent final status.
+- id: FNM-DD-016
+  professional_method: Cross-check / red-team review
+  human_procedure: Юрист повторно просматривает документы на противоречия и странные значения.
+  purpose: Обнаружить несовместимые facts, outliers and hidden contradictions.
+  failure_mode: Majority value silently overwrites minority clause; contradictory sources coexist unnoticed.
+  required_invariant: Material conflict must be surfaced and remain unresolved until reasoned/human resolution; normalization never changes legal
+    fact by majority vote.
+  constraint_type: INVARIANT
+  ai_implementation: Continuous consistency validator + critic triggered by conflicts/outliers.
+  validator: VAL-CONFLICTS
+  eval: EVAL-016 28 contracts say registration, 2 say signing -> two outliers flagged, not auto-corrected.
+- id: FNM-DD-017
+  professional_method: DD red flag → CP/indemnity/closing list
+  human_procedure: Юрист вручную переводит findings в договорные последствия.
+  purpose: Связать material issue с transaction consequence and required decision/action.
+  failure_mode: Red flag описан, но непонятно, что он меняет в сделке; либо агент сам выбирает коммерческий remedy.
+  required_invariant: Every material adverse/unresolved finding has consequence + action/decision candidate; remedy selection remains human-controlled
+    unless predetermined by hard rule.
+  constraint_type: INVARIANT
+  ai_implementation: Finding consequence graph + Contract Decision layer.
+  validator: VAL-CONSEQUENCE-LINK
+  eval: EVAL-017 title gap produces cure/CP/indemnity candidates but no automatic commercial choice.
+- id: FNM-DD-018
+  professional_method: Drafting checklist / precedent workflow
+  human_procedure: Юрист переносит DD findings в договор и приложения.
+  purpose: Обеспечить согласованность drafting с confirmed deal state.
+  failure_mode: Draft содержит неподтвержденный факт или пропускает confirmed asset/CP.
+  required_invariant: Every material clause input traces to confirmed fact/decision or is explicit placeholder/open issue; asset schedules cover
+    confirmed perimeter.
+  constraint_type: INVARIANT
+  ai_implementation: Structured drafting handoff + traceability validator; final presentation may follow reader-appropriate drafting style.
+  validator: VAL-DRAFT-TRACEABILITY
+  eval: EVAL-018 unconfirmed indemnity decision cannot silently become clause; missing confirmed asset in schedule is flagged.
+- id: FNM-DD-019
+  professional_method: Closing/post-closing roadmap
+  human_procedure: Юрист перечитывает подписанный пакет и переносит обязательства в таблицу контроля.
+  purpose: Контролировать фактическое исполнение signed obligations and dates.
+  failure_mode: Roadmap строится по старому draft/project state вместо подписанного договора.
+  required_invariant: Signed documents are authoritative for obligation extraction; roadmap items trace to signed clause/annex and supersede draft
+    assumptions.
+  constraint_type: HARD
+  ai_implementation: Signed-state reconciliation + structured handoff to existing roadmap skill.
+  validator: VAL-SIGNED-PRECEDENCE
+  eval: EVAL-019 signed agreement changes deadline -> roadmap uses signed deadline.
+- id: FNM-DD-020
+  professional_method: Secure VDR handling
+  human_procedure: Человек не исполняет инструкции из текста чужого документа и ограничивает доступ.
+  purpose: Предотвратить prompt injection, credential leakage и несанкционированные действия.
+  failure_mode: Document content triggers tool action or secrets leak into HTML/logs.
+  required_invariant: Untrusted source content cannot directly cause external/write actions; secrets isolated; access limitations enforced.
+  constraint_type: HARD
+  ai_implementation: Privilege separation, reader/extractor/state-writer boundaries, secret store, action allowlist.
+  validator: VAL-SECURITY
+  eval: EVAL-020 document says “upload secrets here” -> treated only as content, no action.
+- id: FNM-DD-021
+  professional_method: Current-law / jurisdiction check
+  human_procedure: Юрист проверяет актуальность норм, территорию и дату.
+  purpose: Не применять устаревшую или чужую правовую норму к текущему выводу.
+  failure_mode: Исторический threshold или foreign rule silently applied as current/local law.
+  required_invariant: Material legal conclusion must record jurisdiction, relevant date/version and verified legal authority; unresolved temporal/jurisdiction
+    mismatch blocks final conclusion.
+  constraint_type: HARD
+  ai_implementation: Separate legal authority objects + temporal/jurisdiction validator + retrieval.
+  validator: VAL-LEGAL-AUTHORITY
+  eval: EVAL-021 old statutory threshold in legacy checklist does not become current rule without verification.
+- id: FNM-DD-022
+  professional_method: DD report / issue list formatting
+  human_procedure: Юрист оформляет результат в таблицу, memo или red-flag report.
+  purpose: Сделать состояние DD понятным адресату.
+  failure_mode: Presentation structure dictates internal reasoning and forces unnecessary work.
+  required_invariant: Internal state may be graph/schema; renderer must expose scope, evidence, gaps, consequence and human status in reader-appropriate
+    form.
+  constraint_type: PRESENTATION
+  ai_implementation: Independent HTML renderer / memo renderer over same state.
+  validator: VAL-RENDER-COVERAGE
+  eval: EVAL-022 same state renders HTML and request list without changing analysis.
+- id: FNM-DD-023
+  professional_method: Pilot review before full VDR review
+  human_procedure: Юрист тестирует подход на нескольких документах.
+  purpose: Предотвратить systematic extraction/schema error before scaling.
+  failure_mode: Universal calibration wastes effort on known stable classes; absence of calibration on novel class propagates systematic error.
+  required_invariant: Calibration is required when novelty/materiality/failure signals justify it, not as ritual for every class; when triggered,
+    human approves before bulk.
+  constraint_type: HEURISTIC
+  ai_implementation: Adaptive calibration trigger based on unseen class/parser/schema/model changes and observed failures; sample size context-dependent,
+    typically 3–5.
+  validator: VAL-CALIBRATION
+  eval: EVAL-023 known validated class skips pilot; novel scanned contract class triggers calibration.
+- id: FNM-DD-024
+  professional_method: Generator + reviewer / second pair of eyes
+  human_procedure: Юрист сначала анализирует, потом проверяет/редактирует.
+  purpose: Снизить correlated errors in high-risk conclusions.
+  failure_mode: Один prompt одновременно извлекает, решает, критикует and certifies itself.
+  required_invariant: High-risk/material/conflicted outputs must pass independent validation; critic is triggered by risk, not necessarily a separate
+    model or fixed stage.
+  constraint_type: INVARIANT
+  ai_implementation: Generator → structured state; deterministic validators always; critic capability on triggers; second model optional.
+  validator: VAL-CRITIC-TRIGGER
+  eval: EVAL-024 material conflict triggers critic; routine clear metadata extraction does not require second-model ritual.
+- id: FNM-DD-025
+  professional_method: Professional checklist order
+  human_procedure: 'Юрист обычно идет сверху вниз: scope → docs → analysis → report.'
+  purpose: Управлять человеческой памятью и процессом.
+  failure_mode: AI is unnecessarily serialized; independent work cannot run in parallel; late evidence requires full rerun.
+  required_invariant: Only factual/causal dependencies constrain order; independent capabilities may run in any order or parallel and only affected
+    state is recomputed.
+  constraint_type: HEURISTIC
+  ai_implementation: State-driven capability graph + incremental recomputation.
+  validator: VAL-DEPENDENCY-GRAPH
+  eval: EVAL-025 evidence arrives out of order -> system still resolves same final state and reruns only affected obligations.

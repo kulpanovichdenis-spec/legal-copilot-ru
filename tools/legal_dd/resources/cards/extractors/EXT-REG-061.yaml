@@ -1,0 +1,122 @@
+id: EXT-REG-061
+title: Regulatory dossier manifest extractor
+document_types:
+- regulatory_dossier
+- dossier_index
+- CTD_module
+- administrative_document
+- CMC_document
+- nonclinical_document
+- clinical_document
+purposes:
+- build_dossier_manifest
+- assess_completeness
+- map_versions_and_sections
+entities:
+- Product
+- Document
+- Party
+- Site
+- Asset
+facts_to_extract:
+- CTD/module/section
+- document title
+- version/date
+- product
+- substance/excipient
+- manufacturer/site
+- specification/method/validation/stability references
+- clinical/nonclinical study references
+- third-party document references
+- signatures/approvals
+- cross-references to missing documents
+mapped_checks:
+- REG-002
+- REG-005
+- REG-007
+- REG-009
+- MFG-003
+- MFG-004
+critical_fields:
+- module_section
+- version
+- product
+- cross_references
+human_review_questions:
+- Полна ли ожидаемая структура dossier?
+- Есть ли missing/obsolete sections?
+- Совпадают ли версии с действующей регистрацией?
+fail_safe: Missing dossier section is a gap, not evidence that the subject matter does not exist.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: ctd_module_section
+  label: CTD/module/section
+  type: text
+  material: true
+- field_id: document_title
+  label: document title
+  type: text
+  material: false
+- field_id: version_date
+  label: version/date
+  type: date
+  material: true
+- field_id: product
+  label: product
+  type: asset_ref
+  material: true
+- field_id: substance_excipient
+  label: substance/excipient
+  type: text
+  material: false
+- field_id: manufacturer_site
+  label: manufacturer/site
+  type: entity_ref
+  material: false
+- field_id: specification_method_validation_stability_references
+  label: specification/method/validation/stability references
+  type: text
+  material: false
+- field_id: clinical_nonclinical_study_references
+  label: clinical/nonclinical study references
+  type: text
+  material: false
+- field_id: third_party_document_references
+  label: third-party document references
+  type: entity_ref
+  material: false
+- field_id: signatures_approvals
+  label: signatures/approvals
+  type: text
+  material: false
+- field_id: cross_references_to_missing_documents
+  label: cross-references to missing documents
+  type: text
+  material: true
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

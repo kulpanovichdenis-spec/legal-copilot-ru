@@ -1,0 +1,98 @@
+[
+  {
+    "control_id": "CTRL-HCP-NEED-SELECTION",
+    "title": "Need-before-selection and objective HCP selection",
+    "control_type": "preventive",
+    "domain": "HCP_HCO",
+    "description": "Document legitimate need and selection criteria before selecting a specific HCP; criteria should relate to the service purpose rather than sales/prescribing metrics.",
+    "expected_evidence": "need memo; selection criteria; approval record"
+  },
+  {
+    "control_id": "CTRL-HCP-FMV",
+    "title": "FMV assessment for HCP services",
+    "control_type": "preventive",
+    "domain": "HCP_HCO",
+    "description": "Assess and document reasonable compensation using service type, expertise, preparation/delivery time and benchmark method; document justified deviations.",
+    "expected_evidence": "FMV assessment; benchmark; approval"
+  },
+  {
+    "control_id": "CTRL-HCP-PERFORMANCE",
+    "title": "Verify actual HCP service performance",
+    "control_type": "detective",
+    "domain": "HCP_HCO",
+    "description": "Maintain evidence that the contracted scientific/educational/consulting service actually occurred and matched scope.",
+    "expected_evidence": "agenda; attendance; deliverable; presentation; acceptance record"
+  },
+  {
+    "control_id": "CTRL-HCP-CONFLICT",
+    "title": "HCP decision-role/conflict check",
+    "control_type": "preventive",
+    "domain": "HCP_HCO",
+    "description": "Identify prescribing, formulary, guideline, procurement and acceptance roles and apply enhanced review where the recipient can influence a company-relevant decision.",
+    "expected_evidence": "role check; conflict questionnaire; enhanced approval"
+  },
+  {
+    "control_id": "CTRL-HCP-TRAVEL",
+    "title": "Reasonable-event travel control",
+    "control_type": "preventive",
+    "domain": "HCP_HCO",
+    "description": "Tie travel to actual event/service; limit luxury/leisure/companion costs; require reasonable class/hotel and documented itinerary.",
+    "expected_evidence": "agenda; itinerary; expense approval; receipts"
+  },
+  {
+    "control_id": "CTRL-PROC-TZ-BOUNDARY",
+    "title": "Technical consultation boundary for public procurement",
+    "control_type": "preventive",
+    "domain": "PUBLIC_PROCUREMENT",
+    "description": "Permit objective product information while prohibiting creation of sham competitor quotes or manipulation of specification to predetermine result; escalate unusual customer requests.",
+    "expected_evidence": "written customer request; technical materials; legal/compliance approval where needed"
+  },
+  {
+    "control_id": "CTRL-PROC-DISTR-RED-FLAG",
+    "title": "Distributor public-procurement red-flag review",
+    "control_type": "preventive_detective",
+    "domain": "PUBLIC_PROCUREMENT",
+    "description": "For distributor tenders, review what manufacturer knows, requests, funds and approves; investigate unusual commissions, cash, competitor quotes, restrictive specs or requests involving customer officials.",
+    "expected_evidence": "due diligence; tender support record; pricing rationale; escalation log"
+  },
+  {
+    "control_id": "CTRL-COMP-INFO-PROVENANCE",
+    "title": "Commercially sensitive information provenance check",
+    "control_type": "preventive",
+    "domain": "DISTRIBUTOR_COMPETITION",
+    "description": "Record information owner, source, lawful reason for possession, sensitivity, recipients and intended use before acting on competitor/distributor data.",
+    "expected_evidence": "source record; access justification; legal review"
+  },
+  {
+    "control_id": "CTRL-COMM-ESCALATE",
+    "title": "Risky request response and preservation",
+    "control_type": "preventive",
+    "domain": "INVESTIGATIONS_EVIDENCE",
+    "description": "Do not execute a suspicious request; provide lawful alternative, preserve the request and escalate to Legal/Compliance. Never delete or fabricate records.",
+    "expected_evidence": "original message; compliant response; escalation record"
+  },
+  {
+    "control_id": "CTRL-THIRD-BENEFICIARY",
+    "title": "Identify payee, intermediary and ultimate beneficiary",
+    "control_type": "preventive",
+    "domain": "THIRD_PARTIES",
+    "description": "For sponsorships/grants/event payments identify who is paid, who intermediates and who actually benefits; document relationship and purpose.",
+    "expected_evidence": "agreement; HCO confirmation; beneficiary mapping"
+  },
+  {
+    "control_id": "CTRL-CCK-LOCAL-CHECK",
+    "title": "Mandatory Company Compliance Knowledge check",
+    "control_type": "system",
+    "domain": "INVESTIGATIONS_EVIDENCE",
+    "description": "When company profile is active, query local rules for prohibition, permission, conditions, approvals, thresholds, exceptions, documentation and escalation; report coverage limitations.",
+    "expected_evidence": "retrieval log; manifest status; cited card"
+  },
+  {
+    "control_id": "CTRL-ANTI-CORR-PROGRAM",
+    "title": "Anti-corruption standards, procedures and document integrity",
+    "control_type": "governance",
+    "domain": "THIRD_PARTIES",
+    "description": "Maintain responsible function, standards/procedures, conflict controls and safeguards against unofficial/fake documentation consistent with organizational anti-corruption duties.",
+    "expected_evidence": "policy; role designation; training; approval workflow; monitoring; remediation"
+  }
+]

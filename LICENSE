@@ -1,0 +1,249 @@
+# Personal and Legal Professional Use License
+
+Version 1.0
+
+Copyright © 2026 Denis Viktorovich Kulpanovich (Кульпанович Денис Викторович)
+
+All rights reserved except as expressly granted under this License.
+
+## 1. Definitions
+
+**Software** means the source code, executable code, documentation, configuration files, workflows, prompts, skills, templates and other materials distributed together with this License, unless otherwise stated.
+
+**Copyright Holder** means the person identified in the copyright notice accompanying the Software.
+
+**User** means a natural person using the Software under this License.
+
+**Legal Professional** means a natural person who uses the Software in connection with legal work, including an in-house lawyer, attorney, advocate, legal counsel, legal consultant, trainee, paralegal or other person performing legal or legal-support functions.
+
+**Personal Use** means use of the Software by a natural person for their own private purposes.
+
+**Educational Use** means use for learning, professional development, training, research, experimentation or evaluation.
+
+**Permitted Professional Legal Use** means use of the Software by a Legal Professional in connection with their professional legal activities, including activities performed:
+
+- as an employee;
+- in the interests of an employer;
+- as an in-house lawyer;
+- as an attorney, advocate or external legal adviser;
+- in connection with paid legal services;
+- for the benefit of a client;
+- within the legal department or legal function of an organisation.
+
+Such use may take place on equipment or infrastructure owned or controlled by the User's employer or organisation.
+
+The fact that the User receives remuneration for their work, provides paid legal services, or uses the Software in the interests of a commercial organisation does **not**, by itself, constitute prohibited Commercial Exploitation under this License.
+
+**Commercial Exploitation** means commercialisation of the Software itself, its source code, substantially equivalent functionality derived from it, or access to the Software, as further described in Section 5.
+
+## 2. Licence Grant
+
+Subject to compliance with this License, the Copyright Holder grants the User a worldwide, royalty-free, non-exclusive, non-transferable and non-sublicensable licence to:
+
+1. download and install the Software;
+2. run and use the Software;
+3. inspect and study its source code;
+4. use the Software for Personal Use;
+5. use the Software for Educational Use;
+6. use the Software for Permitted Professional Legal Use;
+7. make copies reasonably necessary for such permitted use;
+8. modify the Software solely for the User's own permitted use under this License.
+
+No licence fee or other remuneration is payable for the uses expressly permitted by this Section.
+
+## 3. Professional Use by Lawyers
+
+For the avoidance of doubt, a Legal Professional may use the Software free of charge in their ordinary professional activities.
+
+This includes use:
+
+- in the course of employment;
+- for preparing legal advice, legal opinions and other legal documents;
+- for contract drafting, review and analysis;
+- for litigation and dispute-related work;
+- for compliance activities;
+- for legal research;
+- for work performed for an employer or client;
+- for other professional legal purposes.
+
+A Legal Professional may receive salary, fees or other remuneration for the work in connection with which the Software is used.
+
+An employer may permit the Software to be installed or operated on its infrastructure solely for the purpose of enabling Legal Professionals working for or with that employer to make Permitted Professional Legal Use of the Software.
+
+Technical personnel may install, configure, maintain, back up and administer the Software solely as reasonably necessary to enable such permitted use.
+
+Neither the employer nor such technical personnel thereby receive any independent right to commercially exploit, distribute or provide the Software to third parties.
+
+## 4. Modifications
+
+The User may modify, adapt or create derivative versions of the Software solely for the User's own Personal Use, Educational Use or Permitted Professional Legal Use.
+
+A modified version may also be used by the User in the interests of the User's employer or clients as part of Permitted Professional Legal Use.
+
+**Modified versions may not be distributed, published, sublicensed, sold, transferred or otherwise made available to third parties.**
+
+This restriction applies whether such distribution is commercial or non-commercial.
+
+Contributions intentionally submitted by a User to the original project and expressly accepted by the Copyright Holder are not considered prohibited distribution under this Section.
+
+## 5. Prohibited Commercial Exploitation
+
+Without a separate licence from the Copyright Holder, no person or organisation may commercially exploit the Software.
+
+In particular, it is prohibited to:
+
+1. sell, rent, lease, sublicense or otherwise commercially distribute the Software;
+
+2. charge third parties for access to the Software;
+
+3. provide the Software as software-as-a-service, hosted service, managed service, cloud service or similar offering;
+
+4. operate the Software for third parties where access to the Software itself or its functionality is being sold or commercially provided;
+
+5. incorporate the Software or a substantial part of it into a product, platform or service that is sold, licensed or otherwise commercially supplied to third parties;
+
+6. rebrand or white-label the Software for distribution to third parties;
+
+7. distribute a modified or derivative version of the Software as a commercial product or service;
+
+8. use the Software as the basis of a commercially distributed competing software product;
+
+9. sell or commercially license workflows, source code, components or derivative software substantially based on the Software;
+
+10. otherwise monetise access to, distribution of, or licensing of the Software itself.
+
+A separate commercial licence from the Copyright Holder is required for any such use.
+
+## 6. Legal Services Are Not Commercial Exploitation of the Software
+
+Providing legal services for remuneration does not constitute prohibited Commercial Exploitation merely because the Software is used as a tool in providing those services.
+
+For example, a lawyer may use the Software to prepare:
+
+- a contract;
+- legal advice;
+- a legal opinion;
+- a memorandum;
+- litigation documents;
+- compliance analysis;
+- due diligence;
+- legal research;
+- other legal work,
+
+and may charge the employer or client for such legal services.
+
+This exception applies where the client receives the result of the legal work rather than access to the Software itself.
+
+Providing the Software itself, access to the Software, or a software product substantially derived from it remains subject to Section 5.
+
+## 7. Non-Commercial Distribution of Unmodified Copies
+
+The User may redistribute an **unmodified copy** of the Software on a non-commercial basis, provided that:
+
+1. the Software is distributed in its entirety under this same License;
+
+2. this License and all copyright notices remain intact;
+
+3. no fee or other consideration is charged for the Software;
+
+4. no additional restrictions are imposed on recipients;
+
+5. the Software is not represented as being created or endorsed by the distributor;
+
+6. the distributor does not grant any licence on behalf of the Copyright Holder.
+
+Each recipient receives their rights directly from the Copyright Holder under this License.
+
+Distribution of modified versions is not permitted under Section 4.
+
+## 8. No Transfer of Intellectual Property Rights
+
+The Software is licensed, not sold.
+
+Except for the rights expressly granted under this License, all intellectual property rights in and to the Software remain with the Copyright Holder.
+
+No ownership rights are transferred to the User.
+
+## 9. Third-Party Components
+
+Third-party software, libraries, models, datasets or other materials included in or used with the Software may be subject to their own licences.
+
+This License does not alter or replace the licence terms applicable to third-party materials.
+
+The User is responsible for complying with those terms.
+
+## 10. No Trademark Licence
+
+This License does not grant any right to use the names, trademarks, logos or other branding of the Copyright Holder except as reasonably necessary to identify the origin of an unmodified copy of the Software.
+
+## 11. Disclaimer of Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW.
+
+THE COPYRIGHT HOLDER DOES NOT WARRANT THAT THE SOFTWARE WILL BE ERROR-FREE, SECURE, FIT FOR A PARTICULAR PURPOSE OR SUITABLE FOR ANY PARTICULAR LEGAL MATTER.
+
+THE SOFTWARE DOES NOT REPLACE PROFESSIONAL LEGAL JUDGMENT.
+
+## 12. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE COPYRIGHT HOLDER SHALL NOT BE LIABLE FOR ANY DIRECT OR INDIRECT LOSS, LOSS OF PROFITS, LOSS OF DATA, BUSINESS INTERRUPTION, LEGAL CONSEQUENCES OR OTHER DAMAGES ARISING FROM THE USE OR INABILITY TO USE THE SOFTWARE.
+
+## 13. Termination
+
+The rights granted under this License automatically terminate if the User materially breaches its terms.
+
+Upon termination, the User must cease the use and distribution that caused the breach.
+
+Termination does not affect rights relating to copies lawfully distributed before termination.
+
+## 14. Separate Commercial Licence
+
+The Copyright Holder may grant additional rights under a separate written commercial licence.
+
+Nothing in this License requires the Copyright Holder to offer such a licence or to offer it on particular terms.
+
+## 15. Applicable Law
+
+This License, and any dispute or claim arising out of or in connection with it, shall be governed by and construed in accordance with the law of the Russian Federation.
+
+---
+
+### Summary
+
+You may use the Software free of charge:
+
+**✓ for yourself**
+
+**✓ for learning and education**
+
+**✓ as a lawyer in your professional work**
+
+**✓ as an in-house lawyer for your employer**
+
+**✓ as an external lawyer for paying clients**
+
+**✓ on your employer's infrastructure for legal work**
+
+**✓ modify it for your own permitted use**
+
+You may also:
+
+**✓ redistribute an unmodified copy non-commercially under this same License**
+
+You may not:
+
+**✗ distribute your modified version**
+
+**✗ sell the Software**
+
+**✗ sell access to the Software**
+
+**✗ offer it as SaaS or a hosted product**
+
+**✗ white-label it**
+
+**✗ embed it into a commercial software product for customers**
+
+**✗ commercially distribute a product derived from it**
+
+Commercial exploitation of the Software requires a separate licence from the Copyright Holder.

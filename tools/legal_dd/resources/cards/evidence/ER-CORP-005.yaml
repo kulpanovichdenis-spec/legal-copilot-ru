@@ -1,0 +1,51 @@
+id: ER-CORP-005
+title: Доверенность
+module: corporate
+applies_when: Representative other than CEO signs/acts
+requested_from: seller
+evidence_types:
+- power_of_attorney
+- notarial_power_of_attorney
+sufficient_if:
+- POA is effective and covers relevant agreement, material terms and required actions
+mapped_checks:
+- CORP-004
+- CORP-003
+extractor_ids:
+- EXT-CORP-032
+request_text: Предоставить доверенность подписанта/представителя со всеми применимыми полномочиями.
+gap_text: Полномочия представителя не подтверждены.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: exhaustive
+activation_checks:
+- CORP-004
+request_phase: conditional
+title_en: Power of attorney
+title_ru: Доверенность
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

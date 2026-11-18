@@ -1,0 +1,131 @@
+id: EXT-RISK-090
+title: Litigation / claim / enforcement extractor
+document_types:
+- court_decision
+- claim
+- statement_of_claim
+- response
+- administrative_case
+- enforcement_proceeding
+- cease_and_desist
+- authority_order
+purposes:
+- identify_dispute
+- assess_asset_impact
+- support_risk_register
+entities:
+- Case
+- Party
+- Asset
+- Authority
+facts_to_extract:
+- forum/authority
+- case number
+- parties
+- claims
+- amount
+- asset/product involved
+- stage/status
+- interim measures
+- decision/outcome
+- appeal status
+- obligations/prohibitions
+- deadlines
+- enforcement status
+mapped_checks:
+- RISK-001
+- RISK-002
+- RISK-003
+- IP-ENC-012
+critical_fields:
+- case_number
+- parties
+- subject
+- status
+- asset_impact
+human_review_questions:
+- Влияет ли спор на передаваемый актив/право?
+- Есть ли запрет/арест/риск прекращения права?
+- Каков текущий процессуальный статус?
+fail_safe: Do not infer final outcome from non-final procedural documents.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: forum_authority
+  label: forum/authority
+  type: entity_ref
+  material: false
+- field_id: case_number
+  label: case number
+  type: number
+  material: true
+- field_id: parties
+  label: parties
+  type: entity_ref
+  material: true
+- field_id: claims
+  label: claims
+  type: text
+  material: false
+- field_id: amount
+  label: amount
+  type: currency
+  material: false
+- field_id: asset_product_involved
+  label: asset/product involved
+  type: asset_ref
+  material: false
+- field_id: stage_status
+  label: stage/status
+  type: enum
+  material: true
+- field_id: interim_measures
+  label: interim measures
+  type: text
+  material: false
+- field_id: decision_outcome
+  label: decision/outcome
+  type: text
+  material: false
+- field_id: appeal_status
+  label: appeal status
+  type: enum
+  material: true
+- field_id: obligations_prohibitions
+  label: obligations/prohibitions
+  type: text
+  material: false
+- field_id: deadlines
+  label: deadlines
+  type: text
+  material: false
+- field_id: enforcement_status
+  label: enforcement status
+  type: enum
+  material: true
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

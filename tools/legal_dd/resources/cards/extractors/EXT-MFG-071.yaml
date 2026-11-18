@@ -1,0 +1,124 @@
+id: EXT-MFG-071
+title: Technology / process / validation extractor
+document_types:
+- technology_instruction
+- process_description
+- industrial_regulation
+- packaging_instruction
+- validation_protocol
+- validation_report
+- cleaning_validation
+- analytical_validation
+purposes:
+- assess_technology_package
+- assess_validation_status
+- support_tech_transfer
+entities:
+- Product
+- Site
+- Document
+facts_to_extract:
+- process stage
+- equipment/site
+- critical parameters
+- batch size
+- packaging process
+- validation type
+- protocol/report number
+- version/date
+- validation status/result
+- deviations
+- acceptance criteria
+- revalidation triggers
+mapped_checks:
+- MFG-003
+- MFG-004
+- MFG-008
+- REG-009
+critical_fields:
+- process_stage
+- version
+- validation_status
+- site
+human_review_questions:
+- Достаточно ли документов для воспроизводства/transfer?
+- Какие процессы невалидированы?
+- Совпадает ли site/version с dossier?
+fail_safe: A document marked draft/unapproved cannot satisfy final process evidence.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: process_stage
+  label: process stage
+  type: text
+  material: true
+- field_id: equipment_site
+  label: equipment/site
+  type: text
+  material: true
+- field_id: critical_parameters
+  label: critical parameters
+  type: text
+  material: false
+- field_id: batch_size
+  label: batch size
+  type: text
+  material: false
+- field_id: packaging_process
+  label: packaging process
+  type: text
+  material: false
+- field_id: validation_type
+  label: validation type
+  type: text
+  material: false
+- field_id: protocol_report_number
+  label: protocol/report number
+  type: number
+  material: false
+- field_id: version_date
+  label: version/date
+  type: date
+  material: true
+- field_id: validation_status_result
+  label: validation status/result
+  type: enum
+  material: true
+- field_id: deviations
+  label: deviations
+  type: text
+  material: false
+- field_id: acceptance_criteria
+  label: acceptance criteria
+  type: text
+  material: false
+- field_id: revalidation_triggers
+  label: revalidation triggers
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

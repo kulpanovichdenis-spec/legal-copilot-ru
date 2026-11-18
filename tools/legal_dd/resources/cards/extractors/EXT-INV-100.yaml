@@ -1,0 +1,105 @@
+id: EXT-INV-100
+title: Inventory / batch / stock extractor
+document_types:
+- inventory_report
+- stock_report
+- batch_list
+- warehouse_statement
+- batch_certificate
+purposes:
+- identify_inventory_for_purchase
+- support_supply_continuity
+- assess_stock_quality
+entities:
+- Product
+- Asset
+- Site
+facts_to_extract:
+- product/batch
+- quantity
+- location
+- manufacture date
+- expiry date
+- quality/release status
+- quarantine/rejection status
+- book value if stated
+- ownership/reservation if stated
+mapped_checks:
+- MFG-009
+- REG-009
+- TX-005
+critical_fields:
+- batch
+- quantity
+- expiry
+- release_status
+human_review_questions:
+- Какие остатки входят в сделку?
+- Пригодны ли они к реализации?
+- Есть ли blocked/quarantine stock?
+fail_safe: Inventory quantity without release/expiry data is insufficient for quality/readiness conclusions.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: product_batch
+  label: product/batch
+  type: asset_ref
+  material: true
+- field_id: quantity
+  label: quantity
+  type: number
+  material: true
+- field_id: location
+  label: location
+  type: text
+  material: false
+- field_id: manufacture_date
+  label: manufacture date
+  type: date
+  material: false
+- field_id: expiry_date
+  label: expiry date
+  type: date
+  material: true
+- field_id: quality_release_status
+  label: quality/release status
+  type: enum
+  material: true
+- field_id: quarantine_rejection_status
+  label: quarantine/rejection status
+  type: enum
+  material: false
+- field_id: book_value_if_stated
+  label: book value if stated
+  type: currency
+  material: false
+- field_id: ownership_reservation_if_stated
+  label: ownership/reservation if stated
+  type: enum
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

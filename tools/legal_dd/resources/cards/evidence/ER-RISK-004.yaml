@@ -1,0 +1,53 @@
+id: ER-RISK-004
+title: Санкции, антикоррупционный и иной комплаенс
+module: risk
+applies_when: Always, depth risk-based
+requested_from: seller
+evidence_types:
+- compliance_policies
+- sanctions_confirmation
+- investigation_reports
+- counterparty_checks
+sufficient_if:
+- material compliance framework/issues are disclosed and independent sanctions checks are performed where required
+mapped_checks:
+- RISK-004
+extractor_ids:
+- EXT-COMP-092
+request_text: Предоставить применимые compliance policies и сведения о существенных нарушениях/расследованиях; санкционная проверка выполняется
+  отдельно.
+gap_text: Compliance/sanctions risk не проверен в требуемом объеме.
+external_verification: true
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: risk_based
+activation_checks:
+- RISK-004
+request_phase: initial
+title_en: Sanctions / anti-corruption / compliance evidence
+title_ru: Санкции, антикоррупционный и иной комплаенс
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

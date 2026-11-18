@@ -1,0 +1,401 @@
+version: '0.1'
+checks:
+- id: TX-001
+  title: Тип и периметр сделки
+  module: transaction
+  applicability_key: always
+  human_confirmation_required: true
+  title_en: Transaction Type and Perimeter
+  title_ru: Тип и периметр сделки
+- id: TX-002
+  title: Стороны сделки и их роли
+  module: transaction
+  applicability_key: always
+  human_confirmation_required: true
+  title_en: Parties and Roles
+  title_ru: Стороны сделки и их роли
+- id: TX-003
+  title: Модель передачи прав
+  module: transaction
+  applicability_key: always
+  human_confirmation_required: true
+  title_en: Transfer Model
+  title_ru: Модель передачи прав
+- id: TX-004
+  title: Территориальный периметр
+  module: transaction
+  applicability_key: always
+  human_confirmation_required: true
+  title_en: Territorial Scope
+  title_ru: Территориальный периметр
+- id: TX-005
+  title: Перечень и полнота активов
+  module: transaction
+  applicability_key: asset_or_mixed_or_product_perimeter
+  human_confirmation_required: true
+  title_en: Asset Inventory and Completeness
+  title_ru: Перечень и полнота активов
+- id: TX-006
+  title: Сохраняемые права / эксклюзивность / сфера использования
+  module: transaction
+  applicability_key: licence_or_retained_rights
+  human_confirmation_required: true
+  title_en: Retained Rights / Exclusivity / Field
+  title_ru: Сохраняемые права / эксклюзивность / сфера использования
+- id: TX-007
+  title: Пакет взаимосвязанных документов сделки
+  module: transaction
+  applicability_key: always
+  human_confirmation_required: true
+  title_en: Transaction Package and Interdependent Agreements
+  title_ru: Пакет взаимосвязанных документов сделки
+- id: REG-001
+  title: Статус регистрации и держатель
+  module: regulatory
+  applicability_key: registered_product_or_registration_asset
+  human_confirmation_required: true
+  title_en: Registration Status and Holder
+  title_ru: Статус регистрации и держатель
+- id: REG-002
+  title: Полнота регистрационного досье
+  module: regulatory
+  applicability_key: dossier_in_scope
+  human_confirmation_required: true
+  title_en: Registration Dossier Completeness
+  title_ru: Полнота регистрационного досье
+- id: REG-003
+  title: Изменения, перерегистрация и жизненный цикл
+  module: regulatory
+  applicability_key: registered_product
+  human_confirmation_required: true
+  title_en: Variations / Renewal / Lifecycle History
+  title_ru: Изменения, перерегистрация и жизненный цикл
+- id: REG-004
+  title: Регистрации в иностранных юрисдикциях
+  module: regulatory
+  applicability_key: foreign_territories_or_registrations
+  human_confirmation_required: true
+  title_en: Foreign Registrations
+  title_ru: Регистрации в иностранных юрисдикциях
+- id: REG-005
+  title: Инструкция, маркировка и макеты упаковки
+  module: regulatory
+  applicability_key: registered_product
+  human_confirmation_required: true
+  title_en: Labeling / Instructions / Packaging
+  title_ru: Инструкция, маркировка и макеты упаковки
+- id: REG-006
+  title: Фармаконадзор
+  module: regulatory
+  applicability_key: medicinal_product
+  human_confirmation_required: true
+  title_en: Pharmacovigilance
+  title_ru: Фармаконадзор
+- id: REG-007
+  title: Доклиническая и клиническая документация
+  module: regulatory
+  applicability_key: clinical_or_preclinical_materials_in_scope
+  human_confirmation_required: true
+  title_en: Preclinical and Clinical Documentation
+  title_ru: Доклиническая и клиническая документация
+- id: REG-008
+  title: Регуляторные обязательства и незавершенные процедуры
+  module: regulatory
+  applicability_key: registered_product
+  human_confirmation_required: true
+  title_en: Regulatory Commitments / Pending Proceedings
+  title_ru: Регуляторные обязательства и незавершенные процедуры
+- id: REG-009
+  title: Качество продукта, стабильность и серии
+  module: regulatory
+  applicability_key: physical_product
+  human_confirmation_required: true
+  title_en: Product Quality / Stability / Series Evidence
+  title_ru: Качество продукта, стабильность и серии
+- id: MFG-001
+  title: Производственная цепочка и площадки
+  module: manufacturing
+  applicability_key: physical_product
+  human_confirmation_required: true
+  title_en: Manufacturing Chain and Sites
+  title_ru: Производственная цепочка и площадки
+- id: MFG-002
+  title: GMP и производственные разрешения
+  module: manufacturing
+  applicability_key: manufacturing_relevant
+  human_confirmation_required: true
+  title_en: GMP / Manufacturing Authorisations
+  title_ru: GMP и производственные разрешения
+- id: MFG-003
+  title: Технологическая и производственная документация
+  module: manufacturing
+  applicability_key: production_continuity_or_transfer
+  human_confirmation_required: true
+  title_en: Technology / Process Documentation
+  title_ru: Технологическая и производственная документация
+- id: MFG-004
+  title: Валидация
+  module: manufacturing
+  applicability_key: production_continuity_or_transfer
+  human_confirmation_required: true
+  title_en: Validation
+  title_ru: Валидация
+- id: MFG-005
+  title: Соглашения по качеству и распределение ответственности
+  module: manufacturing
+  applicability_key: third_party_manufacturing_or_supply
+  human_confirmation_required: true
+  title_en: Quality Agreements and Responsibility Matrix
+  title_ru: Соглашения по качеству и распределение ответственности
+- id: MFG-006
+  title: Поставщики, сырье и упаковочные материалы
+  module: manufacturing
+  applicability_key: manufacturing_continuity_relevant
+  human_confirmation_required: true
+  title_en: Suppliers / Raw Materials / Packaging
+  title_ru: Поставщики, сырье и упаковочные материалы
+- id: MFG-007
+  title: Отклонения, инспекции и забракованные серии
+  module: manufacturing
+  applicability_key: ongoing_production
+  human_confirmation_required: true
+  title_en: Deviations / Inspections / Rejected Batches
+  title_ru: Отклонения, инспекции и забракованные серии
+- id: MFG-008
+  title: Трансфер производства
+  module: manufacturing
+  applicability_key: tech_transfer
+  human_confirmation_required: true
+  title_en: Technology Transfer
+  title_ru: Трансфер производства
+- id: MFG-009
+  title: Непрерывность поставок и товарные остатки
+  module: manufacturing
+  applicability_key: physical_product
+  human_confirmation_required: true
+  title_en: Supply Continuity / Inventory
+  title_ru: Непрерывность поставок и товарные остатки
+- id: IP-DOC-001
+  title: Права на регуляторную и техническую документацию
+  module: ip
+  applicability_key: documentation_in_scope
+  human_confirmation_required: true
+  title_en: Title to Regulatory / Technical Documentation
+  title_ru: Права на регуляторную и техническую документацию
+- id: IP-DOC-002
+  title: Возможность передачи и обременения документации
+  module: ip
+  applicability_key: documentation_in_scope
+  human_confirmation_required: true
+  title_en: Transferability / Encumbrances of Documentation
+  title_ru: Возможность передачи и обременения документации
+- id: IP-KH-003
+  title: Ноу-хау и коммерческая тайна
+  module: ip
+  applicability_key: know_how_in_scope
+  human_confirmation_required: true
+  title_en: Know-how / Trade Secrets
+  title_ru: Ноу-хау и коммерческая тайна
+- id: IP-TM-004
+  title: 'Портфель товарных знаков: права и статус'
+  module: ip
+  applicability_key: trademark_or_brand_relevant
+  human_confirmation_required: true
+  title_en: Trademark Portfolio / Title / Status
+  title_ru: 'Портфель товарных знаков: права и статус'
+- id: IP-TM-005
+  title: Проверка конфликтующих товарных знаков третьих лиц
+  module: ip
+  applicability_key: continued_brand_use
+  human_confirmation_required: true
+  title_en: Trademark Clearance / Third-Party Rights
+  title_ru: Проверка конфликтующих товарных знаков третьих лиц
+- id: IP-PAT-006
+  title: 'Патентный портфель: права и статус'
+  module: ip
+  applicability_key: patent_relevant
+  human_confirmation_required: true
+  title_en: Patent Portfolio / Title / Status
+  title_ru: 'Патентный портфель: права и статус'
+- id: IP-PAT-007
+  title: Патентная свобода использования (FTO)
+  module: ip
+  applicability_key: commercialisation_or_manufacturing_relevant
+  human_confirmation_required: true
+  title_en: Patent FTO
+  title_ru: Патентная свобода использования (FTO)
+- id: IP-CR-008
+  title: Авторские права, дизайн и упаковка
+  module: ip
+  applicability_key: copyright_or_design_in_scope
+  human_confirmation_required: true
+  title_en: Copyright / Packaging / Design
+  title_ru: Авторские права, дизайн и упаковка
+- id: IP-EMP-009
+  title: Служебные РИД и вознаграждение авторам
+  module: ip
+  applicability_key: employee_or_contractor_created_ip
+  human_confirmation_required: true
+  title_en: Employee / Service IP and Remuneration
+  title_ru: Служебные РИД и вознаграждение авторам
+- id: IP-DOM-010
+  title: Доменные имена
+  module: ip
+  applicability_key: domains_in_scope
+  human_confirmation_required: true
+  title_en: Domain Names
+  title_ru: Доменные имена
+- id: IP-WEB-011
+  title: Сайты, контент и рекламные материалы
+  module: ip
+  applicability_key: digital_content_in_scope
+  human_confirmation_required: true
+  title_en: Websites / Content / Marketing Materials
+  title_ru: Сайты, контент и рекламные материалы
+- id: IP-ENC-012
+  title: Лицензии, обременения и ограничения по ИС
+  module: ip
+  applicability_key: any_ip_in_scope
+  human_confirmation_required: true
+  title_en: IP Licences / Encumbrances / Restrictions
+  title_ru: Лицензии, обременения и ограничения по ИС
+- id: CORP-001
+  title: Юридический статус контрагента
+  module: corporate
+  applicability_key: legal_entity_party
+  human_confirmation_required: true
+  title_en: Legal Existence and Status
+  title_ru: Юридический статус контрагента
+- id: CORP-002
+  title: Правоспособность и необходимые разрешения
+  module: corporate
+  applicability_key: legal_entity_party
+  human_confirmation_required: true
+  title_en: Capacity / Required Licences
+  title_ru: Правоспособность и необходимые разрешения
+- id: CORP-003
+  title: Полномочия ЕИО / подписанта
+  module: corporate
+  applicability_key: signing_legal_entity_party
+  human_confirmation_required: true
+  title_en: CEO / Signatory Authority
+  title_ru: Полномочия ЕИО / подписанта
+- id: CORP-004
+  title: Доверенность
+  module: corporate
+  applicability_key: representative_signs
+  human_confirmation_required: true
+  title_en: Power of Attorney
+  title_ru: Доверенность
+- id: CORP-005
+  title: Крупная сделка
+  module: corporate
+  applicability_key: corporate_party_threshold_check
+  human_confirmation_required: true
+  title_en: Major Transaction Approval
+  title_ru: Крупная сделка
+- id: CORP-006
+  title: Заинтересованность / конфликт интересов
+  module: corporate
+  applicability_key: potential_conflict
+  human_confirmation_required: true
+  title_en: Interested Party / Conflict Approval
+  title_ru: Заинтересованность / конфликт интересов
+- id: CORP-007
+  title: Внутренние ограничения и корпоративные соглашения
+  module: corporate
+  applicability_key: corporate_party
+  human_confirmation_required: true
+  title_en: Internal Restrictions / Corporate Agreements
+  title_ru: Внутренние ограничения и корпоративные соглашения
+- id: CORP-008
+  title: Продавец-физлицо / супружеское согласие / принадлежность права
+  module: corporate
+  applicability_key: individual_seller_or_right_holder
+  human_confirmation_required: true
+  title_en: Natural Person Seller / Spousal / Ownership Issues
+  title_ru: Продавец-физлицо / супружеское согласие / принадлежность права
+- id: APP-001
+  title: Согласование ФАС / экономическая концентрация
+  module: approvals
+  applicability_key: ru_transaction_threshold_assessment
+  human_confirmation_required: true
+  title_en: FAS / Economic Concentration
+  title_ru: Согласование ФАС / экономическая концентрация
+- id: APP-002
+  title: Группа лиц и данные для пороговых значений
+  module: approvals
+  applicability_key: threshold_assessment_required
+  human_confirmation_required: true
+  title_en: Group Structure / Threshold Data
+  title_ru: Группа лиц и данные для пороговых значений
+- id: APP-003
+  title: Иностранные инвестиции / стратегическое общество
+  module: approvals
+  applicability_key: foreign_investor_or_control
+  human_confirmation_required: true
+  title_en: Foreign Investment / Strategic Business
+  title_ru: Иностранные инвестиции / стратегическое общество
+- id: APP-004
+  title: Иностранные антимонопольные и регуляторные согласования
+  module: approvals
+  applicability_key: foreign_jurisdiction
+  human_confirmation_required: true
+  title_en: Foreign Antitrust / Health Authority Approvals
+  title_ru: Иностранные антимонопольные и регуляторные согласования
+- id: APP-005
+  title: Госзакупки / публичное имущество / специальные процедуры
+  module: approvals
+  applicability_key: state_or_public_element
+  human_confirmation_required: true
+  title_en: Public Procurement / Public Property / Special Procedures
+  title_ru: Госзакупки / публичное имущество / специальные процедуры
+- id: RISK-001
+  title: Существенные судебные споры и исполнительные производства
+  module: risk
+  applicability_key: always_risk_based
+  human_confirmation_required: true
+  title_en: Material Litigation / Enforcement
+  title_ru: Существенные судебные споры и исполнительные производства
+- id: RISK-002
+  title: Споры и оспаривание прав на ИС
+  module: risk
+  applicability_key: any_ip_in_scope
+  human_confirmation_required: true
+  title_en: IP Disputes / Challenges / Administrative Proceedings
+  title_ru: Споры и оспаривание прав на ИС
+- id: RISK-003
+  title: Регуляторные и качественные нарушения / enforcement
+  module: risk
+  applicability_key: regulated_product_or_manufacturing
+  human_confirmation_required: true
+  title_en: Regulatory / Quality Enforcement
+  title_ru: Регуляторные и качественные нарушения / enforcement
+- id: RISK-004
+  title: Санкции, антикоррупционный комплаенс и иные compliance-риски
+  module: risk
+  applicability_key: always_risk_based
+  human_confirmation_required: true
+  title_en: Sanctions / Anti-Corruption / Compliance
+  title_ru: Санкции, антикоррупционный комплаенс и иные compliance-риски
+- id: CLS-001
+  title: Отлагательные условия и документы к закрытию
+  module: closing
+  applicability_key: structure_defined
+  human_confirmation_required: true
+  title_en: Conditions Precedent / Closing Deliverables
+  title_ru: Отлагательные условия и документы к закрытию
+- id: CLS-002
+  title: Регистрация перехода прав и формальности
+  module: closing
+  applicability_key: registrable_assets
+  human_confirmation_required: true
+  title_en: Transfer Registration / Formalities
+  title_ru: Регистрация перехода прав и формальности
+- id: CLS-003
+  title: Обязательства после закрытия и переходный период
+  module: closing
+  applicability_key: post_closing_or_transition
+  human_confirmation_required: true
+  title_en: Post-Closing / Transition Obligations
+  title_ru: Обязательства после закрытия и переходный период

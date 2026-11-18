@@ -1,0 +1,37 @@
+version: '1.1'
+title: Legal DD Dataroom Watcher
+modes:
+- inventory_watch
+- deep_review
+inventory_watch:
+  reads:
+  - metadata
+  - file_name
+  - path_or_remote_location
+  - timestamps
+  - hash_if_available
+  - lightweight_preview
+  actions:
+  - detect_new_or_changed_item
+  - classify_document
+  - map_document_family
+  - map_evidence_requirement
+  - identify_affected_checks
+  - queue_extractors
+  prohibited:
+  - final_legal_review
+  - final_status_change
+deep_review:
+  actions:
+  - select_needed_extractors
+  - build_needed_typed_facts
+  - resolve_document_family_if_relevant
+  - run_applicable_validators
+  - rerun_affected_coverage_obligations
+  - run_critic_if_triggered
+  - render_review_surface_if_useful
+incremental_rule: Only new/changed items and affected downstream checks are reprocessed.
+reconfirmation_rule: New evidence affecting a human-confirmed fact sets dependent conclusions to reconfirmation_required.
+role: event_source_not_mandatory_stage
+principle: Inventory/watch detects source changes. Deep review may run whenever a material source and unresolved obligation are available; watch
+  mode is not a prerequisite ritual.

@@ -1,0 +1,110 @@
+id: EXT-LIC-120
+title: General licence / permit extractor
+document_types:
+- licence
+- permit
+- certificate_of_conformity
+- special_authorisation
+purposes:
+- confirm_required_licence
+- confirm_scope_and_status
+entities:
+- Party
+- Site
+- Authority
+- Product
+facts_to_extract:
+- licence/permit type
+- number
+- holder
+- issuing authority
+- issue/expiry
+- licensed activities
+- sites
+- product/scope if specified
+- conditions/restrictions
+- suspension/revocation markers
+mapped_checks:
+- CORP-002
+- MFG-002
+- APP-004
+- RISK-003
+critical_fields:
+- holder
+- scope
+- status
+- expiry
+human_review_questions:
+- Охватывает ли разрешение нужную деятельность/site?
+- Действует ли оно?
+- Есть ли ограничения/приостановления?
+fail_safe: Do not assume that a licence covers a site/activity not expressly within its scope.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: licence_permit_type
+  label: licence/permit type
+  type: text
+  material: false
+- field_id: number
+  label: number
+  type: number
+  material: false
+- field_id: holder
+  label: holder
+  type: entity_ref
+  material: true
+- field_id: issuing_authority
+  label: issuing authority
+  type: entity_ref
+  material: false
+- field_id: issue_expiry
+  label: issue/expiry
+  type: date
+  material: true
+- field_id: licensed_activities
+  label: licensed activities
+  type: text
+  material: false
+- field_id: sites
+  label: sites
+  type: text
+  material: false
+- field_id: product_scope_if_specified
+  label: product/scope if specified
+  type: asset_ref
+  material: true
+- field_id: conditions_restrictions
+  label: conditions/restrictions
+  type: text
+  material: false
+- field_id: suspension_revocation_markers
+  label: suspension/revocation markers
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

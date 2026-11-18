@@ -1,0 +1,16 @@
+version: "0.2"
+locator_types: [page, section, paragraph, line, sheet_cell, table_row, api_field, registry_record]
+fields:
+  document_id: string
+  locator_type: string
+  page: integer|null
+  section: string|null
+  paragraph: string|null
+  line: string|null
+  sheet: string|null
+  cell: string|null
+  table_row: string|null
+  api_field: string|null
+  registry_record: string|null
+rules:
+  - material answered facts require a stable locator appropriate to the source format

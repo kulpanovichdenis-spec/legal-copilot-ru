@@ -1,0 +1,25 @@
+{
+  "version": "0.3.0",
+  "status": "integrated_preview",
+  "core_checks": 57,
+  "core_evidence_requirements": 67,
+  "core_extractor_profiles": 31,
+  "share_extension_checks": 18,
+  "share_extension_evidence_requirements": 18,
+  "share_extension_extractors": 8,
+  "total_checks": 75,
+  "total_evidence_requirements": 85,
+  "total_extractor_profiles": 39,
+  "runtime_language": "Python 3.10+ (legal-copilot native module)",
+  "external_runtime_dependencies": [
+    "PyYAML>=6.0"
+  ],
+  "implementation": "legal_copilot_integrated_functional_refactor",
+  "third_party_code_included": false,
+  "tests": 16,
+  "design_rule": "SKILL-DESIGN-FNM-01",
+  "fnm_design_rows": 25,
+  "validators": 22,
+  "eval_cases": 25,
+  "state_driven_planner": true
+}

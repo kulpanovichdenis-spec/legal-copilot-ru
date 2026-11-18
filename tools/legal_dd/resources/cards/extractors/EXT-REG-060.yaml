@@ -1,0 +1,116 @@
+id: EXT-REG-060
+title: Medicinal product registration extractor
+document_types:
+- registration_certificate
+- marketing_authorisation
+- SGR
+- foreign_registration_certificate
+purposes:
+- confirm_registration
+- confirm_holder
+- confirm_product_identity
+entities:
+- Product
+- Registration
+- Party
+- Site
+facts_to_extract:
+- product name
+- dosage form
+- strength
+- registration number
+- registration/renewal date
+- holder
+- manufacturer(s)/sites if shown
+- territory
+- status/expiry
+- special conditions
+- referenced dossier
+mapped_checks:
+- REG-001
+- REG-004
+- TX-005
+critical_fields:
+- product
+- registration_number
+- holder
+- territory
+- status
+human_review_questions:
+- Совпадает ли holder с заявленным продавцом/правообладателем?
+- Актуальна ли регистрация?
+- Какие sites/manufacturers указаны?
+fail_safe: Do not infer current status from an old certificate if an official register check is available/required.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: product_name
+  label: product name
+  type: asset_ref
+  material: true
+- field_id: dosage_form
+  label: dosage form
+  type: text
+  material: false
+- field_id: strength
+  label: strength
+  type: text
+  material: false
+- field_id: registration_number
+  label: registration number
+  type: asset_ref
+  material: true
+- field_id: registration_renewal_date
+  label: registration/renewal date
+  type: date
+  material: false
+- field_id: holder
+  label: holder
+  type: entity_ref
+  material: true
+- field_id: manufacturer_s_sites_if_shown
+  label: manufacturer(s)/sites if shown
+  type: entity_ref
+  material: false
+- field_id: territory
+  label: territory
+  type: jurisdiction
+  material: true
+- field_id: status_expiry
+  label: status/expiry
+  type: date
+  material: true
+- field_id: special_conditions
+  label: special conditions
+  type: text
+  material: false
+- field_id: referenced_dossier
+  label: referenced dossier
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

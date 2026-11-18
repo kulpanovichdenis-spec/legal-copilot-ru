@@ -1,0 +1,56 @@
+id: ER-MFG-007
+title: Отклонения, инспекции и забракованные серии
+module: manufacturing
+applies_when: Ongoing production
+requested_from: manufacturer/MA_holder
+evidence_types:
+- deviation_list
+- OOS_OOT
+- inspection_reports
+- audit_reports
+- rejected_batch_list
+- CAPA
+sufficient_if:
+- material quality events, inspections and remediation are disclosed for relevant period
+mapped_checks:
+- MFG-007
+- RISK-003
+extractor_ids:
+- EXT-MFG-071
+- EXT-RISK-090
+request_text: Предоставить сведения о критических/существенных отклонениях, OOS/OOT, инспекциях, CAPA и забракованных сериях.
+gap_text: История существенных quality events/inspection findings не подтверждена.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: risk_based
+activation_checks:
+- MFG-007
+request_phase: initial
+title_en: Deviations / inspections / rejected batches
+title_ru: Отклонения, инспекции и забракованные серии
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

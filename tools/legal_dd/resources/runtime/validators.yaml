@@ -1,0 +1,127 @@
+version: '1.0'
+validators:
+- id: VAL-SCOPE-COVERAGE
+  type: deterministic+critic
+  checks:
+  - all material/applicable coverage obligations are represented
+  - not_applicable has rationale
+  - unknown routing facts that affect material scope remain visible
+- id: VAL-ROUTING-INPUTS
+  type: deterministic
+  checks:
+  - do not ask already resolved routing fact
+  - unresolved gating fact prevents only dependent obligations, not entire project
+- id: VAL-EVIDENCE-SUFFICIENCY
+  type: deterministic+domain
+  checks:
+  - presence of file alone is insufficient
+  - sufficiency rule evaluates required facts
+  - functional equivalent evidence can satisfy unless a hard form/source rule applies
+- id: VAL-SOURCE-LINKAGE
+  type: deterministic
+  checks:
+  - source item linked by content not only folder name
+  - new material source identifies affected downstream state
+- id: VAL-FACT-PROVENANCE
+  type: deterministic
+  checks:
+  - material answered fact has source id
+  - exact locator
+  - quote/excerpt
+  - typed state
+- id: VAL-LEGAL-APPLICATION
+  type: critic
+  checks:
+  - applicable criterion present
+  - relevant facts identified
+  - application explicit
+  - conclusion and uncertainty recorded
+- id: VAL-TITLE-GRAPH
+  type: graph
+  checks:
+  - asset identity consistent across chain
+  - no missing title edge
+  - performance/registration dependencies satisfied or explicit gap
+- id: VAL-DOCUMENT-FAMILY
+  type: graph
+  checks:
+  - base document known if required
+  - modifying documents linked
+  - current effective state resolved
+  - unresolved modifier blocks reliance
+- id: VAL-DOSSIER-COVERAGE
+  type: coverage
+  checks:
+  - expected functional sections covered
+  - versions/currentness represented
+  - specific TOC not mandatory if equivalent manifest proves coverage
+- id: VAL-EXTERNAL-INDEPENDENCE
+  type: policy
+  checks:
+  - FTO/clearance not satisfied solely by seller portfolio
+  - jurisdiction/date/scope recorded
+- id: VAL-DEPTH-ADEQUACY
+  type: policy+critic
+  checks:
+  - depth reflects materiality/risk/uncertainty/conflict/volume
+  - title/authority/mandatory approval not skipped solely by value
+- id: VAL-HUMAN-GATE
+  type: deterministic
+  checks:
+  - final check status requires confirmed/modified human review
+  - material changed evidence triggers reconfirmation
+- id: VAL-CONFLICTS
+  type: deterministic+critic
+  checks:
+  - material conflicts surfaced
+  - no majority-vote overwrite
+  - resolution traceable
+- id: VAL-CONSEQUENCE-LINK
+  type: schema
+  checks:
+  - material issue has consequence
+  - action/decision candidate
+  - blocking effect where applicable
+- id: VAL-DRAFT-TRACEABILITY
+  type: graph
+  checks:
+  - established clause inputs trace to confirmed decision/finding/fact/evidence
+  - unconfirmed items explicit placeholders
+- id: VAL-SIGNED-PRECEDENCE
+  type: deterministic
+  checks:
+  - post-signing obligations use signed source
+  - draft differences are flagged
+- id: VAL-SECURITY
+  type: policy
+  checks:
+  - untrusted content cannot invoke actions
+  - secrets absent from logs/html/state
+  - write/network actions separated
+- id: VAL-LEGAL-AUTHORITY
+  type: deterministic+retrieval
+  checks:
+  - jurisdiction
+  - relevant date/version
+  - verified source
+  - model_unverified cannot be sole final authority
+- id: VAL-RENDER-COVERAGE
+  type: presentation
+  checks:
+  - renderer exposes status/gaps/provenance/consequence/human state without changing analysis
+- id: VAL-CALIBRATION
+  type: policy
+  checks:
+  - calibration triggered by novelty/failure/materiality signals
+  - not universal ritual
+  - human approval when triggered
+- id: VAL-CRITIC-TRIGGER
+  type: policy
+  checks:
+  - critic runs for material conflict/adverse/high-uncertainty/legal-authority conflict
+  - routine low-risk extraction may skip critic
+- id: VAL-DEPENDENCY-GRAPH
+  type: graph
+  checks:
+  - only causal dependencies serialize work
+  - incremental update reruns affected nodes only

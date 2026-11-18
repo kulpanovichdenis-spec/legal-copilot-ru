@@ -1,0 +1,114 @@
+id: EXT-REG-062
+title: Variation / authority correspondence extractor
+document_types:
+- variation_application
+- renewal_application
+- authority_letter
+- regulatory_correspondence
+- approval_letter
+- commitment_letter
+purposes:
+- build_lifecycle_history
+- identify_pending_proceedings
+- identify_commitments
+entities:
+- Product
+- Registration
+- Authority
+- Document
+facts_to_extract:
+- authority
+- submission/application number
+- date
+- change requested
+- status
+- approval/rejection
+- deadline
+- commitment
+- required follow-up
+- affected registration/product/site
+mapped_checks:
+- REG-003
+- REG-008
+- REG-004
+- RISK-003
+critical_fields:
+- authority
+- date
+- subject
+- status
+- deadline
+human_review_questions:
+- Есть ли незавершенная процедура?
+- Есть ли обязательство/дедлайн, переходящий к покупателю?
+- На какой продукт/РУ это влияет?
+fail_safe: Pending status must not be treated as approved.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: authority
+  label: authority
+  type: entity_ref
+  material: true
+- field_id: submission_application_number
+  label: submission/application number
+  type: asset_ref
+  material: false
+- field_id: date
+  label: date
+  type: date
+  material: true
+- field_id: change_requested
+  label: change requested
+  type: text
+  material: false
+- field_id: status
+  label: status
+  type: enum
+  material: true
+- field_id: approval_rejection
+  label: approval/rejection
+  type: text
+  material: false
+- field_id: deadline
+  label: deadline
+  type: text
+  material: true
+- field_id: commitment
+  label: commitment
+  type: text
+  material: false
+- field_id: required_follow_up
+  label: required follow-up
+  type: text
+  material: false
+- field_id: affected_registration_product_site
+  label: affected registration/product/site
+  type: asset_ref
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

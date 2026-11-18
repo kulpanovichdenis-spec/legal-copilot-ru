@@ -1,0 +1,130 @@
+id: EXT-IP-051
+title: IP licence / encumbrance specialized extractor
+document_types:
+- IP_licence
+- sublicence
+- pledge_agreement
+- security_agreement
+- consent
+purposes:
+- identify_third_party_rights
+- confirm_transfer_restrictions
+- identify_required_consents
+entities:
+- Agreement
+- Party
+- Asset
+- Right
+- Approval
+facts_to_extract:
+- licensed/encumbered asset
+- licensor/licensee/secured party
+- exclusive/non-exclusive
+- territory
+- field
+- term
+- sublicensing
+- assignment restrictions
+- change-of-control provisions
+- termination triggers
+- consent requirements
+- pledge/security scope
+- release mechanics
+mapped_checks:
+- TX-006
+- IP-DOC-002
+- IP-ENC-012
+- IP-TM-004
+- IP-PAT-006
+- CLS-001
+critical_fields:
+- asset
+- right_scope
+- restriction
+- consent_requirement
+human_review_questions:
+- Создает ли документ права третьего лица на объект?
+- Нужно ли согласие/освобождение до closing?
+- Продолжится ли право третьего лица после сделки?
+fail_safe: Any ambiguous transfer restriction must remain an open issue.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: licensed_encumbered_asset
+  label: licensed/encumbered asset
+  type: asset_ref
+  material: true
+- field_id: licensor_licensee_secured_party
+  label: licensor/licensee/secured party
+  type: entity_ref
+  material: false
+- field_id: exclusive_non_exclusive
+  label: exclusive/non-exclusive
+  type: text
+  material: false
+- field_id: territory
+  label: territory
+  type: jurisdiction
+  material: false
+- field_id: field
+  label: field
+  type: text
+  material: false
+- field_id: term
+  label: term
+  type: text
+  material: false
+- field_id: sublicensing
+  label: sublicensing
+  type: text
+  material: false
+- field_id: assignment_restrictions
+  label: assignment restrictions
+  type: text
+  material: true
+- field_id: change_of_control_provisions
+  label: change-of-control provisions
+  type: text
+  material: false
+- field_id: termination_triggers
+  label: termination triggers
+  type: text
+  material: false
+- field_id: consent_requirements
+  label: consent requirements
+  type: text
+  material: true
+- field_id: pledge_security_scope
+  label: pledge/security scope
+  type: text
+  material: false
+- field_id: release_mechanics
+  label: release mechanics
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

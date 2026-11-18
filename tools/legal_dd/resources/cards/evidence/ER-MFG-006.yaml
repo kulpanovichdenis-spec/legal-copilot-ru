@@ -1,0 +1,54 @@
+id: ER-MFG-006
+title: Критические поставщики и материалы
+module: manufacturing
+applies_when: Continuity of manufacturing relevant
+requested_from: manufacturer/seller
+evidence_types:
+- supplier_list
+- supplier_qualification
+- material_specifications
+- supply_contracts
+sufficient_if:
+- critical materials, approved suppliers, qualification status and key supply dependencies are identifiable
+mapped_checks:
+- MFG-006
+- MFG-009
+extractor_ids:
+- EXT-MFG-073
+- EXT-CON-010
+request_text: Предоставить перечень поставщиков сырья/упаковочных материалов, qualification status, specifications и существенные supply contracts.
+gap_text: Не подтверждена устойчивость/доступность критических материалов.
+external_verification: false
+derived_requirement: false
+freshness: null
+notes: null
+human_confirmation_required: true
+review_scope:
+  mode: risk_based
+activation_checks:
+- MFG-006
+request_phase: initial
+title_en: Critical suppliers and materials
+title_ru: Критические поставщики и материалы
+role: evidence_sufficiency_contract
+evidence_types_are_examples: true
+functional_equivalent_evidence_allowed: true
+request_only_if_unresolved: true
+fnm:
+  purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+    law/transaction makes form/source mandatory.
+  failure_modes:
+  - document-name ritual without required facts
+  - file presence treated as sufficiency
+  - equivalent reliable evidence ignored
+  - gap silently converted to clear
+  required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - fact-oriented sufficiency rule
+  - many-to-many evidence graph
+  - dynamic request/gap generation
+  validator:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "CALC-083310640436",
+    "method": "view_total",
+    "input_refs": [
+      "lines"
+    ],
+    "input_values": {
+      "lines": "1"
+    },
+    "output_value": "1200.00",
+    "currency": "RUB",
+    "created_at": "2026-09-24T08:33:10.640514+00:00"
+  }
+]

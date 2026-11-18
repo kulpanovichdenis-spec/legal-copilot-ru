@@ -1,0 +1,70 @@
+id: IP-DOM-010
+title: Доменные имена
+module: ip
+version: '0.3'
+objective: If material/applicable, 'Доменные имена' must end as supported proposed/final conclusion, explicit issue/gap, external_review_required,
+  or reasoned not_applicable; it may not silently disappear from scope.
+applicability_key: domains_in_scope
+evidence_requirements:
+- ER-IP-012
+- ER-CLS-002
+- ER-CLS-003
+rules:
+- Do not set clear while any mandatory evidence requirement is missing, partial, invalid, outdated or conflicting.
+- Every material factual proposition must resolve to one or more facts with exact source locators.
+- Legal conclusions must cite verified legal authority separately from factual evidence.
+outputs:
+- finding
+- evidence_gaps
+- actions
+- contract_effect
+contract_effect_candidates:
+- IP_assignment_or_licence
+- representations
+- conditions_precedent
+- indemnity
+human_confirmation_required: true
+title_en: Domain Names
+title_ru: Доменные имена
+role: coverage_obligation
+fnm:
+  purpose: Resolve whether 'Доменные имена' is satisfactorily established for the applicable deal perimeter; establish title, scope, transferability
+    and third-party constraints for the relevant intellectual-property/digital asset.
+  failure_modes:
+  - broken title chain
+  - asset identity mismatch
+  - unrecognized third-party/transfer restriction
+  - silent omission because human checklist order was not followed
+  - false clear despite unresolved material evidence
+  required_invariant: If material/applicable, 'Доменные имена' must end as supported proposed/final conclusion, explicit issue/gap, external_review_required,
+    or reasoned not_applicable; it may not silently disappear from scope.
+  constraint_type: INVARIANT
+  hard_if_applicable: false
+  ai_native_implementation:
+  - asset-right graph
+  - purpose-driven extraction
+  - independent external search when applicable
+  - title/encumbrance validation
+  validators:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-FACT-PROVENANCE
+  - VAL-TITLE-GRAPH
+  - VAL-EXTERNAL-INDEPENDENCE
+  sequence_required: false
+  depth: adaptive per runtime/depth_policy.yaml
+state_contract:
+  agent_status:
+  - not_started
+  - in_progress
+  - clear
+  - issue
+  - cannot_conclude
+  - external_review_required
+  - not_applicable
+  human_review:
+  - pending
+  - confirmed
+  - modified
+  - rejected
+  - reconfirmation_required
+  final_status_requires_human_confirmation: true

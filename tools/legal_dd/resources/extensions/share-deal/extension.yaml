@@ -1,0 +1,28 @@
+id: share-deal
+version: '0.1'
+activate_when:
+  transaction_type:
+  - share
+  - mixed
+checks:
+- SH-001
+- SH-002
+- SH-003
+- SH-004
+- SH-005
+- SH-006
+- SH-007
+- SH-008
+- SH-009
+- SH-010
+- SH-011
+- SH-012
+- SH-013
+- SH-014
+- SH-015
+- SH-016
+- SH-017
+- SH-018
+note: Full company DD extension; pharma/product core checks remain active when material.
+evidence_catalog: extensions/share-deal/evidence_requirements.yaml
+extractor_catalog: extensions/share-deal/extractors.yaml

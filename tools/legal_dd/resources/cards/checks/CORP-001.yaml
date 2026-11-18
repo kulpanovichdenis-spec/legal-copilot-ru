@@ -1,0 +1,67 @@
+id: CORP-001
+title: Юридический статус контрагента
+module: corporate
+version: '0.3'
+objective: If material/applicable, 'Юридический статус контрагента' must end as supported proposed/final conclusion, explicit issue/gap, external_review_required,
+  or reasoned not_applicable; it may not silently disappear from scope.
+applicability_key: legal_entity_party
+evidence_requirements:
+- ER-CORP-001
+- ER-CORP-002
+rules:
+- Do not set clear while any mandatory evidence requirement is missing, partial, invalid, outdated or conflicting.
+- Every material factual proposition must resolve to one or more facts with exact source locators.
+- Legal conclusions must cite verified legal authority separately from factual evidence.
+outputs:
+- finding
+- evidence_gaps
+- actions
+- contract_effect
+contract_effect_candidates:
+- execution
+- conditions_precedent
+- closing_deliverables
+human_confirmation_required: true
+title_en: Legal Existence and Status
+title_ru: Юридический статус контрагента
+role: coverage_obligation
+fnm:
+  purpose: Resolve whether 'Юридический статус контрагента' is satisfactorily established for the applicable deal perimeter; establish legal existence,
+    capacity, authority and internal approvals of the relevant transaction party.
+  failure_modes:
+  - unauthorized signer
+  - missing corporate approval
+  - party status/capacity problem
+  - silent omission because human checklist order was not followed
+  - false clear despite unresolved material evidence
+  required_invariant: If material/applicable, 'Юридический статус контрагента' must end as supported proposed/final conclusion, explicit issue/gap,
+    external_review_required, or reasoned not_applicable; it may not silently disappear from scope.
+  constraint_type: INVARIANT
+  hard_if_applicable: true
+  ai_native_implementation:
+  - authority/ownership graph
+  - deterministic threshold inputs
+  - verified legal authority
+  validators:
+  - VAL-EVIDENCE-SUFFICIENCY
+  - VAL-LEGAL-APPLICATION
+  - VAL-LEGAL-AUTHORITY
+  - VAL-HUMAN-GATE
+  sequence_required: false
+  depth: adaptive per runtime/depth_policy.yaml
+state_contract:
+  agent_status:
+  - not_started
+  - in_progress
+  - clear
+  - issue
+  - cannot_conclude
+  - external_review_required
+  - not_applicable
+  human_review:
+  - pending
+  - confirmed
+  - modified
+  - rejected
+  - reconfirmation_required
+  final_status_requires_human_confirmation: true

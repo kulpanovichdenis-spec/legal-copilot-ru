@@ -1,0 +1,3851 @@
+version: '1.1'
+purpose: Purpose-driven automatic extraction registry for Legal DD Navigator
+selection_principle:
+- document_type
+- requested_for_purpose
+- linked_evidence_requirement
+- linked_check
+- asset_type
+- jurisdiction
+- transaction_type
+common_entity_types:
+  Party:
+  - name
+  - registration_id
+  - jurisdiction
+  - role
+  Person:
+  - full_name
+  - role
+  - authority_basis
+  Asset:
+  - asset_id
+  - asset_type
+  - name
+  - identifier
+  - jurisdiction
+  Product:
+  - name
+  - dosage_form
+  - strength
+  - registration_id
+  Agreement:
+  - title
+  - number
+  - date
+  - governing_law
+  - status
+  Right:
+  - right_type
+  - scope
+  - territory
+  - term
+  - holder
+  Registration:
+  - type
+  - number
+  - holder
+  - status
+  - territory
+  Approval:
+  - authority
+  - date
+  - scope
+  - conditions
+  Payment:
+  - amount
+  - currency
+  - date
+  - payer
+  - payee
+  - basis
+  Site:
+  - name
+  - address
+  - operations
+  - licence_scope
+  Authority:
+  - name
+  - jurisdiction
+  Case:
+  - case_number
+  - forum
+  - parties
+  - status
+  - subject
+  Document:
+  - document_id
+  - type
+  - date
+  - version
+common_relation_types:
+- party_to_agreement
+- signs
+- represented_by
+- authority_based_on
+- agreement_covers_asset
+- creates_asset
+- transfers_right
+- licenses_right
+- right_held_by
+- right_transferred_to
+- asset_registered_to
+- asset_manufactured_at
+- product_manufactured_by
+- approval_covers_transaction
+- payment_performs_agreement
+- act_confirms_performance
+- document_amends_document
+- case_affects_asset
+- consent_required_from
+- consent_given_by
+extractors:
+- id: EXT-GEN-001
+  title: Document identity and linkage
+  document_types:
+  - all
+  purposes:
+  - classify_document
+  - link_document_to_project
+  - identify_related_assets_and_parties
+  entities:
+  - Document
+  - Party
+  - Person
+  - Asset
+  - Product
+  - Agreement
+  facts_to_extract:
+  - document title/type
+  - date/version
+  - document number
+  - parties/persons named
+  - product/asset identifiers
+  - referenced agreements
+  - referenced annexes
+  - jurisdiction/language
+  - signatures/stamps if visible
+  - document hierarchy
+  mapped_checks:
+  - TX-002
+  - TX-005
+  critical_fields:
+  - document_type
+  - document_date
+  - asset_identifiers
+  - party_identifiers
+  human_review_questions:
+  - Верно ли определен тип документа?
+  - Верно ли документ привязан к проекту, активу и стороне?
+  - Нет ли ссылки на отсутствующий базовый документ/приложение?
+  fail_safe: If identity or linkage is uncertain, set classification=needs_review and do not use the document as sufficient evidence.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: document_title_type
+    label: document title/type
+    type: text
+    material: false
+  - field_id: date_version
+    label: date/version
+    type: date
+    material: false
+  - field_id: document_number
+    label: document number
+    type: number
+    material: false
+  - field_id: parties_persons_named
+    label: parties/persons named
+    type: entity_ref
+    material: false
+  - field_id: product_asset_identifiers
+    label: product/asset identifiers
+    type: asset_ref
+    material: true
+  - field_id: referenced_agreements
+    label: referenced agreements
+    type: text
+    material: false
+  - field_id: referenced_annexes
+    label: referenced annexes
+    type: text
+    material: false
+  - field_id: jurisdiction_language
+    label: jurisdiction/language
+    type: jurisdiction
+    material: false
+  - field_id: signatures_stamps_if_visible
+    label: signatures/stamps if visible
+    type: text
+    material: false
+  - field_id: document_hierarchy
+    label: document hierarchy
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-CON-010
+  title: Agreement core legal-effect extractor
+  document_types:
+  - agreement
+  - assignment_agreement
+  - licence_agreement
+  - services_agreement
+  - R&D_agreement
+  - clinical_trial_agreement
+  - supply_agreement
+  - manufacturing_agreement
+  - quality_agreement
+  - domain_transfer_agreement
+  purposes:
+  - support_conclusion_check
+  - support_validity_check
+  - support_voidability_check
+  - support_authority_and_approval_check
+  - identify_transaction_asset
+  - support_chain_of_title
+  - support_performance_check
+  entities:
+  - Agreement
+  - Party
+  - Person
+  - Asset
+  - Right
+  - Approval
+  - Payment
+  facts_to_extract:
+  - agreement type/title/number/date/place
+  - parties and roles
+  - signatories and authority basis
+  - governing law
+  - subject matter
+  - essential terms stated in the document
+  - asset/product identifiers and schedules where listed
+  - scope/type of right
+  - territory
+  - term
+  - exclusivity
+  - restrictions
+  - retained rights
+  - conditions precedent/effective date
+  - consideration and payment mechanics
+  - moment/mechanism of transfer of right
+  - acceptance/transfer act requirement
+  - registration/recordal requirement
+  - third-party consent requirement
+  - corporate approval references
+  - representations/warranties on title and authority
+  - termination rights
+  - annexes/addenda referenced
+  - performance documents referenced
+  mapped_checks:
+  - TX-003
+  - TX-006
+  - TX-007
+  - IP-DOC-001
+  - IP-DOC-002
+  - IP-KH-003
+  - IP-TM-004
+  - IP-PAT-006
+  - IP-CR-008
+  - IP-DOM-010
+  - IP-WEB-011
+  - IP-ENC-012
+  - CORP-003
+  - CORP-005
+  - CORP-006
+  - CORP-007
+  - CLS-002
+  critical_fields:
+  - parties
+  - signatories
+  - subject_matter
+  - asset_identifiers
+  - right_scope
+  - transfer_moment
+  - payment_condition
+  - registration_requirement
+  human_review_questions:
+  - Идентифицирован ли наш объект сделки прямо или через приложение?
+  - Какие факты подтверждают заключенность; каких фактов не хватает?
+  - Какие факты релевантны действительности/оспоримости, но требуют отдельного legal check?
+  - Возникло/перешло ли право к нашему контрагенту согласно тексту и при каких условиях?
+  - Какие approvals/consents прямо требуются или упомянуты?
+  - Что еще требуется для подтверждения надлежащего исполнения?
+  fail_safe: Never state 'contract is valid/concluded/performed'. Extract facts only; missing annex/payment/act/registration must create a gap.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: agreement_type_title_number_date_place
+    label: agreement type/title/number/date/place
+    type: date
+    material: false
+  - field_id: parties_and_roles
+    label: parties and roles
+    type: entity_ref
+    material: true
+  - field_id: signatories_and_authority_basis
+    label: signatories and authority basis
+    type: entity_ref
+    material: true
+  - field_id: governing_law
+    label: governing law
+    type: text
+    material: false
+  - field_id: subject_matter
+    label: subject matter
+    type: text
+    material: true
+  - field_id: essential_terms_stated_in_the_document
+    label: essential terms stated in the document
+    type: text
+    material: false
+  - field_id: asset_product_identifiers_and_schedules_where_listed
+    label: asset/product identifiers and schedules where listed
+    type: asset_ref
+    material: false
+  - field_id: scope_type_of_right
+    label: scope/type of right
+    type: text
+    material: false
+  - field_id: territory
+    label: territory
+    type: jurisdiction
+    material: false
+  - field_id: term
+    label: term
+    type: text
+    material: false
+  - field_id: exclusivity
+    label: exclusivity
+    type: text
+    material: false
+  - field_id: restrictions
+    label: restrictions
+    type: text
+    material: false
+  - field_id: retained_rights
+    label: retained rights
+    type: text
+    material: false
+  - field_id: conditions_precedent_effective_date
+    label: conditions precedent/effective date
+    type: date
+    material: false
+  - field_id: consideration_and_payment_mechanics
+    label: consideration and payment mechanics
+    type: text
+    material: false
+  - field_id: moment_mechanism_of_transfer_of_right
+    label: moment/mechanism of transfer of right
+    type: text
+    material: false
+  - field_id: acceptance_transfer_act_requirement
+    label: acceptance/transfer act requirement
+    type: text
+    material: false
+  - field_id: registration_recordal_requirement
+    label: registration/recordal requirement
+    type: text
+    material: false
+  - field_id: third_party_consent_requirement
+    label: third-party consent requirement
+    type: entity_ref
+    material: false
+  - field_id: corporate_approval_references
+    label: corporate approval references
+    type: text
+    material: false
+  - field_id: representations_warranties_on_title_and_authority
+    label: representations/warranties on title and authority
+    type: entity_ref
+    material: false
+  - field_id: termination_rights
+    label: termination rights
+    type: text
+    material: false
+  - field_id: annexes_addenda_referenced
+    label: annexes/addenda referenced
+    type: text
+    material: false
+  - field_id: performance_documents_referenced
+    label: performance documents referenced
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-CON-011
+  title: Amendment / addendum / restatement extractor
+  document_types:
+  - amendment
+  - addendum
+  - supplemental_agreement
+  - restatement
+  purposes:
+  - build_consolidated_contract_state
+  - detect_changed_asset_or_right_scope
+  entities:
+  - Document
+  - Agreement
+  - Party
+  - Asset
+  - Right
+  facts_to_extract:
+  - base agreement identity
+  - amended clauses
+  - new wording
+  - effective date
+  - term extension
+  - changes to subject/assets
+  - changes to territory/right scope/exclusivity
+  - changes to price/payment
+  - new/replaced annexes
+  - deleted provisions
+  - signatures/authority
+  mapped_checks:
+  - TX-003
+  - TX-006
+  - TX-007
+  - IP-DOC-001
+  - IP-DOC-002
+  - IP-ENC-012
+  critical_fields:
+  - base_agreement
+  - changed_clauses
+  - effective_date
+  human_review_questions:
+  - Верно ли определен базовый договор?
+  - Собрана ли консолидированная редакция?
+  - Не изменен ли объект/объем права?
+  fail_safe: Do not analyze amendment in isolation when the base agreement is missing; mark consolidated_state=unavailable.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: base_agreement_identity
+    label: base agreement identity
+    type: text
+    material: true
+  - field_id: amended_clauses
+    label: amended clauses
+    type: text
+    material: false
+  - field_id: new_wording
+    label: new wording
+    type: text
+    material: false
+  - field_id: effective_date
+    label: effective date
+    type: date
+    material: true
+  - field_id: term_extension
+    label: term extension
+    type: text
+    material: false
+  - field_id: changes_to_subject_assets
+    label: changes to subject/assets
+    type: asset_ref
+    material: false
+  - field_id: changes_to_territory_right_scope_exclusivity
+    label: changes to territory/right scope/exclusivity
+    type: jurisdiction
+    material: false
+  - field_id: changes_to_price_payment
+    label: changes to price/payment
+    type: currency
+    material: false
+  - field_id: new_replaced_annexes
+    label: new/replaced annexes
+    type: text
+    material: false
+  - field_id: deleted_provisions
+    label: deleted provisions
+    type: text
+    material: false
+  - field_id: signatures_authority
+    label: signatures/authority
+    type: entity_ref
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-CON-012
+  title: Acceptance / transfer / performance act extractor
+  document_types:
+  - acceptance_act
+  - transfer_act
+  - services_act
+  - delivery_note
+  - handover_act
+  purposes:
+  - confirm_delivery
+  - confirm_transfer
+  - confirm_performance
+  entities:
+  - Agreement
+  - Party
+  - Asset
+  - Payment
+  facts_to_extract:
+  - related agreement
+  - date
+  - parties
+  - delivered/transferred object
+  - asset identifiers
+  - scope/quantity
+  - acceptance without reservations or with reservations
+  - effective transfer date
+  - signatures
+  - referenced annexes
+  mapped_checks:
+  - IP-DOC-001
+  - IP-TM-004
+  - IP-PAT-006
+  - IP-CR-008
+  - IP-DOM-010
+  - IP-WEB-011
+  - MFG-008
+  - MFG-009
+  - CLS-002
+  critical_fields:
+  - related_agreement
+  - object
+  - date
+  - reservations
+  human_review_questions:
+  - Относится ли акт к нужному договору и активу?
+  - Подтверждает ли он требуемое исполнение?
+  - Есть ли оговорки?
+  fail_safe: If the act cannot be reliably linked to the relevant agreement/asset, it cannot satisfy the evidence requirement.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: related_agreement
+    label: related agreement
+    type: text
+    material: true
+  - field_id: date
+    label: date
+    type: date
+    material: true
+  - field_id: parties
+    label: parties
+    type: entity_ref
+    material: false
+  - field_id: delivered_transferred_object
+    label: delivered/transferred object
+    type: asset_ref
+    material: true
+  - field_id: asset_identifiers
+    label: asset identifiers
+    type: asset_ref
+    material: false
+  - field_id: scope_quantity
+    label: scope/quantity
+    type: number
+    material: false
+  - field_id: acceptance_without_reservations_or_with_reservations
+    label: acceptance without reservations or with reservations
+    type: text
+    material: true
+  - field_id: effective_transfer_date
+    label: effective transfer date
+    type: date
+    material: true
+  - field_id: signatures
+    label: signatures
+    type: text
+    material: false
+  - field_id: referenced_annexes
+    label: referenced annexes
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-CON-013
+  title: Payment / settlement evidence extractor
+  document_types:
+  - payment_order
+  - bank_confirmation
+  - invoice
+  - receipt
+  - settlement_statement
+  purposes:
+  - confirm_payment_condition
+  - confirm_consideration_paid
+  - support_title_chain
+  entities:
+  - Payment
+  - Party
+  - Agreement
+  - Asset
+  facts_to_extract:
+  - payer/payee
+  - date
+  - amount/currency
+  - payment purpose
+  - agreement reference
+  - invoice reference
+  - asset/reference text
+  - payment status if available
+  mapped_checks:
+  - IP-DOC-001
+  - IP-TM-004
+  - IP-PAT-006
+  - IP-CR-008
+  - IP-EMP-009
+  - CORP-008
+  critical_fields:
+  - payer
+  - payee
+  - amount
+  - date
+  - agreement_reference
+  human_review_questions:
+  - Связан ли платеж с нужным договором?
+  - Оплачена ли полная сумма/требуемая часть?
+  - Является ли оплата условием перехода права?
+  fail_safe: Payment evidence without a reliable agreement link is supportive only, not sufficient.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: payer_payee
+    label: payer/payee
+    type: text
+    material: true
+  - field_id: date
+    label: date
+    type: date
+    material: true
+  - field_id: amount_currency
+    label: amount/currency
+    type: currency
+    material: true
+  - field_id: payment_purpose
+    label: payment purpose
+    type: text
+    material: false
+  - field_id: agreement_reference
+    label: agreement reference
+    type: text
+    material: true
+  - field_id: invoice_reference
+    label: invoice reference
+    type: text
+    material: false
+  - field_id: asset_reference_text
+    label: asset/reference text
+    type: asset_ref
+    material: false
+  - field_id: payment_status_if_available
+    label: payment status if available
+    type: enum
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-IP-020
+  title: IP creation by contractor / R&D extractor
+  document_types:
+  - R&D_agreement
+  - design_agreement
+  - development_agreement
+  - CRO_agreement
+  - clinical_trial_agreement
+  - preclinical_agreement
+  - author_agreement
+  purposes:
+  - confirm_creation_of_IP
+  - confirm_initial_title
+  - confirm_transferability
+  entities:
+  - Agreement
+  - Party
+  - Person
+  - Asset
+  - Right
+  - Payment
+  facts_to_extract:
+  - customer/contractor
+  - created result/deliverable
+  - technical specification
+  - authors/creators if named
+  - ownership allocation
+  - moment of creation/transfer
+  - territory/term
+  - right to modify/use/transfer/sublicense
+  - confidentiality/know-how
+  - third-party materials
+  - warranties on third-party rights
+  - acceptance mechanism
+  - creator remuneration/contract price
+  - payment evidence required
+  mapped_checks:
+  - IP-DOC-001
+  - IP-DOC-002
+  - IP-KH-003
+  - IP-CR-008
+  - IP-WEB-011
+  critical_fields:
+  - created_result
+  - ownership_clause
+  - transfer_moment
+  - acceptance
+  - third_party_materials
+  human_review_questions:
+  - Создан ли именно тот РИД/документация, который входит в сделку?
+  - Кому принадлежит исключительное право согласно документу?
+  - Есть ли условия, без выполнения которых право не перешло?
+  - Нужны ли дополнительные акты/платежи/согласия?
+  fail_safe: Do not infer title merely from the existence of a development agreement.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: customer_contractor
+    label: customer/contractor
+    type: text
+    material: false
+  - field_id: created_result_deliverable
+    label: created result/deliverable
+    type: enum
+    material: true
+  - field_id: technical_specification
+    label: technical specification
+    type: text
+    material: false
+  - field_id: authors_creators_if_named
+    label: authors/creators if named
+    type: entity_ref
+    material: false
+  - field_id: ownership_allocation
+    label: ownership allocation
+    type: entity_ref
+    material: false
+  - field_id: moment_of_creation_transfer
+    label: moment of creation/transfer
+    type: text
+    material: false
+  - field_id: territory_term
+    label: territory/term
+    type: text
+    material: false
+  - field_id: right_to_modify_use_transfer_sublicense
+    label: right to modify/use/transfer/sublicense
+    type: text
+    material: false
+  - field_id: confidentiality_know_how
+    label: confidentiality/know-how
+    type: text
+    material: false
+  - field_id: third_party_materials
+    label: third-party materials
+    type: entity_ref
+    material: true
+  - field_id: warranties_on_third_party_rights
+    label: warranties on third-party rights
+    type: entity_ref
+    material: false
+  - field_id: acceptance_mechanism
+    label: acceptance mechanism
+    type: text
+    material: true
+  - field_id: creator_remuneration_contract_price
+    label: creator remuneration/contract price
+    type: currency
+    material: false
+  - field_id: payment_evidence_required
+    label: payment evidence required
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-IP-021
+  title: Employee-created IP / service work / service invention extractor
+  document_types:
+  - employment_agreement
+  - job_description
+  - service_assignment
+  - employee_IP_policy
+  - author_notification
+  - remuneration_agreement
+  - remuneration_payment
+  - inventor_statement
+  purposes:
+  - confirm_service_IP_status
+  - confirm_employer_title
+  - confirm_author_remuneration
+  entities:
+  - Party
+  - Person
+  - Asset
+  - Right
+  - Payment
+  - Document
+  facts_to_extract:
+  - employer/employee
+  - employment dates
+  - position
+  - job duties
+  - service assignment/task
+  - connection between duties and created result
+  - creation date
+  - employee notification
+  - employer decision/use/patent filing
+  - inventors/authors/coauthors
+  - IP ownership provisions
+  - remuneration basis/amount/date
+  - proof of remuneration payment
+  - confidentiality obligations
+  - handover of materials
+  mapped_checks:
+  - IP-DOC-001
+  - IP-KH-003
+  - IP-EMP-009
+  - IP-PAT-006
+  - IP-CR-008
+  critical_fields:
+  - employment_relation
+  - job_duties
+  - creation_fact
+  - service_assignment
+  - remuneration
+  human_review_questions:
+  - Есть ли достаточная связь создания РИД с трудовой функцией/заданием?
+  - Какие документы подтверждают возникновение права у работодателя?
+  - Выполнены ли обязанности перед автором?
+  - Нет ли неустраненных прав автора/соавторов?
+  fail_safe: If employment duties, creation facts or remuneration evidence are missing, do not confirm employer title.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: employer_employee
+    label: employer/employee
+    type: entity_ref
+    material: false
+  - field_id: employment_dates
+    label: employment dates
+    type: date
+    material: false
+  - field_id: position
+    label: position
+    type: text
+    material: false
+  - field_id: job_duties
+    label: job duties
+    type: text
+    material: true
+  - field_id: service_assignment_task
+    label: service assignment/task
+    type: text
+    material: true
+  - field_id: connection_between_duties_and_created_result
+    label: connection between duties and created result
+    type: enum
+    material: false
+  - field_id: creation_date
+    label: creation date
+    type: date
+    material: false
+  - field_id: employee_notification
+    label: employee notification
+    type: entity_ref
+    material: false
+  - field_id: employer_decision_use_patent_filing
+    label: employer decision/use/patent filing
+    type: entity_ref
+    material: false
+  - field_id: inventors_authors_coauthors
+    label: inventors/authors/coauthors
+    type: entity_ref
+    material: false
+  - field_id: ip_ownership_provisions
+    label: IP ownership provisions
+    type: entity_ref
+    material: false
+  - field_id: remuneration_basis_amount_date
+    label: remuneration basis/amount/date
+    type: date
+    material: true
+  - field_id: proof_of_remuneration_payment
+    label: proof of remuneration payment
+    type: text
+    material: true
+  - field_id: confidentiality_obligations
+    label: confidentiality obligations
+    type: text
+    material: false
+  - field_id: handover_of_materials
+    label: handover of materials
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-CORP-030
+  title: Charter / bylaws / governance rules extractor
+  document_types:
+  - charter
+  - articles_of_association
+  - bylaws
+  - board_regulation
+  - shareholder_meeting_regulation
+  purposes:
+  - confirm_capacity
+  - extract_internal_approval_rules
+  - confirm_signatory_limits
+  entities:
+  - Party
+  - Person
+  - Approval
+  facts_to_extract:
+  - legal name/form/address
+  - capital
+  - governance bodies
+  - CEO powers and term
+  - board/shareholder competencies
+  - major transaction thresholds
+  - interested-party rules
+  - internal approval thresholds
+  - asset disposal restrictions
+  - share disposal restrictions
+  - quorum/voting thresholds
+  - special veto/consent rights
+  - branch/representative authority
+  mapped_checks:
+  - CORP-001
+  - CORP-002
+  - CORP-003
+  - CORP-005
+  - CORP-006
+  - CORP-007
+  critical_fields:
+  - entity_identity
+  - CEO_powers
+  - approval_rules
+  - internal_restrictions
+  human_review_questions:
+  - Актуальна ли редакция устава?
+  - Какие положения непосредственно влияют на нашу сделку?
+  - Какие approvals/ограничения должны быть проверены отдельно?
+  fail_safe: Do not treat an outdated charter as current; preserve version/date and request current version.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: legal_name_form_address
+    label: legal name/form/address
+    type: text
+    material: false
+  - field_id: capital
+    label: capital
+    type: text
+    material: false
+  - field_id: governance_bodies
+    label: governance bodies
+    type: text
+    material: false
+  - field_id: ceo_powers_and_term
+    label: CEO powers and term
+    type: text
+    material: true
+  - field_id: board_shareholder_competencies
+    label: board/shareholder competencies
+    type: entity_ref
+    material: false
+  - field_id: major_transaction_thresholds
+    label: major transaction thresholds
+    type: text
+    material: false
+  - field_id: interested_party_rules
+    label: interested-party rules
+    type: entity_ref
+    material: false
+  - field_id: internal_approval_thresholds
+    label: internal approval thresholds
+    type: text
+    material: false
+  - field_id: asset_disposal_restrictions
+    label: asset disposal restrictions
+    type: asset_ref
+    material: false
+  - field_id: share_disposal_restrictions
+    label: share disposal restrictions
+    type: text
+    material: false
+  - field_id: quorum_voting_thresholds
+    label: quorum/voting thresholds
+    type: text
+    material: false
+  - field_id: special_veto_consent_rights
+    label: special veto/consent rights
+    type: text
+    material: false
+  - field_id: branch_representative_authority
+    label: branch/representative authority
+    type: entity_ref
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-CORP-031
+  title: Corporate resolution / minutes extractor
+  document_types:
+  - shareholder_resolution
+  - board_minutes
+  - participant_resolution
+  - CEO_appointment_resolution
+  purposes:
+  - confirm_appointment
+  - confirm_transaction_approval
+  - confirm_authority
+  entities:
+  - Party
+  - Person
+  - Approval
+  - Asset
+  - Agreement
+  facts_to_extract:
+  - governing body
+  - meeting/date
+  - participants
+  - quorum
+  - agenda
+  - resolution text
+  - voting result
+  - approved transaction/asset
+  - approved parties
+  - price/value/limits
+  - material terms
+  - authority delegated
+  - validity period if stated
+  mapped_checks:
+  - CORP-003
+  - CORP-005
+  - CORP-006
+  - CORP-007
+  - APP-001
+  - CLS-001
+  critical_fields:
+  - body
+  - quorum
+  - resolution
+  - transaction_scope
+  human_review_questions:
+  - Компетентен ли орган по данным проекта?
+  - Охватывает ли approval именно нашу сделку/активы/условия?
+  - Достаточны ли quorum и формулировка решения?
+  fail_safe: Extractor does not decide corporate validity; inconsistencies with charter or transaction parameters must be flagged.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: governing_body
+    label: governing body
+    type: text
+    material: true
+  - field_id: meeting_date
+    label: meeting/date
+    type: date
+    material: false
+  - field_id: participants
+    label: participants
+    type: text
+    material: false
+  - field_id: quorum
+    label: quorum
+    type: text
+    material: true
+  - field_id: agenda
+    label: agenda
+    type: text
+    material: false
+  - field_id: resolution_text
+    label: resolution text
+    type: text
+    material: true
+  - field_id: voting_result
+    label: voting result
+    type: enum
+    material: false
+  - field_id: approved_transaction_asset
+    label: approved transaction/asset
+    type: asset_ref
+    material: false
+  - field_id: approved_parties
+    label: approved parties
+    type: entity_ref
+    material: false
+  - field_id: price_value_limits
+    label: price/value/limits
+    type: currency
+    material: false
+  - field_id: material_terms
+    label: material terms
+    type: text
+    material: false
+  - field_id: authority_delegated
+    label: authority delegated
+    type: entity_ref
+    material: false
+  - field_id: validity_period_if_stated
+    label: validity period if stated
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-CORP-032
+  title: Power of attorney extractor
+  document_types:
+  - power_of_attorney
+  - notarial_power_of_attorney
+  purposes:
+  - confirm_representative_authority
+  entities:
+  - Party
+  - Person
+  - Agreement
+  - Asset
+  facts_to_extract:
+  - principal
+  - representative
+  - issue date
+  - term
+  - substitution right
+  - transaction types authorized
+  - right to determine material terms
+  - right to sign acts
+  - right to receive/pay money
+  - right to file recordal applications
+  - asset/transaction limits
+  - notarial details
+  - revocation data/reference
+  mapped_checks:
+  - CORP-004
+  - CORP-003
+  - CLS-002
+  critical_fields:
+  - principal
+  - representative
+  - term
+  - scope
+  human_review_questions:
+  - Действовала ли доверенность на дату подписания?
+  - Охватывает ли она конкретную сделку и действия?
+  - Нет ли ограничений/отзыва?
+  fail_safe: If scope is ambiguous, authority remains unconfirmed.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: principal
+    label: principal
+    type: text
+    material: true
+  - field_id: representative
+    label: representative
+    type: text
+    material: true
+  - field_id: issue_date
+    label: issue date
+    type: date
+    material: false
+  - field_id: term
+    label: term
+    type: text
+    material: true
+  - field_id: substitution_right
+    label: substitution right
+    type: text
+    material: false
+  - field_id: transaction_types_authorized
+    label: transaction types authorized
+    type: entity_ref
+    material: false
+  - field_id: right_to_determine_material_terms
+    label: right to determine material terms
+    type: text
+    material: true
+  - field_id: right_to_sign_acts
+    label: right to sign acts
+    type: text
+    material: false
+  - field_id: right_to_receive_pay_money
+    label: right to receive/pay money
+    type: text
+    material: false
+  - field_id: right_to_file_recordal_applications
+    label: right to file recordal applications
+    type: text
+    material: false
+  - field_id: asset_transaction_limits
+    label: asset/transaction limits
+    type: asset_ref
+    material: false
+  - field_id: notarial_details
+    label: notarial details
+    type: text
+    material: false
+  - field_id: revocation_data_reference
+    label: revocation data/reference
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-CORP-033
+  title: Corporate registry / good standing / incumbency extractor
+  document_types:
+  - trade_register_extract
+  - EGRUL_extract
+  - good_standing
+  - incumbency_certificate
+  purposes:
+  - confirm_legal_existence
+  - confirm_current_officers
+  - confirm_ownership_data
+  entities:
+  - Party
+  - Person
+  facts_to_extract:
+  - legal name
+  - registration number
+  - status
+  - registered address
+  - directors/officers
+  - participants/shareholders if available
+  - liquidation/bankruptcy markers
+  - date of extract
+  - issuing authority
+  mapped_checks:
+  - CORP-001
+  - CORP-003
+  - APP-002
+  critical_fields:
+  - legal_name
+  - registration_number
+  - status
+  - officers
+  - extract_date
+  human_review_questions:
+  - Достаточно ли свежая выписка?
+  - Совпадает ли ЕИО с иными документами?
+  - Есть ли adverse status markers?
+  fail_safe: Stale registry evidence must be marked outdated.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: legal_name
+    label: legal name
+    type: text
+    material: true
+  - field_id: registration_number
+    label: registration number
+    type: asset_ref
+    material: true
+  - field_id: status
+    label: status
+    type: enum
+    material: true
+  - field_id: registered_address
+    label: registered address
+    type: text
+    material: false
+  - field_id: directors_officers
+    label: directors/officers
+    type: text
+    material: true
+  - field_id: participants_shareholders_if_available
+    label: participants/shareholders if available
+    type: entity_ref
+    material: false
+  - field_id: liquidation_bankruptcy_markers
+    label: liquidation/bankruptcy markers
+    type: text
+    material: false
+  - field_id: date_of_extract
+    label: date of extract
+    type: date
+    material: false
+  - field_id: issuing_authority
+    label: issuing authority
+    type: entity_ref
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-FIN-040
+  title: Financial statements / asset value extractor
+  document_types:
+  - balance_sheet
+  - financial_statements
+  - asset_value_certificate
+  - OSV
+  - fixed_asset_register
+  purposes:
+  - support_major_transaction_test
+  - support_antitrust_threshold_test
+  - confirm_asset_value
+  entities:
+  - Party
+  - Asset
+  facts_to_extract:
+  - reporting date
+  - total assets
+  - relevant asset value
+  - fixed assets
+  - intangible assets
+  - transferred assets book value
+  - group assets if provided
+  - currency/unit
+  - auditor/source
+  mapped_checks:
+  - CORP-005
+  - APP-001
+  - APP-002
+  critical_fields:
+  - reporting_date
+  - total_assets
+  - transferred_asset_value
+  human_review_questions:
+  - Подходит ли отчетная дата?
+  - Можно ли идентифицировать передаваемые активы?
+  - Достаточны ли данные для threshold analysis?
+  fail_safe: If asset values cannot be tied to transferred assets, threshold checks remain open.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: reporting_date
+    label: reporting date
+    type: date
+    material: true
+  - field_id: total_assets
+    label: total assets
+    type: asset_ref
+    material: true
+  - field_id: relevant_asset_value
+    label: relevant asset value
+    type: currency
+    material: false
+  - field_id: fixed_assets
+    label: fixed assets
+    type: asset_ref
+    material: false
+  - field_id: intangible_assets
+    label: intangible assets
+    type: asset_ref
+    material: false
+  - field_id: transferred_assets_book_value
+    label: transferred assets book value
+    type: currency
+    material: false
+  - field_id: group_assets_if_provided
+    label: group assets if provided
+    type: asset_ref
+    material: false
+  - field_id: currency_unit
+    label: currency/unit
+    type: currency
+    material: false
+  - field_id: auditor_source
+    label: auditor/source
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-GRP-041
+  title: Group / ownership structure extractor
+  document_types:
+  - group_chart
+  - shareholder_register
+  - participant_list
+  - ownership_certificate
+  purposes:
+  - identify_group
+  - support_control_analysis
+  - support_antitrust_and_FDI
+  entities:
+  - Party
+  - Person
+  facts_to_extract:
+  - direct owners
+  - indirect owners
+  - ownership percentages
+  - control rights
+  - group relationships
+  - foreign investors
+  - ultimate owners if documented
+  - dates/effective periods
+  - encumbrances on shares if stated
+  mapped_checks:
+  - TX-002
+  - APP-001
+  - APP-002
+  - APP-003
+  - CORP-006
+  critical_fields:
+  - owners
+  - percentages
+  - control_links
+  - effective_date
+  human_review_questions:
+  - Актуальна ли структура?
+  - Есть ли gaps между прямым и конечным контролем?
+  - Какие связи влияют на approvals/заинтересованность?
+  fail_safe: Do not infer ultimate ownership beyond provided evidence; mark missing links.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: direct_owners
+    label: direct owners
+    type: entity_ref
+    material: true
+  - field_id: indirect_owners
+    label: indirect owners
+    type: entity_ref
+    material: true
+  - field_id: ownership_percentages
+    label: ownership percentages
+    type: entity_ref
+    material: true
+  - field_id: control_rights
+    label: control rights
+    type: text
+    material: false
+  - field_id: group_relationships
+    label: group relationships
+    type: text
+    material: false
+  - field_id: foreign_investors
+    label: foreign investors
+    type: text
+    material: false
+  - field_id: ultimate_owners_if_documented
+    label: ultimate owners if documented
+    type: entity_ref
+    material: true
+  - field_id: dates_effective_periods
+    label: dates/effective periods
+    type: text
+    material: false
+  - field_id: encumbrances_on_shares_if_stated
+    label: encumbrances on shares if stated
+    type: enum
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-IP-050
+  title: Registered IP certificate / register extractor
+  document_types:
+  - patent
+  - patent_application
+  - trademark_certificate
+  - trademark_application
+  - industrial_design
+  - IP_register_extract
+  purposes:
+  - confirm_IP_identity
+  - confirm_holder
+  - confirm_status
+  - support_portfolio_and_title
+  entities:
+  - Asset
+  - Right
+  - Party
+  - Person
+  - Registration
+  facts_to_extract:
+  - IP type
+  - number
+  - application number
+  - priority date
+  - filing date
+  - registration/grant date
+  - holder/applicant
+  - inventors/authors if shown
+  - territory
+  - classes/claims/coverage
+  - expiry/renewal
+  - current status
+  - recorded assignments/licences/encumbrances if available
+  mapped_checks:
+  - IP-TM-004
+  - IP-PAT-006
+  - IP-ENC-012
+  - TX-005
+  critical_fields:
+  - identifier
+  - holder
+  - status
+  - territory
+  human_review_questions:
+  - Совпадает ли объект с Asset Register?
+  - Кто текущий holder?
+  - Есть ли recorded restrictions/transfers?
+  - Не истекает ли охрана?
+  fail_safe: Certificate alone may not prove an unrecorded chain; combine with agreements/official register where relevant.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: ip_type
+    label: IP type
+    type: text
+    material: false
+  - field_id: number
+    label: number
+    type: number
+    material: false
+  - field_id: application_number
+    label: application number
+    type: asset_ref
+    material: false
+  - field_id: priority_date
+    label: priority date
+    type: date
+    material: false
+  - field_id: filing_date
+    label: filing date
+    type: date
+    material: false
+  - field_id: registration_grant_date
+    label: registration/grant date
+    type: date
+    material: false
+  - field_id: holder_applicant
+    label: holder/applicant
+    type: entity_ref
+    material: true
+  - field_id: inventors_authors_if_shown
+    label: inventors/authors if shown
+    type: entity_ref
+    material: false
+  - field_id: territory
+    label: territory
+    type: jurisdiction
+    material: true
+  - field_id: classes_claims_coverage
+    label: classes/claims/coverage
+    type: text
+    material: false
+  - field_id: expiry_renewal
+    label: expiry/renewal
+    type: date
+    material: false
+  - field_id: current_status
+    label: current status
+    type: enum
+    material: true
+  - field_id: recorded_assignments_licences_encumbrances_if_available
+    label: recorded assignments/licences/encumbrances if available
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-IP-051
+  title: IP licence / encumbrance specialized extractor
+  document_types:
+  - IP_licence
+  - sublicence
+  - pledge_agreement
+  - security_agreement
+  - consent
+  purposes:
+  - identify_third_party_rights
+  - confirm_transfer_restrictions
+  - identify_required_consents
+  entities:
+  - Agreement
+  - Party
+  - Asset
+  - Right
+  - Approval
+  facts_to_extract:
+  - licensed/encumbered asset
+  - licensor/licensee/secured party
+  - exclusive/non-exclusive
+  - territory
+  - field
+  - term
+  - sublicensing
+  - assignment restrictions
+  - change-of-control provisions
+  - termination triggers
+  - consent requirements
+  - pledge/security scope
+  - release mechanics
+  mapped_checks:
+  - TX-006
+  - IP-DOC-002
+  - IP-ENC-012
+  - IP-TM-004
+  - IP-PAT-006
+  - CLS-001
+  critical_fields:
+  - asset
+  - right_scope
+  - restriction
+  - consent_requirement
+  human_review_questions:
+  - Создает ли документ права третьего лица на объект?
+  - Нужно ли согласие/освобождение до closing?
+  - Продолжится ли право третьего лица после сделки?
+  fail_safe: Any ambiguous transfer restriction must remain an open issue.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: licensed_encumbered_asset
+    label: licensed/encumbered asset
+    type: asset_ref
+    material: true
+  - field_id: licensor_licensee_secured_party
+    label: licensor/licensee/secured party
+    type: entity_ref
+    material: false
+  - field_id: exclusive_non_exclusive
+    label: exclusive/non-exclusive
+    type: text
+    material: false
+  - field_id: territory
+    label: territory
+    type: jurisdiction
+    material: false
+  - field_id: field
+    label: field
+    type: text
+    material: false
+  - field_id: term
+    label: term
+    type: text
+    material: false
+  - field_id: sublicensing
+    label: sublicensing
+    type: text
+    material: false
+  - field_id: assignment_restrictions
+    label: assignment restrictions
+    type: text
+    material: true
+  - field_id: change_of_control_provisions
+    label: change-of-control provisions
+    type: text
+    material: false
+  - field_id: termination_triggers
+    label: termination triggers
+    type: text
+    material: false
+  - field_id: consent_requirements
+    label: consent requirements
+    type: text
+    material: true
+  - field_id: pledge_security_scope
+    label: pledge/security scope
+    type: text
+    material: false
+  - field_id: release_mechanics
+    label: release mechanics
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-REG-060
+  title: Medicinal product registration extractor
+  document_types:
+  - registration_certificate
+  - marketing_authorisation
+  - SGR
+  - foreign_registration_certificate
+  purposes:
+  - confirm_registration
+  - confirm_holder
+  - confirm_product_identity
+  entities:
+  - Product
+  - Registration
+  - Party
+  - Site
+  facts_to_extract:
+  - product name
+  - dosage form
+  - strength
+  - registration number
+  - registration/renewal date
+  - holder
+  - manufacturer(s)/sites if shown
+  - territory
+  - status/expiry
+  - special conditions
+  - referenced dossier
+  mapped_checks:
+  - REG-001
+  - REG-004
+  - TX-005
+  critical_fields:
+  - product
+  - registration_number
+  - holder
+  - territory
+  - status
+  human_review_questions:
+  - Совпадает ли holder с заявленным продавцом/правообладателем?
+  - Актуальна ли регистрация?
+  - Какие sites/manufacturers указаны?
+  fail_safe: Do not infer current status from an old certificate if an official register check is available/required.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: product_name
+    label: product name
+    type: asset_ref
+    material: true
+  - field_id: dosage_form
+    label: dosage form
+    type: text
+    material: false
+  - field_id: strength
+    label: strength
+    type: text
+    material: false
+  - field_id: registration_number
+    label: registration number
+    type: asset_ref
+    material: true
+  - field_id: registration_renewal_date
+    label: registration/renewal date
+    type: date
+    material: false
+  - field_id: holder
+    label: holder
+    type: entity_ref
+    material: true
+  - field_id: manufacturer_s_sites_if_shown
+    label: manufacturer(s)/sites if shown
+    type: entity_ref
+    material: false
+  - field_id: territory
+    label: territory
+    type: jurisdiction
+    material: true
+  - field_id: status_expiry
+    label: status/expiry
+    type: date
+    material: true
+  - field_id: special_conditions
+    label: special conditions
+    type: text
+    material: false
+  - field_id: referenced_dossier
+    label: referenced dossier
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-REG-061
+  title: Regulatory dossier manifest extractor
+  document_types:
+  - regulatory_dossier
+  - dossier_index
+  - CTD_module
+  - administrative_document
+  - CMC_document
+  - nonclinical_document
+  - clinical_document
+  purposes:
+  - build_dossier_manifest
+  - assess_completeness
+  - map_versions_and_sections
+  entities:
+  - Product
+  - Document
+  - Party
+  - Site
+  - Asset
+  facts_to_extract:
+  - CTD/module/section
+  - document title
+  - version/date
+  - product
+  - substance/excipient
+  - manufacturer/site
+  - specification/method/validation/stability references
+  - clinical/nonclinical study references
+  - third-party document references
+  - signatures/approvals
+  - cross-references to missing documents
+  mapped_checks:
+  - REG-002
+  - REG-005
+  - REG-007
+  - REG-009
+  - MFG-003
+  - MFG-004
+  critical_fields:
+  - module_section
+  - version
+  - product
+  - cross_references
+  human_review_questions:
+  - Полна ли ожидаемая структура dossier?
+  - Есть ли missing/obsolete sections?
+  - Совпадают ли версии с действующей регистрацией?
+  fail_safe: Missing dossier section is a gap, not evidence that the subject matter does not exist.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: ctd_module_section
+    label: CTD/module/section
+    type: text
+    material: true
+  - field_id: document_title
+    label: document title
+    type: text
+    material: false
+  - field_id: version_date
+    label: version/date
+    type: date
+    material: true
+  - field_id: product
+    label: product
+    type: asset_ref
+    material: true
+  - field_id: substance_excipient
+    label: substance/excipient
+    type: text
+    material: false
+  - field_id: manufacturer_site
+    label: manufacturer/site
+    type: entity_ref
+    material: false
+  - field_id: specification_method_validation_stability_references
+    label: specification/method/validation/stability references
+    type: text
+    material: false
+  - field_id: clinical_nonclinical_study_references
+    label: clinical/nonclinical study references
+    type: text
+    material: false
+  - field_id: third_party_document_references
+    label: third-party document references
+    type: entity_ref
+    material: false
+  - field_id: signatures_approvals
+    label: signatures/approvals
+    type: text
+    material: false
+  - field_id: cross_references_to_missing_documents
+    label: cross-references to missing documents
+    type: text
+    material: true
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-REG-062
+  title: Variation / authority correspondence extractor
+  document_types:
+  - variation_application
+  - renewal_application
+  - authority_letter
+  - regulatory_correspondence
+  - approval_letter
+  - commitment_letter
+  purposes:
+  - build_lifecycle_history
+  - identify_pending_proceedings
+  - identify_commitments
+  entities:
+  - Product
+  - Registration
+  - Authority
+  - Document
+  facts_to_extract:
+  - authority
+  - submission/application number
+  - date
+  - change requested
+  - status
+  - approval/rejection
+  - deadline
+  - commitment
+  - required follow-up
+  - affected registration/product/site
+  mapped_checks:
+  - REG-003
+  - REG-008
+  - REG-004
+  - RISK-003
+  critical_fields:
+  - authority
+  - date
+  - subject
+  - status
+  - deadline
+  human_review_questions:
+  - Есть ли незавершенная процедура?
+  - Есть ли обязательство/дедлайн, переходящий к покупателю?
+  - На какой продукт/РУ это влияет?
+  fail_safe: Pending status must not be treated as approved.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: authority
+    label: authority
+    type: entity_ref
+    material: true
+  - field_id: submission_application_number
+    label: submission/application number
+    type: asset_ref
+    material: false
+  - field_id: date
+    label: date
+    type: date
+    material: true
+  - field_id: change_requested
+    label: change requested
+    type: text
+    material: false
+  - field_id: status
+    label: status
+    type: enum
+    material: true
+  - field_id: approval_rejection
+    label: approval/rejection
+    type: text
+    material: false
+  - field_id: deadline
+    label: deadline
+    type: text
+    material: true
+  - field_id: commitment
+    label: commitment
+    type: text
+    material: false
+  - field_id: required_follow_up
+    label: required follow-up
+    type: text
+    material: false
+  - field_id: affected_registration_product_site
+    label: affected registration/product/site
+    type: asset_ref
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-REG-063
+  title: Pharmacovigilance extractor
+  document_types:
+  - PVA
+  - PV_agreement
+  - PSUR
+  - PBRER
+  - RMP
+  - safety_report
+  - PV_system_document
+  purposes:
+  - identify_PV_responsibilities
+  - identify_safety_obligations
+  - plan_PV_transition
+  entities:
+  - Product
+  - Party
+  - Person
+  - Authority
+  facts_to_extract:
+  - product
+  - PV responsible party/person
+  - territory
+  - reporting responsibilities
+  - safety database ownership/location
+  - case transfer rules
+  - RMP/PSUR obligations
+  - reporting timelines
+  - transition/termination provisions
+  - open safety commitments
+  mapped_checks:
+  - REG-006
+  - REG-008
+  - CLS-003
+  critical_fields:
+  - responsible_party
+  - territory
+  - reporting_obligations
+  - transition_rules
+  human_review_questions:
+  - Кто отвечает за PV сейчас и после сделки?
+  - Какие данные/обязанности должны перейти?
+  - Есть ли open commitments?
+  fail_safe: If responsibility allocation is unclear, PV transition remains open.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: product
+    label: product
+    type: asset_ref
+    material: false
+  - field_id: pv_responsible_party_person
+    label: PV responsible party/person
+    type: entity_ref
+    material: true
+  - field_id: territory
+    label: territory
+    type: jurisdiction
+    material: true
+  - field_id: reporting_responsibilities
+    label: reporting responsibilities
+    type: text
+    material: false
+  - field_id: safety_database_ownership_location
+    label: safety database ownership/location
+    type: entity_ref
+    material: false
+  - field_id: case_transfer_rules
+    label: case transfer rules
+    type: text
+    material: false
+  - field_id: rmp_psur_obligations
+    label: RMP/PSUR obligations
+    type: text
+    material: false
+  - field_id: reporting_timelines
+    label: reporting timelines
+    type: text
+    material: false
+  - field_id: transition_termination_provisions
+    label: transition/termination provisions
+    type: text
+    material: false
+  - field_id: open_safety_commitments
+    label: open safety commitments
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-REG-064
+  title: Clinical / preclinical study extractor
+  document_types:
+  - clinical_protocol
+  - clinical_report
+  - preclinical_report
+  - study_synopsis
+  - trial_authorisation
+  - CRO_agreement
+  purposes:
+  - inventory_studies
+  - confirm_study_identity
+  - support_rights_and_regulatory_use
+  entities:
+  - Product
+  - Agreement
+  - Party
+  - Authority
+  - Document
+  facts_to_extract:
+  - study ID/title
+  - product
+  - sponsor
+  - CRO/site
+  - protocol version/date
+  - authorisation/ethics approval
+  - study status
+  - report date
+  - rights/use provisions if contractual
+  - data ownership
+  - publication restrictions
+  - referenced submissions
+  mapped_checks:
+  - REG-007
+  - IP-DOC-001
+  - IP-DOC-002
+  critical_fields:
+  - study_id
+  - sponsor
+  - status
+  - data_rights
+  human_review_questions:
+  - Есть ли полный комплект по исследованию?
+  - Кто владеет/может использовать данные?
+  - Подано ли исследование в dossier?
+  fail_safe: Study report does not by itself prove ownership of rights to the data.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: study_id_title
+    label: study ID/title
+    type: asset_ref
+    material: true
+  - field_id: product
+    label: product
+    type: asset_ref
+    material: false
+  - field_id: sponsor
+    label: sponsor
+    type: text
+    material: true
+  - field_id: cro_site
+    label: CRO/site
+    type: text
+    material: false
+  - field_id: protocol_version_date
+    label: protocol version/date
+    type: date
+    material: false
+  - field_id: authorisation_ethics_approval
+    label: authorisation/ethics approval
+    type: entity_ref
+    material: false
+  - field_id: study_status
+    label: study status
+    type: enum
+    material: true
+  - field_id: report_date
+    label: report date
+    type: date
+    material: false
+  - field_id: rights_use_provisions_if_contractual
+    label: rights/use provisions if contractual
+    type: text
+    material: false
+  - field_id: data_ownership
+    label: data ownership
+    type: entity_ref
+    material: false
+  - field_id: publication_restrictions
+    label: publication restrictions
+    type: text
+    material: false
+  - field_id: referenced_submissions
+    label: referenced submissions
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-MFG-070
+  title: Manufacturing site / GMP / authorisation extractor
+  document_types:
+  - GMP_certificate
+  - GMP_conclusion
+  - manufacturing_licence
+  - site_master_file
+  - inspection_certificate
+  purposes:
+  - confirm_site_authorisation
+  - map_manufacturing_chain
+  entities:
+  - Site
+  - Party
+  - Product
+  - Authority
+  facts_to_extract:
+  - site name/address
+  - manufacturer
+  - authorisation/GMP number
+  - issuing authority
+  - scope/operations
+  - products if listed
+  - issue/expiry dates
+  - inspection dates
+  - limitations/suspensions
+  - contract manufacturer role
+  mapped_checks:
+  - MFG-001
+  - MFG-002
+  - REG-001
+  - APP-004
+  critical_fields:
+  - site
+  - scope
+  - status
+  - expiry
+  human_review_questions:
+  - Охватывает ли authorisation нужные операции и продукт?
+  - Действует ли документ?
+  - Есть ли ограничения?
+  fail_safe: Do not treat generic site authorisation as product-specific coverage unless supported.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: site_name_address
+    label: site name/address
+    type: text
+    material: true
+  - field_id: manufacturer
+    label: manufacturer
+    type: entity_ref
+    material: false
+  - field_id: authorisation_gmp_number
+    label: authorisation/GMP number
+    type: entity_ref
+    material: false
+  - field_id: issuing_authority
+    label: issuing authority
+    type: entity_ref
+    material: false
+  - field_id: scope_operations
+    label: scope/operations
+    type: text
+    material: true
+  - field_id: products_if_listed
+    label: products if listed
+    type: asset_ref
+    material: false
+  - field_id: issue_expiry_dates
+    label: issue/expiry dates
+    type: date
+    material: true
+  - field_id: inspection_dates
+    label: inspection dates
+    type: date
+    material: false
+  - field_id: limitations_suspensions
+    label: limitations/suspensions
+    type: text
+    material: false
+  - field_id: contract_manufacturer_role
+    label: contract manufacturer role
+    type: entity_ref
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-MFG-071
+  title: Technology / process / validation extractor
+  document_types:
+  - technology_instruction
+  - process_description
+  - industrial_regulation
+  - packaging_instruction
+  - validation_protocol
+  - validation_report
+  - cleaning_validation
+  - analytical_validation
+  purposes:
+  - assess_technology_package
+  - assess_validation_status
+  - support_tech_transfer
+  entities:
+  - Product
+  - Site
+  - Document
+  facts_to_extract:
+  - process stage
+  - equipment/site
+  - critical parameters
+  - batch size
+  - packaging process
+  - validation type
+  - protocol/report number
+  - version/date
+  - validation status/result
+  - deviations
+  - acceptance criteria
+  - revalidation triggers
+  mapped_checks:
+  - MFG-003
+  - MFG-004
+  - MFG-008
+  - REG-009
+  critical_fields:
+  - process_stage
+  - version
+  - validation_status
+  - site
+  human_review_questions:
+  - Достаточно ли документов для воспроизводства/transfer?
+  - Какие процессы невалидированы?
+  - Совпадает ли site/version с dossier?
+  fail_safe: A document marked draft/unapproved cannot satisfy final process evidence.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: process_stage
+    label: process stage
+    type: text
+    material: true
+  - field_id: equipment_site
+    label: equipment/site
+    type: text
+    material: true
+  - field_id: critical_parameters
+    label: critical parameters
+    type: text
+    material: false
+  - field_id: batch_size
+    label: batch size
+    type: text
+    material: false
+  - field_id: packaging_process
+    label: packaging process
+    type: text
+    material: false
+  - field_id: validation_type
+    label: validation type
+    type: text
+    material: false
+  - field_id: protocol_report_number
+    label: protocol/report number
+    type: number
+    material: false
+  - field_id: version_date
+    label: version/date
+    type: date
+    material: true
+  - field_id: validation_status_result
+    label: validation status/result
+    type: enum
+    material: true
+  - field_id: deviations
+    label: deviations
+    type: text
+    material: false
+  - field_id: acceptance_criteria
+    label: acceptance criteria
+    type: text
+    material: false
+  - field_id: revalidation_triggers
+    label: revalidation triggers
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-MFG-072
+  title: Quality agreement extractor
+  document_types:
+  - quality_agreement
+  - technical_agreement
+  purposes:
+  - map_quality_responsibility
+  - identify_transition_requirements
+  entities:
+  - Agreement
+  - Party
+  - Product
+  - Site
+  facts_to_extract:
+  - parties
+  - product/site scope
+  - release responsibilities
+  - deviation/OOS handling
+  - complaints/recalls
+  - change control
+  - audits
+  - documentation retention
+  - PV interface if any
+  - subcontracting
+  - term/termination
+  - transition obligations
+  mapped_checks:
+  - MFG-005
+  - MFG-007
+  - REG-006
+  - CLS-003
+  critical_fields:
+  - parties
+  - scope
+  - responsibility_matrix
+  - term
+  human_review_questions:
+  - Кто отвечает за каждую critical quality function?
+  - Останется ли agreement после сделки?
+  - Нужен ли новый/замещающий agreement?
+  fail_safe: If responsibilities are split across multiple documents, build a consolidated responsibility matrix.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: parties
+    label: parties
+    type: entity_ref
+    material: true
+  - field_id: product_site_scope
+    label: product/site scope
+    type: asset_ref
+    material: true
+  - field_id: release_responsibilities
+    label: release responsibilities
+    type: text
+    material: false
+  - field_id: deviation_oos_handling
+    label: deviation/OOS handling
+    type: text
+    material: false
+  - field_id: complaints_recalls
+    label: complaints/recalls
+    type: text
+    material: false
+  - field_id: change_control
+    label: change control
+    type: text
+    material: false
+  - field_id: audits
+    label: audits
+    type: text
+    material: false
+  - field_id: documentation_retention
+    label: documentation retention
+    type: text
+    material: false
+  - field_id: pv_interface_if_any
+    label: PV interface if any
+    type: text
+    material: false
+  - field_id: subcontracting
+    label: subcontracting
+    type: text
+    material: false
+  - field_id: term_termination
+    label: term/termination
+    type: text
+    material: true
+  - field_id: transition_obligations
+    label: transition obligations
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-MFG-073
+  title: Suppliers / materials / specifications extractor
+  document_types:
+  - supplier_list
+  - supplier_qualification
+  - material_specification
+  - raw_material_contract
+  - packaging_material_specification
+  purposes:
+  - identify_critical_suppliers
+  - support_supply_continuity
+  - support_quality_assessment
+  entities:
+  - Party
+  - Product
+  - Site
+  - Agreement
+  facts_to_extract:
+  - supplier
+  - material
+  - status/qualification
+  - specification/version
+  - sole-source indicator
+  - contract term
+  - minimum order/lead time if present
+  - change-control obligations
+  - termination
+  - site/product linkage
+  mapped_checks:
+  - MFG-006
+  - MFG-009
+  - REG-009
+  critical_fields:
+  - supplier
+  - material
+  - qualification_status
+  - contract_term
+  human_review_questions:
+  - Есть ли single-source/critical suppliers?
+  - Какие договоры нужно transfer/replace?
+  - Совпадают ли specs с current dossier?
+  fail_safe: Do not infer supplier continuity from a supplier list without current contract/status evidence.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: supplier
+    label: supplier
+    type: entity_ref
+    material: true
+  - field_id: material
+    label: material
+    type: text
+    material: true
+  - field_id: status_qualification
+    label: status/qualification
+    type: enum
+    material: false
+  - field_id: specification_version
+    label: specification/version
+    type: text
+    material: false
+  - field_id: sole_source_indicator
+    label: sole-source indicator
+    type: text
+    material: false
+  - field_id: contract_term
+    label: contract term
+    type: text
+    material: true
+  - field_id: minimum_order_lead_time_if_present
+    label: minimum order/lead time if present
+    type: text
+    material: false
+  - field_id: change_control_obligations
+    label: change-control obligations
+    type: text
+    material: false
+  - field_id: termination
+    label: termination
+    type: text
+    material: false
+  - field_id: site_product_linkage
+    label: site/product linkage
+    type: asset_ref
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-DIG-080
+  title: Domain / website / digital rights extractor
+  document_types:
+  - domain_registrar_agreement
+  - WHOIS
+  - domain_statement
+  - website_development_agreement
+  - content_agreement
+  - hosting_agreement
+  purposes:
+  - confirm_domain_control
+  - confirm_web_content_rights
+  - identify_transfer_mechanics
+  entities:
+  - Asset
+  - Party
+  - Agreement
+  - Right
+  facts_to_extract:
+  - domain
+  - registrar
+  - registrant/admin/account holder
+  - creation/expiry
+  - transfer lock/restrictions
+  - auth/admin control evidence
+  - website owner
+  - developer/content creator
+  - IP ownership clauses
+  - hosting/provider dependencies
+  - third-party components
+  mapped_checks:
+  - IP-DOM-010
+  - IP-WEB-011
+  - IP-ENC-012
+  - CLS-002
+  - CLS-003
+  critical_fields:
+  - domain
+  - registrant
+  - expiry
+  - transfer_restrictions
+  human_review_questions:
+  - Кто реально контролирует домен/account?
+  - Можно ли передать домен?
+  - Кому принадлежат сайт/контент?
+  fail_safe: WHOIS alone may be insufficient where privacy/proxy services obscure control.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: domain
+    label: domain
+    type: asset_ref
+    material: true
+  - field_id: registrar
+    label: registrar
+    type: entity_ref
+    material: false
+  - field_id: registrant_admin_account_holder
+    label: registrant/admin/account holder
+    type: entity_ref
+    material: true
+  - field_id: creation_expiry
+    label: creation/expiry
+    type: date
+    material: true
+  - field_id: transfer_lock_restrictions
+    label: transfer lock/restrictions
+    type: text
+    material: false
+  - field_id: auth_admin_control_evidence
+    label: auth/admin control evidence
+    type: text
+    material: false
+  - field_id: website_owner
+    label: website owner
+    type: entity_ref
+    material: false
+  - field_id: developer_content_creator
+    label: developer/content creator
+    type: text
+    material: false
+  - field_id: ip_ownership_clauses
+    label: IP ownership clauses
+    type: entity_ref
+    material: false
+  - field_id: hosting_provider_dependencies
+    label: hosting/provider dependencies
+    type: entity_ref
+    material: false
+  - field_id: third_party_components
+    label: third-party components
+    type: entity_ref
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-RISK-090
+  title: Litigation / claim / enforcement extractor
+  document_types:
+  - court_decision
+  - claim
+  - statement_of_claim
+  - response
+  - administrative_case
+  - enforcement_proceeding
+  - cease_and_desist
+  - authority_order
+  purposes:
+  - identify_dispute
+  - assess_asset_impact
+  - support_risk_register
+  entities:
+  - Case
+  - Party
+  - Asset
+  - Authority
+  facts_to_extract:
+  - forum/authority
+  - case number
+  - parties
+  - claims
+  - amount
+  - asset/product involved
+  - stage/status
+  - interim measures
+  - decision/outcome
+  - appeal status
+  - obligations/prohibitions
+  - deadlines
+  - enforcement status
+  mapped_checks:
+  - RISK-001
+  - RISK-002
+  - RISK-003
+  - IP-ENC-012
+  critical_fields:
+  - case_number
+  - parties
+  - subject
+  - status
+  - asset_impact
+  human_review_questions:
+  - Влияет ли спор на передаваемый актив/право?
+  - Есть ли запрет/арест/риск прекращения права?
+  - Каков текущий процессуальный статус?
+  fail_safe: Do not infer final outcome from non-final procedural documents.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: forum_authority
+    label: forum/authority
+    type: entity_ref
+    material: false
+  - field_id: case_number
+    label: case number
+    type: number
+    material: true
+  - field_id: parties
+    label: parties
+    type: entity_ref
+    material: true
+  - field_id: claims
+    label: claims
+    type: text
+    material: false
+  - field_id: amount
+    label: amount
+    type: currency
+    material: false
+  - field_id: asset_product_involved
+    label: asset/product involved
+    type: asset_ref
+    material: false
+  - field_id: stage_status
+    label: stage/status
+    type: enum
+    material: true
+  - field_id: interim_measures
+    label: interim measures
+    type: text
+    material: false
+  - field_id: decision_outcome
+    label: decision/outcome
+    type: text
+    material: false
+  - field_id: appeal_status
+    label: appeal status
+    type: enum
+    material: true
+  - field_id: obligations_prohibitions
+    label: obligations/prohibitions
+    type: text
+    material: false
+  - field_id: deadlines
+    label: deadlines
+    type: text
+    material: false
+  - field_id: enforcement_status
+    label: enforcement status
+    type: enum
+    material: true
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-APP-091
+  title: Government / regulatory approval extractor
+  document_types:
+  - FAS_approval
+  - foreign_investment_approval
+  - health_authority_approval
+  - government_consent
+  - public_owner_consent
+  purposes:
+  - confirm_required_approval
+  - confirm_scope_and_conditions
+  entities:
+  - Approval
+  - Authority
+  - Party
+  - Asset
+  - Agreement
+  facts_to_extract:
+  - authority
+  - applicant
+  - transaction
+  - parties
+  - assets covered
+  - approval/decision date
+  - validity period
+  - conditions/restrictions
+  - pre/post-closing obligations
+  - reporting duties
+  - reference number
+  mapped_checks:
+  - APP-001
+  - APP-003
+  - APP-004
+  - APP-005
+  - CLS-001
+  critical_fields:
+  - authority
+  - transaction_scope
+  - conditions
+  - validity
+  human_review_questions:
+  - Охватывает ли approval именно нашу сделку?
+  - Есть ли условия до/после closing?
+  - Истек ли срок действия?
+  fail_safe: An approval for a different transaction scope is not sufficient.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: authority
+    label: authority
+    type: entity_ref
+    material: true
+  - field_id: applicant
+    label: applicant
+    type: text
+    material: false
+  - field_id: transaction
+    label: transaction
+    type: text
+    material: true
+  - field_id: parties
+    label: parties
+    type: entity_ref
+    material: false
+  - field_id: assets_covered
+    label: assets covered
+    type: asset_ref
+    material: false
+  - field_id: approval_decision_date
+    label: approval/decision date
+    type: date
+    material: false
+  - field_id: validity_period
+    label: validity period
+    type: text
+    material: true
+  - field_id: conditions_restrictions
+    label: conditions/restrictions
+    type: text
+    material: true
+  - field_id: pre_post_closing_obligations
+    label: pre/post-closing obligations
+    type: text
+    material: false
+  - field_id: reporting_duties
+    label: reporting duties
+    type: text
+    material: false
+  - field_id: reference_number
+    label: reference number
+    type: number
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-COMP-092
+  title: Compliance / sanctions / anti-corruption extractor
+  document_types:
+  - compliance_policy
+  - anti_corruption_policy
+  - sanctions_confirmation
+  - internal_investigation_report
+  - counterparty_due_diligence
+  purposes:
+  - identify_compliance_framework
+  - identify_disclosed_compliance_issues
+  entities:
+  - Party
+  - Person
+  facts_to_extract:
+  - policy type/version
+  - responsible function
+  - sanctions representations
+  - identified sanctioned counterparties if disclosed
+  - reported incidents
+  - investigation status/outcome
+  - remediation/CAPA
+  - approval/monitoring procedures
+  mapped_checks:
+  - RISK-004
+  critical_fields:
+  - policy_version
+  - issues_disclosed
+  - remediation
+  human_review_questions:
+  - Актуальны ли политики?
+  - Есть ли disclosed incidents?
+  - Нужна ли внешняя проверка данных?
+  fail_safe: Seller confirmation is not equivalent to an independent sanctions check.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: policy_type_version
+    label: policy type/version
+    type: text
+    material: false
+  - field_id: responsible_function
+    label: responsible function
+    type: text
+    material: false
+  - field_id: sanctions_representations
+    label: sanctions representations
+    type: text
+    material: false
+  - field_id: identified_sanctioned_counterparties_if_disclosed
+    label: identified sanctioned counterparties if disclosed
+    type: entity_ref
+    material: false
+  - field_id: reported_incidents
+    label: reported incidents
+    type: text
+    material: false
+  - field_id: investigation_status_outcome
+    label: investigation status/outcome
+    type: enum
+    material: false
+  - field_id: remediation_capa
+    label: remediation/CAPA
+    type: text
+    material: true
+  - field_id: approval_monitoring_procedures
+    label: approval/monitoring procedures
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-INV-100
+  title: Inventory / batch / stock extractor
+  document_types:
+  - inventory_report
+  - stock_report
+  - batch_list
+  - warehouse_statement
+  - batch_certificate
+  purposes:
+  - identify_inventory_for_purchase
+  - support_supply_continuity
+  - assess_stock_quality
+  entities:
+  - Product
+  - Asset
+  - Site
+  facts_to_extract:
+  - product/batch
+  - quantity
+  - location
+  - manufacture date
+  - expiry date
+  - quality/release status
+  - quarantine/rejection status
+  - book value if stated
+  - ownership/reservation if stated
+  mapped_checks:
+  - MFG-009
+  - REG-009
+  - TX-005
+  critical_fields:
+  - batch
+  - quantity
+  - expiry
+  - release_status
+  human_review_questions:
+  - Какие остатки входят в сделку?
+  - Пригодны ли они к реализации?
+  - Есть ли blocked/quarantine stock?
+  fail_safe: Inventory quantity without release/expiry data is insufficient for quality/readiness conclusions.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: product_batch
+    label: product/batch
+    type: asset_ref
+    material: true
+  - field_id: quantity
+    label: quantity
+    type: number
+    material: true
+  - field_id: location
+    label: location
+    type: text
+    material: false
+  - field_id: manufacture_date
+    label: manufacture date
+    type: date
+    material: false
+  - field_id: expiry_date
+    label: expiry date
+    type: date
+    material: true
+  - field_id: quality_release_status
+    label: quality/release status
+    type: enum
+    material: true
+  - field_id: quarantine_rejection_status
+    label: quarantine/rejection status
+    type: enum
+    material: false
+  - field_id: book_value_if_stated
+    label: book value if stated
+    type: currency
+    material: false
+  - field_id: ownership_reservation_if_stated
+    label: ownership/reservation if stated
+    type: enum
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-SHARE-110
+  title: Share / participation interest title extractor
+  document_types:
+  - share_register_extract
+  - depo_statement
+  - share_purchase_agreement
+  - interest_transfer_agreement
+  - share_pledge
+  - corporate_agreement
+  purposes:
+  - confirm_share_title
+  - identify_share_encumbrances
+  - support_share_deal
+  entities:
+  - Party
+  - Person
+  - Agreement
+  - Right
+  facts_to_extract:
+  - owner
+  - share/interest percentage
+  - class/number if applicable
+  - acquisition basis
+  - transfer date
+  - payment/registration requirements
+  - pledges/encumbrances
+  - pre-emption rights
+  - options
+  - corporate agreement restrictions
+  mapped_checks:
+  - TX-001
+  - TX-005
+  - CORP-007
+  - APP-001
+  - APP-003
+  critical_fields:
+  - owner
+  - percentage
+  - acquisition_basis
+  - encumbrances
+  human_review_questions:
+  - Подтверждена ли непрерывная цепочка владения?
+  - Есть ли ограничения/преимущественные права?
+  - Какие approvals нужны?
+  fail_safe: Use only when share/mixed deal module is enabled.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: owner
+    label: owner
+    type: entity_ref
+    material: true
+  - field_id: share_interest_percentage
+    label: share/interest percentage
+    type: number
+    material: true
+  - field_id: class_number_if_applicable
+    label: class/number if applicable
+    type: number
+    material: false
+  - field_id: acquisition_basis
+    label: acquisition basis
+    type: text
+    material: true
+  - field_id: transfer_date
+    label: transfer date
+    type: date
+    material: false
+  - field_id: payment_registration_requirements
+    label: payment/registration requirements
+    type: text
+    material: false
+  - field_id: pledges_encumbrances
+    label: pledges/encumbrances
+    type: text
+    material: true
+  - field_id: pre_emption_rights
+    label: pre-emption rights
+    type: text
+    material: false
+  - field_id: options
+    label: options
+    type: text
+    material: false
+  - field_id: corporate_agreement_restrictions
+    label: corporate agreement restrictions
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+- id: EXT-LIC-120
+  title: General licence / permit extractor
+  document_types:
+  - licence
+  - permit
+  - certificate_of_conformity
+  - special_authorisation
+  purposes:
+  - confirm_required_licence
+  - confirm_scope_and_status
+  entities:
+  - Party
+  - Site
+  - Authority
+  - Product
+  facts_to_extract:
+  - licence/permit type
+  - number
+  - holder
+  - issuing authority
+  - issue/expiry
+  - licensed activities
+  - sites
+  - product/scope if specified
+  - conditions/restrictions
+  - suspension/revocation markers
+  mapped_checks:
+  - CORP-002
+  - MFG-002
+  - APP-004
+  - RISK-003
+  critical_fields:
+  - holder
+  - scope
+  - status
+  - expiry
+  human_review_questions:
+  - Охватывает ли разрешение нужную деятельность/site?
+  - Действует ли оно?
+  - Есть ли ограничения/приостановления?
+  fail_safe: Do not assume that a licence covers a site/activity not expressly within its scope.
+  human_review_required: true
+  output_contract: schemas/typed_fact.yaml
+  project_calibration:
+    mode: adaptive
+    config: runtime/calibration.yaml
+    required_only_when_triggered: true
+  field_definitions:
+  - field_id: licence_permit_type
+    label: licence/permit type
+    type: text
+    material: false
+  - field_id: number
+    label: number
+    type: number
+    material: false
+  - field_id: holder
+    label: holder
+    type: entity_ref
+    material: true
+  - field_id: issuing_authority
+    label: issuing authority
+    type: entity_ref
+    material: false
+  - field_id: issue_expiry
+    label: issue/expiry
+    type: date
+    material: true
+  - field_id: licensed_activities
+    label: licensed activities
+    type: text
+    material: false
+  - field_id: sites
+    label: sites
+    type: text
+    material: false
+  - field_id: product_scope_if_specified
+    label: product/scope if specified
+    type: asset_ref
+    material: true
+  - field_id: conditions_restrictions
+    label: conditions/restrictions
+    type: text
+    material: false
+  - field_id: suspension_revocation_markers
+    label: suspension/revocation markers
+    type: text
+    material: false
+  role: extraction_capability
+  selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider
+    batch extraction is demonstrably efficient.
+  do_not_extract_all_fields_by_default: true
+  fnm:
+    purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+    failure_modes:
+    - summary without required fact
+    - over-extraction as ritual
+    - legal conclusion made by extractor
+    - fact without quote/locator
+    required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+      legal conclusion.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - goal-conditioned field selection
+    - parallel extraction where useful
+    - typed schema
+    - provenance validator
+    validator:
+    - VAL-FACT-PROVENANCE
+    eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.
+global_rules:
+  final_legal_conclusion_by_extractor: false
+  human_review_required_for_all_extracted_facts: true
+  exact_locator_required_for_material_fact: true
+  missing_information_is_not_clear: true
+  multiple_extractors_per_document_allowed: true
+  folder_name_is_hint_not_truth: true
+  reconfirmation_required_on_source_change: true
+semantics: Extractor profiles are selectable capabilities, not mandatory pipeline stages.

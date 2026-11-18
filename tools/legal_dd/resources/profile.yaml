@@ -1,0 +1,43 @@
+version: '1.1'
+practice:
+  default_jurisdiction: RU
+  language: ru
+  risk_posture: conservative
+review:
+  human_confirmation_required: true
+  exact_quote_required_for_material_fact: true
+  exact_locator_required_for_material_fact: true
+scope_defaults:
+  chain_of_title: exhaustive
+  regulatory_title: exhaustive
+  regulatory_dossier: exhaustive
+  corporate_authority: exhaustive
+  ip_encumbrances: exhaustive
+  litigation: materiality_filtered
+  supplier_contracts: risk_based
+external_review:
+  patent_fto: always
+  trademark_clearance: jurisdiction_dependent
+  foreign_regulatory: jurisdiction_dependent
+project_calibration:
+  enabled: true
+  mode: adaptive
+  typical_sample_size: 3-5 when triggered
+  trigger_conditions:
+  - unseen_material_document_class
+  - parser_or_schema_changed
+  - model_behavior_changed_materially
+  - repeated_locator_or_classification_failure
+  - high_materiality_class_without_validated_profile
+  reuse_validated_profile: true
+  requires_human_approval_when_triggered: true
+outputs:
+  primary_review_surface: docx
+  supplemental_review_surface: html
+  roadmap_integration: true
+  ui_language: ru
+  human_readable_language: ru
+orchestration:
+  mode: state_driven
+  no_fixed_human_workflow: true
+  adaptive_depth: true

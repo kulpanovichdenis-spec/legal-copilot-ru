@@ -1,0 +1,117 @@
+id: EXT-CON-012
+title: Acceptance / transfer / performance act extractor
+document_types:
+- acceptance_act
+- transfer_act
+- services_act
+- delivery_note
+- handover_act
+purposes:
+- confirm_delivery
+- confirm_transfer
+- confirm_performance
+entities:
+- Agreement
+- Party
+- Asset
+- Payment
+facts_to_extract:
+- related agreement
+- date
+- parties
+- delivered/transferred object
+- asset identifiers
+- scope/quantity
+- acceptance without reservations or with reservations
+- effective transfer date
+- signatures
+- referenced annexes
+mapped_checks:
+- IP-DOC-001
+- IP-TM-004
+- IP-PAT-006
+- IP-CR-008
+- IP-DOM-010
+- IP-WEB-011
+- MFG-008
+- MFG-009
+- CLS-002
+critical_fields:
+- related_agreement
+- object
+- date
+- reservations
+human_review_questions:
+- Относится ли акт к нужному договору и активу?
+- Подтверждает ли он требуемое исполнение?
+- Есть ли оговорки?
+fail_safe: If the act cannot be reliably linked to the relevant agreement/asset, it cannot satisfy the evidence requirement.
+human_review_required: true
+output_contract: schemas/typed_fact.yaml
+project_calibration:
+  mode: adaptive
+  config: runtime/calibration.yaml
+  required_only_when_triggered: true
+field_definitions:
+- field_id: related_agreement
+  label: related agreement
+  type: text
+  material: true
+- field_id: date
+  label: date
+  type: date
+  material: true
+- field_id: parties
+  label: parties
+  type: entity_ref
+  material: false
+- field_id: delivered_transferred_object
+  label: delivered/transferred object
+  type: asset_ref
+  material: true
+- field_id: asset_identifiers
+  label: asset identifiers
+  type: asset_ref
+  material: false
+- field_id: scope_quantity
+  label: scope/quantity
+  type: number
+  material: false
+- field_id: acceptance_without_reservations_or_with_reservations
+  label: acceptance without reservations or with reservations
+  type: text
+  material: true
+- field_id: effective_transfer_date
+  label: effective transfer date
+  type: date
+  material: true
+- field_id: signatures
+  label: signatures
+  type: text
+  material: false
+- field_id: referenced_annexes
+  label: referenced annexes
+  type: text
+  material: false
+role: extraction_capability
+selection_policy: Run only when this capability can establish unresolved facts needed by active Evidence Requirements/checks, or when wider batch
+  extraction is demonstrably efficient.
+do_not_extract_all_fields_by_default: true
+fnm:
+  purpose: Transform relevant source content into typed, provenance-bearing facts required by unresolved legal/transaction questions.
+  failure_modes:
+  - summary without required fact
+  - over-extraction as ritual
+  - legal conclusion made by extractor
+  - fact without quote/locator
+  required_invariant: Any material answered fact emitted by extractor has typed value/state, quote and exact locator; extractor does not certify
+    legal conclusion.
+  constraint_type: INVARIANT
+  ai_native_implementation:
+  - goal-conditioned field selection
+  - parallel extraction where useful
+  - typed schema
+  - provenance validator
+  validator:
+  - VAL-FACT-PROVENANCE
+  eval: Required material field is extracted with exact locator; irrelevant schema fields need not be populated.

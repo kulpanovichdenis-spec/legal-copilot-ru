@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source_verification.v1",
+  "title": "SOURCE_VERIFICATION — отчёт source-verifier",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "caller_skill",
+    "items"
+  ],
+  "properties": {
+    "schema": {
+      "const": "source_verification.v1"
+    },
+    "caller_skill": {
+      "enum": [
+        "legal-opinion",
+        "procedural-document-drafter",
+        "other"
+      ]
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claim_id",
+          "proposition",
+          "source_cited",
+          "source_kind",
+          "checked_via",
+          "result",
+          "comment"
+        ],
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]{1,32}$"
+          },
+          "proposition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_cited": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_kind": {
+            "enum": [
+              "norm",
+              "court_act",
+              "court_position",
+              "guidance",
+              "doctrine",
+              "other"
+            ]
+          },
+          "checked_via": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tool",
+              "opened"
+            ],
+            "properties": {
+              "tool": {
+                "type": "string"
+              },
+              "provider": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "usable_now": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "opened": {
+                "type": "boolean"
+              },
+              "primary_source": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            }
+          },
+          "result": {
+            "enum": [
+              "VERIFIED",
+              "PARTIALLY_SUPPORTED",
+              "UNSUPPORTED",
+              "CONTRADICTED",
+              "WRONG_SOURCE",
+              "OPENED_UNVERIFIED",
+              "NOT_CHECKED"
+            ]
+          },
+          "anchor": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "quote",
+                  "location"
+                ],
+                "properties": {
+                  "quote": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  },
+                  "location": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 300
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "edition_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "comment": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recommended_marker": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^\\[.+\\]$"
+          },
+          "validator_note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tools_unavailable": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "embedded_instructions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

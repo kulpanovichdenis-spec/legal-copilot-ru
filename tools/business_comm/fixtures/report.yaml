@@ -1,0 +1,90 @@
+project:
+  title: Итоги спора с поставщиком оборудования
+  mode: REPORT
+  subtype: matter_outcome
+  audience: CEO и CFO
+  output: [docx, pptx]
+  duration_or_length: 2 страницы
+  prepared_at: 2026-09-14
+objective:
+  business_question: Что дал бизнесу завершённый спор с поставщиком?
+  desired_outcome: Руководство понимает результат и утверждает следующий шаг
+  required_decision: Утвердить изменение шаблона договора поставки
+minto:
+  situation: Поставщик не поставил оборудование по договору [ТЕСТОВЫЕ ДАННЫЕ]
+  complication: Без возврата аванса проект запуска линии оставался без бюджета
+  question: Какой результат получил бизнес?
+  answer: Аванс возвращён, проект запуска линии продолжен [ТЕСТОВЫЕ ДАННЫЕ]
+  supporting_arguments:
+    - Компания вернула аванс полностью
+    - Проект запуска линии продолжен без переноса
+    - Шаблон договора нужно изменить, чтобы спор не повторился
+content:
+  facts:
+    - id: f1
+      text: Аванс поступил на счёт компании [ТЕСТОВЫЕ ДАННЫЕ]
+      status: verified
+      source_refs: [s1]
+  impacts:
+    - id: i1
+      type: cash_recovered
+      label: Возвращённый аванс
+      value: 1200000
+      unit: RUB
+      value_class: actual
+      method: платёжное поручение
+      source_refs: [s1]
+      confidence: high
+    - id: i2
+      type: business_continuity
+      label: Запуск линии без переноса
+      value_class: qualitative
+      source_refs: [s2]
+  metrics:
+    - id: m1
+      label: Подготовлено процессуальных документов
+      value: 7
+      kind: activity
+      explains: i1
+  risks:
+    - id: r1
+      text: Шаблон договора поставки не защищает от повторения ситуации
+      level: medium
+  next_steps:
+    - id: n1
+      what: Подготовить изменения шаблона договора поставки
+      who: Legal
+      when: До конца квартала [ТЕСТОВЫЕ ДАННЫЕ]
+  actions:
+    - id: a1
+      what: Утвердить изменение шаблона
+      who: CFO
+      when: На ближайшем комитете
+storyline:
+  - order: 1
+    message: Компания вернула аванс, и проект запуска линии продолжен
+    content_block: key_message
+    visual_hint: metric
+    evidence_refs: [i1, i2]
+  - order: 2
+    message: Возврат аванса подтверждён платёжным документом
+    content_block: fact
+    evidence_refs: [f1]
+  - order: 3
+    message: Без изменения шаблона ситуация может повториться
+    content_block: business_consequence
+    evidence_refs: [r1]
+  - order: 4
+    message: Для закрепления результата нужно утвердить новый шаблон договора
+    content_block: required_action
+    visual_hint: checklist
+    evidence_refs: [a1, n1]
+sources:
+  - id: s1
+    type: reported
+    title: Платёжное поручение, сообщено финансовой службой [ТЕСТОВЫЕ ДАННЫЕ]
+    reference: тестовый номер
+  - id: s2
+    type: reported
+    title: Сообщено руководителем проекта
+    reference: интервью 2026-09-14

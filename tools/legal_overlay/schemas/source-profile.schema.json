@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-profile.schema.json",
+  "title": "Legal source profile frontmatter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "jurisdictions", "capabilities", "access", "authority_level", "protocol_refs", "status", "data_policy", "verification_roles", "coverage", "norm_verification"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "kind": {"enum": ["legal_corpus", "official_portal", "commercial_provider", "specialized_provider", "internal_curated"]},
+    "jurisdictions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "capabilities": {"type": "array", "items": {"type": "string"}},
+    "access": {"enum": ["mcp", "api", "browser", "local_files"]},
+    "authority_level": {"type": "string"},
+    "adapter": {"type": ["string", "null"]},
+    "connection_ref": {"type": ["string", "null"]},
+    "protocol_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "fallbacks": {"type": "array", "items": {"type": "string"}},
+    "health_probe": {"type": ["string", "null"]},
+    "rate_limits": {"type": ["string", "null"]},
+    "auth": {"type": ["string", "null"]},
+    "status": {"enum": ["active", "auth_required", "planned", "manual_only", "disabled"]},
+    "data_policy": {"enum": ["public_only", "abstracted_issue_only", "local_only"]},
+    "verification_roles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "navigation",
+          "candidate_norm_verification",
+          "norm_verification",
+          "case_law_verification",
+          "doctrine",
+          "drafting",
+          "identity",
+          "methodology",
+          "internal_context",
+          "web_discovery"
+        ]
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["document_types", "full_text", "historical_versions", "current_status", "pinpoint", "provenance"],
+      "properties": {
+        "document_types": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "full_text": {"oneOf": [{"type": "boolean"}, {"enum": ["conditional", "unknown"]}]},
+        "historical_versions": {"oneOf": [{"type": "boolean"}, {"enum": ["conditional", "unknown"]}]},
+        "current_status": {"oneOf": [{"type": "boolean"}, {"enum": ["conditional", "unknown"]}]},
+        "pinpoint": {"oneOf": [{"type": "boolean"}, {"enum": ["conditional", "unknown"]}]},
+        "provenance": {"oneOf": [{"type": "boolean"}, {"enum": ["conditional", "unknown"]}]}
+      }
+    },
+    "norm_verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eligible", "mode", "requires", "verified_tools", "last_smoke_at", "limitations"],
+      "properties": {
+        "eligible": {"type": "boolean"},
+        "mode": {"enum": ["live_official", "live_professional", "manual_professional", "pending_capability_smoke", "not_eligible"]},
+        "requires": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "verified_tools": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "last_smoke_at": {"type": ["string", "null"], "format": "date"},
+        "limitations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

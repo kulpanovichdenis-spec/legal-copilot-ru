@@ -1,0 +1,926 @@
+version: '0.3'
+requirements:
+- id: ER-SH-001
+  title: История создания / приватизации / реорганизации
+  mapped_checks: &id001
+  - SH-001
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - formation_resolutions
+  - founders_minutes
+  - formation_agreement
+  - privatization_documents
+  - reorganization_documents
+  - transfer_act
+  sufficient_if:
+  - the legal route by which the target was created is identified and the constitutive chain is supported by available documents
+  request_text: Предоставить документы о создании общества, включая применимые документы приватизации, учреждения либо реорганизации и передаточные
+    документы.
+  source_items:
+  - 1.1–1.6
+  extractor_ids:
+  - EXT-CORP-030
+  - EXT-CORP-031
+  - EXT-CON-012
+  request_phase: initial
+  activation_checks: *id001
+  title_en: Company formation / privatization / reorganization history
+  title_ru: История создания / приватизации / реорганизации
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-002
+  title: Юридический статус и учредительные документы
+  mapped_checks: &id002
+  - SH-002
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - registration_certificate
+  - tax_registration
+  - current_charter
+  - historical_charters
+  - internal_governance_documents
+  - net_assets_information
+  sufficient_if:
+  - current legal status and constitutional framework are evidenced; material historical changes can be traced
+  request_text: Предоставить документы о государственной регистрации, налоговом учете, действующий и предыдущие уставы, внутренние документы и
+    сведения о чистых активах.
+  source_items:
+  - 2.1–2.6
+  extractor_ids:
+  - EXT-CORP-030
+  - EXT-CORP-033
+  request_phase: initial
+  activation_checks: *id002
+  title_en: Current legal status and constitutional documents
+  title_ru: Юридический статус и учредительные документы
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-003
+  title: Уставный капитал и ценные бумаги
+  mapped_checks: &id003
+  - SH-003
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - capital_payment_evidence
+  - capital_change_resolutions
+  - securities_issue_documents
+  - central_bank_permission
+  - registrar_information
+  sufficient_if:
+  - formation and changes of capital plus securities issues/registrar are evidenced where applicable
+  request_text: Предоставить документы о формировании/изменении уставного капитала, выпусках ценных бумаг и держателе реестра.
+  source_items:
+  - 3.1–3.6
+  extractor_ids:
+  - EXT-CORP-031
+  - EXT-SHARE-110
+  - EXT-FIN-040
+  request_phase: initial
+  activation_checks: *id003
+  title_en: Share capital and securities
+  title_ru: Уставный капитал и ценные бумаги
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-004
+  title: Права участников / акционеров и ограничения
+  mapped_checks: &id004
+  - SH-004
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - share_register_extract
+  - depo_statement
+  - share_transfer_chain
+  - share_pledges
+  - corporate_agreements
+  - preemption_agreements
+  - dividend_evidence
+  - government_approvals
+  sufficient_if:
+  - current ownership, chain of title, encumbrances, pre-emption/option rights and material shareholder arrangements are evidenced
+  request_text: Предоставить актуальные выписки по акциям/долям, документы цепочки перехода прав, обременения, корпоративные договоры, преимущественные
+    права и применимые approvals.
+  source_items:
+  - 4.1–4.11
+  extractor_ids:
+  - EXT-SHARE-110
+  - EXT-GRP-041
+  - EXT-CON-010
+  - EXT-IP-051
+  request_phase: initial
+  activation_checks: *id004
+  title_en: Shareholder / participant title and restrictions
+  title_ru: Права участников / акционеров и ограничения
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-005
+  title: Корпоративное управление и менеджмент
+  mapped_checks: &id005
+  - SH-005
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - governance_structure
+  - shareholder_minutes
+  - board_minutes
+  - CEO_appointment
+  - management_agreement
+  - material_orders
+  - management_contracts
+  - audit_committee_or_revision_documents
+  - auditor_information
+  - management_litigation_information
+  sufficient_if:
+  - current governance bodies, appointments, material decisions and oversight information are available for the relevant review period
+  request_text: Предоставить структуру органов управления, протоколы/решения за применимый период, документы об избрании ЕИО, существенные внутренние
+    акты и сведения об аудиторах/проверках.
+  source_items:
+  - 5.1–5.9
+  extractor_ids:
+  - EXT-CORP-030
+  - EXT-CORP-031
+  - EXT-RISK-090
+  request_phase: initial
+  activation_checks: *id005
+  title_en: Corporate governance and management
+  title_ru: Корпоративное управление и менеджмент
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-006
+  title: Аффилированные лица, дочерние общества, филиалы и группа
+  mapped_checks: &id006
+  - SH-006
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - affiliate_list
+  - group_chart
+  - subsidiary_list
+  - branch_regulations
+  - branch_authority_documents
+  sufficient_if:
+  - group relationships, target participations and branch/representative structures are identified with material encumbrances and authorities
+  request_text: Предоставить сведения об аффилированных лицах/группе, участия общества в других лицах, а также документы филиалов и представительств.
+  source_items:
+  - 6.1–6.4
+  extractor_ids:
+  - EXT-GRP-041
+  - EXT-CORP-032
+  request_phase: initial
+  activation_checks: *id006
+  title_en: Affiliates, subsidiaries, branches and group structure
+  title_ru: Аффилированные лица, дочерние общества, филиалы и группа
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-007
+  title: Реестр доверенностей
+  mapped_checks: &id007
+  - SH-007
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - POA_register
+  - general_POA
+  - irrevocable_POA
+  - material_transaction_POA
+  sufficient_if:
+  - all material active powers of attorney are inventoried and material scope/expiry can be reviewed
+  request_text: Предоставить реестр действующих доверенностей и копии генеральных, безотзывных и иных существенных доверенностей.
+  source_items:
+  - 7.1–7.2
+  extractor_ids:
+  - EXT-CORP-032
+  request_phase: initial
+  activation_checks: *id007
+  title_en: Powers of attorney register
+  title_ru: Реестр доверенностей
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-008
+  title: 'Недвижимость: права, использование, обременения и разрешения'
+  mapped_checks: &id008
+  - SH-008
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - real_estate_register
+  - EGRN_extracts
+  - title_documents
+  - leases
+  - mortgages
+  - servitudes
+  - land_boundaries
+  - permitted_use
+  - construction_permits
+  - commissioning_documents
+  - technical_passports
+  - utility_documents
+  - real_estate_disputes
+  sufficient_if:
+  - all material real estate is inventoried; title/use basis, encumbrances, land/building compliance and material disputes are evidenced
+  request_text: 'Предоставить полный комплект документов по недвижимости и земельным участкам: перечень, ЕГРН, основания прав, аренду/ипотеку/сервитуты,
+    границы и ВРИ, строительную/техническую документацию, коммунальные договоры и сведения о спорах.'
+  source_items:
+  - 8.1–8.27
+  extractor_ids:
+  - EXT-SH-201
+  - EXT-CON-010
+  - EXT-RISK-090
+  request_phase: initial
+  activation_checks: *id008
+  title_en: Real estate title, use, encumbrances and permits
+  title_ru: 'Недвижимость: права, использование, обременения и разрешения'
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-009
+  title: Существенное движимое имущество и обременения
+  mapped_checks: &id009
+  - SH-009
+  requested_from: target/seller
+  review_scope:
+    mode: risk_based
+  evidence_types:
+  - material_asset_list
+  - title_or_lease_documents
+  - pledges
+  - arrest_documents
+  - asset_disputes
+  sufficient_if:
+  - material assets are identified with title/use basis, encumbrances and material threats to ownership/use
+  request_text: Предоставить перечень существенного движимого имущества, документы прав/использования, обременения и сведения о спорах/риске утраты.
+  source_items:
+  - 9.1–9.5
+  extractor_ids:
+  - EXT-SH-202
+  - EXT-CON-010
+  - EXT-RISK-090
+  request_phase: initial
+  activation_checks: *id009
+  title_en: Material movable assets and encumbrances
+  title_ru: Существенное движимое имущество и обременения
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-010
+  title: Портфель ИС компании и права использования
+  mapped_checks: &id010
+  - SH-010
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - IP_inventory
+  - IP_title_documents
+  - IP_licences
+  - IP_applications
+  - expiry_information
+  - IP_disputes
+  sufficient_if:
+  - owned/used IP is inventoried; title/use basis, pending applications, expiry and disputes are evidenced
+  request_text: Предоставить полный перечень IP, документы возникновения/приобретения и лицензирования, заявки, сведения об истечении охраны и
+    спорах.
+  source_items:
+  - 10.1–10.6
+  extractor_ids:
+  - EXT-IP-050
+  - EXT-IP-051
+  - EXT-RISK-090
+  - EXT-DIG-080
+  request_phase: initial
+  activation_checks: *id010
+  title_en: Company IP portfolio and use rights
+  title_ru: Портфель ИС компании и права использования
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-011
+  title: Информационные системы и технологии
+  mapped_checks: &id011
+  - SH-011
+  requested_from: target/seller
+  review_scope:
+    mode: risk_based
+  evidence_types:
+  - software_inventory
+  - software_licences
+  - IT_supplier_agreements
+  - internally_developed_software_rights
+  - IT_infrastructure_title
+  - planned_IT_capex
+  sufficient_if:
+  - material software/infrastructure and legal basis of use/ownership plus material dependencies are identified
+  request_text: Предоставить перечень используемого ПО, лицензии, договоры IT-поставщиков, документы на внутренние разработки и инфраструктуру,
+    а также сведения о существенных планируемых IT-расходах.
+  source_items:
+  - 11.1–11.6
+  extractor_ids:
+  - EXT-SH-203
+  - EXT-IP-020
+  - EXT-IP-021
+  - EXT-CON-010
+  request_phase: initial
+  activation_checks: *id011
+  title_en: Information systems and technology
+  title_ru: Информационные системы и технологии
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-012
+  title: Лицензии, проверки, таможня, антимонопольные, валютные и compliance-вопросы
+  mapped_checks: &id012
+  - SH-012
+  requested_from: target/seller
+  review_scope:
+    mode: risk_based
+  evidence_types:
+  - licences_and_permits
+  - expired_or_missing_permits
+  - permit_violations
+  - authority_orders
+  - inspection_list
+  - customs_documents
+  - antitrust_inspections
+  - antitrust_approvals
+  - market_share_information
+  - FX_violations
+  - FX_correspondence
+  - compliance_policies
+  - anti_corruption_incidents
+  - sanctions_confirmation
+  - strategic_investment_information
+  - certificates
+  - tax_or_other_benefits
+  sufficient_if:
+  - material regulatory licences, inspections, customs/antitrust/FX/compliance matters and open obligations are disclosed for the applicable scope
+    and period
+  request_text: Предоставить лицензии/разрешения, сведения о проверках и предписаниях, существенных таможенных и антимонопольных вопросах, валютных
+    нарушениях, compliance/anti-corruption/sanctions и иных специальных режимах.
+  source_items:
+  - 12.1–12.22
+  extractor_ids:
+  - EXT-LIC-120
+  - EXT-RISK-090
+  - EXT-COMP-092
+  - EXT-APP-091
+  request_phase: initial
+  activation_checks: *id012
+  title_en: Licences, inspections, customs, antitrust, FX and compliance
+  title_ru: Лицензии, проверки, таможня, антимонопольные, валютные и compliance-вопросы
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-013
+  title: Финансовые и коммерческие договоры
+  mapped_checks: &id013
+  - SH-013
+  requested_from: target/seller
+  review_scope:
+    mode: materiality_filtered
+  evidence_types:
+  - loan_agreements
+  - security_agreements
+  - affiliate_agreements
+  - material_contracts
+  - top_suppliers
+  - top_customers
+  - change_of_control_contracts
+  - material_liability_contracts
+  - cross_default_contracts
+  - preemption_contracts
+  - JV_agreements
+  - direct_debit_agreements
+  - non_compete_contracts
+  - off_market_contracts
+  - notes
+  - derivatives
+  - defaulted_contracts
+  - public_projects
+  sufficient_if:
+  - material agreement universe is complete for agreed thresholds and key risk clauses/relationships can be reviewed
+  request_text: Предоставить существенные финансовые и коммерческие договоры по согласованным thresholds, включая кредиты/займы/обеспечения, крупнейших
+    поставщиков/клиентов, change-of-control, cross-default, JV, non-compete и иные специальные условия.
+  source_items:
+  - 13.1–13.24
+  extractor_ids:
+  - EXT-SH-204
+  - EXT-CON-010
+  - EXT-CON-011
+  - EXT-FIN-040
+  request_phase: initial
+  activation_checks: *id013
+  title_en: Financial and commercial agreements
+  title_ru: Финансовые и коммерческие договоры
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-014
+  title: Страхование
+  mapped_checks: &id014
+  - SH-014
+  requested_from: target/seller
+  review_scope:
+    mode: risk_based
+  evidence_types:
+  - mandatory_insurance
+  - material_voluntary_insurance
+  - insurance_disputes
+  sufficient_if:
+  - mandatory and material voluntary insurance plus material disputes are identified
+  request_text: Предоставить действующие обязательные и существенные добровольные договоры страхования и сведения о спорах со страховщиками.
+  source_items:
+  - 14.1–14.3
+  extractor_ids:
+  - EXT-SH-205
+  request_phase: initial
+  activation_checks: *id014
+  title_en: Insurance
+  title_ru: Страхование
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-015
+  title: Просроченная кредиторская и дебиторская задолженность
+  mapped_checks: &id015
+  - SH-015
+  requested_from: target/seller
+  review_scope:
+    mode: materiality_filtered
+  evidence_types:
+  - overdue_payables
+  - overdue_receivables
+  sufficient_if:
+  - material overdue payables/receivables beyond agreed period are identified
+  request_text: Предоставить перечень существенных просроченных обязательств общества и обязательств перед обществом.
+  source_items:
+  - 15.1–15.2
+  extractor_ids:
+  - EXT-SH-206
+  - EXT-FIN-040
+  request_phase: initial
+  activation_checks: *id015
+  title_en: Debt and receivables arrears
+  title_ru: Просроченная кредиторская и дебиторская задолженность
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-016
+  title: Банковские счета и ограничения
+  mapped_checks: &id016
+  - SH-016
+  requested_from: target/seller
+  review_scope:
+    mode: exhaustive
+  evidence_types:
+  - bank_account_list
+  - authorized_signatories
+  - account_restrictions
+  sufficient_if:
+  - all material bank accounts, authorized persons and material restrictions/arrests/pledges are identified
+  request_text: Предоставить сведения обо всех банковских счетах, уполномоченных лицах и ограничениях распоряжения средствами.
+  source_items:
+  - '16.1'
+  extractor_ids:
+  - EXT-SH-207
+  request_phase: initial
+  activation_checks: *id016
+  title_en: Bank accounts and restrictions
+  title_ru: Банковские счета и ограничения
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-017
+  title: Судебные споры и исполнительные производства
+  mapped_checks: &id017
+  - SH-017
+  requested_from: target/seller
+  review_scope:
+    mode: materiality_filtered
+  evidence_types:
+  - litigation_list
+  - court_decisions
+  - pleadings
+  - threatened_claims
+  - enforcement_proceedings
+  - management_litigation
+  sufficient_if:
+  - material current/recent/threatened disputes and enforcement are identified according to agreed thresholds and risk criteria
+  request_text: Предоставить перечень и основные документы по существенным судебным/арбитражным спорам, потенциальным спорам, исполнительным производствам
+    и связанным спорам членов органов управления.
+  source_items:
+  - 17.1–17.5
+  extractor_ids:
+  - EXT-RISK-090
+  request_phase: initial
+  activation_checks: *id017
+  title_en: Litigation and enforcement
+  title_ru: Судебные споры и исполнительные производства
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+- id: ER-SH-018
+  title: Трудовые отношения и персонал
+  mapped_checks: &id018
+  - SH-018
+  requested_from: target/seller
+  review_scope:
+    mode: risk_based
+  evidence_types:
+  - staffing_table
+  - org_chart
+  - management_employment
+  - employment_templates
+  - foreign_workers
+  - bonus_policies
+  - LTIP
+  - pension_programs
+  - employee_loans
+  - wage_arrears
+  - union_documents
+  - collective_agreements
+  - employee_insurance
+  - social_benefits
+  - individual_service_agreements
+  - personnel_supply
+  - redundancies
+  - accidents
+  - strikes
+  - employee_disputes
+  sufficient_if:
+  - material workforce structure, employment terms, incentives, foreign workers, collective/union matters, social obligations and material employee
+    risks are identified
+  request_text: Предоставить штатное расписание/оргструктуру, трудовые формы и договоры с ключевыми сотрудниками, bonus/LTIP, сведения об иностранных
+    работниках, профсоюзах/колдоговоре, социальных обязательствах, сокращениях, несчастных случаях, забастовках и трудовых спорах.
+  source_items:
+  - 18.1–18.20
+  extractor_ids:
+  - EXT-SH-208
+  - EXT-CON-010
+  request_phase: initial
+  activation_checks: *id018
+  title_en: Employment and workforce
+  title_ru: Трудовые отношения и персонал
+  role: evidence_sufficiency_contract
+  evidence_types_are_examples: true
+  functional_equivalent_evidence_allowed: true
+  request_only_if_unresolved: true
+  fnm:
+    purpose: Establish the facts needed to resolve linked coverage obligations; obtaining a specifically named document is not the objective unless
+      law/transaction makes form/source mandatory.
+    failure_modes:
+    - document-name ritual without required facts
+    - file presence treated as sufficiency
+    - equivalent reliable evidence ignored
+    - gap silently converted to clear
+    required_invariant: Requirement is satisfied only when its sufficiency rule is met with traceable evidence; otherwise status remains explicit.
+    constraint_type: INVARIANT
+    ai_native_implementation:
+    - fact-oriented sufficiency rule
+    - many-to-many evidence graph
+    - dynamic request/gap generation
+    validator:
+    - VAL-EVIDENCE-SUFFICIENCY
+    - VAL-FACT-PROVENANCE
+    eval: Equivalent evidence may satisfy the functional fact requirement; missing material fact may not.
+semantics: functional sufficiency contracts
