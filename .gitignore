@@ -137,6 +137,8 @@ profile/**
 !profile/knowledge/compliance/index/
 !profile/knowledge/compliance/README.md
 !profile/knowledge/ip/
+!profile/knowledge/brand/
+!profile/knowledge/brand/_inbox/
 !profile/knowledge/contract-checklist/
 !profile/knowledge/ip/_inbox/
 !profile/knowledge/ip/originals/

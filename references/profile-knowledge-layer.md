@@ -15,6 +15,9 @@
   и будущие корпоративные skills.
 - `profile/knowledge/ip/` — внутренний реестр товарных знаков (выгрузка xlsx → каталог HTML + индекс для агента).
   Свой цикл без карточек: `tools/ip_registry`, правила — `references/ip-registry-layer.md`. Потребитель: `skills/ip-registry`.
+- `profile/knowledge/brand/` — фирменный стиль компании (бланки писем). Свой цикл без карточек:
+  `tools/brand_kit` (`scan` → `brand.yaml`), правила — `references/brand-letterhead.md`. Потребители:
+  `skills/counterparty-letter`, `skills/gov-response`.
 - `profile/knowledge/case-studies/` — обезличенные карточки споров. Правила —
   `references/case-knowledge-layer.md`. Навигатор собирается `build-index`.
 

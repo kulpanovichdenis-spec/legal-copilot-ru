@@ -164,7 +164,7 @@ Skill готовит:
 
 Для отраслевых дел (ФЗ-184, ФЗ-248, КНМ, отзыв продукции и т. п.) — подключать `skills/fz248-knm-rospotrebnadzor/SKILL.md` и `skills/fz184-technical-regulation/SKILL.md` (reference-файлы служат справочным фоном внутри этих скиллов).
 
-Стиль, цитирование, оформление — те же общие reference-файлы (house-style, citation-rules, document-formatting); ответ собирается через `ProceduralDoc` (процессуальный профиль).
+Стиль, цитирование, оформление — те же общие reference-файлы (house-style, citation-rules, document-formatting); ответ собирается через `ProceduralDoc` (процессуальный профиль). Если подключён фирменный стиль и в нём есть бланк с назначением `gov_response` или `official_letter`, ответ собирается на бланке компании (`LetterheadDoc`; структура IRAC сохраняется через `heading`/`point`/`para`) — `references/brand-letterhead.md`.
 
 ## Ответы на представления
 

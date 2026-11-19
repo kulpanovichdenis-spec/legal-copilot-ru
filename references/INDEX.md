@@ -5,7 +5,7 @@
 - Раннеры: `references/agent-runners.md`
 - История задачи, версии, модели и стоимость: `references/case-audit.md`, `tools/case_audit/`
 - Стиль, business/legal writing, slop, английский: `references/house-style.md`, `references/business-legal-writing.md`, `tools/business_writing/`, `references/anti-slop.md`, `tools/slop_check/`, `references/english-correspondence-style.md`
-- Оформление и сборка docx: `references/document-formatting.md`, `tools/docx_style/profiles.py`, `tools/docx_style/textcheck.py`, `references/docx-generation.md`
+- Оформление и сборка docx: `references/document-formatting.md`, `tools/docx_style/profiles.py`, `tools/docx_style/textcheck.py`, `references/docx-generation.md`; письма на фирменном бланке — `references/brand-letterhead.md`, `tools/brand_kit/README.md`
 - Источники, цитаты, аргумент, риск: `references/source-hierarchy.md`, `references/query-cookbook.md`, `references/citation-rules.md`, `references/irac-rules.md`, `references/procedural-argument-method.md`, `tools/procedural_drafting/draft_check.py`, `references/risk-scale.md`
 - Общие шаги skills: `references/skill-shared-steps.md`
 - Проверка против своей позиции: `references/adverse-review.md`
