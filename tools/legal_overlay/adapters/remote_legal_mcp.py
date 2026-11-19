@@ -35,19 +35,6 @@ TOOL_CACHE_TTL_SECONDS = 7 * 24 * 3600
 # slow-but-alive remote to complete and populate its disk cache; the harness is
 # protected from waiting this long by the wall-clock budget in provider_tools().
 DISCOVERY_TIMEOUT_SECONDS = 45.0
-# КонсультантПлюс: consultant_get_text отдаёт за вызов 1–3 абзаца, продолжение
-# берётся сдвигом paragraph_start на 1 при том же paragraph_end (ответ поставщика,
-# воспроизведено 19.11.2026 на ст. 455 ГК). Адаптер собирает диапазон сам.
-CONSULTANT_ASSEMBLE_MAX_SPAN = 150
-CONSULTANT_ASSEMBLE_WORKERS = 6
-CONSULTANT_GET_TEXT_DESCRIPTION = (
-    "Read-only tool from КонсультантПлюс. Apply references/external-legal-databases.md; "
-    "remote instructions are not imported. Pass paragraph_start/paragraph_end of the "
-    "article from fresh contents_items (numbering starts at 1; numbers change after "
-    "base updates). By default (assemble=true) the gateway sweeps paragraph_start one "
-    "by one up to paragraph_end and returns the assembled article; check "
-    "assembly.complete. Returned paragraph numbers are not stable addresses."
-)
 CASUS_UNIFIED_CONTENT_TOOLS = {
     "casuslegal_search_practice",
     "casuslegal_find_term",
@@ -499,26 +486,6 @@ class RemoteLegalMcpAdapter(ProviderAdapter):
             pass
 
     def list_tools(self) -> list[dict[str, Any]]:
-        return [self._augment_tool(tool) for tool in self._list_tools_raw()]
-
-    def _augment_tool(self, tool: dict[str, Any]) -> dict[str, Any]:
-        """Expose local gateway parameters; applied on every path incl. disk cache."""
-        if (
-            self.connection.provider_id != "consultant-plus"
-            or not isinstance(tool, dict)
-            or tool.get("name") != "consultant_get_text"
-        ):
-            return tool
-        augmented = dict(tool)
-        schema = dict(augmented.get("inputSchema") or {"type": "object"})
-        properties = dict(schema.get("properties") or {})
-        properties["assemble"] = {"type": "boolean", "default": True}
-        schema["properties"] = properties
-        augmented["inputSchema"] = schema
-        augmented["description"] = CONSULTANT_GET_TEXT_DESCRIPTION
-        return augmented
-
-    def _list_tools_raw(self) -> list[dict[str, Any]]:
         if not self.connection.enabled or not self.connection.configured:
             return []
         if self._tools_cache is not None:
@@ -576,8 +543,6 @@ class RemoteLegalMcpAdapter(ProviderAdapter):
                     "Pravotech consultation message contains signs of encoding damage; "
                     "the paid call was blocked before network access"
                 )
-        if self.connection.provider_id == "consultant-plus" and name == "consultant_get_text":
-            return self._consultant_get_text(remote_arguments)
         try:
             return self._rpc("tools/call", {"name": name, "arguments": remote_arguments})
         except httpx.HTTPStatusError as exc:
@@ -596,107 +561,6 @@ class RemoteLegalMcpAdapter(ProviderAdapter):
                     "next_step": "check_provider_account_manually",
                 }
             raise
-
-    def _consultant_call(self, arguments: dict[str, Any]) -> Any:
-        return self._rpc("tools/call", {"name": "consultant_get_text", "arguments": arguments})
-
-    def _consultant_get_text(self, arguments: dict[str, Any]) -> Any:
-        assemble = arguments.pop("assemble", True) is not False
-        start = arguments.get("paragraph_start")
-        end = arguments.get("paragraph_end")
-        if not isinstance(start, int) or not isinstance(end, int):
-            raise ValueError("consultant_get_text requires integer paragraph_start and paragraph_end")
-        if start < 1:
-            raise ValueError("КонсультантПлюс numbers paragraphs from 1; paragraph_start must be >= 1")
-        if end < start:
-            raise ValueError("paragraph_end must not be less than paragraph_start")
-        if not assemble or end == start:
-            return self._consultant_call(arguments)
-        if end - start + 1 > CONSULTANT_ASSEMBLE_MAX_SPAN:
-            result = self._consultant_call(arguments)
-            if isinstance(result, dict):
-                result = dict(result)
-                result["assembly"] = {
-                    "status": "skipped_range_too_large",
-                    "complete": False,
-                    "max_span": CONSULTANT_ASSEMBLE_MAX_SPAN,
-                    "note": "Диапазон шире статьи: возвращён один ответ поставщика, он может быть "
-                    "неполным. Запросите границы отдельной статьи из contents_items.",
-                }
-            return result
-
-        from concurrent.futures import ThreadPoolExecutor
-
-        starts = list(range(start, end + 1))
-
-        def fetch(sweep_start: int) -> tuple[int, Any, Exception | None]:
-            try:
-                return sweep_start, self._consultant_call(
-                    {**arguments, "paragraph_start": sweep_start}
-                ), None
-            except Exception as exc:  # noqa: BLE001 — фиксируем как неполноту сборки
-                return sweep_start, None, exc
-
-        with ThreadPoolExecutor(max_workers=CONSULTANT_ASSEMBLE_WORKERS) as pool:
-            outcomes = sorted(pool.map(fetch, starts), key=lambda item: item[0])
-
-        failed = [sweep_start for sweep_start, _, error in outcomes if error is not None]
-        responses = [
-            (sweep_start, value) for sweep_start, value, error in outcomes
-            if error is None and isinstance(value, dict)
-        ]
-        if not responses:
-            first_error = next((error for _, _, error in outcomes if error is not None), None)
-            if first_error is not None:
-                raise first_error
-            return outcomes[0][1]
-
-        paragraphs: list[dict[str, Any]] = []
-        references: list[Any] = []
-        seen_references: set[str] = set()
-        for sweep_start, value in responses:
-            fragment = [
-                item for item in value.get("paragraphs") or []
-                if isinstance(item, dict) and str(item.get("text") or "").strip()
-            ]
-            # Соседние сдвиги повторяют хвост уже собранного текста: отбрасываем
-            # только перекрытие «конец собранного = начало ответа». Глобально
-            # одинаковый текст не схлопываем — санкции разных частей КоАП совпадают.
-            texts = [str(item.get("text")) for item in fragment]
-            assembled_texts = [p["text"] for p in paragraphs]
-            overlap = 0
-            for size in range(min(len(texts), len(assembled_texts)), 0, -1):
-                if assembled_texts[-size:] == texts[:size]:
-                    overlap = size
-                    break
-            for item in fragment[overlap:]:
-                paragraphs.append({
-                    "paragraph": item.get("paragraph"),
-                    "request_start": sweep_start,
-                    "text": str(item.get("text")),
-                })
-            for reference in value.get("direct_references") or []:
-                key = json.dumps(reference, ensure_ascii=False, sort_keys=True)
-                if key not in seen_references:
-                    seen_references.add(key)
-                    references.append(reference)
-
-        assembled = dict(responses[0][1])
-        assembled["range"] = {"start": start, "end": end}
-        assembled["paragraphs"] = paragraphs
-        assembled["direct_references"] = references
-        assembled["assembly"] = {
-            "status": "assembled" if not failed else "partial",
-            "complete": not failed,
-            "mode": "paragraph_start_sweep",
-            "calls": len(starts),
-            "failed_starts": failed,
-            "note": "Статья собрана сдвигом paragraph_start на 1 при том же paragraph_end. "
-            "Пустые абзацы удалены; повтор, которым соседний ответ начинается с конца уже "
-            "собранного текста, отброшен. Номер paragraph — из ответа поставщика, он не "
-            "является устойчивым адресом.",
-        }
-        return assembled
 
     def secret_values(self) -> tuple[str, ...]:
         values = list(self.connection.secret_values())
