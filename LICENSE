@@ -1,6 +1,6 @@
 # Personal and Legal Professional Use License
 
-Version 1.0
+Version 1.1
 
 Copyright © 2026 Denis Viktorovich Kulpanovich (Кульпанович Денис Викторович)
 
@@ -36,6 +36,8 @@ The fact that the User receives remuneration for their work, provides paid legal
 
 **Commercial Exploitation** means commercialisation of the Software itself, its source code, substantially equivalent functionality derived from it, or access to the Software, as further described in Section 5.
 
+**Organisational Deployment** means incorporating, deploying or operating the Software, or a substantial part of it, as an organisation-wide or department-wide information system, shared business workflow, internal service platform, or centrally managed automation solution for automating the activities of an organisation or any of its departments or business functions. It does not include individual Permitted Professional Legal Use by one or more Legal Professionals, even where such use is facilitated by employer-provided infrastructure or technical support.
+
 ## 2. Licence Grant
 
 Subject to compliance with this License, the Copyright Holder grants the User a worldwide, royalty-free, non-exclusive, non-transferable and non-sublicensable licence to:
@@ -49,7 +51,7 @@ Subject to compliance with this License, the Copyright Holder grants the User a 
 7. make copies reasonably necessary for such permitted use;
 8. modify the Software solely for the User's own permitted use under this License.
 
-No licence fee or other remuneration is payable for the uses expressly permitted by this Section.
+No licence fee or other remuneration is payable for the uses expressly permitted by this Section. This grant does not include Organisational Deployment, which requires a separate written licence under Section 5A.
 
 ## 3. Professional Use by Lawyers
 
@@ -72,7 +74,7 @@ An employer may permit the Software to be installed or operated on its infrastru
 
 Technical personnel may install, configure, maintain, back up and administer the Software solely as reasonably necessary to enable such permitted use.
 
-Neither the employer nor such technical personnel thereby receive any independent right to commercially exploit, distribute or provide the Software to third parties.
+Neither the employer nor such technical personnel thereby receive any independent right to commercially exploit, distribute or provide the Software to third parties. Nor do these permissions grant the employer a right to Organisational Deployment under Section 5A.
 
 ## 4. Modifications
 
@@ -114,6 +116,14 @@ In particular, it is prohibited to:
 
 A separate commercial licence from the Copyright Holder is required for any such use.
 
+## 5A. Prohibited Organisational Deployment
+
+Without a separate written licence from the Copyright Holder, no organisation or person acting on its behalf may incorporate, deploy or operate the Software, or a substantial part of it, as an organisation-wide or department-wide information system, shared business workflow, internal service platform, or centrally managed automation solution.
+
+This restriction applies to internal legal department automation and the automation of any other business function, regardless of whether the Software is hosted on-premises or in the cloud, access is charged, or the service is offered to third parties.
+
+This restriction does not prohibit individual Legal Professionals from using, configuring, modifying or automating the Software as their professional working tool, including on employer-provided infrastructure, or from delivering the results of their legal work to their employer or clients. Ordinary technical support for such individual use is also permitted. The fact that multiple Legal Professionals independently use the Software for their professional work does not, by itself, constitute Organisational Deployment.
+
 ## 6. Legal Services Are Not Commercial Exploitation of the Software
 
 Providing legal services for remuneration does not constitute prohibited Commercial Exploitation merely because the Software is used as a tool in providing those services.
@@ -134,7 +144,7 @@ and may charge the employer or client for such legal services.
 
 This exception applies where the client receives the result of the legal work rather than access to the Software itself.
 
-Providing the Software itself, access to the Software, or a software product substantially derived from it remains subject to Section 5.
+Providing the Software itself, access to the Software, or a software product substantially derived from it remains subject to Section 5. Organisational Deployment also remains subject to Section 5A.
 
 ## 7. Non-Commercial Distribution of Unmodified Copies
 
@@ -222,7 +232,9 @@ You may use the Software free of charge:
 
 **✓ as an external lawyer for paying clients**
 
-**✓ on your employer's infrastructure for legal work**
+**✓ on your employer's infrastructure for individual professional legal work**
+
+**✓ automate your own professional legal work and modify the Software for that purpose**
 
 **✓ modify it for your own permitted use**
 
@@ -240,10 +252,12 @@ You may not:
 
 **✗ offer it as SaaS or a hosted product**
 
+**✗ deploy it as an internal organisation-wide or department-wide system, shared business workflow, internal service platform or centrally managed automation solution without a separate written licence**
+
 **✗ white-label it**
 
 **✗ embed it into a commercial software product for customers**
 
 **✗ commercially distribute a product derived from it**
 
-Commercial exploitation of the Software requires a separate licence from the Copyright Holder.
+Commercial exploitation and Organisational Deployment of the Software require a separate licence from the Copyright Holder.
