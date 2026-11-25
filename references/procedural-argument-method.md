@@ -118,7 +118,7 @@ Claim structure нужна, чтобы восстановить исходный
 `procedural_argument.v1` и запускается:
 
 ```powershell
-python tools/procedural_drafting/draft_check.py workflow/<дело>/_analysis/<document>.argument.yaml
+python tools/procedural_drafting/draft_check.py workflow/<дело>/_llm/_analysis/<document>.argument.yaml
 ```
 
 Формат — `tools/procedural_drafting/README.md`. Checker read-only: он не меняет manifest,

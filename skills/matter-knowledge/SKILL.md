@@ -5,6 +5,8 @@ description: "Собирает слой знаний по мультидок-д�
 
 # Слой знаний по делу (matter-knowledge)
 
+Пути в примерах приведены для новых дел. Для существующих файлов и специальных проектов применять `references/workflow-layout.md`.
+
 Архитектурный паттерн: per-case проход, mixed freedom — извлечение содержания делает модель (класс C), персист фактуры и сборку навигатора делегируем `tools/matter_model/` и `tools/matter_knowledge/`.
 
 ## Назначение
@@ -29,15 +31,15 @@ description: "Собирает слой знаний по мультидок-д�
 ### Шаг 1 — Инициализировать matter-model (если нет)
 
 ```bash
-python tools/matter_model/model.py init --file "workflow/<дело>/matter-timeline.yaml" --matter "<дело>"
-python tools/matter_model/facts.py init --file "workflow/<дело>/matter-facts.yaml" --matter "<дело>"
+python tools/matter_model/model.py init --file "workflow/<дело>/_llm/matter-timeline.yaml" --matter "<дело>"
+python tools/matter_model/facts.py init --file "workflow/<дело>/_llm/matter-facts.yaml" --matter "<дело>"
 ```
 
 ### Шаг 2 — По каждому документу дела
 
-0. **Карточка приёма.** Если есть `workflow/<дело>/_knowledge/intake/<документ>.intake.json` (Stage A), взять из неё классификацию, стороны, дату и OCR-метаданные. `text_head` там может быть усечён (`text_truncated`), поэтому полный текст всё равно кешируется ингестом ниже.
+0. **Карточка приёма.** Если есть `workflow/<дело>/_llm/_knowledge/intake/<документ>.intake.json` (Stage A), взять из неё классификацию, стороны, дату и OCR-метаданные. `text_head` там может быть усечён (`text_truncated`), поэтому полный текст всё равно кешируется ингестом ниже.
 1. **Ингест полного текста** через `doc_ingest` (локальный OCR для сканов) и **кеш**:
-   `python -m tools.doc_ingest.router "<путь-к-документу>" -o "workflow/<дело>/_knowledge/<slug>.txt.md" --quiet`
+   `python -m tools.doc_ingest.router "<путь-к-документу>" -o "workflow/<дело>/_llm/_knowledge/<slug>.txt.md" --quiet`
    Низкое доверие OCR (`[ОЦР НЕ УВЕРЕН]` в warnings) → отметить в поле `ocr` карточки и не выдавать текст как надёжный.
 2. **Извлечь фактуру** (класс C, по кешу текста) и внести в matter-model:
    - события → `python tools/matter_model/model.py add --file .../matter-timeline.yaml --event "..." --source-doc "<имя>" --source-fragment "стр./п." --fact-status STATUS [--date YYYY-MM-DD --date-status confirmed|needs_check] [--quote "дословно из документа" --quote-location "п./стр."]`;
@@ -46,20 +48,20 @@ python tools/matter_model/facts.py init --file "workflow/<дело>/matter-facts
    - `CONFIRMED` — только с `--quote`: код сверит цитату с документом и без найденной цитаты внесёт запись как `REPORTED` (`references/matter-model-usage.md`, инвариант 6).
    - пробелы → `facts.py add-gap --file ... --unknown "..." --why-relevant "..."`.
    Запомнить возвращённые `T-…`/`F-…`/`P-…`.
-3. **Написать карточку** `workflow/<дело>/_knowledge/<slug>.card.md`: frontmatter (`doc`, `text_cache`, `doc_kind`, `role` = ролевая папка, `parties`, `dates`, `matter_ids` = собранные id, `card_status: draft`, `ocr`) + `## Ключевые тезисы` (каждый тезис с locator'ом, где есть — `→ T-…`/`F-…`).
+3. **Написать карточку** `workflow/<дело>/_llm/_knowledge/<slug>.card.md`: frontmatter (`doc`, `text_cache`, `doc_kind`, `role` = ролевая папка, `parties`, `dates`, `matter_ids` = собранные id, `card_status: draft`, `ocr`) + `## Ключевые тезисы` (каждый тезис с locator'ом, где есть — `→ T-…`/`F-…`).
 
 ### Шаг 3 — Собрать навигатор и провалидировать
 
 ```bash
 python tools/matter_knowledge/knowledge.py build-index --case "workflow/<дело>"
 python tools/matter_knowledge/knowledge.py validate --dir "workflow/<дело>/_knowledge"
-python tools/matter_model/model.py validate --file "workflow/<дело>/matter-timeline.yaml"
-python tools/matter_model/facts.py validate --file "workflow/<дело>/matter-facts.yaml"
+python tools/matter_model/model.py validate --file "workflow/<дело>/_llm/matter-timeline.yaml"
+python tools/matter_model/facts.py validate --file "workflow/<дело>/_llm/matter-facts.yaml"
 ```
 
 ### Шаг 4 — Отчитаться юристу
 
-Одна строка: сколько карточек, событий, фактов, сторон, пробелов; путь к навигатору `workflow/<дело>/_knowledge/index.md`. Предложить Stage C — `case-analysis` (анализ в интересах нашей стороны). Правовых выводов не давать.
+Одна строка: сколько карточек, событий, фактов, сторон, пробелов; путь к навигатору `workflow/<дело>/_llm/_knowledge/index.md`. Предложить Stage C — `case-analysis` (анализ в интересах нашей стороны). Правовых выводов не давать.
 
 ## Что запрещено
 

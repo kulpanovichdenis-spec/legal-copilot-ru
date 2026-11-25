@@ -55,6 +55,7 @@ _ROOT = Path(__file__).resolve().parents[2]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 from tools.evidence_anchor import anchor as evidence_anchor  # noqa: E402
+from tools.workflow_layout import case_for_artifact  # noqa: E402
 
 # Windows-консоль по умолчанию cp1251 — кириллица и значки отчёта ломаются.
 for _stream in (sys.stdout, sys.stderr):
@@ -311,7 +312,7 @@ def _build_event(args, data: dict) -> dict:
         "created": today,
         "updated": today,
     }
-    anchor = build_anchor(args.source_doc, args.quote, args.quote_location, Path(args.file).parent)
+    anchor = build_anchor(args.source_doc, args.quote, args.quote_location, case_for_artifact(Path(args.file)))
     if anchor:
         ev["anchor"] = anchor
     return ev
@@ -360,7 +361,7 @@ def cmd_update(args) -> int:
         quote = args.quote if args.quote is not None else ev["anchor"]["quote"]
         qloc = (args.quote_location if args.quote_location is not None
                 else (ev.get("anchor") or {}).get("location"))
-        ev["anchor"] = build_anchor(ev["source_doc"], quote, qloc, path.parent)
+        ev["anchor"] = build_anchor(ev["source_doc"], quote, qloc, case_for_artifact(path))
     errs = validate_event_fields(ev)
     if errs:
         raise ModelError("после update событие не валидно:\n  " + "\n  ".join(errs))

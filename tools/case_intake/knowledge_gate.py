@@ -7,12 +7,16 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.workflow_layout import TECH_DIR, technical_path  # noqa: E402
 
 KNOWLEDGE_MIN_DOCS = 3
 INTAKE_DIR = Path("_knowledge") / "intake"
 _NOT_DOCS = {"case-context.md", "deadlines.yaml"}
-_NOT_DOC_DIRS = {"_knowledge", "_analysis", "Проекты"}
+_NOT_DOC_DIRS = {TECH_DIR, "_audit", "_knowledge", "_analysis", "Проекты"}
 
 
 def case_documents(case_dir: Path) -> list[Path]:
@@ -25,7 +29,7 @@ def case_documents(case_dir: Path) -> list[Path]:
 def knowledge_layer_status(case_dir: Path) -> str:
     """required — документов ≥ KNOWLEDGE_MIN_DOCS и нет _knowledge/index.md;
     present — слой собран; not_needed — документов меньше порога."""
-    if (case_dir / "_knowledge" / "index.md").exists():
+    if (technical_path(case_dir, "_knowledge") / "index.md").exists():
         return "present"
     return "required" if len(case_documents(case_dir)) >= KNOWLEDGE_MIN_DOCS else "not_needed"
 
@@ -33,13 +37,18 @@ def knowledge_layer_status(case_dir: Path) -> str:
 def case_for_queue_ref(workflow_root: Path, queue_ref: str) -> Path | None:
     """Папка дела, куда разложен документ задачи очереди (по полю queue_ref карточки приёма)."""
     want = queue_ref.replace("\\", "/")
-    for card in workflow_root.glob(f"*/{INTAKE_DIR.as_posix()}/*.intake.json"):
-        try:
-            data = json.loads(card.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
+    if not workflow_root.is_dir():
+        return None
+    for case in sorted(workflow_root.iterdir()):
+        if not case.is_dir() or case.name.startswith(("_", ".")):
             continue
-        if str(data.get("queue_ref", "")).replace("\\", "/") == want:
-            return card.parents[2]
+        for card in (technical_path(case, INTAKE_DIR.parent) / INTAKE_DIR.name).glob("*.intake.json"):
+            try:
+                data = json.loads(card.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            if str(data.get("queue_ref", "")).replace("\\", "/") == want:
+                return case
     return None
 
 

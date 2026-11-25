@@ -6,8 +6,11 @@ from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 import hashlib
 import json
+from os.path import relpath
 from pathlib import Path
 import uuid
+
+from tools.workflow_layout import technical_path
 
 ROOT = Path(__file__).resolve().parents[2]
 KINDS = {"run", "request", "document", "result", "revision", "approval", "action", "conclusion", "gap", "usage"}
@@ -40,7 +43,7 @@ def task_path(value: str | Path) -> Path:
 
 
 def records(task: Path) -> list[dict]:
-    path = task / "case-audit.jsonl"
+    path = technical_path(task, "case-audit.jsonl")
     if not path.exists():
         return []
     result = []
@@ -125,7 +128,7 @@ def append(task: Path, kind: str, data: dict, *, actor: str, run_id: str, event_
         raise ValueError("Согласование требует decision и authority_source (реплика/письмо юриста)")
     task.mkdir(parents=True, exist_ok=True)
     # Exclusive single-writer lock: conflicting processes fail instead of losing events.
-    lock = task / ".case-audit.lock"
+    lock = technical_path(task, ".case-audit.lock", create_parent=True)
     with lock.open("x", encoding="utf-8") as lock_handle:
         lock_handle.close()  # Windows cannot unlink a file while this handle is open.
         try:
@@ -152,7 +155,7 @@ def append(task: Path, kind: str, data: dict, *, actor: str, run_id: str, event_
                     "run_id": run_id, "kind": kind, "data": data,
                     "previous_hash": old[-1]["hash"] if old else None}
             item["hash"] = digest(encoded(item))
-            with (task / "case-audit.jsonl").open("a", encoding="utf-8") as out:
+            with technical_path(task, "case-audit.jsonl", create_parent=True).open("a", encoding="utf-8") as out:
                 out.write(json.dumps(item, ensure_ascii=False) + "\n")
             return item
         finally:
@@ -168,7 +171,7 @@ def capture(task: Path, source: str, *, actor: str, run_id: str, version: str, s
         raise ValueError("Оригиналы и mappings анонимайзера не регистрируются этим инструментом")
     content = path.read_bytes()
     sha = digest(content)
-    archive = task / "_audit" / "versions" / sha
+    archive = technical_path(task, "_audit") / "versions" / sha
     archive.parent.mkdir(parents=True, exist_ok=True)
     try:
         with archive.open("xb") as out:
@@ -344,7 +347,8 @@ def report(task: Path) -> str:
             actual += amount(data["actual_charge_usd"])
     models = sorted({f"{x['data'].get('provider', '?')}/{x['data'].get('model', '?')}"
                      for x in items if x["kind"] in {"run", "usage"}})
-    lines = ["## История работы и стоимость", "", "Журнал: [case-audit.jsonl](case-audit.jsonl).",
+    journal = Path(relpath(technical_path(task, "case-audit.jsonl"), technical_path(task, "case-context.md").parent)).as_posix()
+    lines = ["## История работы и стоимость", "", f"Журнал: [case-audit.jsonl]({journal}).",
              f"Событий: {len(items)}. Модели: {', '.join(models) or 'нет данных'}.",
              f"Токены (учтённая часть): {json.dumps(counts, ensure_ascii=False) if usage else 'нет данных'}.",
              f"API-эквивалент USD: {equivalent if priced else 'нет данных'}; тариф есть для {priced}/{len(usage)} запросов.",
@@ -376,7 +380,7 @@ def report(task: Path) -> str:
 
 
 def sync(task: Path) -> None:
-    path = task / "case-context.md"
+    path = technical_path(task, "case-context.md", create_parent=True)
     text = path.read_text(encoding="utf-8") if path.exists() else "# Контекст задачи\n\n"
     block = BEGIN + "\n" + report(task) + END
     if BEGIN in text or END in text:
@@ -390,13 +394,18 @@ def sync(task: Path) -> None:
 
 
 def validate(task: Path) -> int:
+    task = task.resolve()
     items = records(task)
     for item in items:
         data = item["data"]
         if item["kind"] == "usage":
             validate_usage(data)
         if item["kind"] == "document" and data.get("snapshot"):
-            path = (task / data["snapshot"]).resolve()
+            snapshot = Path(data["snapshot"])
+            if snapshot.parts[:2] == ("_audit", "versions") and len(snapshot.parts) == 3:
+                path = (technical_path(task, "_audit") / "versions" / snapshot.name).resolve()
+            else:
+                path = (task / snapshot).resolve()
             if not path.is_relative_to(task) or digest(path.read_bytes()) != data["sha256"]:
                 raise ValueError("Повреждена сохранённая версия документа")
     return len(items)

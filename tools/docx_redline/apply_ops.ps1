@@ -68,7 +68,24 @@ try {
   $outFull = Get-FullPath $Out
   if ($outFull -eq $srcFull) { throw '-Out совпадает с -Src: правки вносятся только в копию' }
   if ((Test-Path -LiteralPath $outFull) -and -not $Overwrite) { throw "Файл уже есть: $outFull (перезапись — ключ -Overwrite)" }
-  $logFull = if ($LogPath) { Get-FullPath $LogPath } else { [IO.Path]::ChangeExtension($outFull, '.ops.log') }
+  $logFull = if ($LogPath) {
+    Get-FullPath $LogPath
+  } else {
+    $workflow = (Get-FullPath (Join-Path $PSScriptRoot '../../workflow')).TrimEnd('\') + '\'
+    if ($outFull.StartsWith($workflow, [StringComparison]::OrdinalIgnoreCase)) {
+      $parts = $outFull.Substring($workflow.Length).Split('\')
+    } else {
+      $parts = @()
+    }
+    if ($parts.Count -ge 2 -and $parts[0] -notmatch '^[_.]') {
+      $caseRoot = Join-Path $workflow $parts[0]
+      $run = Join-Path $caseRoot ("_llm/runs/" + [Guid]::NewGuid().ToString("N") + "/logs")
+      [void][IO.Directory]::CreateDirectory($run)
+      Join-Path $run ([IO.Path]::GetFileNameWithoutExtension($outFull) + '.ops.log')
+    } else {
+      [IO.Path]::ChangeExtension($outFull, '.ops.log')
+    }
+  }
 
   $parsed = ConvertFrom-Json -InputObject ([IO.File]::ReadAllText((Get-FullPath $OpsPath), [Text.Encoding]::UTF8))
   # @() снаружи: if-выражение разворачивает массив из одной операции в скаляр.

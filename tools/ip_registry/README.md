@@ -3,10 +3,10 @@
 Класс A (детерминированно, без LLM). Правила слоя — `references/ip-registry-layer.md`, skill — `skills/ip-registry/SKILL.md`.
 
 Данные — `profile/knowledge/ip/` (в `.gitignore`):
-`_inbox/` → watcher (канал `knowledge_ip`) → `originals/ДАТА_имя.xlsx`, `data/events.jsonl` (журнал, главный источник),
-`data/base.json` (снимок из журнала; в нём контакты поверенных), `data/marks/`, `index/*.md`, `catalog.html`,
+`_inbox/` → watcher (канал `knowledge_ip`) → `originals/ДАТА_имя.xlsx`, `profile/knowledge/ip/data/events.jsonl` (журнал, главный источник),
+`profile/knowledge/ip/data/base.json` (снимок из журнала; в нём контакты поверенных), `data/marks/`, `index/*.md`, `catalog.html`,
 `documents/` (принятые документы и их текст `.md`), `pending/<doc_id>.json` (карточки), `pending/<doc_id>.facts.json` (факты агента),
-`changes/ДАТА.md`, `changes/ДАТА-документ-<имя>.md`, `changes/ДАТА-сверка-excel.md`, `products.yaml` (правит юрист).
+`changes/ДАТА-документ-<имя>.md`, `profile/knowledge/ip/changes/<дата>-сверка-excel.md`, `products.yaml` (правит юрист).
 
     python -m tools.ip_registry migrate                  # старый data/registry.json -> журнал; копия в backups/registry.json.bak
     python -m tools.ip_registry rebuild                  # пересобрать снимок, индекс и каталог из журнала

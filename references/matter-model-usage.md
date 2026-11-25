@@ -30,7 +30,7 @@ traceability — дальше skills **читают готовый слой**, �
 (вычисляются в `report`, отдельно не хранятся — один источник истины на данные).
 
 Связь «требование↔элементы↔факты↔доказательства» хранится в аналитическом блоке
-`case_structure` файла `workflow/<дело>/_analysis/case-analysis.yaml` версии 2, вне factual layer.
+`case_structure` файла `workflow/<дело>/_llm/_analysis/case-analysis.yaml` версии 2, вне factual layer.
 Метод — `references/case-structure-method.md`; схема/проверка — `tools/case_analysis/README.md`.
 Ссылки F/T/G/C/I переиспользуют фактуру, не копируют её. Отдельный matter-evidence.yaml
 не создаётся; document-grid остаётся вне этого внедрения.
@@ -110,7 +110,7 @@ traceability — дальше skills **читают готовый слой**, �
 
 ## Рабочий цикл (мультидок-дело)
 
-1. `init` — создать `workflow/<дело>/matter-timeline.yaml`.
+1. `init` — создать `workflow/<дело>/_llm/matter-timeline.yaml`.
 2. По каждому документу дела: извлечь события → `add` (с traceability и
    `fact_status`); для событий об ущербе указывать `location` + `amount` и общий
    `claim_key`, чтобы сработал детект двойного счёта / конфликта статусов.

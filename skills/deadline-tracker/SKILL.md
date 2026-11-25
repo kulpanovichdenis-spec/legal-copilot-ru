@@ -5,11 +5,13 @@ description: "Ведёт трекер сроков по делу, предпис
 
 # Deadline Tracker
 
+Пути в примерах приведены для новых дел. Для существующих файлов и специальных проектов применять `references/workflow-layout.md`.
+
 Архитектурный паттерн: context-aware + Low freedom — детерминированное ядро `tools/deadline_tracker/tracker.py` (хранение, валидация, календарная арифметика, отчёт); модель — только извлечение сроков из документов и суждение о категории/приоритете.
 
 ## Назначение
 
-Персистентный трекер сроков по конкретному делу/контрагенту: один YAML-файл в `workflow/<дело>/deadlines.yaml`, который живёт между сессиями. Skill закрывает три типа сроков:
+Персистентный трекер сроков по конкретному делу/контрагенту: один YAML-файл в `workflow/<дело>/_llm/deadlines.yaml`, который живёт между сессиями. Skill закрывает три типа сроков:
 
 - **procedural** — процессуальные (апелляция, кассация, отзыв, обжалование постановления КоАП);
 - **prescription** — сроки из предписаний/запросов госорганов (исполнение, ответ, жалоба);
@@ -31,7 +33,7 @@ description: "Ведёт трекер сроков по делу, предпис
 Когда юрист называет дело/контрагента, по которому нужен контроль сроков:
 
 ```
-python tools/deadline_tracker/tracker.py init --file "workflow/<дело>/deadlines.yaml" --matter "<дело>"
+python tools/deadline_tracker/tracker.py init --file "workflow/<дело>/_llm/deadlines.yaml" --matter "<дело>"
 ```
 
 Подпапка — по правилу CLAUDE.md о структуре `workflow/` (очевидная категория из реплики юриста; о выборе сообщить одной строкой).
@@ -41,7 +43,7 @@ python tools/deadline_tracker/tracker.py init --file "workflow/<дело>/deadli
 Источники: документы, переданные юристом (определение суда, предписание, договор), и результаты других skills — `procedural-document-drafter` (сроки обжалования), `gov-response` (срок ответа/исполнения предписания), `contract-review` / `amendment-drafter` (сроки действия, окна пролонгации и уведомлений). Для каждого срока:
 
 ```
-python tools/deadline_tracker/tracker.py add --file "workflow/<дело>/deadlines.yaml" \
+python tools/deadline_tracker/tracker.py add --file "workflow/<дело>/_llm/deadlines.yaml" \
   --title "<что сделать>" --category procedural|prescription|contract|other \
   --due-date YYYY-MM-DD --date-status confirmed|needs_check \
   --basis "<норма + как исчислена>" [--blocking] [--lead-time N] \
@@ -61,7 +63,7 @@ python tools/deadline_tracker/tracker.py update --file "..." --id D-001 --status
 ### Report — сводка «что горит»
 
 ```
-python tools/deadline_tracker/tracker.py report --file "workflow/<дело>/deadlines.yaml"
+python tools/deadline_tracker/tracker.py report --file "workflow/<дело>/_llm/deadlines.yaml"
 ```
 
 Порядок в отчёте: просрочено → зона риска → предстоит → без подтверждённой даты; внутри секций blocking первыми. Отчёт передавать юристу как есть, при необходимости — с кратким комментарием, что требует решения.

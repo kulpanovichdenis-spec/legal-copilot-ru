@@ -5,6 +5,8 @@ description: "Анализирует мультидок-дело в интере
 
 # Анализ дела в интересах нашей стороны (case-analysis)
 
+Пути в примерах приведены для новых дел. Для существующих файлов и специальных проектов применять `references/workflow-layout.md`.
+
 Архитектурный паттерн: sequential + domain-intelligence, mixed freedom — позиции сторон, исследование, выводы и стратегию готовит агент (класс C); хранение карты позиций и сборку документов делают тулы (класс A): `tools/matter_model/positions.py`, `tools/case_analysis/case_docs.py`.
 
 ## Назначение
@@ -44,9 +46,9 @@ Stage C воронки анализа дела. Поверх разложенн�
 Сторона с `role: our_side` в `matter-facts.yaml`. Нет — вопрос юристу на чекпоинте (Шаг 3); после ответа:
 
 ```bash
-python tools/matter_model/facts.py update --file "workflow/<дело>/matter-facts.yaml" --id P-00N --role our_side
+python tools/matter_model/facts.py update --file "workflow/<дело>/_llm/matter-facts.yaml" --id P-00N --role our_side
 # стороны нет в реестре:
-python tools/matter_model/facts.py add-party --file "workflow/<дело>/matter-facts.yaml" --name "..." --role our_side --source-doc "..." --source-fragment "..."
+python tools/matter_model/facts.py add-party --file "workflow/<дело>/_llm/matter-facts.yaml" --name "..." --role our_side --source-doc "..." --source-fragment "..."
 ```
 
 ### Шаг 2 — Карта позиций
@@ -54,11 +56,11 @@ python tools/matter_model/facts.py add-party --file "workflow/<дело>/matter-
 Выписать позиции каждой стороны (требования, доводы, возражения, процессуальные просьбы) с locator и сгруппировать в спорные вопросы (`status: proposed`). Судебные акты дела — по `references/court-decision-analysis.md`, раздел C.
 
 ```bash
-python tools/matter_model/positions.py init --file "workflow/<дело>/matter-positions.yaml" --matter "<дело>"
-python tools/matter_model/positions.py add-issue --file "workflow/<дело>/matter-positions.yaml" --question "..." [--depth quick|standard|deep]
-python tools/matter_model/positions.py add-position --file "workflow/<дело>/matter-positions.yaml" --party-ref P-00N --issue-ref I-00N --kind claim|argument|defense|procedural_request --statement "как в документе" --source-doc "..." --source-fragment "стр./п." [--evidence "<файл или F-00N>" ...] [--stated-basis "..."]
-python tools/matter_model/positions.py add-support --file "workflow/<дело>/matter-positions.yaml" --id C-00N --source-doc "..." --quote "дословно" [--quote-location "п. 5.1"] --stance supports|contradicts
-python tools/matter_model/positions.py validate --file "workflow/<дело>/matter-positions.yaml"
+python tools/matter_model/positions.py init --file "workflow/<дело>/_llm/matter-positions.yaml" --matter "<дело>"
+python tools/matter_model/positions.py add-issue --file "workflow/<дело>/_llm/matter-positions.yaml" --question "..." [--depth quick|standard|deep]
+python tools/matter_model/positions.py add-position --file "workflow/<дело>/_llm/matter-positions.yaml" --party-ref P-00N --issue-ref I-00N --kind claim|argument|defense|procedural_request --statement "как в документе" --source-doc "..." --source-fragment "стр./п." [--evidence "<файл или F-00N>" ...] [--stated-basis "..."]
+python tools/matter_model/positions.py add-support --file "workflow/<дело>/_llm/matter-positions.yaml" --id C-00N --source-doc "..." --quote "дословно" [--quote-location "п. 5.1"] --stance supports|contradicts
+python tools/matter_model/positions.py validate --file "workflow/<дело>/_llm/matter-positions.yaml"
 ```
 
 Доказательства позиции — цитатами (`add-support`), опровергающие — рядом (`--stance contradicts`); состояние позиции считает код (`references/matter-model-usage.md`, «Слой позиций»).
@@ -68,14 +70,14 @@ python tools/matter_model/positions.py validate --file "workflow/<дело>/matt
 Показать юристу: нашу сторону; карту позиций по вопросам и лиды (`positions.py report`), карту доказательств с пробелами первым блоком (`positions.py report --chart`); предлагаемую глубину по каждому вопросу; режим — `neutral` (найти вариант самому) или `position_led` (искать обоснование требуемой позиции) и саму требуемую позицию. Ответ внести:
 
 ```bash
-python tools/matter_model/positions.py update --file "workflow/<дело>/matter-positions.yaml" --id I-00N --status confirmed|dropped [--depth ...] [--stance position_led --desired-position "..."]
+python tools/matter_model/positions.py update --file "workflow/<дело>/_llm/matter-positions.yaml" --id I-00N --status confirmed|dropped [--depth ...] [--stance position_led --desired-position "..."]
 ```
 
 Без подтверждения к Шагу 4 не переходить. Лиды (`unanswered`, `no_evidence`, `empty_issue`, `no_our_side`) — повод посмотреть, не вывод. Краткую справку можно собрать уже здесь (Шаг 6, команда `brief`): она строится только из matter-слоя.
 
 ### Шаг 4 — Исследование по каждому подтверждённому вопросу
 
-В начале и по мере исследования поддерживать структуру по `references/case-structure-method.md`: требование → основание → элемент → факт/пробел → источник, ответы на заявленные доводы и доказательственные проблемы. Сохранять в `workflow/<дело>/_analysis/case-analysis.yaml` как `case_structure`, `schema_version: 2` (схема — `tools/case_analysis/README.md`). Пробел факта направлять в уточнение, пробел подтверждения — в сбор доказательств, неопределённость права — в движок ниже; если состав неизвестен, сначала исследовать критерий, не выдумывать элементы. Условная достаточность утверждений не повышает fact_status. До чекпоинта правовую структуру под видом фактуры не строить; второй чекпоинт не вводить. Малые задачи и старые анализы — по границам метода.
+В начале и по мере исследования поддерживать структуру по `references/case-structure-method.md`: требование → основание → элемент → факт/пробел → источник, ответы на заявленные доводы и доказательственные проблемы. Сохранять в `workflow/<дело>/_llm/_analysis/case-analysis.yaml` как `case_structure`, `schema_version: 2` (схема — `tools/case_analysis/README.md`). Пробел факта направлять в уточнение, пробел подтверждения — в сбор доказательств, неопределённость права — в движок ниже; если состав неизвестен, сначала исследовать критерий, не выдумывать элементы. Условная достаточность утверждений не повышает fact_status. До чекпоинта правовую структуру под видом фактуры не строить; второй чекпоинт не вводить. Малые задачи и старые анализы — по границам метода.
 
 Шаги 3–5 и 7 `skills/legal-opinion/SKILL.md` (метод — `references/legal-opinion-method.md`, §4–§10): исследование (Шаг 3) → adverse-проход (Шаг 4) → rule synthesis + IRAC с adverse-подшагом и калибровкой §9 (Шаг 5) → claim-ledger (Шаг 7). Глубина исследования = `depth` вопроса, позиция исследования = `stance`. Спорная рамка: правило применяется к позиции **каждой** стороны; каждый лид `unanswered` получает разбор. Субагенты — по матрице `references/legal-opinion-subagents.md` с глубиной вопроса (`depth`) вместо глубины заключения: `adversarial-researcher` при `standard`/`deep` и всегда при `position_led`; `source-verifier` — claim-ledger при `standard`/`deep` (в `quick` claim-ledger ведётся in-context по всем ссылкам); `consistency-checker` — порог уровня дела, а не одного заключения: при 3+ вопросах или любом вопросе `deep`, потому что «Анализ дела и стратегия» — один многочастный документ. Рабочий блок по вопросу (IRAC, источники, claim-ledger) — `I-00N.md` в `_analysis/`.
 

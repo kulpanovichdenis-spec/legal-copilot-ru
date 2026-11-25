@@ -24,6 +24,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "matter_model"))
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.workflow_layout import technical_path  # noqa: E402
+
 import core  # noqa: E402
 import model  # noqa: E402  (tools/matter_model/model.py — единственный источник схемы)
 
@@ -84,7 +87,7 @@ def ensure_case_context(folder: Path, *, case_number: str | None,
     Существующий файл **не изменяется**: его ведёт агент/юрист, конвейер не вправе
     переписывать зафиксированные там решения.
     """
-    ctx = folder / "case-context.md"
+    ctx = technical_path(folder, "case-context.md", create_parent=True)
     if ctx.exists():
         return ctx, False
     ctx.write_text(CONTEXT_TEMPLATE.format(
@@ -116,7 +119,7 @@ def add_timeline_event(folder: Path, *, matter: str, doc_kind: str,
     руках); дата документа приходит от класс-B классификатора и не сверялась
     человеком, поэтому `date_status = needs_check`, пока юрист не подтвердит.
     """
-    path = folder / "matter-timeline.yaml"
+    path = technical_path(folder, "matter-timeline.yaml", create_parent=True)
     if not path.exists():
         today = dt.date.today().isoformat()
         model.save(path, {
@@ -290,7 +293,7 @@ def apply_card(card_path: Path, *, root: Path | None = None) -> dict:
     case_dir = root / "workflow" / rep["case_folder"]
     rep["intake_card"] = keep_intake_card(
         card, card_path,
-        case_dir / INTAKE_DIR / f"{Path(rep['document']).stem}.intake.json",
+        technical_path(case_dir, INTAKE_DIR.parent) / INTAKE_DIR.name / f"{Path(rep['document']).stem}.intake.json",
         placed_as=str(Path(rep["case_subfolder"] or "") / rep["document"]),
         queue_ref=_queue_ref(card_path, root),
     )

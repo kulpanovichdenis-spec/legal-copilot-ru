@@ -43,6 +43,9 @@ for _stream in (sys.stdout, sys.stderr):
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).parent))
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.workflow_layout import technical_path  # noqa: E402
+
 import core  # noqa: E402
 
 CHANNEL = ROOT / "workflow" / "_claims"
@@ -107,7 +110,7 @@ def load_case_folders(workflow_root: Path | None = None) -> list[dict]:
     if not wf.exists():
         return out
     for d in sorted(p for p in wf.iterdir() if p.is_dir() and not p.name.startswith("_")):
-        ctx = d / "case-context.md"
+        ctx = technical_path(d, "case-context.md")
         if not ctx.exists():
             out.append({"folder": d.name, "case_number": None, "entities": []})
             continue

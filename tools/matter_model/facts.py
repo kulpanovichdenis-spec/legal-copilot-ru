@@ -57,6 +57,8 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.workflow_layout import case_for_artifact, technical_path  # noqa: E402
 import model  # noqa: E402  (единый источник схемы fact_status и хелперов)
 
 # Windows-консоль по умолчанию cp1251 — кириллица ломается.
@@ -429,7 +431,7 @@ def cmd_validate(args) -> int:
 
 def _sibling_events(path: Path) -> list[dict]:
     """Подхватить события соседней matter-timeline.yaml, если она есть."""
-    tl = Path(path).parent / "matter-timeline.yaml"
+    tl = technical_path(case_for_artifact(Path(path)), "matter-timeline.yaml")
     if tl.exists():
         try:
             return model.load(tl).get("events", [])

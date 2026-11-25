@@ -43,6 +43,7 @@ import model  # noqa: E402
 import positions  # noqa: E402
 from tools.case_intake.core import unique_name  # noqa: E402
 from tools.docx_style.profiles import NoteDoc  # noqa: E402
+from tools.workflow_layout import technical_path  # noqa: E402
 from tools.case_analysis import structure  # noqa: E402
 
 # Windows-консоль по умолчанию cp1251 — кириллица ломается.
@@ -178,19 +179,19 @@ def load_case(case: Path) -> dict:
     case = Path(case)
     if not case.is_dir():
         raise RenderError(f"папка дела не найдена: {case}")
-    missing = [name for name in MATTER_FILES if not (case / name).exists()]
+    missing = [name for name in MATTER_FILES if not technical_path(case, name).exists()]
     if missing:
         raise RenderError(f"в {case} нет {', '.join(missing)} — сначала matter-слой "
                           "(skills/matter-knowledge или tools/matter_model)")
     try:
-        events = model.load(case / "matter-timeline.yaml").get("events") or []
-        fct = facts.load(case / "matter-facts.yaml")
-        pos = positions.load(case / "matter-positions.yaml")
+        events = model.load(technical_path(case, "matter-timeline.yaml")).get("events") or []
+        fct = facts.load(technical_path(case, "matter-facts.yaml"))
+        pos = positions.load(technical_path(case, "matter-positions.yaml"))
     except (model.ModelError, yaml.YAMLError) as e:
         raise RenderError(str(e)) from e
     analysis = None
     analysis_error = None
-    ap = case / ANALYSIS_FILE
+    ap = technical_path(case, ANALYSIS_FILE.parent) / ANALYSIS_FILE.name
     if ap.exists():
         try:
             loaded = yaml.safe_load(ap.read_text(encoding="utf-8"))
@@ -203,7 +204,7 @@ def load_case(case: Path) -> dict:
                 analysis_error = f"{ap.as_posix()} не похож на case-analysis.yaml"
     return {
         "case": case,
-        "context": _case_context(case / "case-context.md"),
+        "context": _case_context(technical_path(case, "case-context.md")),
         "events": events,
         "parties": fct.get("parties") or [],
         "facts": fct.get("facts") or [],
@@ -660,8 +661,8 @@ def write_demo_case(case: Path) -> Path:
     """Обезличенное демо-дело: полный matter-слой и итог анализа."""
     case = Path(case)
     case.mkdir(parents=True, exist_ok=True)
-    tl, ff, pf = (str(case / name) for name in MATTER_FILES)
-    (case / "case-context.md").write_text(
+    tl, ff, pf = (str(technical_path(case, name, create_parent=True)) for name in MATTER_FILES)
+    technical_path(case, "case-context.md", create_parent=True).write_text(
         "---\nstatus: active\njurisdiction: RF\ncase_number: \"А40-1/2026\"\n---\n\n"
         "# Контекст дела: Альфа\n\n## Суть и статус\n\n"
         "- Предмет: взыскание долга по договору поставки\n"

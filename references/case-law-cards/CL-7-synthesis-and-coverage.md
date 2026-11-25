@@ -92,7 +92,7 @@ source-verifier или human gate — передача, а не причина �
 Для формальной проверки manifest одного issue использовать read-only CLI:
 
 ```bash
-python tools/case_law/research_check.py workflow/<дело>/_analysis/<issue>.practice.yaml
+python tools/case_law/research_check.py workflow/<дело>/_llm/_analysis/<issue>.practice.yaml
 ```
 
 Схема — `tools/case_law/README.md`. Checker не решает юридическую релевантность, не

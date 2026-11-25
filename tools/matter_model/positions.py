@@ -46,6 +46,8 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.workflow_layout import case_for_artifact, technical_path  # noqa: E402
 import facts  # noqa: E402  (реестр сторон, роли, хелперы хранения — один источник истины)
 import model  # noqa: E402
 
@@ -92,7 +94,7 @@ def load(path: Path) -> dict:
 
 def load_parties(path: Path) -> list[dict]:
     """Стороны из соседнего matter-facts.yaml — реестр сторон живёт там, не здесь."""
-    ff = Path(path).parent / FACTS_FILE
+    ff = technical_path(case_for_artifact(Path(path)), FACTS_FILE)
     if not ff.exists():
         raise ModelError(f"рядом нет {FACTS_FILE}: {ff} — сначала реестр сторон "
                          "(facts.py init / add-party)")
@@ -417,7 +419,7 @@ def cmd_add_support(args) -> int:
     path = Path(args.file)
     data = load(path)
     p = _position(data, args.id)
-    anchor = model.evidence_anchor.make_anchor(args.source_doc, args.quote, args.quote_location, path.parent)
+    anchor = model.evidence_anchor.make_anchor(args.source_doc, args.quote, args.quote_location, case_for_artifact(path))
     entry = {"source_doc": args.source_doc, "stance": args.stance, **anchor, "note": args.note or ""}
     p.setdefault("support", []).append(entry)
     if p.get("support_state") and effective_state({**p, "support_state": None}) in ("gap", "needs_evidence", "disputed"):

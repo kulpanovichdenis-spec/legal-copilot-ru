@@ -11,6 +11,11 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
+from os.path import relpath
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.workflow_layout import technical_path  # noqa: E402
 
 import yaml
 
@@ -179,7 +184,7 @@ def cmd_validate(args) -> int:
 
 def cmd_build_index(args) -> int:
     case = Path(args.case)
-    kdir = case / "_knowledge"
+    kdir = technical_path(case, "_knowledge")
     if not kdir.exists():
         print(f"нет каталога {kdir} — сначала соберите карточки (skill matter-knowledge)")
         return 1
@@ -188,9 +193,12 @@ def cmd_build_index(args) -> int:
         c = load_card(cp)
         c["path"] = cp.name
         cards.append(c)
-    timeline = _load_yaml(case / "matter-timeline.yaml")
-    facts = _load_yaml(case / "matter-facts.yaml")
+    timeline = _load_yaml(technical_path(case, "matter-timeline.yaml"))
+    facts = _load_yaml(technical_path(case, "matter-facts.yaml"))
     idx = build_index(case.name, cards, timeline, facts)
+    for name in ("matter-timeline.yaml", "matter-facts.yaml", "case-context.md"):
+        resolved = Path(relpath(technical_path(case, name), kdir)).as_posix()
+        idx = idx.replace(f"`../{name}`", f"`{resolved}`")
     (kdir / "index.md").write_text(idx, encoding="utf-8")
     print(f"OK: навигатор {kdir / 'index.md'} — карточек {len(cards)}")
     return 0

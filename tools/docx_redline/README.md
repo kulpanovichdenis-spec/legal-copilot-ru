@@ -20,7 +20,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/docx_redline/apply_ops
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/docx_redline/verify.ps1 -Docx "<форма> rev1 (редлайн).docx"
 ```
 
-Исходник не меняется. Выходной файл уже существует → ошибка (перезапись только с `-Overwrite`). Лог — рядом с результатом (`*.ops.log`) или в `-LogPath`. При любой ошибке выходной файл удаляется, код возврата 1.
+Исходник не меняется. Выходной файл уже существует → ошибка (перезапись только с `-Overwrite`). В обычном деле лог по умолчанию пишется в `_llm/runs/<run-id>/logs/`. Вне обычного дела — рядом с результатом. `-LogPath` задаёт явный путь. При ошибке сборки незавершённый выходной файл удаляется, код возврата 1.
 
 **Автор правок** — `Application.UserName` (обычно сам юрист). `-Author "<имя>"` [`-Initials "<ин.>"`] ставит другое имя через `Options.UseLocalUserInfo` + `UserName`; прежние значения возвращаются в `finally`.
 

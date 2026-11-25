@@ -18,6 +18,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.workflow_layout import technical_path  # noqa: E402
+
 import facts  # noqa: E402
 import model  # noqa: E402
 import positions  # noqa: E402
@@ -55,17 +58,17 @@ def check_case(case_dir: str | Path, write: bool = False) -> dict:
                 downgraded.append(f"{label} {it.get('id')}: CONFIRMED → REPORTED")
 
     loaded: dict[str, tuple[Path, dict]] = {}
-    fp = case / FILES["facts"]
+    fp = technical_path(case, FILES["facts"])
     if fp.exists():
         data = facts.load(fp)
         items_with_status(data.get("facts", []), "факт")
         loaded["facts"] = (fp, data)
-    tp = case / FILES["timeline"]
+    tp = technical_path(case, FILES["timeline"])
     if tp.exists():
         data = model.load(tp)
         items_with_status(data.get("events", []), "событие")
         loaded["timeline"] = (tp, data)
-    pp = case / FILES["positions"]
+    pp = technical_path(case, FILES["positions"])
     if pp.exists():
         data = positions.load(pp)
         for pos in data.get("positions", []):
